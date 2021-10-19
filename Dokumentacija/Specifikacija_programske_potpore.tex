@@ -1,0 +1,125 @@
+\chapter{Specifikacija programske potpore}
+		
+	\section{Funkcionalni zahtjevi}
+			
+			
+			\noindent \textbf{\\Dionici:}
+			
+			\begin{packed_enum}
+				\item Vlasnik sustava (direktor poduzeća/naručitelj)
+				\item Djelatnici poduzeća
+				\begin{itemize}
+					\item Voditelji grupa
+					\item Ostali djelatnici
+				\end{itemize}
+				\item Razvojni tim
+			\end{packed_enum}
+			
+			\noindent \textbf{Aktori i njihovi funkcionalni zahtjevi:}
+			\begin{packed_enum}
+				\item  \underbar{Vlasnik sustava (direktor poduzeća) može:}
+				
+				\begin{packed_enum}
+					\item definirati uslužne djelatnosti koje će poduzeće raditi
+					\item dodijeliti djelatnosti voditeljima grupa
+					\item registrirati novog djelatnika (uključujući i voditelja grupa) i pritom mu dodijeliti ulogu
+					\item vidjeti zauzetost i realizaciju za sve djelatnike
+					\item vidjeti trenutno i prošlu poticiju svih djelatnika koji su izašli na intervencije na karti
+				\end{packed_enum}
+			
+				\item  \underbar{Voditelji grupa mogu:}
+				
+				\begin{packed_enum}
+					\item definirati zadatke i dodjeljivati ih djelatnicima
+					\item zabilježiti procjenu radnih sati potrebnih za zadatak
+					\item odrediti cijenu sata rada ovisno o djelatnosti ili zadatku
+					\item pregledati podatke za sebe i svoju grupu
+					\item upisati broj odrađenih sati za svaki dan
+				\end{packed_enum}
+				\eject
+				\item  \underbar{Ostali djelatnici mogu:}
+				\begin{packed_enum}
+					\item vidjeti koji su mu zadaci dodijeljeni i u kojim se grupama nalazi
+					\item pregledati vlastite podatke
+					\item upisati broj odrađenih radnih sati za svaki dan
+				\end{packed_enum}
+			
+			\item  \underbar{Neregistrirani korisnik može:}
+			\begin{packed_enum}
+				\item vidjeti popis i opis djelatnosti poduzeća
+			\end{packed_enum}
+			\end{packed_enum}
+			
+			\eject 
+
+			\subsection{Obrasci uporabe}
+				
+				
+				\subsubsection{Opis obrazaca uporabe}
+					\textit{Funkcionalne zahtjeve razraditi u obliku obrazaca uporabe. Svaki obrazac je potrebno razraditi prema donjem predlošku. Ukoliko u nekom koraku može doći do odstupanja, potrebno je to odstupanje opisati i po mogućnosti ponuditi rješenje kojim bi se tijek obrasca vratio na osnovni tijek.}\\
+					
+
+					\noindent \underbar{\textbf{UC$<$broj obrasca$>$ -$<$ime obrasca$>$}}
+					\begin{packed_item}
+	
+						\item \textbf{Glavni sudionik: }$<$sudionik$>$
+						\item  \textbf{Cilj:} $<$cilj$>$
+						\item  \textbf{Sudionici:} $<$sudionici$>$
+						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item  \textbf{Opis osnovnog tijeka:}
+						
+						\item[] \begin{packed_enum}
+	
+							\item $<$opis korak jedan$>$
+							\item $<$opis korak dva$>$
+							\item $<$opis korak tri$>$
+							\item $<$opis korak četiri$>$
+							\item $<$opis korak pet$>$
+						\end{packed_enum}
+						
+						\item  \textbf{Opis mogućih odstupanja:}
+						
+						\item[] \begin{packed_item}
+	
+							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[] \begin{packed_enum}
+								
+								\item $<$opis rješenja mogućeg scenarija korak 1$>$
+								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								
+							\end{packed_enum}
+							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+							
+						\end{packed_item}
+					\end{packed_item}
+				
+					
+				\subsubsection{Dijagrami obrazaca uporabe}
+					
+					\textit{Prikazati odnos aktora i obrazaca uporabe odgovarajućim UML dijagramom. Nije nužno nacrtati sve na jednom dijagramu. Modelirati po razinama apstrakcije i skupovima srodnih funkcionalnosti.}
+				\eject		
+				
+			\subsection{Sekvencijski dijagrami}
+				
+				\textbf{\textit{dio 1. revizije}}\\
+				
+				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
+				\eject
+	
+		\section{Ostali zahtjevi}
+		 	
+		 	\noindent Sustav treba:
+			 \begin{itemize}
+			 	\item omogućiti korištenje hrvatskih dijakritičkih znakova pri unosu i prikazu tekstualnog sadržaja
+			 	\item podržati višekorisnički rad u realnom vremenu
+			 	\item dati odgovor na traženi upit unutar nekoliko sekundi kada se dohvaćaju podaci iz baze podataka
+			 	\item imati intuitivno i jednostavno za korištenje korisničko sučelje
+			 	\item biti implementiran kao web aplikacija koristeći objektno-orijentirane jezike
+			 	\item neispravno korištenje korisničkog sučelja ne smije narušiti rad sustava
+			 	\item osigurati sigurnu, brzu i otpornu na vanjske greške vezu s bazom podataka
+			 \end{itemize}
+			 
+			 
+			 
+	
