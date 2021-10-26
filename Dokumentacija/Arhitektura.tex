@@ -40,28 +40,41 @@
 				
 				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
 					
-					\hline \multicolumn{3}{|c|}{\textbf{korisnik - ime tablice}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{Djelatnik}}	 \\[3pt] \hline
 					\endfirsthead
 					
-					\hline \multicolumn{3}{|c|}{\textbf{korisnik - ime tablice}}	 \\[3pt] \hline
+					\hline \multicolumn{3}{|c|}{\textbf{Djelatnik}}	 \\[3pt] \hline
 					\endhead
 					
 					\hline 
 					\endlastfoot
 					
-					\cellcolor{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam 	\\ \hline
-					korisnickoIme	& VARCHAR &   	\\ \hline 
-					email & VARCHAR &   \\ \hline 
-					ime & VARCHAR	&  		\\ \hline 
+					\cellcolor{LightGreen}idDjelatnik & INT	& Identifikator djelatnika.	\\ \hline
+					korisnickoIme & VARCHAR	& Jedinstveno korisničko ime djelatnika.	\\ \hline
+					ime	& VARCHAR & Ime djelatnika.  	\\ \hline 
+					prezime & VARCHAR & Prezime djelatnika.  \\ \hline 
+					OIB & VARCHAR & Osobni identifikacijski broj.		\\ \hline
+					email & VARCHAR & E-mail adresa.		\\ \hline
+					lozinka & VARCHAR & Lozinka djelatnika.		\\ \hline   
 					\cellcolor{LightBlue} primjer	& VARCHAR &   	\\ \hline 
 					
 					
 				\end{longtabu}
 			
-			
 			\subsection{Dijagram baze podataka}
 				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+				
+				\begin{figure}
+					\centering
+					\includegraphics[width=\textwidth]{slike/ERdijagram.png}
+					\caption{ER dijagram baze podataka}
+				\end{figure}
 			
+				\begin{figure}
+					\centering
+					\includegraphics[width=\textwidth]{slike/RelDijagram.png}
+					\caption{Relacijski dijagram baze podataka}
+				\end{figure}		
 			\eject
 			
 			
