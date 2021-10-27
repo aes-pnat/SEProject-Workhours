@@ -49,18 +49,162 @@
 					\hline 
 					\endlastfoot
 					
-					\cellcolor{LightGreen}idDjelatnik & INT	& Identifikator djelatnika.	\\ \hline
-					korisnickoIme & VARCHAR	& Jedinstveno korisničko ime djelatnika.	\\ \hline
+					\cellcolor{LightGreen}idDjelatnik & INTEGER	& Identifikator djelatnika.	\\ \hline
 					ime	& VARCHAR & Ime djelatnika.  	\\ \hline 
 					prezime & VARCHAR & Prezime djelatnika.  \\ \hline 
 					OIB & VARCHAR & Osobni identifikacijski broj.		\\ \hline
 					email & VARCHAR & E-mail adresa.		\\ \hline
+					korisnickoIme & VARCHAR	& Jedinstveno korisničko ime djelatnika.	\\ \hline
 					lozinka & VARCHAR & Lozinka djelatnika.		\\ \hline   
-					\cellcolor{LightBlue} primjer	& VARCHAR &   	\\ \hline 
+					\cellcolor{LightBlue} idUloga & INTEGER & Identifikator uloge djelatnika. 	\\ \hline 
 					
 					
 				\end{longtabu}
+
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Uloga}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Uloga}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idUloga & INTEGER	& Identifikator uloge.	\\ \hline
+					naziv & VARCHAR & Naziv uloge (direktor, vođa tima, djelatnik).  	\\ \hline 					
+					
+				\end{longtabu}
 			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Grupa}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Grupa}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idGrupa & INTEGER	& Identifikator grupe.	\\ \hline
+					naziv	& VARCHAR & Naziv grupe.  	\\ \hline    
+					\cellcolor{LightBlue} idVoditelj & INTEGER & Identifikator voditelja grupe. 	\\ \hline 
+					\cellcolor{LightBlue} idDjelatnost & INTEGER & Identifikator djelatnosti kojom se grupa bavi. 	\\ \hline 
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{jeClan}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{jeClan}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idDjelatnik & INTEGER	& Identifikator djelatnika.	\\ \hline
+					\cellcolor{LightGreen}idGrupa & INTEGER	& Identifikator grupe.	\\ \hline
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Djelatnost}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Djelatnost}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idDjelatnost & INTEGER	& Identifikator djelatnosti.	\\ \hline
+					naziv & VARCHAR	& Naziv djelatnosti.	\\ \hline
+					opis & VARCHAR	& Opis djelatnosti.	\\ \hline
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[10, l]|X[6, l]|X[16, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Zadatak}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Zadatak}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idZadatak & INTEGER	& Identifikator zadatka.	\\ \hline
+					naziv & VARCHAR	& Naziv zadatka.	\\ \hline
+					opis & VARCHAR	& Tekstualni opis zadatka.	\\ \hline
+					datumVrijemePocetka & TIMESTAMP	& Datum i vrijeme početka zadatka. Mora biti manje vrijednosti od polja datumVrijemeZavrsetka.	\\ \hline
+					datumVrijemeZavrsetka & TIMESTAMP	& Datum i vrijeme završetka zadatka. Mora biti veće vrijednosti od polja datumVrijemePocetka.	\\ \hline
+					procjenaBrojaSati & INTEGER	& Procjena broja radnih sati potrebnih za dovršetak zadatka. Procjenu određuje voditelj tima koji je zadao zadatak. Procjena može, ali ne mora odgovarati razlici između datumVrijemeZavrsetka i datumVrijemePocetka. \\ \hline
+					\cellcolor{LightBlue}idDjelatnost & INTEGER	& Identifikator djelatnosti kojoj zadatak pripada.	\\ \hline
+					\cellcolor{LightBlue}idLokacija & INTEGER	& Identifikator lokacije na kojoj se zadatak obavlja.	\\ \hline
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{radiNa}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{radiNa}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idDjelatnik & INTEGER	& Identifikator djelatnika koji radi na zadatku.	\\ \hline
+					\cellcolor{LightGreen}idZadatak & INTEGER	& Identifikator zadatka na kojem djelatnik radi.	\\ \hline
+					realizacija & SMALLINT & Postotak posla kojeg je djelatnik obavio na zadatku u odnosu na ukupan posao. Može biti u intervalu [0, 100]. Početna vrijednost je 0. \\ \hline
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Lokacija}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{Lokacija}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idLokacija & INTEGER	& Identifikator lokacije.	\\ \hline
+					adresa & VARCHAR & Adresa na kojoj se lokacija nalazi. \\ \hline
+					mjesto & VARCHAR & Mjesto u kojem lokacija nalazi. \\ \hline
+					lat & DOUBLE & Geografska širina lokacije. \\ \hline
+					long & DOUBLE & Geografska dužina lokacije. \\ \hline
+					
+				\end{longtabu}
+			
+				\begin{longtabu} to \textwidth {|X[6, l]|X[6, l]|X[20, l]|}
+					
+					\hline \multicolumn{3}{|c|}{\textbf{UnosRadnihSati}}	 \\[3pt] \hline
+					\endfirsthead
+					
+					\hline \multicolumn{3}{|c|}{\textbf{UnosRadnihSati}}	 \\[3pt] \hline
+					\endhead
+					
+					\hline 
+					\endlastfoot
+					
+					\cellcolor{LightGreen}idUnos & INTEGER	& Identifikator unosa.	\\ \hline
+					datum & DATE & Datum unosa. \\ \hline
+					brRadnihSati & SMALLINT & Broj radnih sati koje je djelatnik odradio na zadatku tog dana. \\ \hline
+					\cellcolor{LightBlue}idDjelatnik & INTEGER & Identifikator djelatnika koji obavlja unos. \\ \hline
+					\cellcolor{LightBlue}idZadatak & INTEGER & Identifikator zadatka na kojeg se unos odnosi. \\ \hline
+					
+				\end{longtabu}
+						
 			\subsection{Dijagram baze podataka}
 				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 				
