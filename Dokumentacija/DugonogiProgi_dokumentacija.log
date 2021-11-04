@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.10.14)  24 OCT 2021 19:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.10.14)  4 NOV 2021 20:01
 entering extended mode
 **./DugonogiProgi_dokumentacija.tex
 (DugonogiProgi_dokumentacija.tex
@@ -1144,6 +1144,11 @@ Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
 []\OT1/jkp/m/n/12 24.10.2021.|  
  []
 
+
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+[]\OT1/jkp/m/n/12 04.11.2021.|  
+ []
+
 )
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1517,12 +1522,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
  (Arhitektura.tex
 Poglavlje 4.
 
-Overfull \hbox (1.23207pt too wide) in paragraph at lines 15--16
-\OT1/jkp/m/n/12 brano ra-zvojno okru[]zenje je ???. Ar-hi-tek-tura sus-tava te-
-me-ljiti []ce se na MVC (Model-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 17--18
 
  []
@@ -1843,7 +1842,7 @@ nged.
 Here is how much of TeX's memory you used:
  15143 strings out of 478927
  224326 string characters out of 2853008
- 598621 words of memory out of 3000000
+ 599621 words of memory out of 3000000
  32430 multiletter control sequences out of 15000+600000
  453147 words of font info for 135 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1858,7 +1857,7 @@ ers/Luka/AppData/Local/Programs/MiKTeX/fonts/type1/public/kpfonts/jkpbit8a.pfb>
 pmit8a.pfb><C:/Users/Luka/AppData/Local/Programs/MiKTeX/fonts/type1/public/kpfo
 nts/jkpmn8a.pfb><C:/Users/Luka/AppData/Local/Programs/MiKTeX/fonts/type1/public
 /kpfonts/jkpttmn8a.pfb>
-Output written on DugonogiProgi_dokumentacija.pdf (43 pages, 711671 bytes).
+Output written on DugonogiProgi_dokumentacija.pdf (43 pages, 711784 bytes).
 PDF statistics:
  595 PDF objects out of 1000 (max. 8388607)
  213 named destinations out of 1000 (max. 500000)
