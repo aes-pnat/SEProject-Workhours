@@ -4,19 +4,20 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 /*
- * Djelatnik predstavlja istoimeni entitet iz baze podataka.
+ * Djelatnik predstavlja zaposlenika i strukturu istoimenog
+ * entiteta iz baze podataka.
  */
 @Entity
 public class Djelatnik {
 
 	/*
-	 * Korisnicko ime profila djelatnika
+	 * Korisnicko ime profila djelatnika.
 	 */
 	@Id
 	private String korisnickoIme;
 	
 	/*
-	 * Lozinka profila djelatnika
+	 * Lozinka profila djelatnika.
 	 */
 	private String lozinka;
 	/*
@@ -28,19 +29,19 @@ public class Djelatnik {
 	private String oib;
 	
 	/*
-	 * E-mail djelatnika
+	 * E-mail djelatnika.
 	 */
 	@Column(unique=true)
 	@NotNull
 	private String email;
 	
 	/*
-	 * Ime djelatnika
+	 * Ime djelatnika.
 	 */
 	private String ime;
 	
 	/*
-	 * Prezime djelatnika
+	 * Prezime djelatnika.
 	 */
 	private String prezime;
 

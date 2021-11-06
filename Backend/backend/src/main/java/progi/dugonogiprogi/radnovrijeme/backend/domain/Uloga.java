@@ -3,13 +3,15 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 import javax.persistence.*;
 
 /*
- * Uloga predstavlja istoimeni entitet iz baze podataka.
+ * Uloga predstavlja ulogu djelatnika i strukturu istoimenog
+ * entiteta iz baze podataka.
  */
 @Entity
 public class Uloga {
 	
 	/*
 	 * Jedinstveni id uloge
+	 * Generirana vrijednost.
 	 */
 	@Id
 	@GeneratedValue
