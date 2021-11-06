@@ -1,22 +1,21 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
- * Klasa Uloga predstavlja ulogu djelatnika i strukturu istoimenog
- * entiteta iz baze podataka.
+ * Djelatnost predstavlja djelatnost koju djelatnici odraduju i
+ * strukturu istoimenog entiteta iz baze podataka.
+ * Djelatnost stvara i zadaje direktor.
  * @author Bernard
+ *
  */
 @Entity
-public class Uloga {
+public class Djelatnost {
 
 	/**
-	 * Jedinstveni id uloge
+	 * Jedinstevni id djelatnosti.
 	 * Generirana vrijednost.
 	 */
 	@Id
@@ -24,15 +23,15 @@ public class Uloga {
 	private Long id;
 
 	/**
-	 * Naziv uloge.
+	 * Naziv djelatnosti.
 	 */
 	private String naziv;
 
+
 	/**
-	 * Svi djelatnici koji imaju odredenu ulogu.
+	 * Opis djelatnosti.
 	 */
-	@OneToMany
-	private Set<Djelatnik> ulogaDjelatnika;
+	private String opis;
 
 	public Long getId() {
 		return id;
@@ -50,11 +49,11 @@ public class Uloga {
 		this.naziv = naziv;
 	}
 
-	public Set<Djelatnik> getUlogaDjelatnika() {
-		return ulogaDjelatnika;
+	public String getOpis() {
+		return opis;
 	}
 
-	public void setUlogaDjelatnika(Set<Djelatnik> ulogaDjelatnika) {
-		this.ulogaDjelatnika = ulogaDjelatnika;
+	public void setOpis(String opis) {
+		this.opis = opis;
 	}
 }

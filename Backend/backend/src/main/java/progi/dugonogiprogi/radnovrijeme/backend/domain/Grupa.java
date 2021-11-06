@@ -5,18 +5,22 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
- * Klasa Uloga predstavlja ulogu djelatnika i strukturu istoimenog
- * entiteta iz baze podataka.
+ * Klasa Grupa predstavlja grupu djelatnika koji rade na zadanim djelatnostima.
+ * Grupu stvara direktor i zadaje joj djelatnosti.
+ * Svaka grupa ima svog voditelja i on odreduje zadatke za pojedine
+ * djelatnosti.
  * @author Bernard
+ *
  */
 @Entity
-public class Uloga {
+public class Grupa {
 
 	/**
-	 * Jedinstveni id uloge
+	 * Jedinstveni id grupe.
 	 * Generirana vrijednost.
 	 */
 	@Id
@@ -24,15 +28,15 @@ public class Uloga {
 	private Long id;
 
 	/**
-	 * Naziv uloge.
+	 * Naziv grupe.
 	 */
 	private String naziv;
 
-	/**
-	 * Svi djelatnici koji imaju odredenu ulogu.
-	 */
-	@OneToMany
-	private Set<Djelatnik> ulogaDjelatnika;
+	@ManyToOne
+	private Djelatnik voditelj;
+
+	@ManyToMany()
+	private Set<Djelatnik> clanovi;
 
 	public Long getId() {
 		return id;
@@ -48,13 +52,5 @@ public class Uloga {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
-	}
-
-	public Set<Djelatnik> getUlogaDjelatnika() {
-		return ulogaDjelatnika;
-	}
-
-	public void setUlogaDjelatnika(Set<Djelatnik> ulogaDjelatnika) {
-		this.ulogaDjelatnika = ulogaDjelatnika;
 	}
 }

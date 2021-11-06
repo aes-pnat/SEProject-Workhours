@@ -2,38 +2,43 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.sql.Date;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-/*
+
+/**
  * UnosRadnihSati predstavlja odradene radne sate 
  * djelatnika na odredenom zadatku i strukturu istoimenog
  * entiteta iz baze podataka.
+ * @author Bernard
  */
+@Entity
 public class UnosRadnihSati {
 	
-	/*
+	/**
 	 * Jedinstveni id podatka od radnim satima.
 	 * Generirana vrijednost.
 	 */
 	@Id
 	@GeneratedValue
-	private String id;
+	private Long id;
 	
-	/*
+	/**
 	 * Datum unosenja radnih sati.
 	 */
 	private Date datum;
 	
-	/*
+	/**
 	 * Broj unesenih radnih sati.	
 	 */
 	private String brRadnihSati;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
