@@ -25,10 +25,10 @@ CREATE TABLE Djelatnik
   idDjelatnik SERIAL PRIMARY KEY,
   ime VARCHAR(50) NOT NULL,
   prezime VARCHAR(50) NOT NULL,
-  email VARCHAR(50) NOT NULL,
+  email VARCHAR(50) UNIQUE NOT NULL,
   lozinka VARCHAR(50) NOT NULL,
-  korisnickoIme VARCHAR(50) NOT NULL,
-  oib CHAR(11) NOT NULL,
+  korisnickoIme VARCHAR(50) UNIQUE NOT NULL,
+  oib CHAR(11) UNIQUE NOT NULL,
   idUloga INT NOT NULL,
   FOREIGN KEY (idUloga) REFERENCES Uloga(idUloga)
 );
