@@ -2,62 +2,156 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
-  * Klasa zadatak predstavlja zadatak koji je voditelj grupe zadao za 
-  * pojedinu djelatnost i takoder predstavlja istoimeni entitet iz baze podataka.
-  * @author Bernard
-  */
+ * Class Task represents a task
+ * that leader of a group has given to a group for their job.
+ * @author Bernard
+ */
 @Entity
 public class Task {
 
 	/**
-	 * Jedinstveni id zadatka.
-	 * Generirana vrijednost.
+	 * Task idetifier.
+	 * Generated value.
 	 */
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long idTask;
 
 	/**
-	 * Naziv zadatka.
+	 * Task name.
 	 */
-	private String naziv;
+	private String name;
 
 	/**
-	 * Opis zadatka.
+	 * Task description.
 	 */
-	private String opis;
+	private String description;
 
 	/**
-	 * Datum i vrijeme pocetka zadatka.
-	 */
-	@DateTimeFormat
-	private Date datumVrijemePocetka;
-
-	/**
-	 * Datum i vrijeme zavrsetka zadatka.
+	 * Date and time when a task started.
 	 */
 	@DateTimeFormat
-	private Date datumVrijemeZavrsetka;
+	private Date dateTimeStart;
 
 	/**
-	 * Procjena broja sati potrebnih za izvrsavanje zadatka.
+	 * Date and time when a task ended.
 	 */
-	private String procjenaBrojaSati;
+	@DateTimeFormat
+	private Date dateTimeEnd;
 
+	/**
+	 * Estimate of hours needed to complete a task.
+	 */
+	private String hoursNeededEstimate;
+
+	/**
+	 * Job that this task belongs to.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "idTask", nullable = false)
 	private Job belongsTo;
 
+	/**
+	 * If a task needs to be completed outside of company,
+	 * this value stores location of a task.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "idTask", nullable = false)
 	private Location location;
 
+	/**
+	 * Set of employees that are assigned to this task.
+	 */
     @ManyToMany(mappedBy = "tasks")
     private List<Employee> doingThisTask;
+
+	@OneToMany(mappedBy = "onTask")
+	private Set<WorkHoursInput> hoursInputs;
+
+	public Long getIdTask() {
+		return idTask;
+	}
+
+	public void setIdTask(Long idTask) {
+		this.idTask = idTask;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getDateTimeStart() {
+		return dateTimeStart;
+	}
+
+	public void setDateTimeStart(Date dateTimeStart) {
+		this.dateTimeStart = dateTimeStart;
+	}
+
+	public Date getDateTimeEnd() {
+		return dateTimeEnd;
+	}
+
+	public void setDateTimeEnd(Date dateTimeEnd) {
+		this.dateTimeEnd = dateTimeEnd;
+	}
+
+	public String getHoursNeededEstimate() {
+		return hoursNeededEstimate;
+	}
+
+	public void setHoursNeededEstimate(String hoursNeededEstimate) {
+		this.hoursNeededEstimate = hoursNeededEstimate;
+	}
+
+	public Job getBelongsTo() {
+		return belongsTo;
+	}
+
+	public void setBelongsTo(Job belongsTo) {
+		this.belongsTo = belongsTo;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public List<Employee> getDoingThisTask() {
+		return doingThisTask;
+	}
+
+	public void setDoingThisTask(List<Employee> doingThisTask) {
+		this.doingThisTask = doingThisTask;
+	}
+
+	public Set<WorkHoursInput> getHoursInputs() {
+		return hoursInputs;
+	}
+
+	public void setHoursInputs(Set<WorkHoursInput> hoursInputs) {
+		this.hoursInputs = hoursInputs;
+	}
 }
