@@ -5,12 +5,10 @@ import java.util.Set;
 import javax.persistence.*;
 
 /**
- * Klasa Grupa predstavlja grupu djelatnika koji rade na zadanim djelatnostima.
- * Grupu stvara direktor i zadaje joj djelatnosti.
- * Svaka grupa ima svog voditelja i on odreduje zadatke za pojedine
- * djelatnosti.
+ * Class Group represents a group of employees who work on given tasks.
+ * Director creates groups and assigns them jobs.
+ * Every group has a leader. He assigns tasks for the given job.
  * @author Bernard
- *
  */
 @Entity
 public class Group {
@@ -28,11 +26,16 @@ public class Group {
 	 */
 	private String name;
 
-
+	/**
+	 * Leader of a group.
+	 */
 	@ManyToOne()
 	@JoinColumn(name = "idGroup", nullable = false)
 	private Employee leader;
 
+	/**
+	 * Members of a group.
+	 */
 	@ManyToMany()
 	@JoinTable(
 			name = "EmployeeGroup",
@@ -40,6 +43,9 @@ public class Group {
 			inverseJoinColumns = @JoinColumn(name = "idGroup"))
 	private Set<Employee> members;
 
+	/**
+	 * Job assigned to a group.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "idJob", nullable = false)
 	private Job assignedJob;
