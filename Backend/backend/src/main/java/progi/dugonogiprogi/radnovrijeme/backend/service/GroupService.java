@@ -5,9 +5,11 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Djelatnost;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Grupa;
 
 @Service
-public interface UserService {
+public interface GroupService {
 
     Grupa createGroup(String name);
 
-    Djelatnost defineWork(String work);
+    Djelatnost defineWork(String workName, String workDescription);
+
+    void registerUser(String name, String surname, String userName, String OIB, String email);
 }
