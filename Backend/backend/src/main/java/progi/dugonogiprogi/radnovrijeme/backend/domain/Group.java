@@ -49,4 +49,44 @@ public class Group {
 	@ManyToOne
 	@JoinColumn(name = "idJob", nullable = false)
 	private Job assignedJob;
+
+	public Long getIdGroup() {
+		return idGroup;
+	}
+
+	public void setIdGroup(Long idGroup) {
+		this.idGroup = idGroup;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Employee getLeader() {
+		return leader;
+	}
+
+	public void setLeader(Employee leader) {
+		this.leader = leader;
+	}
+
+	public Set<Employee> getMembers() {
+		return members;
+	}
+
+	public void setMembers(Set<Employee> members) {
+		this.members = members;
+	}
+
+	public Job getAssignedJob() {
+		return assignedJob;
+	}
+
+	public void setAssignedJob(Job assignedJob) {
+		this.assignedJob = assignedJob;
+	}
 }

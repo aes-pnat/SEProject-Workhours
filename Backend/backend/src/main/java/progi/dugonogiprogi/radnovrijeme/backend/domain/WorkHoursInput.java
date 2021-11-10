@@ -7,34 +7,82 @@ import javax.persistence.*;
 
 
 /**
- * UnosRadnihSati predstavlja odradene radne sate 
- * djelatnika na odredenom zadatku i strukturu istoimenog
- * entiteta iz baze podataka.
+ * WorkHoursInput represents work hours that
+ * an employee has done in a day on a specified task.
  * @author Bernard
  */
 @Entity
 public class WorkHoursInput {
 	
 	/**
-	 * Jedinstveni id podatka od radnim satima.
-	 * Generirana vrijednost.
+	 * WorkHoursInput identifier.
+	 * Generated value.
 	 */
 	@Id
 	@GeneratedValue
 	private Long idWorkHoursInput;
 	
 	/**
-	 * Datum unosenja radnih sati.
+	 * Date of data input.
 	 */
 	private Date datum;
 	
 	/**
-	 * Broj unesenih radnih sati.	
+	 * Number of hours done.
 	 */
 	private String brRadnihSati;
 
+	/**
+	 * Employee that inputted work hours.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "idWorkHoursInput", nullable = false)
 	private Employee hasDone;
-	
+
+	/**
+	 * Task that employee worked on.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	private Task onTask;
+
+	public Long getIdWorkHoursInput() {
+		return idWorkHoursInput;
+	}
+
+	public void setIdWorkHoursInput(Long idWorkHoursInput) {
+		this.idWorkHoursInput = idWorkHoursInput;
+	}
+
+	public Date getDatum() {
+		return datum;
+	}
+
+	public void setDatum(Date datum) {
+		this.datum = datum;
+	}
+
+	public String getBrRadnihSati() {
+		return brRadnihSati;
+	}
+
+	public void setBrRadnihSati(String brRadnihSati) {
+		this.brRadnihSati = brRadnihSati;
+	}
+
+	public Employee getHasDone() {
+		return hasDone;
+	}
+
+	public void setHasDone(Employee hasDone) {
+		this.hasDone = hasDone;
+	}
+
+	public Task getOnTask() {
+		return onTask;
+	}
+
+	public void setOnTask(Task onTask) {
+		this.onTask = onTask;
+	}
 }
