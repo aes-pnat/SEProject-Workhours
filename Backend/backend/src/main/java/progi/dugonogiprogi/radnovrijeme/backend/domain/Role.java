@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class Role represents what role an employee has in the company.
@@ -25,6 +26,7 @@ public class Role {
 	/**
 	 * Role name.
 	 */
+	@NotNull
 	private String name;
 
 	/**

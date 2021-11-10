@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -25,11 +26,13 @@ public class Location {
 	/**
 	 * Location longitude.
 	 */
+	@NotNull
 	private Float longitude;
 
 	/**
 	 * Location latitude.
 	 */
+	@NotNull
 	private Float latitude;
 
 	/**

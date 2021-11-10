@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -25,16 +26,19 @@ public class WorkHoursInput {
 	/**
 	 * Date of data input.
 	 */
+	@NotNull
 	private Date datum;
 	
 	/**
 	 * Number of hours done.
 	 */
+	@NotNull
 	private String brRadnihSati;
 
 	/**
 	 * Employee that inputted work hours.
 	 */
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "idWorkHoursInput", nullable = false)
 	private Employee hasDone;
@@ -42,6 +46,7 @@ public class WorkHoursInput {
 	/**
 	 * Task that employee worked on.
 	 */
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "idWorkHoursInput", nullable = false)
 	private Task onTask;

@@ -14,29 +14,24 @@ import javax.validation.constraints.Size;
 public class Employee {
 
 	/**
-	 * Employee identifier.
+	 * PID of employee.
 	 */
 	@Id
-	@GeneratedValue
-	private Long idEmployee;
+	@Size(min = 11, max = 11)
+	private String pid;
 
 	/**
 	 * Employee account username.
 	 */
+	@Column(unique = true)
+	@NotNull
 	private String username;
 
 	/**
 	 * Employee account password.
 	 */
-	private String password;
-
-	/**
-	 * PID of employee.
-	 */
-	@Column(unique = true)
 	@NotNull
-	@Size(min = 11, max = 11)
-	private String pid;
+	private String password;
 
 	/**
 	 * E-mail of employee.
@@ -48,11 +43,13 @@ public class Employee {
 	/**
 	 * Employees name.
 	 */
+	@NotNull
 	private String name;
 
 	/**
 	 * Employees surname.
 	 */
+	@NotNull
 	private String surname;
 
 	/**
@@ -88,14 +85,6 @@ public class Employee {
 	 */
 	@OneToMany(mappedBy = "hasDone")
 	private Set<WorkHoursInput> workHours;
-
-	public Long getIdEmployee() {
-		return idEmployee;
-	}
-
-	public void setIdEmployee(Long idEmployee) {
-		this.idEmployee = idEmployee;
-	}
 
 	public String getUsername() {
 		return username;

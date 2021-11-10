@@ -3,6 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Class Group represents a group of employees who work on given tasks.
@@ -24,11 +25,13 @@ public class Group {
 	/**
 	 * Group name.
 	 */
+	@NotNull
 	private String name;
 
 	/**
 	 * Leader of a group.
 	 */
+	@NotNull
 	@ManyToOne()
 	@JoinColumn(name = "idGroup", nullable = false)
 	private Employee leader;

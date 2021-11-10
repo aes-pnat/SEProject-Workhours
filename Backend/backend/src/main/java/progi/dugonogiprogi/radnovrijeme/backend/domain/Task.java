@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,6 +28,7 @@ public class Task {
 	/**
 	 * Task name.
 	 */
+	@NotNull
 	private String name;
 
 	/**
@@ -37,6 +39,7 @@ public class Task {
 	/**
 	 * Date and time when a task started.
 	 */
+	@NotNull
 	@DateTimeFormat
 	private Date dateTimeStart;
 
@@ -50,6 +53,26 @@ public class Task {
 	 * Estimate of hours needed to complete a task.
 	 */
 	private String hoursNeededEstimate;
+
+	/**
+	 * Planned profit on a task.
+	 */
+	private Float plannedProfit;
+
+	/**
+	 * Realized profit on a task.
+	 */
+	private Float realizedProfit;
+
+	/**
+	 * Planned cost of a task.
+	 */
+	private Float plannedCost;
+
+	/**
+	 * Realized cost of a task.
+	 */
+	private Float realizedCost;
 
 	/**
 	 * Job that this task belongs to.
@@ -72,6 +95,9 @@ public class Task {
     @ManyToMany(mappedBy = "tasks")
     private List<Employee> doingThisTask;
 
+	/**
+	 * Hours that an employee spent on this task in a day.
+	 */
 	@OneToMany(mappedBy = "onTask")
 	private Set<WorkHoursInput> hoursInputs;
 
@@ -153,5 +179,37 @@ public class Task {
 
 	public void setHoursInputs(Set<WorkHoursInput> hoursInputs) {
 		this.hoursInputs = hoursInputs;
+	}
+
+	public Float getPlannedProfit() {
+		return plannedProfit;
+	}
+
+	public void setPlannedProfit(Float plannedProfit) {
+		this.plannedProfit = plannedProfit;
+	}
+
+	public Float getRealizedProfit() {
+		return realizedProfit;
+	}
+
+	public void setRealizedProfit(Float realizedProfit) {
+		this.realizedProfit = realizedProfit;
+	}
+
+	public Float getPlannedCost() {
+		return plannedCost;
+	}
+
+	public void setPlannedCost(Float plannedCost) {
+		this.plannedCost = plannedCost;
+	}
+
+	public Float getRealizedCost() {
+		return realizedCost;
+	}
+
+	public void setRealizedCost(Float realizedCost) {
+		this.realizedCost = realizedCost;
 	}
 }

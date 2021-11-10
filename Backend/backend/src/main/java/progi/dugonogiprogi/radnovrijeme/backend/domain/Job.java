@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -26,6 +27,7 @@ public class Job {
 	/**
 	 * Job name.
 	 */
+	@NotNull
 	private String name;
 
 
