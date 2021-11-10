@@ -4,7 +4,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Grupa;
-import progi.dugonogiprogi.radnovrijeme.backend.service.UserService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 //import org.springframework.security.access.annotation.Secured;
 
 
@@ -12,25 +12,28 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.UserService;
 public class GroupController {
 
     @Autowired
-    private UserService userService;
+    private GroupService groupService;
 
     //@Secured("OWNER")
     public Grupa createGroup(@RequestBody CreateGroupDTO dto) {
-        return userService.createGroup(dto.getName());
+        return groupService.createGroup(dto.getName());
     }
 
-    public Djelatnost defineWork(String workName, String workDescription) {
-        return userService.defineWork(workName,workDescription);
+    public Djelatnost assignJob(String workName, String workDescription) {
+        return groupService.assignJob(workName,workDescription);
     }
 
-    public void registerUser(String name, String surname, String userName, String OIB, String email){
-        userService.registerUser(name,surname,userName,OIB,email);
+    public Zadatak assignTask(String taskName) {
+        return groupService.assignTask(taskName);
     }
 
+    public Grupa edit(Grupa group){
+        return groupService.edit(group);
+    }
 
-
-
-
+    public void delete(Grupa group) {
+        groupService.delete(group);
+    }
 
 
 }
