@@ -8,53 +8,52 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * Klasa Uloga predstavlja ulogu djelatnika i strukturu istoimenog
- * entiteta iz baze podataka.
+ * Class Role represents what role an employee has in the company.
  * @author Bernard
  */
 @Entity
 public class Role {
 
 	/**
-	 * Jedinstveni id uloge
-	 * Generirana vrijednost.
+	 * Role identifier.
+	 * Generated value.
 	 */
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long idRole;
 
 	/**
-	 * Naziv uloge.
+	 * Role name.
 	 */
-	private String naziv;
+	private String name;
 
 	/**
-	 * Svi djelatnici koji imaju odredenu ulogu.
+	 * All employees with this role.
 	 */
-	@OneToMany
-	private Set<Djelatnik> ulogaDjelatnika;
+	@OneToMany(mappedBy = "role")
+	private Set<Employee> employeesWithRole;
 
-	public Long getId() {
-		return id;
+	public Long getIdRole() {
+		return idRole;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdRole(Long idRole) {
+		this.idRole = idRole;
 	}
 
-	public String getNaziv() {
-		return naziv;
+	public String getName() {
+		return name;
 	}
 
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Set<Djelatnik> getUlogaDjelatnika() {
-		return ulogaDjelatnika;
+	public Set<Employee> getEmployeesWithRole() {
+		return employeesWithRole;
 	}
 
-	public void setUlogaDjelatnika(Set<Djelatnik> ulogaDjelatnika) {
-		this.ulogaDjelatnika = ulogaDjelatnika;
+	public void setEmployeesWithRole(Set<Employee> employeesWithRole) {
+		this.employeesWithRole = employeesWithRole;
 	}
 }

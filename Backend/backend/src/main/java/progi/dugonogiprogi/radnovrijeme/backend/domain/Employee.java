@@ -2,12 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -56,7 +51,8 @@ public class Employee {
 	private String prezime;
 
 	@ManyToOne
-	private Role uloga;
+	@JoinColumn(name = "idEmployee", nullable = false)
+	private Role role;
 
 	@OneToMany
 	private Set<Group> jeVoditelj;
@@ -65,7 +61,7 @@ public class Employee {
 	private Set<Group> jeClan;
 	
 	@ManyToMany
-	private Set<Zadatak> zadaci;
+	private Set<Task> zadaci;
 	
 	@OneToMany
 	private Set<WorkHoursInput> uneseniRadniSati;
