@@ -14,7 +14,7 @@ import javax.persistence.Id;
  * @author Bernard
  */
 @Entity
-public class UnosRadnihSati {
+public class WorkHoursInput {
 	
 	/**
 	 * Jedinstveni id podatka od radnim satima.

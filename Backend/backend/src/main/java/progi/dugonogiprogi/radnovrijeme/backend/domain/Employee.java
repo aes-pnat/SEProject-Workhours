@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
  * @author Bernard
  */
 @Entity
-public class Djelatnik {
+public class Employee {
 
 	/**
 	 * Korisnicko ime profila djelatnika.
@@ -56,19 +56,19 @@ public class Djelatnik {
 	private String prezime;
 
 	@ManyToOne
-	private Uloga uloga;
+	private Role uloga;
 
 	@OneToMany
-	private Set<Grupa> jeVoditelj;
+	private Set<Group> jeVoditelj;
 
 	@ManyToMany
-	private Set<Grupa> jeClan;
+	private Set<Group> jeClan;
 	
 	@ManyToMany
 	private Set<Zadatak> zadaci;
 	
 	@OneToMany
-	private Set<UnosRadnihSati> uneseniRadniSati;
+	private Set<WorkHoursInput> uneseniRadniSati;
 	
 	public String getKorisnickoIme() {
 		return korisnickoIme;
