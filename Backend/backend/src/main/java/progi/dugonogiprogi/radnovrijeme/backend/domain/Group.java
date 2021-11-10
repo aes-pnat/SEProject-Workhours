@@ -29,10 +29,15 @@ public class Group {
 	private String name;
 
 
-	@ManyToOne
+	@ManyToOne()
+	@JoinColumn(name = "idGroup", nullable = false)
 	private Employee leader;
 
 	@ManyToMany()
+	@JoinTable(
+			name = "EmployeeGroup",
+			joinColumns = @JoinColumn(name = "idGroup"),
+			inverseJoinColumns = @JoinColumn(name = "idGroup"))
 	private Set<Employee> members;
 
 	@ManyToOne

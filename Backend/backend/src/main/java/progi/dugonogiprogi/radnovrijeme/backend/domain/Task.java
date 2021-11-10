@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -56,4 +57,7 @@ public class Task {
 	@ManyToOne
 	@JoinColumn(name = "idTask", nullable = false)
 	private Location location;
+
+    @ManyToMany(mappedBy = "tasks")
+    private List<Employee> doingThisTask;
 }

@@ -7,87 +7,118 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Klasa Djelatnik predstavlja zaposlenika i strukturu istoimenog
- * entiteta iz baze podataka.
+ * Class employee represents an employee in the company.
  * @author Bernard
  */
 @Entity
 public class Employee {
 
 	/**
-	 * Korisnicko ime profila djelatnika.
+	 * Employee identifier.
 	 */
 	@Id
-	private String korisnickoIme;
+	@GeneratedValue
+	private Long idEmployee;
 
 	/**
-	 * Lozinka profila djelatnika.
+	 * Employee account username.
 	 */
-	private String lozinka;
+	private String username;
 
 	/**
-	 * OIB djelatnika.
+	 * Employee account password.
+	 */
+	private String password;
+
+	/**
+	 * PID of employee.
 	 */
 	@Column(unique = true)
 	@NotNull
 	@Size(min = 11, max = 11)
-	private String oib;
+	private String pid;
 
 	/**
-	 * E-mail djelatnika.
+	 * E-mail of employee.
 	 */
 	@Column(unique = true)
 	@NotNull
 	private String email;
 
 	/**
-	 * Ime djelatnika.
+	 * Employees name.
 	 */
-	private String ime;
+	private String name;
 
 	/**
-	 * Prezime djelatnika.
+	 * Employees surname.
 	 */
-	private String prezime;
+	private String surname;
 
+	/**
+	 * Employees role.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "idEmployee", nullable = false)
 	private Role role;
 
-	@OneToMany
-	private Set<Group> jeVoditelj;
+	/**
+	 * Groups that has this employee as leader.
+	 */
+	@OneToMany(mappedBy = "leader")
+	private Set<Group> isLeader;
+	/**
+	 *
+	 */
+	@ManyToMany(mappedBy = "members")
+	private Set<Group> isMember;
 
+	/**
+	 * Tasks given to this employee.
+	 */
 	@ManyToMany
-	private Set<Group> jeClan;
-	
-	@ManyToMany
-	private Set<Task> zadaci;
-	
-	@OneToMany
-	private Set<WorkHoursInput> uneseniRadniSati;
-	
-	public String getKorisnickoIme() {
-		return korisnickoIme;
+	@JoinTable(
+			name = "EmployeeTask",
+			joinColumns = @JoinColumn(name = "idEmployee"),
+			inverseJoinColumns = @JoinColumn(name = "idTask"))
+	private Set<Task> tasks;
+
+	/**
+	 * How many hours has this employee done in a day.
+	 */
+	@OneToMany(mappedBy = "hasDone")
+	private Set<WorkHoursInput> workHours;
+
+	public Long getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme = korisnickoIme;
+	public void setIdEmployee(Long idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
-	public String getLozinka() {
-		return lozinka;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLozinka(String lozinka) {
-		this.lozinka = lozinka;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getOib() {
-		return oib;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setOib(String oib) {
-		this.oib = oib;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 
 	public String getEmail() {
@@ -98,19 +129,59 @@ public class Employee {
 		this.email = email;
 	}
 
-	public String getIme() {
-		return ime;
+	public String getName() {
+		return name;
 	}
 
-	public void setIme(String ime) {
-		this.ime = ime;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPrezime() {
-		return prezime;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Set<Group> getIsLeader() {
+		return isLeader;
+	}
+
+	public void setIsLeader(Set<Group> isLeader) {
+		this.isLeader = isLeader;
+	}
+
+	public Set<Group> getIsMember() {
+		return isMember;
+	}
+
+	public void setIsMember(Set<Group> isMember) {
+		this.isMember = isMember;
+	}
+
+	public Set<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public Set<WorkHoursInput> getWorkHours() {
+		return workHours;
+	}
+
+	public void setWorkHours(Set<WorkHoursInput> workHours) {
+		this.workHours = workHours;
 	}
 }

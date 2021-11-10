@@ -1,10 +1,9 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.sql.Date;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 /**
@@ -22,7 +21,7 @@ public class WorkHoursInput {
 	 */
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long idWorkHoursInput;
 	
 	/**
 	 * Datum unosenja radnih sati.
@@ -34,28 +33,8 @@ public class WorkHoursInput {
 	 */
 	private String brRadnihSati;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getDatum() {
-		return datum;
-	}
-
-	public void setDatum(Date datum) {
-		this.datum = datum;
-	}
-
-	public String getBrRadnihSati() {
-		return brRadnihSati;
-	}
-
-	public void setBrRadnihSati(String brRadnihSati) {
-		this.brRadnihSati = brRadnihSati;
-	}
+	@ManyToOne
+	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	private Employee hasDone;
 	
 }
