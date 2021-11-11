@@ -11,8 +11,14 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.service.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+/**
+ * Provides some business functionalities
+ *
+ */
 
 @Service
 public class GroupServiceJpa implements GroupService {
@@ -112,6 +118,16 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public Optional<Employee> findByEmployeeId(String idEmployee) {
         return workerRepo.findByEmployeeId(idEmployee);
+    }
+
+    @Override
+    public Group returnGroup(Long idGroup) {
+        return fetchGroup(idGroup);
+    }
+
+    @Override
+    public List<Group> returnAllGroups() {
+        return groupRepo.findAll();
     }
 
 }
