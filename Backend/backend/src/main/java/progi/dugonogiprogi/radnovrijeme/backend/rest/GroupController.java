@@ -2,9 +2,10 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Djelatnik;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Djelatnost;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Zadatak;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 //import org.springframework.security.access.annotation.Secured;
 
@@ -18,17 +19,17 @@ public class GroupController {
 
     //@Secured("OWNER")
     @PutMapping("/create")
-    public void createGroup(@RequestBody String name, Djelatnik leader) {
+    public void createGroup(@RequestBody String name, Employee leader) {
         groupService.createGroup(name, leader);
     }
 
     @PutMapping("/{idGroup}/assignJob")
-    public void assignJob(@RequestBody Djelatnost job, @PathVariable("idGroup") Long idGroup) {
+    public void assignJob(@RequestBody Job job, @PathVariable("idGroup") Long idGroup) {
         groupService.assignJob(job, idGroup);
     }
 
     @PutMapping("/{idGroup}/{idEmployee}/assignTask")
-    public void assignTask(Zadatak task, @PathVariable("idGroup") String idEmployee) {
+    public void assignTask(Task task, @PathVariable("idGroup") String idEmployee) {
         groupService.assignTask(task, idEmployee);
     }
 
@@ -43,12 +44,12 @@ public class GroupController {
     }
 
     @PutMapping("/{idGroup}/add")
-    public boolean add(@PathVariable("idGroup") Long idGroup, @RequestBody Djelatnik worker){
+    public boolean add(@PathVariable("idGroup") Long idGroup, @RequestBody Employee worker){
         return groupService.add(idGroup,worker);
     }
 
     @DeleteMapping("/{idGroup}/remove")
-    public boolean remove(@PathVariable("idGroup") Long idGroup, @RequestBody Djelatnik worker){
+    public boolean remove(@PathVariable("idGroup") Long idGroup, @RequestBody Employee worker){
         return groupService.remove(idGroup,worker);
     }
 

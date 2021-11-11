@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Djelatnik;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Djelatnost;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Grupa;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Zadatak;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.service.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class GroupServiceJpa implements GroupService {
 
@@ -23,46 +25,49 @@ public class GroupServiceJpa implements GroupService {
 
 
     @Override
-    public void createGroup(String name, Djelatnik leader) {
-        Grupa group = new Grupa();
-        group.setNaziv(name);
-        //group.setLeader(leader);
+    public void createGroup(String name, Employee leader) {
+        Group group = new Group();
+        group.setName(name);
+        group.setLeader(leader);
         groupRepo.save(group);
     }
 
     @Override
-    public void assignJob(Djelatnost job, Long idGroup) {
-        Grupa group = this.fetchGroup(idGroup);
-        //group.setAssignedJob(job);
+    public void assignJob(Job job, Long idGroup) {
+        Group group = this.fetchGroup(idGroup);
+        group.setAssignedJob(job);
     }
 
     @Override
-    public void assignTask(Zadatak task, String idEmployee) {
-        Djelatnik worker = this.fetchEmployee(idEmployee);
-        //worker.setTask(task);
+    public void assignTask(Task task, String idEmployee) {
+        Employee worker = this.fetchEmployee(idEmployee);
+        Set<Task> tasks = worker.getTasks();
+        tasks.add(task);
+        worker.setTasks(tasks);
     }
 
     @Override
     public void edit(Long idGroup, String idNewEmployee, String idOldEmployee) {
-        Djelatnik newWorker = this.fetchEmployee(idNewEmployee);
-        Djelatnik oldWorker = this.fetchEmployee(idOldEmployee);
+        Employee newWorker = this.fetchEmployee(idNewEmployee);
+        Employee oldWorker = this.fetchEmployee(idOldEmployee);
         this.remove(idGroup,oldWorker);
         this.add(idGroup,newWorker);
     }
 
     @Override
     public void delete(Long idGroup) {
-        Grupa group = this.fetchGroup(idGroup);
-        //group.setLeader(leader);
+        Group group = this.fetchGroup(idGroup);
         groupRepo.delete(group);
     }
 
     @Override
-    public boolean add(Long idGroup, Djelatnik employee) {
-        Djelatnik newWorker = fetchEmployee(employee.getOib());
-        if(workerRepo.findByEmployeeId(employee.getOib())!=null) {
-            Grupa group = this.fetchGroup(idGroup);
-            //group.addEmployee(worker);
+    public boolean add(Long idGroup, Employee employee) {
+        Employee newWorker = fetchEmployee(employee.getPid());
+        if(workerRepo.findByEmployeeId(employee.getPid())!=null) {
+            Group group = this.fetchGroup(idGroup);
+            Set<Employee> workers = group.getMembers();
+            workers.add(newWorker);
+            group.setMembers(workers);
             groupRepo.save(group);
         } else {
             return false;
@@ -71,11 +76,13 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public boolean remove(Long idGroup, Djelatnik employee) {
-        Djelatnik newWorker = fetchEmployee(employee.getOib());
-        if(workerRepo.findByEmployeeId(employee.getOib())!=null) {
-            Grupa group = this.fetchGroup(idGroup);
-            //group.removeEmployee(newWorker);
+    public boolean remove(Long idGroup, Employee employee) {
+        Employee newWorker = fetchEmployee(employee.getPid());
+        if(workerRepo.findByEmployeeId(employee.getPid())!=null) {
+            Group group = this.fetchGroup(idGroup);
+            Set<Employee> workers = group.getMembers();
+            workers.remove(newWorker);
+            group.setMembers(workers);
             groupRepo.save(group);
         } else {
             return false;
@@ -84,26 +91,26 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public Grupa fetchGroup(long groupId) {
+    public Group fetchGroup(long groupId) {
         return findById(groupId).orElseThrow(
                 () -> new EntityMissingException()
         );
     }
 
     @Override
-    public Djelatnik fetchEmployee(String groupId) {
+    public Employee fetchEmployee(String groupId) {
         return findByEmployeeId(groupId).orElseThrow(
                 () -> new EntityMissingException()
         );
     }
 
     @Override
-    public Optional<Grupa> findById(long groupId) {
+    public Optional<Group> findById(long groupId) {
         return groupRepo.findById(groupId);
     }
 
     @Override
-    public Optional<Djelatnik> findByEmployeeId(String idEmployee) {
+    public Optional<Employee> findByEmployeeId(String idEmployee) {
         return workerRepo.findByEmployeeId(idEmployee);
     }
 

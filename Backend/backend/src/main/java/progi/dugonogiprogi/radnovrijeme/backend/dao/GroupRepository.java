@@ -8,10 +8,10 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import java.util.Optional;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Grupa,Long> {
+public interface GroupRepository extends JpaRepository<Group,Long> {
 
 
-    Optional<Grupa> findByName(String groupName);
-    Optional<Grupa> findById(String groupName);
+    Optional<Group> findByName(String groupName);
+    Optional<Group> findById(String groupName);
 
 }
