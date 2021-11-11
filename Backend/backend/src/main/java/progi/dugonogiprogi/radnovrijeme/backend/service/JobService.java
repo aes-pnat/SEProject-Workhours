@@ -9,5 +9,5 @@ public interface JobService {
 
     String showJobDetails(Long idJob);
 
-    Job createJob(Job job);
+    Job createJob(String jobName, String jobDescription);
 }

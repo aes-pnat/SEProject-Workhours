@@ -25,11 +25,8 @@ public class JobController {
 
     @PostMapping("")
     @Secured("ROLE_OWNER")
-    public Job createJob(@RequestBody Job job) {
-        return jobService.createStudent(job);
+    public Job createJob(@RequestBody CreateJobDTO jobDTO) {
+        return jobService.createJob(jobDTO);
     }
-
-
-
 
 }
