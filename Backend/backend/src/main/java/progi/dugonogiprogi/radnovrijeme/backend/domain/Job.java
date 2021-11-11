@@ -87,4 +87,13 @@ public class Job {
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	public Job() {
+
+	}
+
+	public Job(String jobName, String jobDescription) {
+		this.name = jobName;
+		this.description = jobDescription;
+	}
 }
