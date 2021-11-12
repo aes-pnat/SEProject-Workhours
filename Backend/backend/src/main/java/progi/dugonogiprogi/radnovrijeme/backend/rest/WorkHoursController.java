@@ -37,9 +37,9 @@ public class WorkHoursController {
     }
 
     //Secured direktor
-    @GetMapping("/select/{idEmployee}")
-    public WorkHoursInputDTO workHoursEmployee(@PathVariable Long idEmployee) {
-        return workHoursService.workHoursEmployee(idEmployee);
+    @GetMapping("/select/{pid}")
+    public WorkHoursInputDTO workHoursEmployee(@PathVariable String pid) {
+        return workHoursService.workHoursEmployee(pid);
     }
 
 

@@ -56,7 +56,7 @@ public class Employee {
 	 * Employees role.
 	 */
 	@ManyToOne
-	@JoinColumn(name = "idEmployee", nullable = false)
+	@JoinColumn(name = "idRole", nullable = false)
 	private Role role;
 
 	/**
@@ -76,7 +76,7 @@ public class Employee {
 	@ManyToMany
 	@JoinTable(
 			name = "EmployeeTask",
-			joinColumns = @JoinColumn(name = "idEmployee"),
+			joinColumns = @JoinColumn(name = "pid"),
 			inverseJoinColumns = @JoinColumn(name = "idTask"))
 	private Set<Task> tasks;
 

@@ -39,7 +39,7 @@ public class WorkHoursInput {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	@JoinColumn(name = "pid", nullable = false)
 	private Employee hasDone;
 
 	/**
@@ -47,7 +47,7 @@ public class WorkHoursInput {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	@JoinColumn(name = "idTask", nullable = false)
 	private Task onTask;
 
 	public Long getIdWorkHoursInput() {

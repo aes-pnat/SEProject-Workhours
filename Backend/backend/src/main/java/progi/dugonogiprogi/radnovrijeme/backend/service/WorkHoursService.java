@@ -13,7 +13,7 @@ public interface WorkHoursService {
 
     List<WorkHoursInputDTO> listAllWorkHours();
 
-    WorkHoursInputDTO workHoursEmployee(Long idEmployee);
+    WorkHoursInputDTO workHoursEmployee(String pid);
 
     void inputWorkHours(WorkHoursInput workHoursInput);
 

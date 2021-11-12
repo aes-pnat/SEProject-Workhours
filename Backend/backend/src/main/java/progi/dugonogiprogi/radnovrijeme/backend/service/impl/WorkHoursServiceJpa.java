@@ -28,7 +28,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Override
     public List<WorkHoursInputDTO> listAllWorkHours() {
-        List<Employee> employees = employeeRepository.listAll();
+        List<Employee> employees = employeeRepository.findAll();
         List<WorkHoursInputDTO> returnList = new ArrayList<>();
 
         for(Employee e : employees) {
@@ -39,8 +39,8 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     }
 
     @Override
-    public WorkHoursInputDTO workHoursEmployee(Long idEmployee) {
-        Employee employee = employeeRepository.findByIdEmployee(idEmployee);
+    public WorkHoursInputDTO workHoursEmployee(String pid) {
+        Employee employee = employeeRepository.findByPid(pid);
         List<WorkHoursInput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
 
         return new WorkHoursInputDTO(employee, workHoursInputList);

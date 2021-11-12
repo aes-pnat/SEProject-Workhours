@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * Every group has a leader. He assigns tasks for the given job.
  * @author Bernard
  */
-@Entity
+@Entity(name = "SGroup")
 public class Group {
 
 	/**
@@ -33,7 +33,7 @@ public class Group {
 	 */
 	@NotNull
 	@ManyToOne()
-	@JoinColumn(name = "idGroup", nullable = false)
+	@JoinColumn(name = "pid", nullable = false)
 	private Employee leader;
 
 	/**
@@ -43,7 +43,7 @@ public class Group {
 	@JoinTable(
 			name = "EmployeeGroup",
 			joinColumns = @JoinColumn(name = "idGroup"),
-			inverseJoinColumns = @JoinColumn(name = "idGroup"))
+			inverseJoinColumns = @JoinColumn(name = "pid"))
 	private Set<Employee> members;
 
 	/**

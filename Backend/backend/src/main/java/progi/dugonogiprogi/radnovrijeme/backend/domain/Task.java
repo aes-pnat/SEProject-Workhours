@@ -80,7 +80,7 @@ public class Task {
 	 * Job that this task belongs to.
 	 */
 	@ManyToOne
-	@JoinColumn(name = "idTask", nullable = false)
+	@JoinColumn(name = "idJob", nullable = false)
 	private Job belongsTo;
 
 	/**
@@ -88,7 +88,7 @@ public class Task {
 	 * this value stores location of a task.
 	 */
 	@ManyToOne
-	@JoinColumn(name = "idTask", nullable = false)
+	@JoinColumn(name = "idLocation", nullable = false)
 	private Location location;
 
 	/**

@@ -1,17 +1,16 @@
 package progi.dugonogiprogi.radnovrijeme.backend.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface EmployeeRepository {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Employee findByUsername(String username);
 
-    List<Employee> listAll();
-
-    Employee findByIdEmployee(Long idEmployee);
+    Employee findByPid(String pid);
 }
