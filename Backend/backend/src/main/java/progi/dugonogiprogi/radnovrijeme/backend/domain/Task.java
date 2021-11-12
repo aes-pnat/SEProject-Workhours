@@ -46,6 +46,8 @@ public class Task {
 	/**
 	 * Date and time when a task ended.
 	 */
+
+	@NotNull
 	@DateTimeFormat
 	private Date dateTimeEnd;
 
