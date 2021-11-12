@@ -45,8 +45,8 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public void assignTask(Task task, String idEmployee) {
-        Employee worker = this.fetchEmployee(idEmployee);
+    public void assignTask(Task task, String pid) {
+        Employee worker = this.fetchEmployee(pid);
         Set<Task> tasks = worker.getTasks();
         tasks.add(task);
         worker.setTasks(tasks);
@@ -69,7 +69,7 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public boolean add(Long idGroup, Employee employee) {
         Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findByEmployeeId(employee.getPid())!=null) {
+        if(workerRepo.findByPid(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.add(newWorker);
@@ -84,7 +84,7 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public boolean remove(Long idGroup, Employee employee) {
         Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findByEmployeeId(employee.getPid())!=null) {
+        if(workerRepo.findByPid(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.remove(newWorker);
@@ -116,8 +116,8 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public Optional<Employee> findByEmployeeId(String idEmployee) {
-        return workerRepo.findByEmployeeId(idEmployee);
+    public Optional<Employee> findByEmployeeId(String pid) {
+        return workerRepo.findByPid(pid);
     }
 
     @Override

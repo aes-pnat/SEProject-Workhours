@@ -12,9 +12,7 @@ import java.util.Optional;
 
 /**
  * Specifies how certain business functionalities should be provided.
- *
  */
-
 @Service
 public interface GroupService {
 
@@ -24,7 +22,6 @@ public interface GroupService {
      * @param name String you want to use as a group name
      * @param leader Employee set as leader of a group
      */
-
     void createGroup(String name, Employee leader);
 
     void assignJob(Job job, Long idGroup);
@@ -35,7 +32,6 @@ public interface GroupService {
      * @param task Task given to an employee
      * @param idEmployee Long value of an employee identification number
      */
-
     void assignTask(Task task, String idEmployee);
 
     /**
@@ -45,7 +41,6 @@ public interface GroupService {
      * @param idNewEmployee Long value of an identification number that belongs to replaced employee
      * @param idOldEmployee Long value of an identification number that belongs to an added employee
      */
-
     void edit(Long idGroup, String idNewEmployee, String idOldEmployee);
 
     /**
@@ -53,7 +48,6 @@ public interface GroupService {
      *
      * @param idGroup Long value of group identification number
      */
-
     void delete(Long idGroup);
 
     /**
@@ -63,7 +57,6 @@ public interface GroupService {
      * @param worker Employee being added to a group
      * @return true if selected employee isn't already in a selected group, false otherwise
      */
-
     boolean add(Long idGroup, Employee worker);
 
     /**
@@ -73,7 +66,6 @@ public interface GroupService {
      * @param worker Employee being removed from group
      * @return true if selected employee is in a selected group, false otherwise
      */
-
     boolean remove(Long idGroup, Employee worker);
 
     /**
@@ -82,7 +74,6 @@ public interface GroupService {
      * @param groupId Long value of group identification number
      * @return Group with given identification number
      */
-
     Group fetchGroup(long groupId);
 
     /**
@@ -91,7 +82,6 @@ public interface GroupService {
      * @param idEmployee Long value of an employee identification number
      * @return Employee with given identification number
      */
-
     Employee fetchEmployee(String idEmployee);
 
     /**
@@ -100,7 +90,6 @@ public interface GroupService {
      * @param groupId Long value of group identification number
      * @return Group with given identification number
      */
-
     Optional<Group> findById(long groupId);
 
     /**
@@ -109,7 +98,6 @@ public interface GroupService {
      * @param idEmployee Long value of an employee identification number
      * @return Employee with given identification number
      */
-
     Optional<Employee> findByEmployeeId(String idEmployee);
 
     /**

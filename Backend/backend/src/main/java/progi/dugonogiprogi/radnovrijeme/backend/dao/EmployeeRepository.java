@@ -8,19 +8,18 @@ import java.util.Optional;
 
 /**
  * Repository of employees in a firm.
- *
  */
-
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     /**
-     * Searches database to find requested employee using given identification number.
+     * Searches database to find requested employee using given pid.
      *
-     * @param idEmployee Long value of an identification number of an employee
-     * @return Employee if one with given id is found
+     * @param pid String value of employees personal identification number
+     * @return Employee if one with given pid is found
      */
+    Optional<Employee> findByPid(String pid);
 
-    Optional<Employee> findByEmployeeId(String idEmployee);
+    Employee findByUsername(String username);
 
 }

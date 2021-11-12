@@ -1,7 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import java.sql.Date;
-import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,20 +26,20 @@ public class WorkHoursInput {
 	 * Date of data input.
 	 */
 	@NotNull
-	private Date datum;
+	private Date date;
 	
 	/**
 	 * Number of hours done.
 	 */
 	@NotNull
-	private String brRadnihSati;
+	private String workHoursDone;
 
 	/**
 	 * Employee that inputted work hours.
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	@JoinColumn(name = "pid", nullable = false)
 	private Employee hasDone;
 
 	/**
@@ -48,7 +47,7 @@ public class WorkHoursInput {
 	 */
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "idWorkHoursInput", nullable = false)
+	@JoinColumn(name = "idTask", nullable = false)
 	private Task onTask;
 
 	public Long getIdWorkHoursInput() {
@@ -59,20 +58,20 @@ public class WorkHoursInput {
 		this.idWorkHoursInput = idWorkHoursInput;
 	}
 
-	public Date getDatum() {
-		return datum;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDatum(Date datum) {
-		this.datum = datum;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getBrRadnihSati() {
-		return brRadnihSati;
+	public String getWorkHoursDone() {
+		return workHoursDone;
 	}
 
-	public void setBrRadnihSati(String brRadnihSati) {
-		this.brRadnihSati = brRadnihSati;
+	public void setWorkHoursDone(String workHoursDone) {
+		this.workHoursDone = workHoursDone;
 	}
 
 	public Employee getHasDone() {
