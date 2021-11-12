@@ -6,4 +6,6 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
 
 @Repository
 public interface WorkHoursRepository extends JpaRepository<WorkHoursInput, Long> {
+
+
 }
