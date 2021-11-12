@@ -32,11 +32,11 @@ CREATE TABLE Employee
   FOREIGN KEY (idRole) REFERENCES Role(idRole)
 );
 
-CREATE TABLE Group
+CREATE TABLE "group"
 (
   idGroup SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
-  idLeader INT NOT NULL,
+  idLeader CHAR(11) NOT NULL,
   idJob INT,
   FOREIGN KEY (idLeader) REFERENCES Employee(pid),
   FOREIGN KEY (idJob) REFERENCES Job(idJob)
@@ -68,7 +68,7 @@ CREATE TABLE WorkHoursInput
   idWorkHoursInput SERIAL PRIMARY KEY,
   date DATE NOT NULL,
   workHoursDone SMALLINT NOT NULL,
-  idEmployee INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL,
   idTask INT NOT NULL,
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
   FOREIGN KEY (idTask) REFERENCES Task(idTask)
@@ -76,16 +76,16 @@ CREATE TABLE WorkHoursInput
 
 CREATE TABLE EmployeeGroup
 (
-  idEmployee INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL,
   idGroup INT NOT NULL,
   PRIMARY KEY (idEmployee, idGroup),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
-  FOREIGN KEY (idGroup) REFERENCES Group(idGroup)
+  FOREIGN KEY (idGroup) REFERENCES "group"(idGroup)
 );
 
 CREATE TABLE EmployeeTask
 (
-  idEmployee INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL,
   idTask INT NOT NULL,
   realized SMALLINT,
   PRIMARY KEY (idEmployee, idTask),
