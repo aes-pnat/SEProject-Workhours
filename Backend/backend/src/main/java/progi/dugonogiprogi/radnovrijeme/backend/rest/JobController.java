@@ -21,7 +21,7 @@ public class JobController {
     }
 
     @GetMapping("/details")
-    public String showWorkDetails(@RequestParam Long idJob) {
+    public String showJobDetails(@RequestParam Long idJob) {
         return jobService.showJobDescription(idJob);
     }
 
