@@ -22,7 +22,7 @@ public class Job {
 	 */
 	@Id
 	@GeneratedValue
-	private Long idWork;
+	private Long idJob;
 
 	/**
 	 * Job name.
@@ -48,12 +48,12 @@ public class Job {
 	@OneToMany(mappedBy = "belongsTo")
 	private Set<Task> tasks;
 
-	public Long getIdWork() {
-		return idWork;
+	public Long getIdJob() {
+		return idJob;
 	}
 
-	public void setIdWork(Long idWork) {
-		this.idWork = idWork;
+	public void setIdJob(Long idJob) {
+		this.idJob = idJob;
 	}
 
 	public String getName() {
