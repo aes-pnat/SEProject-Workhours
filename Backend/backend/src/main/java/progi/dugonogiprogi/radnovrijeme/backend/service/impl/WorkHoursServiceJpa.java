@@ -45,4 +45,9 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
         return new WorkHoursInputDTO(employee, workHoursInputList);
     }
+
+    @Override
+    public void inputWorkHours(WorkHoursInput workHoursInput) {
+        workHoursRepository.save(workHoursInput);
+    }
 }

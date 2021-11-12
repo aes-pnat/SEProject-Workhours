@@ -45,6 +45,6 @@ public class WorkHoursController {
 
     @PostMapping("/add")
     public void inputWorkHours(@RequestBody WorkHoursInput workHoursInput) {
-
+        workHoursService.inputWorkHours(workHoursInput);
     }
 }

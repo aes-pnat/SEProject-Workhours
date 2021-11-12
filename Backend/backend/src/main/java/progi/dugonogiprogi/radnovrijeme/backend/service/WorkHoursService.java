@@ -9,10 +9,12 @@ import java.util.List;
 @Service
 public interface WorkHoursService {
 
-    public List<WorkHoursInput> listWorkHoursEmployee(String username);
+    List<WorkHoursInput> listWorkHoursEmployee(String username);
 
-    public List<WorkHoursInputDTO> listAllWorkHours();
+    List<WorkHoursInputDTO> listAllWorkHours();
 
-    public WorkHoursInputDTO workHoursEmployee(Long idEmployee);
+    WorkHoursInputDTO workHoursEmployee(Long idEmployee);
+
+    void inputWorkHours(WorkHoursInput workHoursInput);
 
 }
