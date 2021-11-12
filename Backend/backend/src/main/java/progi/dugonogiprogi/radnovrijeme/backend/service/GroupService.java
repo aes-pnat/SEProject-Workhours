@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Specifies how certain business functionalities should be provided
+ * Specifies how certain business functionalities should be provided.
  *
  */
 
@@ -19,7 +19,7 @@ import java.util.Optional;
 public interface GroupService {
 
     /**
-     * Creates a new group with given name and a leader
+     * Creates a new group with given name and a leader.
      *
      * @param name String you want to use as a group name
      * @param leader Employee set as leader of a group
@@ -30,7 +30,7 @@ public interface GroupService {
     void assignJob(Job job, Long idGroup);
 
     /**
-     * Assigns task to an employee of a group
+     * Assigns task to an employee of a group.
      *
      * @param task Task given to an employee
      * @param idEmployee Long value of an employee identification number
@@ -39,7 +39,7 @@ public interface GroupService {
     void assignTask(Task task, String idEmployee);
 
     /**
-     * Edits selected group parameters
+     * Edits selected group parameters.
      *
      * @param idGroup Long value of group identification number
      * @param idNewEmployee Long value of an identification number that belongs to replaced employee
@@ -49,7 +49,7 @@ public interface GroupService {
     void edit(Long idGroup, String idNewEmployee, String idOldEmployee);
 
     /**
-     * Deletes selected group
+     * Deletes selected group.
      *
      * @param idGroup Long value of group identification number
      */
@@ -57,7 +57,7 @@ public interface GroupService {
     void delete(Long idGroup);
 
     /**
-     * Adds selected employee to selected group
+     * Adds selected employee to selected group.
      *
      * @param idGroup Long value of group identification number
      * @param worker Employee being added to a group
@@ -67,7 +67,7 @@ public interface GroupService {
     boolean add(Long idGroup, Employee worker);
 
     /**
-     * Removes selected employee from a selected group
+     * Removes selected employee from a selected group.
      *
      * @param idGroup Long value of group identification number
      * @param worker Employee being removed from group
@@ -77,7 +77,7 @@ public interface GroupService {
     boolean remove(Long idGroup, Employee worker);
 
     /**
-     * Passes given id of a group to a method that uses group repository to find requested Group
+     * Passes given id of a group to a method that uses group repository to find requested Group.
      *
      * @param groupId Long value of group identification number
      * @return Group with given identification number
@@ -86,7 +86,7 @@ public interface GroupService {
     Group fetchGroup(long groupId);
 
     /**
-     * Passes given id of an employee to a method that uses employee        repository to find requested Employee
+     * Passes given id of an employee to a method that uses employee repository to find requested Employee.
      *
      * @param idEmployee Long value of an employee identification number
      * @return Employee with given identification number
@@ -95,7 +95,7 @@ public interface GroupService {
     Employee fetchEmployee(String idEmployee);
 
     /**
-     * Searches for a group with given id in a group repository
+     * Searches for a group with given id in a group repository.
      *
      * @param groupId Long value of group identification number
      * @return Group with given identification number
@@ -104,7 +104,7 @@ public interface GroupService {
     Optional<Group> findById(long groupId);
 
     /**
-     * Searches for an Employee with given id in an employee repository
+     * Searches for an Employee with given id in an employee repository.
      *
      * @param idEmployee Long value of an employee identification number
      * @return Employee with given identification number
@@ -113,7 +113,7 @@ public interface GroupService {
     Optional<Employee> findByEmployeeId(String idEmployee);
 
     /**
-     * Returns selected group
+     * Returns selected group.
      *
      * @param idGroup Long value of group identification number
      * @return selected Group
@@ -121,7 +121,7 @@ public interface GroupService {
     Group returnGroup(Long idGroup);
 
     /**
-     * Returns a list of all existing groups
+     * Returns a list of all existing groups.
      *
      * @return List of all groups from a group repository
      */

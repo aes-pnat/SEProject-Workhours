@@ -6,7 +6,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import java.util.Optional;
 
 /**
- * Repository of groups in a firm
+ * Repository of groups in a firm.
  *
  */
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface GroupRepository extends JpaRepository<Group,Long> {
 
     /**
-     * Searches database to find requested group using given name
+     * Searches database to find requested group using given name.
      *
      * @param groupName String name of a group
      * @return Group if one with given name is found
@@ -23,7 +23,7 @@ public interface GroupRepository extends JpaRepository<Group,Long> {
     Optional<Group> findByName(String groupName);
 
     /**
-     * Searches database to find requested group using given identification number
+     * Searches database to find requested group using given identification number.
      *
      * @param idGroup Long value of an identification number of a group
      * @return Group if one with given id is found

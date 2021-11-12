@@ -10,7 +10,7 @@ import java.util.List;
 //import org.springframework.security.access.annotation.Secured;
 
 /**
- *  Handles requests for the application Group page
+ *  Handles requests for the application Group page.
  *
  */
 
@@ -26,7 +26,7 @@ public class GroupController {
     public GroupService groupService;
 
     /**
-     * Handles HTTP request for group creation
+     * Handles HTTP request for group creation.
      *
      * @param name String you want to use as a group name
      * @param leader Employee set as leader of a group
@@ -39,7 +39,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for assigning a job to a selected group
+     * Handles HTTP request for assigning a job to a selected group.
      *
      * @param job Job that a group will be doing
      * @param idGroup Long value of group identification number
@@ -51,7 +51,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for assigning a task to selected employee
+     * Handles HTTP request for assigning a task to selected employee.
      *
      * @param task Task given to an employee
      * @param idEmployee Long value of an employee identification number
@@ -63,7 +63,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for editing selected group settings
+     * Handles HTTP request for editing selected group settings.
      *
      * @param idGroup Long value of group identification number
      * @param idNewEmployee Long value of an identification number that belongs to replaced employee
@@ -76,7 +76,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for deleting a selected group
+     * Handles HTTP request for deleting a selected group.
      *
      * @param idGroup Long value of group identification number
      */
@@ -86,7 +86,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for adding new employee to a selected group
+     * Handles HTTP request for adding new employee to a selected group.
      *
      * @param idGroup Long value of group identification number
      * @param worker Employee being added to a group
@@ -99,7 +99,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request for removing selected employee from a selected group
+     * Handles HTTP request for removing selected employee from a selected group.
      *
      * @param idGroup Long value of group identification number
      * @param worker Employee being removed from group
@@ -112,7 +112,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request to view details of a selected group
+     * Handles HTTP request to view details of a selected group.
      *
      * @param idGroup Long value of group identification number
      * @return selected Group
@@ -124,7 +124,7 @@ public class GroupController {
     }
 
     /**
-     * Handles HTTP request to view all groups
+     * Handles HTTP request to view all groups.
      *
      * @return List of all groups from a group repository
      */

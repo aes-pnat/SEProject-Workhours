@@ -7,7 +7,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import java.util.Optional;
 
 /**
- * Repository of employees in a firm
+ * Repository of employees in a firm.
  *
  */
 
@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     /**
-     * Searches database to find requested employee using given identification number
+     * Searches database to find requested employee using given identification number.
      *
      * @param idEmployee Long value of an identification number of an employee
      * @return Employee if one with given id is found

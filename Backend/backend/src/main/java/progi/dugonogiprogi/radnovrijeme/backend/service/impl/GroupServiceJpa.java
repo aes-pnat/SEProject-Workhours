@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Provides some business functionalities
+ * Provides some business functionalities.
  *
  */
 
