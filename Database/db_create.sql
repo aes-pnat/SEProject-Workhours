@@ -1,98 +1,97 @@
-CREATE TABLE Djelatnost
+CREATE TABLE Job
 (
-  idDjelatnost SERIAL PRIMARY KEY,
-  naziv VARCHAR(100) NOT NULL,
-  opis TEXT
+  idJob SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  description TEXT
 );
 
-CREATE TABLE Lokacija
+CREATE TABLE Location
 (
-  idLokacija SERIAL PRIMARY KEY,
-  adresa VARCHAR(100),
-  mjesto VARCHAR(50),
-  lat DECIMAL(8, 6) NOT NULL,
-  long DECIMAL(9, 6) NOT NULL
+  idLocation SERIAL PRIMARY KEY,
+  address VARCHAR(100),
+  placeName VARCHAR(50),
+  latitude DECIMAL(8, 6) NOT NULL,
+  longitude DECIMAL(9, 6) NOT NULL
 );
 
-CREATE TABLE Uloga
+CREATE TABLE Role
 (
-  idUloga SERIAL PRIMARY KEY,
-  naziv VARCHAR(50) NOT NULL
+  idRole SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Djelatnik
+CREATE TABLE Employee
 (
-  idDjelatnik SERIAL PRIMARY KEY,
-  ime VARCHAR(50) NOT NULL,
-  prezime VARCHAR(50) NOT NULL,
-  email VARCHAR(50) UNIQUE NOT NULL,
-  lozinka VARCHAR(50) NOT NULL,
-  korisnickoIme VARCHAR(50) UNIQUE NOT NULL,
-  oib CHAR(11) UNIQUE NOT NULL,
-  idUloga INT NOT NULL,
-  FOREIGN KEY (idUloga) REFERENCES Uloga(idUloga)
+  pid CHAR(11) PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  surname VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  password VARCHAR(50) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  idRole INT NOT NULL,
+  FOREIGN KEY (idRole) REFERENCES Role(idRole)
 );
 
-CREATE TABLE Grupa
+CREATE TABLE "group"
 (
-  idGrupa SERIAL PRIMARY KEY,
-  naziv VARCHAR(100) NOT NULL,
-  idVoditelj INT NOT NULL,
-  idDjelatnost INT,
-  FOREIGN KEY (idVoditelj) REFERENCES Djelatnik(idDjelatnik),
-  FOREIGN KEY (idDjelatnost) REFERENCES Djelatnost(idDjelatnost)
+  idGroup SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  idLeader CHAR(11) NOT NULL,
+  idJob INT,
+  FOREIGN KEY (idLeader) REFERENCES Employee(pid),
+  FOREIGN KEY (idJob) REFERENCES Job(idJob)
 );
 
-CREATE TABLE Zadatak
+CREATE TABLE Task
 (
-  idZadatak SERIAL PRIMARY KEY,
-  naziv VARCHAR(100) NOT NULL,
-  opis TEXT,
-  datumVrijemePocetka TIMESTAMP NOT NULL,
-  datumVrijemeZavrsetka TIMESTAMP NOT NULL,
-  procjenaBrojaSati SMALLINT,
-  planiranaDobit FLOAT,
-  realiziranaDobit FLOAT,
-  planiraniTrosak FLOAT,
-  realiziraniTrosak FLOAT,
-  idDjelatnost INT,
-  idLokacija INT,
-  FOREIGN KEY (idDjelatnost) REFERENCES Djelatnost(idDjelatnost),
-  FOREIGN KEY (idLokacija) REFERENCES Lokacija(idLokacija),
-  CONSTRAINT chkPocetakZavrsetak CHECK (
-      datumVrijemePocetka <= datumVrijemeZavrsetka
+  idTask SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  dateTimeStart TIMESTAMP NOT NULL,
+  dateTimeEnd TIMESTAMP NOT NULL,
+  hoursNeededEstimate SMALLINT,
+  plannedProfit FLOAT,
+  realizedProfit FLOAT,
+  plannedCost FLOAT,
+  realizedCost FLOAT,
+  idJob INT,
+  idLocation INT,
+  FOREIGN KEY (idJob) REFERENCES Job(idJob),
+  FOREIGN KEY (idLocation) REFERENCES Location(idLocation),
+  CONSTRAINT chkStartEnd CHECK (
+      dateTimeStart <= dateTimeEnd
   )
 );
 
-CREATE TABLE UnosRadnihSati
+CREATE TABLE WorkHoursInput
 (
-  idUnos SERIAL PRIMARY KEY,
-  datum DATE NOT NULL,
-  brRadnihSati SMALLINT NOT NULL,
-  idDjelatnik INT NOT NULL,
-  idZadatak INT NOT NULL,
-  FOREIGN KEY (idDjelatnik) REFERENCES Djelatnik(idDjelatnik),
-  FOREIGN KEY (idZadatak) REFERENCES Zadatak(idZadatak)
+  idWorkHoursInput SERIAL PRIMARY KEY,
+  date DATE NOT NULL,
+  workHoursDone SMALLINT NOT NULL,
+  idEmployee CHAR(11) NOT NULL,
+  idTask INT NOT NULL,
+  FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
+  FOREIGN KEY (idTask) REFERENCES Task(idTask)
 );
 
-CREATE TABLE DjelatnikGrupa
+CREATE TABLE EmployeeGroup
 (
-  idDjelatnik INT NOT NULL,
-  idGrupa INT NOT NULL,
-  PRIMARY KEY (idDjelatnik, idGrupa),
-  FOREIGN KEY (idDjelatnik) REFERENCES Djelatnik(idDjelatnik),
-  FOREIGN KEY (idGrupa) REFERENCES Grupa(idGrupa)
+  idEmployee CHAR(11) NOT NULL,
+  idGroup INT NOT NULL,
+  PRIMARY KEY (idEmployee, idGroup),
+  FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
+  FOREIGN KEY (idGroup) REFERENCES "group"(idGroup)
 );
 
-CREATE TABLE DjelatnikZadatak
+CREATE TABLE EmployeeTask
 (
-  idDjelatnik INT NOT NULL,
-  idZadatak INT NOT NULL,
-  realizacija SMALLINT,
-  PRIMARY KEY (idDjelatnik, idZadatak),
-  FOREIGN KEY (idDjelatnik) REFERENCES Djelatnik(idDjelatnik),
-  FOREIGN KEY (idZadatak) REFERENCES Zadatak(idZadatak),
-  CONSTRAINT chkRealizacija CHECK (
-      realizacija BETWEEN 0 AND 100
+  idEmployee CHAR(11) NOT NULL,
+  idTask INT NOT NULL,
+  realized SMALLINT,
+  PRIMARY KEY (idEmployee, idTask),
+  FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
+  FOREIGN KEY (idTask) REFERENCES Task(idTask),
+  CONSTRAINT chkRealized CHECK (
+      realized BETWEEN 0 AND 100
   )
 );
