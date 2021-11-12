@@ -3,6 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+
 import java.util.Optional;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Optional;
  */
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group,Long> {
+public interface GroupRepository extends JpaRepository<Group, Long> {
 
     /**
      * Searches database to find requested group using given name.
@@ -19,7 +20,6 @@ public interface GroupRepository extends JpaRepository<Group,Long> {
      * @param groupName String name of a group
      * @return Group if one with given name is found
      */
-
     Optional<Group> findByName(String groupName);
 
     /**
@@ -28,8 +28,5 @@ public interface GroupRepository extends JpaRepository<Group,Long> {
      * @param idGroup Long value of an identification number of a group
      * @return Group if one with given id is found
      */
-
     Optional<Group> findById(Long idGroup);
-
-
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
  * Repository of employees in a firm.
  */
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, String> {
 
     /**
      * Searches database to find requested employee using given pid.

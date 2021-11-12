@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  * Every group has a leader. He assigns tasks for the given job.
  * @author Bernard
  */
-@Entity(name = "SGroup")
+@Entity(name = "SGROUP")
 public class Group {
 
 	/**
