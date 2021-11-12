@@ -12,4 +12,6 @@ public interface EmployeeRepository {
     Employee findByUsername(String username);
 
     List<Employee> listAll();
+
+    Employee findByIdEmployee(Long idEmployee);
 }

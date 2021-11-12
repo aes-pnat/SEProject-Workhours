@@ -37,4 +37,12 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
         return returnList;
     }
+
+    @Override
+    public WorkHoursInputDTO workHoursEmployee(Long idEmployee) {
+        Employee employee = employeeRepository.findByIdEmployee(idEmployee);
+        List<WorkHoursInput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
+
+        return new WorkHoursInputDTO(employee, workHoursInputList);
+    }
 }

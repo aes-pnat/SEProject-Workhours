@@ -13,4 +13,6 @@ public interface WorkHoursService {
 
     public List<WorkHoursInputDTO> listAllWorkHours();
 
+    public WorkHoursInputDTO workHoursEmployee(Long idEmployee);
+
 }
