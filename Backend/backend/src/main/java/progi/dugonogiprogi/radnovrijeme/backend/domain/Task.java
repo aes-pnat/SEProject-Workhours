@@ -59,22 +59,22 @@ public class Task {
 	/**
 	 * Planned profit on a task.
 	 */
-	private Float plannedProfit;
+	private Double plannedProfit;
 
 	/**
 	 * Realized profit on a task.
 	 */
-	private Float realizedProfit;
+	private Double realizedProfit;
 
 	/**
 	 * Planned cost of a task.
 	 */
-	private Float plannedCost;
+	private Double plannedCost;
 
 	/**
 	 * Realized cost of a task.
 	 */
-	private Float realizedCost;
+	private Double realizedCost;
 
 	/**
 	 * Job that this task belongs to.
