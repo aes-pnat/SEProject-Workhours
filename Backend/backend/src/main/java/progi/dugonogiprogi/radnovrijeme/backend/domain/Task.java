@@ -183,35 +183,35 @@ public class Task {
 		this.hoursInputs = hoursInputs;
 	}
 
-	public Float getPlannedProfit() {
+	public Double getPlannedProfit() {
 		return plannedProfit;
 	}
 
-	public void setPlannedProfit(Float plannedProfit) {
+	public void setPlannedProfit(Double plannedProfit) {
 		this.plannedProfit = plannedProfit;
 	}
 
-	public Float getRealizedProfit() {
+	public Double getRealizedProfit() {
 		return realizedProfit;
 	}
 
-	public void setRealizedProfit(Float realizedProfit) {
+	public void setRealizedProfit(Double realizedProfit) {
 		this.realizedProfit = realizedProfit;
 	}
 
-	public Float getPlannedCost() {
+	public Double getPlannedCost() {
 		return plannedCost;
 	}
 
-	public void setPlannedCost(Float plannedCost) {
+	public void setPlannedCost(Double plannedCost) {
 		this.plannedCost = plannedCost;
 	}
 
-	public Float getRealizedCost() {
+	public Double getRealizedCost() {
 		return realizedCost;
 	}
 
-	public void setRealizedCost(Float realizedCost) {
+	public void setRealizedCost(Double realizedCost) {
 		this.realizedCost = realizedCost;
 	}
 }
