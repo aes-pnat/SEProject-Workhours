@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TasksDTO> listTaskEmployee(String username) {
-        Employee employee = employeeRepository.findByUsername(username);
+        Employee employee = employeeRepository.findByUsername(username).get();
         Set<Group> memberOf = employee.getIsMember();
         List<TasksDTO> returnList = new ArrayList<>();
 

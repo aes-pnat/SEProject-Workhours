@@ -23,7 +23,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Override
     public List<WorkHoursInput> listWorkHoursEmployee(String username) {
-        return workHoursRepository.findByHasDoneEquals(employeeRepository.findByUsername(username));
+        return workHoursRepository.findByHasDoneEquals(employeeRepository.findByUsername(username).get());
     }
 
     @Override
