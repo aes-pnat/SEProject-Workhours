@@ -1,7 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeDao;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 
 import java.util.List;
@@ -14,10 +13,12 @@ public interface EmployeeService {
 
     public Optional<Employee> getASingleEmployee(String employeeId);
 
+//    public Employee updateEmployee(String employeeId, Employee employee);
+
     public Employee createEmployee(Employee employee);
 
     public void deleteEmployee(String employeeId);
 
-
+//   public viewOccupancy(String employeeId);
 
 }

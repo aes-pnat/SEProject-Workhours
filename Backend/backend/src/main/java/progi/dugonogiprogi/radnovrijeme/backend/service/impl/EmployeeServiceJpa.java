@@ -2,7 +2,6 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeDao;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
@@ -23,8 +22,16 @@ public class EmployeeServiceJpa implements EmployeeService {
 
     @Override
     public Optional<Employee> getASingleEmployee(String employeeId) {
-        return employeeRepository.findByPid(employeeId);
+        return employeeRepository.findById(employeeId);
     }
+
+//    @Override
+//    public Employee updateEmployee(String employeeId, Employee employee) {
+//        Optional<Employee> existingEmployee = employeeRepository.findById(employeeId);
+//        if (!existingEmployee.isEmpty()) {
+//        }
+//        return null;
+//    }
 
     @Override
     public Employee createEmployee(Employee employee){
