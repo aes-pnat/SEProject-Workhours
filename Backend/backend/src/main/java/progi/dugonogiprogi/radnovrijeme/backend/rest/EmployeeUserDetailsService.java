@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -22,6 +24,9 @@ public class EmployeeUserDetailsService implements UserDetailsService {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Employee user = employeeRepository.findByUsername(username).get();
@@ -32,7 +37,7 @@ public class EmployeeUserDetailsService implements UserDetailsService {
             authorityList.add(new SimpleGrantedAuthority("ROLE_OWNER"));
             return new User(
                     user.getUsername(),
-                    user.getPassword(),
+                    passwordEncoder.encode(user.getPassword()),
                     authorityList
             );
         }
