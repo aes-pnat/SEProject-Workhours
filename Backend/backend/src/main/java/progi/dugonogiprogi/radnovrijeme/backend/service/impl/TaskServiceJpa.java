@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceJpa implements TaskService {
 
     @Autowired
     EmployeeRepository employeeRepository;
