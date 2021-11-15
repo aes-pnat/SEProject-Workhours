@@ -19,9 +19,9 @@ public class ProfileDetailsController {
     private EmployeeService employeeService;
 
     @GetMapping("")
-    Optional<Employee> showThisEmployee() {
+    public Optional<Employee> showThisEmployee() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return employeeService.getASingleEmployee((String)auth.getPrincipal());
+        return employeeService.getASingleEmployee(auth.getName());
     }
 
 

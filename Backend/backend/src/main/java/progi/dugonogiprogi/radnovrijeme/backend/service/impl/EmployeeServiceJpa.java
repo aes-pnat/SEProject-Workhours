@@ -10,6 +10,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -25,7 +26,7 @@ public class EmployeeServiceJpa implements EmployeeService {
     }
 
     @Override
-    public Employee getASingleEmployee(String employeeUsername) {
+    public Optional<Employee> getASingleEmployee(String employeeUsername) {
         return employeeRepository.findByUsername(employeeUsername);
     }
 

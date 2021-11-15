@@ -5,13 +5,14 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.OccupancyDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface EmployeeService {
 
     List<Employee> listAllEmployees();
 
-    Employee getASingleEmployee(String employeeUsername
+    Optional<Employee> getASingleEmployee(String employeeUsername
     );
 
 //  Employee updateEmployee(String employeeId, Employee employee);
