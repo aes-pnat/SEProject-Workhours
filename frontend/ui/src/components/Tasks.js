@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Navbar from './Navbar';
 function Tasks(){
     const [data, setData] = useState([]);
-    var API_URI = "http://localhost:8080/jobs";
+    var API_URI = "http://localhost:8080/moneymanagement";
     const getTasks = () => {
         fetch(API_URI,
         {
@@ -30,9 +30,8 @@ function Tasks(){
         console.log("error u tasks");
     }
     
-
     return (
-        <label>Forma za odabir zaposlenika...</label>
+        <label>{data.plannedDifference}</label>
     ); 
 }
 

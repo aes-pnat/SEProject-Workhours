@@ -22,6 +22,7 @@ public class LoginController {
 
     @PostMapping("")
     public String logIn() {
+        System.out.println(loginService.logIn());
         return loginService.logIn();
     }
 }

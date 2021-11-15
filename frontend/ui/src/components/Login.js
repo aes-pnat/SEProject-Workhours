@@ -32,7 +32,7 @@ function Login(){
                                 value={inputs.username || ""} 
                                 onChange={handleChange} />
             <label>Unesite zaporku:</label>
-            <input type="text"  name="password"
+            <input type="password"  name="password"
                                 value={inputs.password || ""}
                                 onChange={handleChange} />
             <input type="submit" />
