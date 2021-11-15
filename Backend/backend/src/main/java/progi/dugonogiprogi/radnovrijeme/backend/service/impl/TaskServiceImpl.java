@@ -7,7 +7,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.TasksDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TasksDTO> listTaskEmployee(String username) {
-        Employee employee = employeeRepository.findByUsername(username);
+        Employee employee = employeeRepository.findByUsername(username).get();
         Set<Group> memberOf = employee.getIsMember();
         List<TasksDTO> returnList = new ArrayList<>();
 

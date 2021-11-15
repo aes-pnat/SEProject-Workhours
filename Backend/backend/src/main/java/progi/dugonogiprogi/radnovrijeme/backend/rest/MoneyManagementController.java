@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 
 /**

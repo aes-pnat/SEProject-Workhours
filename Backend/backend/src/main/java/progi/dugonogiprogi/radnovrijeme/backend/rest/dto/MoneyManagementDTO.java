@@ -1,4 +1,4 @@
-package progi.dugonogiprogi.radnovrijeme.backend.rest;
+package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 
