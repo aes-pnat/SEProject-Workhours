@@ -24,6 +24,8 @@ public class EmployeeUserDetailsService implements UserDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Employee user = employeeRepository.findByUsername(username).get();
