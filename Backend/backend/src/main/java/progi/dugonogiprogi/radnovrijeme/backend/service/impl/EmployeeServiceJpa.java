@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -16,11 +17,13 @@ public class EmployeeServiceJpa implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Secured("ROLE_OWNER")
     @Override
     public List<Employee> listAllEmployees(){
         return employeeRepository.findAll();
     }
 
+    @Secured("ROLE_OWNER")
     @Override
     public Optional<Employee> getASingleEmployee(String employeeId) {
         return employeeRepository.findById(employeeId);

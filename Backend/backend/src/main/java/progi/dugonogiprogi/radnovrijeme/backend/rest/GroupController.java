@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
@@ -29,7 +30,7 @@ public class GroupController {
      * @param name String you want to use as a group name
      * @param leader Employee set as leader of a group
      */
-    //@Secured("OWNER")
+    @Secured("ROLE_OWNER")
     @PutMapping("/create")
     public void createGroup(@RequestBody String name, Employee leader) {
         groupService.createGroup(name, leader);
@@ -41,6 +42,8 @@ public class GroupController {
      * @param job Job that a group will be doing
      * @param idGroup Long value of group identification number
      */
+
+    @Secured("ROLE_OWNER")
     @PutMapping("/{idGroup}/assignJob")
     public void assignJob(@RequestBody Job job, @PathVariable("idGroup") Long idGroup) {
         groupService.assignJob(job, idGroup);
@@ -52,6 +55,7 @@ public class GroupController {
      * @param task Task given to an employee
      * @param idEmployee Long value of an employee identification number
      */
+    @Secured("ROLE_LEADER")
     @PutMapping("/{idEmployee}/assignTask")
     public void assignTask(Task task, @PathVariable("idEmployee") String idEmployee) {
         groupService.assignTask(task, idEmployee);
@@ -64,6 +68,7 @@ public class GroupController {
      * @param idNewEmployee Long value of an identification number that belongs to replaced employee
      * @param idOldEmployee Long value of an identification number that belongs to an added employee
      */
+    @Secured("ROLE_OWNER")
     @PatchMapping("/{idGroup}/edit")
     public void edit(@PathVariable("idGroup") Long idGroup, String idNewEmployee, String idOldEmployee){
         groupService.edit(idGroup, idNewEmployee, idOldEmployee);
@@ -74,6 +79,7 @@ public class GroupController {
      *
      * @param idGroup Long value of group identification number
      */
+    @Secured("ROLE_OWNER")
     @DeleteMapping("/{idGroup}/delete")
     public void delete(@PathVariable("idGroup") Long idGroup) {
         groupService.delete(idGroup);
@@ -86,6 +92,7 @@ public class GroupController {
      * @param worker Employee being added to a group
      * @return true if selected employee isn't already in a selected group, false otherwise
      */
+    @Secured("ROLE_OWNER")
     @PutMapping("/{idGroup}/add")
     public boolean add(@PathVariable("idGroup") Long idGroup, @RequestBody Employee worker){
         return groupService.add(idGroup,worker);
@@ -98,6 +105,7 @@ public class GroupController {
      * @param worker Employee being removed from group
      * @return true if selected employee is in a selected group, false otherwise
      */
+    @Secured("ROLE_LEADER")
     @DeleteMapping("/{idGroup}/remove")
     public boolean remove(@PathVariable("idGroup") Long idGroup, @RequestBody Employee worker){
         return groupService.remove(idGroup,worker);
@@ -109,6 +117,7 @@ public class GroupController {
      * @param idGroup Long value of group identification number
      * @return selected Group
      */
+    @Secured("ROLE_USER")
     @GetMapping("/{idGroup}")
     public Group returnGroup(@PathVariable("idGroup") Long idGroup) {
         return groupService.returnGroup(idGroup);
@@ -119,6 +128,7 @@ public class GroupController {
      *
      * @return List of all groups from a group repository
      */
+    @Secured("ROLE_OWNER")
     @GetMapping("")
     public List<Group> returnAllGroups() {
         return groupService.returnAllGroups();

@@ -35,7 +35,7 @@ public interface WorkHoursService {
     WorkHoursInputDTO workHoursEmployee(String pid);
 
     /**
-     * This method recieves work hours input and stores it in database.
+     * This method receives work hours input and stores it in database.
      * @param workHoursInput work hours input that needs to be stored.
      */
     void inputWorkHours(WorkHoursInput workHoursInput);
