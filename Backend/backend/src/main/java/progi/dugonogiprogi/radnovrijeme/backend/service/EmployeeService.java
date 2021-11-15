@@ -16,8 +16,6 @@ public interface EmployeeService {
 
     public Employee createEmployee(Employee employee);
 
-    public Optional<Employee> updateEmployee(String employeeId, EmployeeDao employeeDao);
-
     public void deleteEmployee(String employeeId);
 
 

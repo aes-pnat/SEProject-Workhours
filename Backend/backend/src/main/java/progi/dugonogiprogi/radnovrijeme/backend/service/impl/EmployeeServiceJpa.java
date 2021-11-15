@@ -27,16 +27,8 @@ public class EmployeeServiceJpa implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> updateEmployee(String employeeId, EmployeeDao employeeDao) {
-        Optional<Employee> employee = employeeRepository.findByPid(employeeId);
-        if (!employee.isEmpty()){
-        }
-        return employee;
-    }
-
-    @Override
     public Employee createEmployee(Employee employee){
-        return null;
+        return employeeRepository.save(employee);
     }
 
     @Override

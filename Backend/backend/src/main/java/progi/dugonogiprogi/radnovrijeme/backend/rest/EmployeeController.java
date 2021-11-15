@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
@@ -10,11 +11,8 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
-
-    public EmployeeController(@Qualifier("employeeService") EmployeeService service) {
-        this.employeeService = service;
-    }
+    @Autowired
+    private EmployeeService employeeService;
 
     @PostMapping("")
     Employee newEmployee(@RequestBody Employee newEmployee) {
