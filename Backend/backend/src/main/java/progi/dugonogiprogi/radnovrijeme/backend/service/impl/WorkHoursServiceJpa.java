@@ -40,7 +40,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Override
     public WorkHoursInputDTO workHoursEmployee(String pid) {
-        Employee employee = employeeRepository.findByPid(pid).get();
+        Employee employee = employeeRepository.findById(pid).get();
         List<WorkHoursInput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
 
         return new WorkHoursInputDTO(employee, workHoursInputList);

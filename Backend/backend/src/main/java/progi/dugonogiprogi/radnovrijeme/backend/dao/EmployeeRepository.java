@@ -6,19 +6,8 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 
 import java.util.Optional;
 
-/**
- * Repository of employees in a firm.
- */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-
-    /**
-     * Searches database to find requested employee using given pid.
-     *
-     * @param pid String value of employees personal identification number
-     * @return Employee if one with given pid is found
-     */
-    Optional<Employee> findByPid(String pid);
 
     Employee findByUsername(String username);
 

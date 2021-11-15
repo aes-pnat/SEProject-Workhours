@@ -69,7 +69,7 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public boolean add(Long idGroup, Employee employee) {
         Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findByPid(employee.getPid())!=null) {
+        if(workerRepo.findById(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.add(newWorker);
@@ -84,7 +84,7 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public boolean remove(Long idGroup, Employee employee) {
         Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findByPid(employee.getPid())!=null) {
+        if(workerRepo.findById(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.remove(newWorker);
@@ -117,7 +117,7 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public Optional<Employee> findByEmployeeId(String pid) {
-        return workerRepo.findByPid(pid);
+        return workerRepo.findById(pid);
     }
 
     @Override

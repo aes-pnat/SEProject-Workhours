@@ -7,66 +7,42 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Class employee represents an employee in the company.
+ * Class employee represents an generic employee in the company.
+ * Afterwards employees are differentiated by roles.
  * @author Bernard
  */
+
 @Entity
 public class Employee {
 
-	/**
-	 * PID of employee.
-	 */
 	@Id
 	@Size(min = 11, max = 11)
 	private String pid;
 
-	/**
-	 * Employee account username.
-	 */
 	@Column(unique = true)
 	@NotNull
 	private String username;
 
-	/**
-	 * Employee account password.
-	 */
 	@NotNull
 	private String password;
 
-	/**
-	 * E-mail of employee.
-	 */
 	@Column(unique = true)
 	@NotNull
 	private String email;
 
-	/**
-	 * Employees name.
-	 */
 	@NotNull
 	private String name;
 
-	/**
-	 * Employees surname.
-	 */
 	@NotNull
 	private String surname;
 
-	/**
-	 * Employees role.
-	 */
 	@ManyToOne
 	@JoinColumn(name = "idRole", nullable = false)
 	private Role role;
 
-	/**
-	 * Groups that has this employee as leader.
-	 */
 	@OneToMany(mappedBy = "leader")
 	private Set<Group> isLeader;
-	/**
-	 *
-	 */
+
 	@ManyToMany(mappedBy = "members")
 	private Set<Group> isMember;
 
@@ -90,17 +66,11 @@ public class Employee {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	public void setUsername(String username) { this.username = username; }
 
-	public String getPassword() {
-		return password;
-	}
+	public String getPassword() { return password; }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public void setPassword(String password) {	this.password = password; }
 
 	public String getPid() {
 		return pid;
@@ -173,4 +143,5 @@ public class Employee {
 	public void setWorkHours(Set<WorkHoursInput> workHours) {
 		this.workHours = workHours;
 	}
+
 }
