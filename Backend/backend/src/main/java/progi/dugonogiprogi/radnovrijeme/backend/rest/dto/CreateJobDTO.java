@@ -1,4 +1,4 @@
-package progi.dugonogiprogi.radnovrijeme.backend.rest;
+package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
 public class CreateJobDTO {
 

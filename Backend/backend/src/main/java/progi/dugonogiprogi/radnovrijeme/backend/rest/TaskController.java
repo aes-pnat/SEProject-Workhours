@@ -5,9 +5,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
 import java.util.List;

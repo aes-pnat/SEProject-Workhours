@@ -2,7 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.WorkHoursInputDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 
 import java.util.List;
 

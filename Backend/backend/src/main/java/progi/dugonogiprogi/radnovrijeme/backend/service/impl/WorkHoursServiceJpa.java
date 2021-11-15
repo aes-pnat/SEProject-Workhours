@@ -6,7 +6,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.WorkHoursInputDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 
 import java.util.ArrayList;

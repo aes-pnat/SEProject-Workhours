@@ -5,6 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 
 /**

@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class Task {
 	 */
 	@NotNull
 	@DateTimeFormat
-	private Date dateTimeStart;
+	private LocalDateTime dateTimeStart;
 
 	/**
 	 * Date and time when a task ended.
@@ -49,7 +50,7 @@ public class Task {
 
 	@NotNull
 	@DateTimeFormat
-	private Date dateTimeEnd;
+	private LocalDateTime dateTimeEnd;
 
 	/**
 	 * Estimate of hours needed to complete a task.
@@ -127,19 +128,19 @@ public class Task {
 		this.description = description;
 	}
 
-	public Date getDateTimeStart() {
+	public LocalDateTime getDateTimeStart() {
 		return dateTimeStart;
 	}
 
-	public void setDateTimeStart(Date dateTimeStart) {
+	public void setDateTimeStart(LocalDateTime dateTimeStart) {
 		this.dateTimeStart = dateTimeStart;
 	}
 
-	public Date getDateTimeEnd() {
+	public LocalDateTime getDateTimeEnd() {
 		return dateTimeEnd;
 	}
 
-	public void setDateTimeEnd(Date dateTimeEnd) {
+	public void setDateTimeEnd(LocalDateTime dateTimeEnd) {
 		this.dateTimeEnd = dateTimeEnd;
 	}
 

@@ -20,4 +20,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
      */
     Optional<Job> findByIdJob(Long idJob);
 
+    int countByName(String name);
+
 }
