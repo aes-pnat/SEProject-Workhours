@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,7 +28,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http)
-            throws Exception {
+            throws Exception {/*
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/")
                 .permitAll()
@@ -39,12 +40,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+        http.httpBasic();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
 
+      http.httpBasic();
+      http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+      http.authorizeRequests().antMatchers("/").permitAll();
+      http.headers().frameOptions().sameOrigin(); // fixes h2-console problem
+      http.csrf().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+        auth.inMemoryAuthentication()
+                .withUser("user1").password(passwordEncoder.encode("user1Pass"))
+                .authorities("ROLE_USER");
+
+        // auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     @Bean

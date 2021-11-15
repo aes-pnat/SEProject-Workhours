@@ -15,8 +15,6 @@ public class LoginService {
 
     public Optional<Employee> getUser(String username, String password) {
         Optional<Employee> e = employeeRepository.findByUsername(username);
-        if(e.get().getPassword().equals(password))
-            return e;
-        return null;
+        return e;
     }
 }
