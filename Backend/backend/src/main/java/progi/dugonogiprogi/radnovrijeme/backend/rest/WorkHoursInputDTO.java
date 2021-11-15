@@ -5,10 +5,25 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
 
 import java.util.List;
 
+/**
+ * Data transfer object that stores all work hours inputs and sum of all hours done for an employee.
+ */
 public class WorkHoursInputDTO {
+    /**
+     * Name of the employee.
+     */
    private String name;
+    /**
+     * Surname of the employee.
+     */
    private String surname;
+   /**
+    * All work hours inputs that employee has inputted.
+    */
    private List<WorkHoursInput> workHoursInput;
+    /**
+     * Sum of all hours the employee has done.
+     */
    private Long hoursDoneSum;
 
    public WorkHoursInputDTO(Employee employee, List<WorkHoursInput> workHoursInput) {

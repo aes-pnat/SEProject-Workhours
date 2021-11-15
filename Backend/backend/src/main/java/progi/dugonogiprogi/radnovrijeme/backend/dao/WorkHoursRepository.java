@@ -8,8 +8,18 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
 
 import java.util.List;
 
+/**
+ * Repository for work hours inputs in a company.
+ */
 @Repository
 public interface WorkHoursRepository extends JpaRepository<WorkHoursInput, Long> {
 
+    /**
+     * Creates a query that will search the database
+     * and find work hours input that was inputted by a given employee.
+     *
+     * @param employee Employee that inputted work hours input.
+     * @return List of all work hours inputs that employee has inputted.
+     */
     List<WorkHoursInput> findByHasDoneEquals(Employee employee);
 }

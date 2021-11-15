@@ -4,12 +4,33 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 
 import java.util.List;
 
+/**
+ * This data transfer object contains financial data about this company.
+ */
 public class MoneyManagementDTO {
+    /**
+     * Field that contains sum of all planned profits for all employees in the company.
+     */
     private Double plannedProfitSum;
+    /**
+     * Field that contains sum of all realized profits for all employees in the company.
+     */
     private Double realizedProfitSum;
+    /**
+     * Field that contains sum of all planned costs for all employees in the company.
+     */
     private Double plannedCostSum;
+    /**
+     * Field that contains sum of all realized costs for all employees in the company.
+     */
     private Double realizedCostSum;
+    /**
+     * Field that contains difference of planned profits and planned costs.
+     */
     private Double plannedDifference;
+    /**
+     * Field that contains difference of realized profits and realized costs.
+     */
     private Double realizedDifference;
 
     public MoneyManagementDTO(List<Task> taskList) {

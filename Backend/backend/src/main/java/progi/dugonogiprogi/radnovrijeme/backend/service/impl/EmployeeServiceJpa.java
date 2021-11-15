@@ -10,7 +10,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
 import java.util.List;
 
 @Service
-public class EmployeServiceJpa implements EmployeeService {
+public class EmployeeServiceJpa implements EmployeeService {
 
     @Autowired
     EmployeeRepository employeeRepository;
