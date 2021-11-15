@@ -6,13 +6,10 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.OccupancyDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
 
-import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -28,8 +25,8 @@ public class EmployeeServiceJpa implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> getASingleEmployee(String employeeId) {
-        return employeeRepository.findById(employeeId);
+    public Employee getASingleEmployee(String employeeUsername) {
+        return employeeRepository.findByUsername(employeeUsername);
     }
 
 //    @Override
