@@ -8,23 +8,44 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
 
 import java.util.List;
 
+/**
+ * Handles requests for Jobs page.
+ */
 @RestController
 @RequestMapping("/jobs")
 public class JobController {
 
+
     @Autowired
     private JobService jobService;
 
+    /**
+     * Handles HTTP GET request for listing all the jobs.
+     *
+     * @return a list of jobs
+     */
     @GetMapping("")
     public List<Job> listAllJobs() {
         return jobService.listAll();
     }
 
+    /**
+     * Handles HTTP GET request for showing job description.
+     *
+     * @param idJob ID of the job whose description is looked for
+     * @return a String containing a detailed description of the job
+     */
     @GetMapping("/details")
-    public String showJobDetails(@RequestParam Long idJob) {
+    public String showJobDescription(@RequestParam Long idJob) {
         return jobService.showJobDescription(idJob);
     }
 
+    /**
+     * Handles HTTP POST requst for creating a new job.
+     *
+     * @param jobDTO a Data Transfer Object used for creating the job
+     * @return newly created Job
+     */
     @PostMapping("")
     @Secured("ROLE_OWNER")
     public Job createJob(@RequestBody CreateJobDTO jobDTO) {
