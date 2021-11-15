@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 
+import java.util.Optional;
 
 
 @Service
@@ -19,9 +20,9 @@ public class EmployeeUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee user = employeeRepository.findByUsername(username).get();
-        if(user == null)
+        Optional<Employee> user = employeeRepository.findByUsername(username);
+        if(!user.isPresent())
             throw new UsernameNotFoundException("User with name: " + username + " does not exist.");
-        return new EmployeeUserDetailsImpl(user);
+        return new EmployeeUserDetailsImpl(user.get());
     }
 }

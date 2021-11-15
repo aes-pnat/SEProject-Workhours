@@ -49,8 +49,8 @@ public class JobServiceJpa implements JobService {
     public Job createJob(String jobName, String jobDescription) {
         Assert.notNull(jobName, "Job name must be given!");
         Assert.notNull(jobDescription, "Job decription must be given!");
-        if (jobRepo.countByName(jobName) > 0)
-            throw new RequestDeniedException("A job with the name " + jobName + "already exists");
+        //if (jobRepo.countByName(jobName) > 0)
+        //    throw new RequestDeniedException("A job with the name " + jobName + "already exists");
         return jobRepo.save(new Job(jobName, jobDescription));
     }
 }
