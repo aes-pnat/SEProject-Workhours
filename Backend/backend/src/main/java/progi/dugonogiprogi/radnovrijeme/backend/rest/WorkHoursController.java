@@ -43,7 +43,6 @@ public class WorkHoursController {
         return workHoursService.workHoursEmployee(pid);
     }
 
-
     @PostMapping("/add")
     public void inputWorkHours(@RequestBody WorkHoursInput workHoursInput) {
         workHoursService.inputWorkHours(workHoursInput);
