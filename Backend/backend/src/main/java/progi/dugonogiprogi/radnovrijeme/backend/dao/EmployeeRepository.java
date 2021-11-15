@@ -6,6 +6,9 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 
 import java.util.Optional;
 
+/**
+ * Repository for employees in a company.
+ */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 

@@ -9,6 +9,9 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
 import java.util.List;
 
+/**
+ * REST controller for handling web applications tasks site requests.
+ */
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
@@ -16,6 +19,10 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
+    /**
+     * This method returns tasks that authenticated user has to do grouped by groups that he is in.
+     * @return List of data transfer objects.
+     */
     @GetMapping("")
     public List<TasksDTO> listTasksEmployee(@RequestBody  String username) {
         return taskService.listTaskEmployee(username);

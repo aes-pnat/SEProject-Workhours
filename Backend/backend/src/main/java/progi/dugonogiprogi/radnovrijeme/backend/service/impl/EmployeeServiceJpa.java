@@ -9,6 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class EmployeeServiceJpa implements EmployeeService {
 
@@ -42,7 +43,4 @@ public class EmployeeServiceJpa implements EmployeeService {
     public void deleteEmployee(String employeeId) {
         employeeRepository.deleteById(employeeId);
     }
-
-
-
 }
