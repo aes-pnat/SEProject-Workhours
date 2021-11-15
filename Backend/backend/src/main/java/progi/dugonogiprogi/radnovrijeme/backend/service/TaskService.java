@@ -1,7 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.TasksDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 
 import java.util.List;
 
