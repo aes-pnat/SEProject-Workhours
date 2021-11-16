@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from './Navbar'
 import ReactDOM from 'react-dom';
 const Groups = () => {
     return (

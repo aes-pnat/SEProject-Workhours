@@ -1,4 +1,3 @@
-import Navbar from "./Navbar";
 import ReactDOM from 'react-dom';
 function Moneymanagement(){
     return (

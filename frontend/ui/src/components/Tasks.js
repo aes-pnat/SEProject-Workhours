@@ -1,26 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import Navbar from './Navbar';
 function Tasks(){
     const [data, setData] = useState([]);
-    var API_URI = "http://localhost:8080/moneymanagement";
+    var API_URI = "http://localhost:8080/jobs";
+    const myHeaders = new Headers();
+	myHeaders.append("Content-Type","application/json");
+    myHeaders.append("Accept","application/json");
     const getTasks = () => {
         fetch(API_URI,
         {
-            headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-            }
+            headers : myHeaders
         })
         .then(response => {
-            return response.json();
+            if(response.ok)
+                return response.json();
+            else
+                alert("Error in fetching tasks from server");
         })
         .then(myData => {
             console.log(myData);
             setData(myData);
         }).catch(() => {
             console.log("error u dohvacanju api u tasks")
-        })
+        });
     }
     try{
         useEffect(()=>{
@@ -31,7 +33,13 @@ function Tasks(){
     }
     
     return (
-        <label>{data.plannedDifference}</label>
+        <div>
+            <li>Pozdrav iz tasks (temp job) stranice</li>
+            {data & (data.length > 1) ?
+                data.map((item) => <li>item</li>) :
+                <li>Podatak: {data}</li> }
+        </div>
+        
     ); 
 }
 
