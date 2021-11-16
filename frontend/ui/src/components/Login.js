@@ -5,6 +5,7 @@ import '../Login.css';
 function Login(){
     const [inputs, setInputs] = useState({});
 
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -15,7 +16,15 @@ function Login(){
         const username = inputs.username;
         const password = inputs.password;
         const credentials = {username, password};
+		
+		const authdata = window.btoa(username + ':' + password);
+		
+		const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+		myHeaders.append("Authorization", "Basic " + authdata);
+		
         alert(credentials.username + " " + credentials.password);
+
         fetch('http://localhost:8080/login',{
             method: 'POST',
             headers: {"Content-Type":"application/json",

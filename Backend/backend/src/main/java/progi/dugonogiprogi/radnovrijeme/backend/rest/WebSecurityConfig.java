@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       http.authorizeRequests().antMatchers("/").permitAll();
       http.headers().frameOptions().sameOrigin(); // fixes h2-console problem
       http.csrf().disable();
+      http.logout().logoutUrl("/perform_logout");
     }
 
     @Override
