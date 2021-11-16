@@ -1,0 +1,41 @@
+variables:
+  HEROKU_API_KEY: e7e82f6b-d168-45ac-ad2f-60a1da39d268
+  HEROKU_APP_STAGING_FE: radno-vrijeme-fe
+  HEROKU_APP_STAGING_BE: radno-vrijeme-app
+  HEROKU_USER: blank
+
+
+stages:
+  - deploy
+
+deploy-be:
+  stage: deploy
+  script:
+    - cd progi-be;
+      git config --global user.email "$HEROKU_USER";
+      git config --global user.name "$HEROKU_USER";
+      git init;
+      git add .;
+      git commit -m "heroku deploy";
+      git push -f https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_STAGING_BE.git HEAD:master
+  only:
+    refs:
+      - master
+    changes:
+      - progi-be/**
+
+deploy-fe:
+  stage: deploy
+  script:
+    - cd progi-fe;
+      git config --global user.email "$HEROKU_USER";
+      git config --global user.name "$HEROKU_USER";
+      git init;
+      git add .;
+      git commit -m "heroku deploy";
+      git push -f https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_STAGING_FE.git HEAD:master
+  only:
+    refs:
+      - master
+    changes:
+      - progi-fe/**
