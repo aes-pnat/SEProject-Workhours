@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import '../Jobs.css';
 const Jobs = () => {
     const [data, setData] = useState([]);
-    var API_URI = "http://localhost:8080/jobs";
+
+    //var API_URI = "https://radno-vrijeme-app.herokuapp.com/jobs";
+    var API_URI = 'https://radno-vrijeme-app.herokuapp.com/jobs'
+    
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
