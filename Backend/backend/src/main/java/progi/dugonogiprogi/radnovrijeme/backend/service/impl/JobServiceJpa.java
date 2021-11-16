@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.RequestDeniedException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
 
 import java.util.List;
