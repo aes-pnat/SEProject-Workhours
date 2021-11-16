@@ -37,8 +37,8 @@ public class Job {
 	/**
 	 * Groups that this job is assigned to.
 	 */
-	@OneToMany(mappedBy = "assignedJob")
-	private Set<Group> groupsWithJob;
+	//@OneToMany(mappedBy = "assignedJob")
+//	private Set<Group> groupsWithJob;
 
 	/**
 	 * Job that this task is part of.
@@ -105,19 +105,19 @@ public class Job {
 	 *
 	 * @return a Set of Groups
 	 */
-	public Set<Group> getGroupsWithJob() {
+/*	public Set<Group> getGroupsWithJob() {
 		return groupsWithJob;
-	}
+	} */
 
 	/**
 	 * Sets a collection of group that have this job assigned.
 	 *
 	 * @param groupsWithJob a set of groups
 	 */
-	public void setGroupsWithJob(Set<Group> groupsWithJob) {
+/*	public void setGroupsWithJob(Set<Group> groupsWithJob) {
 		this.groupsWithJob = groupsWithJob;
 	}
-
+*/
 	/**
 	 * Gets a collection of tasks that are parts of the job
 	 *
