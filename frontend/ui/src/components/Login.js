@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import Navbar from './Navbar';
 import {useState} from 'react';
 import '../Login.css';
 function Login(){
@@ -11,7 +10,7 @@ function Login(){
         const value = event.target.value;
         setInputs(values => ({...values, [name]:value}))
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const username = inputs.username;
         const password = inputs.password;
@@ -21,20 +20,24 @@ function Login(){
 		
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
 		myHeaders.append("Authorization", "Basic " + authdata);
-		
-        alert(credentials.username + " " + credentials.password);
 
-        fetch('http://localhost:8080/login',{
+        await fetch('http://localhost:8080/login',{
             method: 'POST',
-            headers: {"Content-Type":"application/json",
-                      "Authorization": "Basic" + JSON.stringify(credentials)},
+            headers: myHeaders,
             body: JSON.stringify(credentials)
         }).then((response) => {
-            let res = response.json();
-            console.log(res);
+            if(response.ok){
+                alert("successful login");
+            }else{
+                alert("failed login ");
+                console.log(response);
+            }
+        }).catch(() =>{
+            console.log("error fetching");
         })
-        alert(console.log("gotov fetch"));
+        console.log("gotov fetch");
       }
     return (
         <form onSubmit={handleSubmit}>
