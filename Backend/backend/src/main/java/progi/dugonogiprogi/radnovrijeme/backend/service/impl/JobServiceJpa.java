@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.RequestDeniedException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
 
 import java.util.List;
@@ -49,8 +50,8 @@ public class JobServiceJpa implements JobService {
     public Job createJob(String jobName, String jobDescription) {
         Assert.notNull(jobName, "Job name must be given!");
         Assert.notNull(jobDescription, "Job decription must be given!");
-        //if (jobRepo.countByName(jobName) > 0)
-        //    throw new RequestDeniedException("A job with the name " + jobName + "already exists");
+        if (jobRepo.countByName(jobName) > 0)
+            throw new RequestDeniedException("A job with the name " + jobName + "already exists");
         return jobRepo.save(new Job(jobName, jobDescription));
     }
 }

@@ -1,4 +1,4 @@
-package progi.dugonogiprogi.radnovrijeme.backend.service;
+package progi.dugonogiprogi.radnovrijeme.backend.rest.exception;
 
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 

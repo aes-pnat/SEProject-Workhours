@@ -7,7 +7,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 
 @Service
-public class MoneyManagementServiceImpl implements MoneyManagementService {
+public class MoneyManagementServiceJpa implements MoneyManagementService {
 
     @Autowired
     TaskRepository taskRepository;

@@ -1,11 +1,8 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-
-import java.util.Optional;
+import progi.dugonogiprogi.radnovrijeme.backend.service.impl.LoginServiceJpa;
 
 @RestController
 @RequestMapping("/login")
@@ -13,16 +10,16 @@ import java.util.Optional;
 public class LoginController {
 
     @Autowired
-    LoginService loginService;
+    LoginServiceJpa loginServiceJpa;
 
     @GetMapping("")
     public String isLoggedIn() {
-        return loginService.isLoggedIn();
+        return loginServiceJpa.isLoggedIn();
     }
 
     @PostMapping("")
     public String logIn() {
-        System.out.println(loginService.logIn());
-        return loginService.logIn();
+        System.out.println(loginServiceJpa.logIn());
+        return loginServiceJpa.logIn();
     }
 }
