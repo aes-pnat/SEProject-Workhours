@@ -18,12 +18,14 @@ function Login(){
         alert(credentials.username + " " + credentials.password);
         fetch('http://localhost:8080/login',{
             method: 'POST',
-            headers: {"Content-Type":"application/json"},
+            headers: {"Content-Type":"application/json",
+                      "Authorization": "Basic" + JSON.stringify(credentials)},
             body: JSON.stringify(credentials)
         }).then((response) => {
             let res = response.json();
             console.log(res);
         })
+        alert(console.log("gotov fetch"));
       }
     return (
         <form onSubmit={handleSubmit}>
