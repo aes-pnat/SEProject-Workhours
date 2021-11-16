@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.JobDTO;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface JobService {
      *
      * @return a list of jobs
      */
-    List<Job> listAll();
+    List<JobDTO> listAll();
 
     /**
      * Gets detailed description of a job.

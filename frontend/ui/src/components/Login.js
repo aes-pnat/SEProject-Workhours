@@ -16,19 +16,13 @@ function Login(){
         const username = inputs.username;
         const password = inputs.password;
         const credentials = {username, password};
-		
-		const authdata = window.btoa(username + ':' + password);
-		
-		const myHeaders = new Headers();
-		myHeaders.append("Content-Type","application/json");
-		myHeaders.append("Authorization", "Basic " + authdata);
-		
         alert(credentials.username + " " + credentials.password);
+		const body = 'username=${username}&password=${password}';
 
         fetch('http://localhost:8080/login',{
             method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify(credentials)
+            headers: {'Content-Type':'application/x-www-form-urlencoded'},
+            body: body
         }).then((response) => {
             let res = response.json();
             console.log(res);
