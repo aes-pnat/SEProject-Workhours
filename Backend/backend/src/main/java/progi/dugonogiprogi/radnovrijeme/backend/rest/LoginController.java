@@ -6,7 +6,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.impl.LoginServiceJpa;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 public class LoginController {
 
     @Autowired

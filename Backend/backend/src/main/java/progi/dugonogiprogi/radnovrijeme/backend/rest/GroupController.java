@@ -13,6 +13,8 @@ import java.util.List;
 /**
  *  Handles requests for the application Group page.
  */
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/groups")
 public class GroupController {

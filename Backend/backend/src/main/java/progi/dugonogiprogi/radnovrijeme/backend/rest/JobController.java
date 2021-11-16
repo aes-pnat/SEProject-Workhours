@@ -13,9 +13,10 @@ import java.util.List;
 /**
  * Handles requests for Jobs page.
  */
+
 @RestController
 @RequestMapping("/jobs")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 public class JobController {
 
 
