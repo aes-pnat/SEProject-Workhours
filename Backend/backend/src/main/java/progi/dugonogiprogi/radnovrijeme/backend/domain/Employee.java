@@ -144,4 +144,18 @@ public class Employee {
 		this.workHours = workHours;
 	}
 
+
+	//za potrebe unosa podataka
+	public Employee() {
+
+	}
+
+	public Employee(String pid, String username, String password, String email, String name, String surname) {
+		this.pid = pid;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+	}
 }

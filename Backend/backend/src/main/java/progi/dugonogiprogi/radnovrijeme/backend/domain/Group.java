@@ -92,4 +92,15 @@ public class Group {
 	public void setAssignedJob(Job assignedJob) {
 		this.assignedJob = assignedJob;
 	}
+
+
+
+	//za potrebe unosa podataka (marijan)
+	public Group() {
+
+	}
+	public Group(String name, Employee leader) {
+		this.name = name;
+		this.leader = leader;
+	}
 }
