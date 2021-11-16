@@ -29,7 +29,7 @@ public class TaskController {
      * @return List of data transfer objects.
      */
     @GetMapping("")
-    @Secured("ROLE_USER")
+    @Secured("ROLE_EMPLOYEE")
     public List<TasksDTO> listTasksEmployee() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return taskService.listTaskEmployee(userDetails.getUsername());
