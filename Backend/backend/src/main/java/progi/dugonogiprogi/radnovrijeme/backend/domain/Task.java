@@ -1,0 +1,218 @@
+package progi.dugonogiprogi.radnovrijeme.backend.domain;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+/**
+ * Class Task represents a task
+ * that leader of a group has given to a group for their job.
+ * @author Bernard
+ */
+@Entity
+public class Task {
+
+	/**
+	 * Task idetifier.
+	 * Generated value.
+	 */
+	@Id
+	@GeneratedValue
+	private Long idTask;
+
+	/**
+	 * Task name.
+	 */
+	@NotNull
+	private String name;
+
+	/**
+	 * Task description.
+	 */
+	private String description;
+
+	/**
+	 * Date and time when a task started.
+	 */
+	@NotNull
+	@DateTimeFormat
+	private LocalDateTime dateTimeStart;
+
+	/**
+	 * Date and time when a task ended.
+	 */
+
+	@NotNull
+	@DateTimeFormat
+	private LocalDateTime dateTimeEnd;
+
+	/**
+	 * Estimate of hours needed to complete a task.
+	 */
+	private String hoursNeededEstimate;
+
+	/**
+	 * Planned profit on a task.
+	 */
+	private Double plannedProfit;
+
+	/**
+	 * Realized profit on a task.
+	 */
+	private Double realizedProfit;
+
+	/**
+	 * Planned cost of a task.
+	 */
+	private Double plannedCost;
+
+	/**
+	 * Realized cost of a task.
+	 */
+	private Double realizedCost;
+
+	/**
+	 * Job that this task belongs to.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "idJob", nullable = false)
+	private Job belongsTo;
+
+	/**
+	 * If a task needs to be completed outside of company,
+	 * this value stores location of a task.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "idLocation", nullable = false)
+	private Location location;
+
+	/**
+	 * Set of employees that are assigned to this task.
+	 */
+    @ManyToMany(mappedBy = "tasks")
+    private List<Employee> doingThisTask;
+
+	/**
+	 * Hours that an employee spent on this task in a day.
+	 */
+	@OneToMany(mappedBy = "onTask")
+	private Set<WorkHoursInput> hoursInputs;
+
+	public Long getIdTask() {
+		return idTask;
+	}
+
+	public void setIdTask(Long idTask) {
+		this.idTask = idTask;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public LocalDateTime getDateTimeStart() {
+		return dateTimeStart;
+	}
+
+	public void setDateTimeStart(LocalDateTime dateTimeStart) {
+		this.dateTimeStart = dateTimeStart;
+	}
+
+	public LocalDateTime getDateTimeEnd() {
+		return dateTimeEnd;
+	}
+
+	public void setDateTimeEnd(LocalDateTime dateTimeEnd) {
+		this.dateTimeEnd = dateTimeEnd;
+	}
+
+	public String getHoursNeededEstimate() {
+		return hoursNeededEstimate;
+	}
+
+	public void setHoursNeededEstimate(String hoursNeededEstimate) {
+		this.hoursNeededEstimate = hoursNeededEstimate;
+	}
+
+	public Job getBelongsTo() {
+		return belongsTo;
+	}
+
+	public void setBelongsTo(Job belongsTo) {
+		this.belongsTo = belongsTo;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public List<Employee> getDoingThisTask() {
+		return doingThisTask;
+	}
+
+	public void setDoingThisTask(List<Employee> doingThisTask) {
+		this.doingThisTask = doingThisTask;
+	}
+
+	public Set<WorkHoursInput> getHoursInputs() {
+		return hoursInputs;
+	}
+
+	public void setHoursInputs(Set<WorkHoursInput> hoursInputs) {
+		this.hoursInputs = hoursInputs;
+	}
+
+	public Double getPlannedProfit() {
+		return plannedProfit;
+	}
+
+	public void setPlannedProfit(Double plannedProfit) {
+		this.plannedProfit = plannedProfit;
+	}
+
+	public Double getRealizedProfit() {
+		return realizedProfit;
+	}
+
+	public void setRealizedProfit(Double realizedProfit) {
+		this.realizedProfit = realizedProfit;
+	}
+
+	public Double getPlannedCost() {
+		return plannedCost;
+	}
+
+	public void setPlannedCost(Double plannedCost) {
+		this.plannedCost = plannedCost;
+	}
+
+	public Double getRealizedCost() {
+		return realizedCost;
+	}
+
+	public void setRealizedCost(Double realizedCost) {
+		this.realizedCost = realizedCost;
+	}
+}
