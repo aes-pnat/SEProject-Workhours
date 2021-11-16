@@ -22,7 +22,7 @@ function Tasks(){
             setData(myData);
         }).catch(() => {
             console.log("error u dohvacanju api u tasks")
-        })
+        });
     }
     try{
         useEffect(()=>{
@@ -34,7 +34,10 @@ function Tasks(){
     
     return (
         <div>
-            {data && data.map((item) => <li>item</li>) }
+            <li>Pozdrav iz tasks stranice</li>
+            {data & (data.length > 1) ?
+                data.map((item) => <li>item</li>) :
+                <li>Podatak: {data}</li> }
         </div>
         
     ); 

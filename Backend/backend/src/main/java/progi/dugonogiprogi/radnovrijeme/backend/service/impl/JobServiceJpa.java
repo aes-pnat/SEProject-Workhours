@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.JobDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.RequestDeniedException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +27,15 @@ public class JobServiceJpa implements JobService {
      * @return a list of jobs
      */
     @Override
-    public List<Job> listAll() {
-        return jobRepo.findAll();
+    public List<JobDTO> listAll() {
+        List<Job> jobs = jobRepo.findAll();
+        List<JobDTO> returnList = new ArrayList<JobDTO>();
+
+        for(Job j : jobs) {
+            returnList.add(new JobDTO(j.getName(), j.getDescription()));
+        }
+
+        return returnList;
     }
 
     /**

@@ -14,8 +14,7 @@ function Login(){
         event.preventDefault();
         const username = inputs.username;
         const password = inputs.password;
-        const credentials = {username, password};
-		
+        const credentials = {username, password};	
 		const authdata = window.btoa(username + ':' + password);
 		
 		const myHeaders = new Headers();
@@ -30,14 +29,14 @@ function Login(){
         }).then((response) => {
             if(response.ok){
                 alert("successful login");
+                console.log("success");
             }else{
-                alert("failed login ");
+                alert("failed login");
                 console.log(response);
             }
         }).catch(() =>{
             console.log("error fetching");
-        })
-        console.log("gotov fetch");
+        });
       }
     return (
         <form onSubmit={handleSubmit}>
