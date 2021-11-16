@@ -38,9 +38,9 @@ function Tasks(){
     return (
         <div>
             <li>Pozdrav iz tasks stranice</li>
-            {data & (data.length > 1) ?
-                data.map((item) => <li>item</li>) :
-                <li>Podatak: {data}</li> }
+            {data && (data.length > 1) ?
+                data.map((item) => <li>{item.name}</li>) :
+                <li>Podatak: {data.name}</li> }
         </div>
         
     ); 
