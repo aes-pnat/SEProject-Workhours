@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+
 function Tasks(){
     const [data, setData] = useState([]);
-    var API_URI = "http://localhost:8080/jobs";
+    var API_URI = "http://localhost:8080/tasks";
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
@@ -34,7 +35,7 @@ function Tasks(){
     
     return (
         <div>
-            <li>Pozdrav iz tasks (temp job) stranice</li>
+            <li>Pozdrav iz tasks stranice</li>
             {data & (data.length > 1) ?
                 data.map((item) => <li>item</li>) :
                 <li>Podatak: {data}</li> }
