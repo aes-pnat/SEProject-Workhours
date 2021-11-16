@@ -99,8 +99,9 @@ public class Group {
 	public Group() {
 
 	}
-	public Group(String name, Employee leader) {
+	public Group(String name, Employee leader, Job assignedJob) {
 		this.name = name;
 		this.leader = leader;
+		this.assignedJob = assignedJob;
 	}
 }

@@ -58,4 +58,14 @@ public class Role {
 	public void setEmployeesWithRole(Set<Employee> employeesWithRole) {
 		this.employeesWithRole = employeesWithRole;
 	}
+
+
+	//za potrebe unosa podataka
+	public Role() {
+
+	}
+
+	public Role(String name) {
+		this.name = name;
+	}
 }

@@ -22,4 +22,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     int countByName(String name);
 
+    //za potrebe unosa podataka
+    Optional<Job> findByName(String name);
+
 }

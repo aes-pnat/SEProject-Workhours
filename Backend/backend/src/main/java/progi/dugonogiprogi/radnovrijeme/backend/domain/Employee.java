@@ -150,12 +150,13 @@ public class Employee {
 
 	}
 
-	public Employee(String pid, String username, String password, String email, String name, String surname) {
+	public Employee(String pid, String username, String password, String email, String name, String surname, Role role) {
 		this.pid = pid;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
+		this.role = role;
 	}
 }
