@@ -14,8 +14,7 @@ function Login(){
         event.preventDefault();
         const username = inputs.username;
         const password = inputs.password;
-        const credentials = {username, password};
-		
+        const credentials = {username, password};	
 		const authdata = window.btoa(username + ':' + password);
 		
 		const myHeaders = new Headers();
