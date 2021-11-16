@@ -32,8 +32,8 @@ public class Role {
 	/**
 	 * All employees with this role.
 	 */
-	@OneToMany(mappedBy = "role")
-	private Set<Employee> employeesWithRole;
+//	@OneToMany(mappedBy = "role")
+//	private Set<Employee> employeesWithRole;
 
 	public Long getIdRole() {
 		return idRole;
@@ -50,7 +50,7 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+/*
 	public Set<Employee> getEmployeesWithRole() {
 		return employeesWithRole;
 	}
@@ -58,7 +58,7 @@ public class Role {
 	public void setEmployeesWithRole(Set<Employee> employeesWithRole) {
 		this.employeesWithRole = employeesWithRole;
 	}
-
+*/
 
 	//za potrebe unosa podataka
 	public Role() {

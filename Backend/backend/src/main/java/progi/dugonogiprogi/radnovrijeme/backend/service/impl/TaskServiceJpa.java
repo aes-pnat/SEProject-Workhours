@@ -25,17 +25,22 @@ public class TaskServiceJpa implements TaskService {
 
     @Override
     public List<TasksDTO> listTaskEmployee(String username) {
-        Employee employee = employeeRepository.findByUsername(username).get();
-        Set<Group> memberOf = employee.getIsMember();
+        Employee employee = null;
+        if (employeeRepository.findByUsername(username).isPresent())
+            employee = employeeRepository.findByUsername(username).get();
         List<TasksDTO> returnList = new ArrayList<>();
 
-        for(Group g : memberOf) {
-            List<Task> tasksForGroup = new ArrayList<>();
-            for(Task t : employee.getTasks()) {
-                if(t.getBelongsTo().equals(g.getAssignedJob()))
-                    tasksForGroup.add(t);
+        if (employee != null) {
+            for (Group g : groupRepository.findAll()) {
+                if (g.getMembers().contains(employee)) {
+                    List<Task> tasksForGroup = new ArrayList<>();
+                    for(Task t : employee.getTasks()) {
+                        if(t.getBelongsTo().equals(g.getAssignedJob()))
+                            tasksForGroup.add(t);
+                    }
+                    returnList.add(new TasksDTO(g.getName(), tasksForGroup));
+                }
             }
-            returnList.add(new TasksDTO(g.getName(), tasksForGroup));
         }
 
         return returnList;

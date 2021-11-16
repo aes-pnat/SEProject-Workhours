@@ -40,12 +40,12 @@ public class Employee {
 	@JoinColumn(name = "idRole", nullable = false)
 	private Role role;
 
-	@OneToMany(mappedBy = "leader")
+	/*@OneToMany(mappedBy = "leader")
 	private Set<Group> isLeader;
 
 	@ManyToMany(mappedBy = "members")
 	private Set<Group> isMember;
-
++/
 	/**
 	 * Tasks given to this employee.
 	 */
@@ -112,7 +112,7 @@ public class Employee {
 		this.role = role;
 	}
 
-	public Set<Group> getIsLeader() {
+	/*public Set<Group> getIsLeader() {
 		return isLeader;
 	}
 
@@ -127,7 +127,7 @@ public class Employee {
 	public void setIsMember(Set<Group> isMember) {
 		this.isMember = isMember;
 	}
-
+*/
 	public Set<Task> getTasks() {
 		return tasks;
 	}
