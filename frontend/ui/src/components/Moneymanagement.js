@@ -1,8 +1,10 @@
 import ReactDOM from 'react-dom';
 function Moneymanagement(){
+    console.log("passed")
+
     return (
         <div>
-            <p>moneymanagement page</p>
+            <h1>Money Management</h1>
         </div>
     );
 }
