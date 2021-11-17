@@ -11,6 +11,8 @@ function App() {
   
   return (
     <Router>
+          <h1>Main app</h1>
+
       <Route path="/groupcont">
         <GroupCont/>
       </Route>
