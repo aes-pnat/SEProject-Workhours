@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.26)  18 NOV 2021 14:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.26)  18 NOV 2021 20:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1097,38 +1097,43 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
  (./Dnevnik_promjena_dokumentacije.tex
 Poglavlje 1.
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 14.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 15.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 16.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 17.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 21.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 24.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 38--38
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
 []\OT1/jkp/m/n/12 04.11.2021.|  
+ []
+
+
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+[]\OT1/jkp/m/n/12 16.11.2021.|  
  []
 
 )
@@ -1544,11 +1549,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [28]
-Overfull \hbox (4.40315pt too wide) in paragraph at lines 176--177
-\OT1/jkp/m/n/12 Tablica koja os-tva-ruje vezu vi[]se-na-vi[]se izme[]du ta-blic
-a Em-ployee i Task, tj. odre[]duje
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -1558,7 +1558,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [29]
-Overfull \hbox (2.78519pt too wide) in paragraph at lines 237--237
+Overfull \hbox (4.40315pt too wide) in paragraph at lines 187--188
+\OT1/jkp/m/n/12 Tablica koja os-tva-ruje vezu vi[]se-na-vi[]se izme[]du ta-blic
+a Em-ployee i Task, tj. odre[]duje
+ []
+
+
+Overfull \hbox (2.78519pt too wide) in paragraph at lines 248--248
 []\OT1/jkp/m/n/12 idWorkHoursInput|  
  []
 
@@ -1571,15 +1577,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [30]
-<slike/ERdijagram.png, id=461, 1301.86375pt x 727.71875pt>
+<slike/ERdijagram.png, id=459, 1301.86375pt x 727.71875pt>
 File: slike/ERdijagram.png Graphic file (type png)
 <use slike/ERdijagram.png>
-Package pdftex.def Info: slike/ERdijagram.png  used on input line 244.
+Package pdftex.def Info: slike/ERdijagram.png  used on input line 255.
 (pdftex.def)             Requested size: 435.6108pt x 243.50136pt.
-<slike/RelDijagram.png, id=462, 647.41875pt x 345.29pt>
+<slike/RelDijagram.png, id=460, 647.41875pt x 345.29pt>
 File: slike/RelDijagram.png Graphic file (type png)
 <use slike/RelDijagram.png>
-Package pdftex.def Info: slike/RelDijagram.png  used on input line 250.
+Package pdftex.def Info: slike/RelDijagram.png  used on input line 261.
 (pdftex.def)             Requested size: 435.6108pt x 232.32832pt.
 
 
@@ -1594,7 +1600,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.253 			\eject
+l.264 			\eject
                 <./slike/ERdijagram.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1608,36 +1614,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.253 			\eject
+l.264 			\eject
                 <./slike/RelDijagram.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
+Underfull \hbox (badness 10000) in paragraph at lines 269--270
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 260--261
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
+Underfull \hbox (badness 10000) in paragraph at lines 273--274
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 264--265
-
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[33]
 Underfull \hbox (badness 10000) in paragraph at lines 275--276
 
  []
@@ -1650,8 +1643,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
+
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 284--285
+Underfull \hbox (badness 10000) in paragraph at lines 295--296
 
  []
 
@@ -1664,7 +1670,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 302--303
 
  []
 
@@ -1894,7 +1900,7 @@ nged.
 Here is how much of TeX's memory you used:
  15186 strings out of 478579
  219431 string characters out of 5857457
- 602006 words of memory out of 5000000
+ 601006 words of memory out of 5000000
  32496 multiletter control sequences out of 15000+600000
  453147 words of font info for 135 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1907,7 +1913,7 @@ dist/fonts/type1/public/kpfonts/jkpbit8a.pfb><d:/texlive/2021/texmf-dist/fonts/
 type1/public/kpfonts/jkpbn8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public
 /kpfonts/jkpmit8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public/kpfonts/jk
 pmn8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on DugonogiProgi_dokumentacija.pdf (48 pages, 766149 bytes).
+Output written on DugonogiProgi_dokumentacija.pdf (48 pages, 765541 bytes).
 PDF statistics:
  659 PDF objects out of 1000 (max. 8388607)
  579 compressed objects within 6 object streams
