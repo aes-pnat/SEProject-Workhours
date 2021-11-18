@@ -31,12 +31,24 @@
 			
 			\textbf{\textit{dio 1. revizije}}\\
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+		%\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+		Baza podataka je predstavljena pomoću ER te relacijskog dijagrama. Od glavnih komponenti, primarno se pojavljuju:
+		\begin{itemize}
+		\item Employee
+		\item Role
+		\item Group
+		\item EmployeeGroup
+		\item Job
+		\item Task
+		\item EmployeeTask
+		\item Location
+		\item WorkHoursInput
+	    \end{itemize}
 		
 			\subsection{Opis tablica}
 			
 
-				\textit{Svaku tablicu je potrebno opisati po zadanom predlošku. Lijevo se nalazi točno ime varijable u bazi podataka, u sredini se nalazi tip podataka, a desno se nalazi opis varijable. Svjetlozelenom bojom označite primarni ključ. Svjetlo plavom označite strani ključ}
+				%\textit{Svaku tablicu je potrebno opisati po zadanom predlošku. Lijevo se nalazi točno ime varijable u bazi podataka, u sredini se nalazi tip podataka, a desno se nalazi opis varijable. Svjetlozelenom bojom označite primarni ključ. Svjetlo plavom označite strani ključ}
 				
 				\subsubsection{Employee}
 					Sadrži podatke o djelatniku, uključujući osobne podatke i podatke za prijavu (korisničko ime i lozinka).
@@ -51,9 +63,8 @@
 						
 						\hline 
 						\endlastfoot
-						
-						\cellcolor{LightGreen}
-						pid & CHAR & Osobni identifikacijski broj djelatnika.		\\ \hline
+
+						\cellcolor{LightGreen}pid & CHAR & Osobni identifikacijski broj djelatnika.		\\ \hline
 						name	& VARCHAR & Ime djelatnika.  	\\ \hline 
 						surname & VARCHAR & Prezime djelatnika.  \\ \hline 
 						email & VARCHAR & E-mail adresa.		\\ \hline
@@ -237,7 +248,7 @@
 					\end{longtabu}
 						
 			\subsection{Dijagram baze podataka}
-				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+				%\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
 				
 				\begin{figure}[H]
 					\centering
