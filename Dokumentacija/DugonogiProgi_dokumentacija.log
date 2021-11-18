@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.26)  18 NOV 2021 20:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.10.26)  18 NOV 2021 20:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1097,42 +1097,47 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
  (./Dnevnik_promjena_dokumentacije.tex
 Poglavlje 1.
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 14.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 15.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 16.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 17.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 21.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 24.10.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 04.11.2021.|  
  []
 
 
-Overfull \hbox (6.59265pt too wide) in paragraph at lines 39--39
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
+[]\OT1/jkp/m/n/12 16.11.2021.|  
+ []
+
+
+Overfull \hbox (6.59265pt too wide) in paragraph at lines 40--40
 []\OT1/jkp/m/n/12 16.11.2021.|  
  []
 
@@ -1913,7 +1918,7 @@ dist/fonts/type1/public/kpfonts/jkpbit8a.pfb><d:/texlive/2021/texmf-dist/fonts/
 type1/public/kpfonts/jkpbn8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public
 /kpfonts/jkpmit8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public/kpfonts/jk
 pmn8a.pfb><d:/texlive/2021/texmf-dist/fonts/type1/public/kpfonts/jkpttmn8a.pfb>
-Output written on DugonogiProgi_dokumentacija.pdf (48 pages, 765541 bytes).
+Output written on DugonogiProgi_dokumentacija.pdf (48 pages, 765645 bytes).
 PDF statistics:
  659 PDF objects out of 1000 (max. 8388607)
  579 compressed objects within 6 object streams
