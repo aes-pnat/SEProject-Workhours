@@ -34,6 +34,7 @@ function Tasks(){
     
     return (
         <div>
+            <h1> Tasks</h1>
             {data && data.map((item) => <li>item</li>) }
         </div>
         
