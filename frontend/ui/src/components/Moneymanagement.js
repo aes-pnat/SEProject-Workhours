@@ -42,10 +42,9 @@ function Moneymanagement(){
             <p>realizedProfitSum: {profits.realizedProfitSum}</p>
             <p>plannedCostSum: {profits.plannedCostSum}</p>
             <p>realizedCostSum: {profits.realizedCostSum}</p>
+            <p>plannedDifference: {profits.plannedDifference}</p>
+            <p>realizedDifference: {profits.realizedDifference}</p>
 
-            {/* {profits && (profits.length > 1) ?
-                profits.map((item) => <li>{item.name}</li>) : <li>Poprofitsk: {profits.name}</li>
-            } */}
         </div>
         
     ); 
