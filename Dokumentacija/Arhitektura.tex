@@ -108,7 +108,7 @@
 						\hline 
 						\endlastfoot
 						
-						\cellcolor{LightGreen}idGroup & INTEGER	& Identifikator grupe.	\\ \hline
+						\cellcolor{Lightgreen} idGroup & INTEGER	& Identifikator grupe.	\\ \hline
 						name	& VARCHAR & Naziv grupe.  	\\ \hline    
 						\cellcolor{LightBlue} idLeader & INTEGER & Identifikator voditelja grupe. 	\\ \hline 
 						\cellcolor{LightBlue} idJob & INTEGER & Identifikator djelatnosti kojom se grupa bavi. 	\\ \hline 
@@ -276,14 +276,21 @@
 			
 			%\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
 			
-			\begin{figure}[H]
-					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WorkHoursController.jpg}
-					\caption{Dijagram razreda WorkHoursController}
-				\end{figure}
+			Na slikama su prikazani razredi koji pripadaju backend dijelu aplikacije. Dijagrame sačinjavaju razredi te među njima uočavamo dijelove poslužiteljskog sloja, odnosno entitete, objekte za prijenos podataka (engl. Data Transfer Object), repozitorije, servise i kontrolere.  
+
+            Entiteti su klase koje predstavljaju tablice spremljene u bazi podataka. Svaka instanca entiteta predstavlja jedan redak u toj tablici.  
+
+            Objekti za prijenos podataka su objekti koji se koriste za komunikaciju između poslužiteljskog i klijentskog dijela aplikacije. Korisni su jer pomoću njih prenosimo samo ono što je bitno, isključivo nužne podatke o određenim entitetima, no ne i cijele entitete. 
+            
+            Repozitoriji su Java sučelja koje upravljaju tokom podataka između poslužitelja i baze podataka. Klase repozitorija služe kao mehanizam za enkapsulaciju pohrane, dohvaćanja i pretraživanja podataka.  
+            
+            Servisi su klase koje sadrže poslovnu logiku aplikacije. U njima se nalaze metode čija je zadaća izvršavanje operacija nad bazom podataka, odnosno pozivanje metoda definiranih u repozitorijima. 
+            
+            Kontroleri, odnosno REST (engl. Representational State Transfer) kontroleri presreću dolazeće zahtjeve, pretvaraju podatke iz zahtjeva u unutarnju strukturu podataka, šalju podatke modelu na daljnju obradu te dobivaju određene podatke iz modela i prosljeđuju ih u klijentski dio aplikacije kako bi se prikazali korisniku.  
+            
+            Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti među različitim razredima prikazanima na priloženim dijagramima. 
 			
 			
-			\eject
 			\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WebSecurityConfig.jpeg}
@@ -316,6 +323,47 @@
 			
 			
 			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WorkHoursController.jpg}
+					\caption{Dijagram razreda WorkHoursController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/UML class - GroupController.png}
+					\caption{Dijagram razreda GroupController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/UML class - JobController.png}
+					\caption{Dijagram razreda JobController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/UML class - MoneyManagementController.png}
+					\caption{Dijagram razreda MoneyManagementController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/UML class - LoginController.png}
+					\caption{Dijagram razreda LoginController}
+				\end{figure}
+			
+			
+			\eject
+			
 		
 		\section{Dijagram stanja}
 			
