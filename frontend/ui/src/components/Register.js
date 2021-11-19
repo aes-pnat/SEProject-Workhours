@@ -5,21 +5,15 @@ const Register = () => {
         <div>
             <h2>Create a new account:</h2>
             <form>
-                <label>
-                    Username:
-                    <input type="text" name="name" />
-                </label>
-                <input type="submit" value="Submit" />
-                <label>
-                    E-mail:
-                    <input type="text" name="name" />
-                </label>
-                <input type="submit" value="Submit" />
-                <label>
-                    Password:
-                    <input type="text" name="name" />
-                </label>
-                <input type="submit" value="Submit" />
+                <label>Unesite E-mail:</label>
+                <input type="email"  name="email" />
+                <label>Unesite novo korisničko ime:</label>
+                <input type="text"  name="username"/>
+                <label>Unesite zaporku:</label>
+                <input type="password"  name="password" />
+                <label>Ponovite zaporku:</label>
+                <input type="password"  name="password" />
+                <input type="submit" />
             </form>
             
         </div>
