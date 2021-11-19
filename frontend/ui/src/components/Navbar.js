@@ -25,6 +25,8 @@ function Navbar() {
           <Link to='/tasks'>Tasks</Link>
           <Link to='/workhours'>Workhours</Link>
           <Link to='/register'>Register</Link>
+          <Link to='/login'>Log In</Link>
+
         </nav>
       </div>
       <Switch>
