@@ -24,7 +24,7 @@ function Navbar() {
           <Link to='/moneymanagement'>Moneymanagement</Link>
           <Link to='/tasks'>Tasks</Link>
           <Link to='/workhours'>Workhours</Link>
-          <Link to='/register'>Register</Link>
+          {/* <Link to='/register'>Register</Link> */}
           <Link to='/login'>Log In</Link>
 
         </nav>
