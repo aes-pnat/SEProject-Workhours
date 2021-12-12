@@ -49,27 +49,30 @@ function Login(){
         });
       }
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Unesite korisničko ime:</label>
-            <input type="text"  name="username" 
-                                value={inputs.username || ""} 
-                                onChange={handleChange} />
-            <label>Unesite zaporku:</label>
-            <input type="password"  name="password"
-                                value={inputs.password || ""}
-                                onChange={handleChange} />
-            <input type="submit" />
-            <label/>
-
-            <h3>Not a member yet?</h3>
-            <label>
+        <div className="container">
+            <div className="container login-card">
+                <form onSubmit={handleSubmit}>
+                    <div className='mb-3'>
+                        <label className="form-label">Unesite korisničko ime:</label>
+                        <input type="text" className="form-control" name="username" 
+                                            value={inputs.username || ""} 
+                                            onChange={handleChange} />
+                    </div>
+                    <div className='mb-3'>
+                        <label className="form-label">Unesite zaporku:</label>
+                        <input type="password" className="form-control" name="password"
+                                            value={inputs.password || ""}
+                                            onChange={handleChange} />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            
+            <div className="container register-card">
+                <h3>Not a member yet?</h3>
                 <Link to='/register'>Register</Link>
-            </label>
-
-
-        </form>
-
-        
+            </div>
+        </div>
     )
 };
 export default Login;

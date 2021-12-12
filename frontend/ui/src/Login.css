@@ -1,17 +1,13 @@
-form{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: auto;
-    margin-right: auto;
-    width: 400px;
-    height: 150px;
+.login-card {
+    width: 20rem;
+    margin: 0 auto; 
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
-form input{
-    display: inline-block;
-    width: 180px;
-    justify-content: space-evenly;
-}
-form label{
-    width: 180px;
+
+.register-card {
+    width: 20rem;
+    margin: 0 auto; 
+    margin-top: 10rem;
+    margin-bottom: 3rem;
 }
