@@ -35,7 +35,7 @@ function Tasks(){
     return (
         <div>
             <li>Pozdrav iz tasks stranice</li>
-            {data & (data.length > 1) ?
+            {data && (data.length > 1) ?
                 data.map((item) => <li>item</li>) :
                 <li>Podatak: {data}</li> }
         </div>

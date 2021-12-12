@@ -41,7 +41,6 @@ const Jobs = () => {
                 data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
             }
         </div>
-        
-    );
+    ); 
 };
 export default Jobs;

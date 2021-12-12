@@ -21,7 +21,7 @@ public class WorkHoursController {
     @Autowired
     EmployeeService employeeService;
 
-    @Secured("ROLE_USER")
+    @Secured("ROLE_EMPLOYEE")
     @GetMapping("")
     public List<WorkHoursInput> listWorkHoursEmployee(@RequestBody String username) {
         return workHoursService.listWorkHoursEmployee(username);
@@ -39,13 +39,13 @@ public class WorkHoursController {
         return employeeService.listAllEmployees();
     }
 
-    @Secured("ROLE_USER")
+    @Secured("ROLE_OWNER")
     @GetMapping("/select/{pid}")
     public WorkHoursInputDTO workHoursEmployee(@PathVariable String pid) {
         return workHoursService.workHoursEmployee(pid);
     }
 
-    @Secured("ROLE_USER")
+    @Secured("ROLE_EMPLOYEE")
     @PostMapping("/add")
     public void inputWorkHours(@RequestBody WorkHoursInput workHoursInput) {
         workHoursService.inputWorkHours(workHoursInput);

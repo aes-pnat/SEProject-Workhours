@@ -1,6 +1,16 @@
 import ReactDOM from 'react-dom';
 import {useState} from 'react';
 import '../Login.css';
+import '../Navbar.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
+import Register from './Register';
+
 function Login(){
     const [inputs, setInputs] = useState({});
 
@@ -49,7 +59,17 @@ function Login(){
                                 value={inputs.password || ""}
                                 onChange={handleChange} />
             <input type="submit" />
+            <label/>
+
+            <h3>Not a member yet?</h3>
+            <label>
+                <Link to='/register'>Register</Link>
+            </label>
+
+
         </form>
+
+        
     )
 };
 export default Login;
