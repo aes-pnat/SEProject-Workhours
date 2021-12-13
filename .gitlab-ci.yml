@@ -1,9 +1,3 @@
-variables:
-  HEROKU_API_KEY: e7e82f6b-d168-45ac-ad2f-60a1da39d268
-  HEROKU_APP_STAGING_FE: radno-vrijeme-fe
-  HEROKU_APP_STAGING_BE: radno-vrijeme-app
-  HEROKU_USER: blank
-
 
 stages:
   - deploy
