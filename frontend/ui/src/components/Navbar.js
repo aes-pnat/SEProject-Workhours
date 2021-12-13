@@ -19,26 +19,32 @@ function Navbar() {
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid justify-content-around">
-          <div className="navbar-nav justify-content-around">
-            <div className="nav-link">
-              <Link to='/groups'>Groups</Link>
+        <a class="navbar-brand" href="#">Navbar</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
+            <div className="navbar-nav justify-content-around">
+              <div className="nav-link">
+                <Link to='/groups'>Groups</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/'>Jobs</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/moneymanagement'>Moneymanagement</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/tasks'>Tasks</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/workhours'>Workhours</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/login'>Log In</Link>
+              </div>
+              {/* <Link to='/register'>Register</Link> */}
             </div>
-            <div className="nav-link">
-              <Link to='/'>Jobs</Link>
-            </div>
-            <div className="nav-link">
-              <Link to='/moneymanagement'>Moneymanagement</Link>
-            </div>
-            <div className="nav-link">
-              <Link to='/tasks'>Tasks</Link>
-            </div>
-            <div className="nav-link">
-              <Link to='/workhours'>Workhours</Link>
-            </div>
-            <div className="nav-link">
-              <Link to='/login'>Log In</Link>
-            </div>
-            {/* <Link to='/register'>Register</Link> */}
           </div>
         </div>
       </nav>
