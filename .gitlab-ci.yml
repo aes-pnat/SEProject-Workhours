@@ -22,7 +22,7 @@ deploy-be:
     refs:
       - master
     changes:
-      - progi-be/**
+      - backend/**
 
 deploy-fe:
   stage: deploy
@@ -38,4 +38,4 @@ deploy-fe:
     refs:
       - master
     changes:
-      - progi-fe/**
+      - ui/**
