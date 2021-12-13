@@ -11,7 +11,7 @@ stages:
 deploy-be:
   stage: deploy
   script:
-    - cd progi-be;
+    - cd Backend/backend;
       git config --global user.email "$HEROKU_USER";
       git config --global user.name "$HEROKU_USER";
       git init;
@@ -27,7 +27,7 @@ deploy-be:
 deploy-fe:
   stage: deploy
   script:
-    - cd progi-fe;
+    - cd Frontend/ui;
       git config --global user.email "$HEROKU_USER";
       git config --global user.name "$HEROKU_USER";
       git init;
