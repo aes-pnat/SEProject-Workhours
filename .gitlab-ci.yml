@@ -20,7 +20,7 @@ deploy-be:
       git push -f https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_STAGING_BE.git HEAD:master
   only:
     refs:
-      - master
+      - main
     changes:
       - backend/**
 
@@ -36,6 +36,6 @@ deploy-fe:
       git push -f https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_STAGING_FE.git HEAD:master
   only:
     refs:
-      - master
+      - main
     changes:
       - ui/**
