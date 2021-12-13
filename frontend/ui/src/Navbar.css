@@ -1,31 +1,9 @@
-.bg {
-  background-color: #789fec;
-  font-size: calc(10px + 1vmin);
-}
-
-.navbar{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-content: center;
-  background-color: #101114;
-  color: white;
-  padding: 5px 0px;
-}
-.navbar-horizontal a{
-  display: inline-block;
-  text-align: center;
-  width: auto;
-  margin: 0 20px;
-}
 a:link {
-  color: white;
+  color: #000;
   text-decoration: none;
 }
-a:visited{
-  color: white;
-}
-a:hover{
-  color:khaki;
+
+.navbar-nav {
+  width: 80vw;
+  text-align: center;
 }

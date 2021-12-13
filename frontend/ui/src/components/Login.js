@@ -53,18 +53,18 @@ function Login(){
             <div className="container login-card">
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
-                        <label className="form-label">Unesite korisničko ime:</label>
+                        <label className="form-label">Korisničko ime:</label>
                         <input type="text" className="form-control" name="username" 
                                             value={inputs.username || ""} 
                                             onChange={handleChange} />
                     </div>
                     <div className='mb-3'>
-                        <label className="form-label">Unesite zaporku:</label>
+                        <label className="form-label">Zaporka:</label>
                         <input type="password" className="form-control" name="password"
                                             value={inputs.password || ""}
                                             onChange={handleChange} />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Prijavi se</button>
                 </form>
             </div>
             

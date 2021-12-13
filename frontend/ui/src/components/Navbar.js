@@ -17,18 +17,31 @@ import Register from './Register';
 function Navbar() {
   return (
     <Router>
-      <div className="navbar navbar-horizontal center bg">
-        <nav>
-          <Link to='/groups'>Groups</Link>
-          <Link to='/'>Jobs</Link>
-          <Link to='/moneymanagement'>Moneymanagement</Link>
-          <Link to='/tasks'>Tasks</Link>
-          <Link to='/workhours'>Workhours</Link>
-          {/* <Link to='/register'>Register</Link> */}
-          <Link to='/login'>Log In</Link>
-
-        </nav>
-      </div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid justify-content-around">
+          <div className="navbar-nav justify-content-around">
+            <div className="nav-link">
+              <Link to='/groups'>Groups</Link>
+            </div>
+            <div className="nav-link">
+              <Link to='/'>Jobs</Link>
+            </div>
+            <div className="nav-link">
+              <Link to='/moneymanagement'>Moneymanagement</Link>
+            </div>
+            <div className="nav-link">
+              <Link to='/tasks'>Tasks</Link>
+            </div>
+            <div className="nav-link">
+              <Link to='/workhours'>Workhours</Link>
+            </div>
+            <div className="nav-link">
+              <Link to='/login'>Log In</Link>
+            </div>
+            {/* <Link to='/register'>Register</Link> */}
+          </div>
+        </div>
+      </nav>
       <Switch>
             <Route path="/login">
               <Login />
