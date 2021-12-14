@@ -11,7 +11,7 @@ deploy-be:
       git add .;
       git commit -m "heroku deploy";
       git push -f https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_STAGING_BE.git HEAD:master
-    - cd frontend/ui;
+    - cd ../../frontend/ui;
       git config --global user.email "$HEROKU_USER";
       git config --global user.name "$HEROKU_USER";
       git init;
