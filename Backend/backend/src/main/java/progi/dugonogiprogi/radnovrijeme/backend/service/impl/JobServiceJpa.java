@@ -18,5 +18,21 @@ import java.util.List;
 @Service
 public class JobServiceJpa implements JobService {
 
+    @Autowired
+    private JobRepository jobRepository;
 
+    @Override
+    public List<Job> listAll() {
+        return jobRepository.findAll();
+    }
+
+    @Override
+    public Job createJob(Job job) {
+        return jobRepository.save(job);
+    }
+
+    @Override
+    public void deleteJob(Integer id) {
+        jobRepository.deleteById(id);
+    }
 }
