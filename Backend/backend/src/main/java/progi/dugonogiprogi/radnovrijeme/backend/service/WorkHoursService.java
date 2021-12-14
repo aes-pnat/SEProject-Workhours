@@ -1,7 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface WorkHoursService {
      * This method gets data from repository.
      * @return list of all work hours inputs for a given employee.
      */
-    List<WorkHoursInput> listWorkHoursEmployee(String username);
+    List<Workhoursinput> listWorkHoursEmployee(String username);
 
     /**
      * This method gets data from repository and processes it into a data transfer object.
@@ -38,6 +38,6 @@ public interface WorkHoursService {
      * This method receives work hours input and stores it in database.
      * @param workHoursInput work hours input that needs to be stored.
      */
-    void inputWorkHours(WorkHoursInput workHoursInput);
+    void inputWorkHours(Workhoursinput workHoursInput);
 
 }

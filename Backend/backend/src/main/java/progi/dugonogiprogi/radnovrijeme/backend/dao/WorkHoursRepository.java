@@ -4,7 +4,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * Repository for work hours inputs in a company.
  */
 @Repository
-public interface WorkHoursRepository extends JpaRepository<WorkHoursInput, Long> {
+public interface WorkHoursRepository extends JpaRepository<Workhoursinput, Long> {
 
     /**
      * Creates a query that will search the database
@@ -21,5 +21,5 @@ public interface WorkHoursRepository extends JpaRepository<WorkHoursInput, Long>
      * @param employee Employee that inputted work hours input.
      * @return List of all work hours inputs that employee has inputted.
      */
-    List<WorkHoursInput> findByHasDoneEquals(Employee employee);
+    List<Workhoursinput> findByHasDoneEquals(Employee employee);
 }

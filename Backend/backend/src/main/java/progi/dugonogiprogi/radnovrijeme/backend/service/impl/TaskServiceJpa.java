@@ -30,7 +30,7 @@ public class TaskServiceJpa implements TaskService {
             employee = employeeRepository.findByUsername(username).get();
         List<TasksDTO> returnList = new ArrayList<>();
 
-        if (employee != null) {
+   /*     if (employee != null) {
             for (Group g : groupRepository.findAll()) {
                 if (g.getMembers().contains(employee)) {
                     List<Task> tasksForGroup = new ArrayList<>();
@@ -42,7 +42,7 @@ public class TaskServiceJpa implements TaskService {
                 }
             }
         }
-
+*/
         return returnList;
     }
 }

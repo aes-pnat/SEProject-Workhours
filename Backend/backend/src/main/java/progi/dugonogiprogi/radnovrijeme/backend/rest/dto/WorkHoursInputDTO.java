@@ -1,7 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 
 import java.util.List;
 
@@ -20,17 +20,17 @@ public class WorkHoursInputDTO {
    /**
     * All work hours inputs that employee has inputted.
     */
-   private List<WorkHoursInput> workHoursInput;
+   private List<Workhoursinput> workHoursInput;
     /**
      * Sum of all hours the employee has done.
      */
-   private Long hoursDoneSum;
+   private Integer hoursDoneSum;
 
-   public WorkHoursInputDTO(Employee employee, List<WorkHoursInput> workHoursInput) {
+   public WorkHoursInputDTO(Employee employee, List<Workhoursinput> workHoursInput) {
        this.name = employee.getName();
        this.surname = employee.getSurname();
        this.workHoursInput = workHoursInput;
-       this.hoursDoneSum = workHoursInput.stream().mapToLong(w -> Long.parseLong(w.getWorkHoursDone())).sum();
+       this.hoursDoneSum = workHoursInput.stream().mapToInt(w -> w.getWorkhoursdone()).sum();
    }
 
     public String getName() {
@@ -49,19 +49,19 @@ public class WorkHoursInputDTO {
         this.surname = surname;
     }
 
-    public List<WorkHoursInput> getWorkHoursInput() {
+    public List<Workhoursinput> getWorkHoursInput() {
         return workHoursInput;
     }
 
-    public void setWorkHoursInput(List<WorkHoursInput> workHoursInput) {
+    public void setWorkHoursInput(List<Workhoursinput> workHoursInput) {
         this.workHoursInput = workHoursInput;
     }
 
-    public Long getHoursDoneSum() {
+    public Integer getHoursDoneSum() {
         return hoursDoneSum;
     }
 
-    public void setHoursDoneSum(Long hoursDoneSum) {
+    public void setHoursDoneSum(Integer hoursDoneSum) {
         this.hoursDoneSum = hoursDoneSum;
     }
 }

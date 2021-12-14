@@ -1,8 +1,9 @@
-package progi.dugonogiprogi.radnovrijeme.backend.rest;
+package progi.dugonogiprogi.radnovrijeme.backend.rest.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ public class EmployeeUserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(employee.getRole() != null) {
+        if(employee.getIdrole() != null) {
             ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + employee.getRole().getName().toUpperCase(Locale.ROOT)));
+//            authorities.add(new SimpleGrantedAuthority("ROLE_" + employee.getRole().getName().toUpperCase(Locale.ROOT)));
             return authorities;
         }
         return new ArrayList<>();

@@ -54,14 +54,14 @@ public class EmployeeServiceJpa implements EmployeeService {
     @Override
     public OccupancyDTO viewOccupancy(String employeeId){
         Employee employee = employeeRepository.getById(employeeId);
-        Set<Task> tasks = employee.getTasks();
+//        Set<Task> tasks = employee.getTasks();
         List<OccupancyDTO.Interval> intervals = new ArrayList<>();
-
+/*
         for (Task task : tasks) {
-            OccupancyDTO.Interval interval = new OccupancyDTO.Interval(task.getDateTimeStart(), task.getDateTimeEnd());
+            OccupancyDTO.Interval interval = new OccupancyDTO.Interval(task.getDatetimestart(), task.getDatetimeend());
             intervals.add(interval);
         }
-
+*/
         return new OccupancyDTO(intervals, employeeId);
     }
 

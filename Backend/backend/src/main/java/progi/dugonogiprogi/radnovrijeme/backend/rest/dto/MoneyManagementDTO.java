@@ -34,10 +34,10 @@ public class MoneyManagementDTO {
     private Double realizedDifference;
 
     public MoneyManagementDTO(List<Task> taskList) {
-        this.plannedProfitSum = taskList.stream().mapToDouble(t -> t.getPlannedProfit()).sum();
-        this.realizedProfitSum = taskList.stream().mapToDouble(t -> t.getRealizedProfit()).sum();
-        this.plannedCostSum = taskList.stream().mapToDouble(t -> t.getPlannedCost()).sum();
-        this.realizedCostSum = taskList.stream().mapToDouble(t -> t.getRealizedCost()).sum();
+        this.plannedProfitSum = taskList.stream().mapToDouble(t -> t.getPlannedprofit()).sum();
+        this.realizedProfitSum = taskList.stream().mapToDouble(t -> t.getRealizedprofit()).sum();
+        this.plannedCostSum = taskList.stream().mapToDouble(t -> t.getPlannedcost()).sum();
+        this.realizedCostSum = taskList.stream().mapToDouble(t -> t.getRealizedcost()).sum();
         this.plannedDifference = plannedProfitSum - plannedCostSum;
         this.realizedDifference = realizedProfitSum - realizedCostSum;
     }

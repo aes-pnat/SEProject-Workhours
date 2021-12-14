@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 
@@ -22,7 +22,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     EmployeeRepository employeeRepository;
 
     @Override
-    public List<WorkHoursInput> listWorkHoursEmployee(String username) {
+    public List<Workhoursinput> listWorkHoursEmployee(String username) {
         return workHoursRepository.findByHasDoneEquals(employeeRepository.findByUsername(username).get());
     }
 
@@ -41,13 +41,13 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     @Override
     public WorkHoursInputDTO workHoursEmployee(String pid) {
         Employee employee = employeeRepository.findById(pid).get();
-        List<WorkHoursInput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
+        List<Workhoursinput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
 
         return new WorkHoursInputDTO(employee, workHoursInputList);
     }
 
     @Override
-    public void inputWorkHours(WorkHoursInput workHoursInput) {
+    public void inputWorkHours(Workhoursinput workHoursInput) {
         workHoursRepository.save(workHoursInput);
     }
 }

@@ -34,22 +34,22 @@ public class GroupServiceJpa implements GroupService {
     public void createGroup(String name, Employee leader) {
         Group group = new Group();
         group.setName(name);
-        group.setLeader(leader);
+        group.setIdleader(leader);
         groupRepo.save(group);
     }
 
     @Override
     public void assignJob(Job job, Long idGroup) {
         Group group = this.fetchGroup(idGroup);
-        group.setAssignedJob(job);
+        group.setIdjob(job);
     }
 
     @Override
     public void assignTask(Task task, String pid) {
         Employee worker = this.fetchEmployee(pid);
-        Set<Task> tasks = worker.getTasks();
+    /*    Set<Task> tasks = worker.getTasks();
         tasks.add(task);
-        worker.setTasks(tasks);
+        worker.setTasks(tasks); */
     }
 
     @Override
@@ -68,8 +68,8 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public boolean add(Long idGroup, Employee employee) {
-        Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findById(employee.getPid())!=null) {
+        Employee newWorker = fetchEmployee(employee.getId());
+   /*     if(workerRepo.findById(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.add(newWorker);
@@ -77,14 +77,14 @@ public class GroupServiceJpa implements GroupService {
             groupRepo.save(group);
         } else {
             return false;
-        }
+        } */
         return true;
     }
 
     @Override
     public boolean remove(Long idGroup, Employee employee) {
-        Employee newWorker = fetchEmployee(employee.getPid());
-        if(workerRepo.findById(employee.getPid())!=null) {
+        Employee newWorker = fetchEmployee(employee.getId());
+   /*     if(workerRepo.findById(employee.getPid())!=null) {
             Group group = this.fetchGroup(idGroup);
             Set<Employee> workers = group.getMembers();
             workers.remove(newWorker);
@@ -92,7 +92,7 @@ public class GroupServiceJpa implements GroupService {
             groupRepo.save(group);
         } else {
             return false;
-        }
+        } */
         return true;
     }
 

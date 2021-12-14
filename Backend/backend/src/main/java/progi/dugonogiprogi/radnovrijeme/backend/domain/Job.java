@@ -40,4 +40,13 @@ public class Job {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Job() {
+
+    }
+
+    public Job(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

@@ -3,7 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,7 +37,7 @@ public class EmployeeDTO {
     private Set<Task> tasks;
 
     @OneToMany(mappedBy = "hasDone")
-    private Set<WorkHoursInput> workHours;
+    private Set<Workhoursinput> workHours;
 
     public String getUsername() {
         return username;
@@ -113,11 +113,11 @@ public class EmployeeDTO {
         this.tasks = tasks;
     }
 
-    public Set<WorkHoursInput> getWorkHours() {
+    public Set<Workhoursinput> getWorkHours() {
         return workHours;
     }
 
-    public void setWorkHours(Set<WorkHoursInput> workHours) {
+    public void setWorkHours(Set<Workhoursinput> workHours) {
         this.workHours = workHours;
     }
 

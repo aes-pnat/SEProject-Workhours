@@ -12,4 +12,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     //za potrebe unosa podataka
     Optional<Role> findByName(String name);
+
+    Optional<Role> findById(Integer idRole);
 }
