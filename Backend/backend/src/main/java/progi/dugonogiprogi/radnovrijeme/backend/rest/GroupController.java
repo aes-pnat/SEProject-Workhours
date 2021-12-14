@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class GroupController {
     }
 
     @PostMapping("/add")
-    public Group crateGroup(@RequestBody Group group) {
-        return groupService.createGroup();
+    public Group crateGroup(@RequestBody GroupDTO group) {
+        return groupService.createGroup(group);
     }
 
 }

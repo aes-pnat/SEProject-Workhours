@@ -6,13 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
 
 import java.util.HashSet;
