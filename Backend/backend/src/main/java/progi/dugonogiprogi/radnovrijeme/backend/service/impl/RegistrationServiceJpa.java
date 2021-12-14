@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.RequiredDataException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.RegistrationService;
+
+import java.util.Optional;
 
 @Service
 public class RegistrationServiceJpa implements RegistrationService {
@@ -22,6 +25,7 @@ public class RegistrationServiceJpa implements RegistrationService {
 
     @Override
     public void registerEmployee(RegistrationDTO regData) {
+
         if(regData.getPid() == null)
             throw new RequiredDataException("Pid should not be empty.");
 
@@ -46,15 +50,15 @@ public class RegistrationServiceJpa implements RegistrationService {
         if(!regData.getPassword().equals(regData.getPasswordCheck()))
             throw new IllegalArgumentException("Password did not match password check.");
 
-        if(eRepository.getByUsername(regData.getUsername()).isPresent()) {
+        if(eRepository.findById(regData.getPid()).equals(regData.getPid())) {
             throw new IllegalArgumentException("Employee with pid " + regData.getPid() + " already exists");
         }
 
-        if(eRepository.getByUsername(regData.getUsername()).isPresent()) {
+        if(eRepository.findByUsername(regData.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Employee with username " + regData.getUsername() + " already exists");
         }
 
-        if(eRepository.getByEmail(regData.getEmail()).isPresent()) {
+        if(eRepository.findByEmail(regData.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Employee with email " + regData.getEmail() + " already exists");
         }
 
@@ -66,7 +70,13 @@ public class RegistrationServiceJpa implements RegistrationService {
         newEmployee.setEmail(regData.getEmail());
         newEmployee.setUsername(regData.getUsername());
         newEmployee.setPassword(regData.getPassword());
-        newEmployee.setIdrole(rRepository.getByName("employee").get());
+        Optional<Role> r = rRepository.findByName("employee");
+        if(r.isPresent()) {
+            newEmployee.setIdrole(r.get());
+        }
+        else {
+            throw new IllegalArgumentException("Role employee does not exist.");
+        }
 
         eRepository.save(newEmployee);
     }
