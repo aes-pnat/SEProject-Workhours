@@ -19,8 +19,5 @@ import java.util.List;
 @CrossOrigin("*")
 public class JobController {
 
-    @GetMapping("")
-
-
 
 }
