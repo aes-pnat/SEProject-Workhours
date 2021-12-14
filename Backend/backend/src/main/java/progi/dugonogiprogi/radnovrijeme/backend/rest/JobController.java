@@ -19,5 +19,22 @@ import java.util.List;
 @CrossOrigin("*")
 public class JobController {
 
+    @Autowired
+    private JobService jobService;
+
+    @GetMapping("")
+    public List<Job> listAllJobs() {
+        return jobService.listAll();
+    }
+
+    @PostMapping("/add")
+    public Job createJob(@RequestBody Job job) {
+        return jobService.createJob(job);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteJob(@RequestParam Integer id) {
+        jobService.deleteJob(id);
+    }
 
 }
