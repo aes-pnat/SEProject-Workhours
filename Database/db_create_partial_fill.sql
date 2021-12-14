@@ -96,7 +96,7 @@ CREATE TABLE EmployeeTask
   idTask INT NOT NULL,
   PRIMARY KEY (idEmployee, idTask),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
-  FOREIGN KEY (idTask) REFERENCES Task(idTask),
+  FOREIGN KEY (idTask) REFERENCES Task(idTask)
 );
 
 INSERT INTO Role (name)
@@ -107,7 +107,7 @@ VALUES
 
 INSERT INTO Employee(pid, name, surname, email, password, username, idRole)
 VALUES
-('00000000001', 'Heena', 'Wang', 'heena.wang@email.com', 'pass', hWang, 2),
+('00000000001', 'Heena', 'Wang', 'heena.wang@email.com', 'pass', 'hWang', 2),
 ('00000000002', 'Amirah', 'Bevan', 'amirah.bevan@email.com', 'pass', 'aBevan', 1),
 ('00000000003', 'Nolan', 'Salgado', 'nolan.salgado@email.com', 'pass', 'nSalgado', 1),
 ('00000000004', 'Eamon', 'Donald', 'eamon.donald@email.com', 'pass', 'eDonald', 1),
@@ -129,6 +129,15 @@ VALUES
 ('00000000020', 'Inayah', 'Goulding', 'inayah.goulding@email.com', 'pass', 'iGoulding', 1),
 ('00000000021', 'Ciaron', 'Talley', 'ciaron.talley@email.com', 'pass', 'cTalley', 3);
 
+INSERT INTO Job (name, price, hourPrice, description)
+VALUES
+('Sustav za navodnjavanje', 120000, 55, 'Napraviti sustav za automatsko navodnjavanje koji u odredenim periodima navodnjava.'),
+('Web aplikacija za online trgovinu', 60000, 40, 'Napraviti web aplikaciju za online trgovinu racunalnih komponenti.'),
+('Sustav za pracenje kvalitete zraka', 100000, 50, 'Napraviti sustav za pracenje kvalitete zraka.'),
+('Sustav za automatsko parkiranje automobila', 400000, 65, 'Napraviti sustav koji omogucava automobilima da se sami parkiraju.'),
+('Web aplikacija za pracenje radnih sati', 60000, 40, 'Napraviti web aplikaciju za pracenje radnih sati zaposlenika firme.'),
+('Web stranica za restoran', 10000, 40, 'Napraviti web stranicu za restoran.');
+
 INSERT INTO "group" (name, idLeader, idJob)
 VALUES
 ('Group 1', '00000000001', 1),
@@ -148,7 +157,7 @@ VALUES
 ('00000000008', 2),
 ('00000000010', 3),
 ('00000000012', 3),
-('00000000012', 3),
+('00000000013', 3),
 ('00000000014', 4),
 ('00000000015', 4),
 ('00000000016', 4),
@@ -158,12 +167,3 @@ VALUES
 ('00000000006', 6),
 ('00000000010', 6),
 ('00000000014', 6);
-
-INSERT INTO Job (name, price, hourPrice, description)
-VALUES
-('Sustav za navodnjavanje', 120000, 55, 'Napraviti sustav za automatsko navodnjavanje koji u odredenim periodima navodnjava.'),
-('Web aplikacija za online trgovinu', 60000, 40, 'Napraviti web aplikaciju za online trgovinu racunalnih komponenti.'),
-('Sustav za pracenje kvalitete zraka', 100000, 50, 'Napraviti sustav za pracenje kvalitete zraka.'),
-('Sustav za automatsko parkiranje automobila', 400000, 65, 'Napraviti sustav koji omogucava automobilima da se sami parkiraju.'),
-('Web aplikacija za pracenje radnih sati', 60000, 40, 'Napraviti web aplikaciju za pracenje radnih sati zaposlenika firme.'),
-('Web stranica za restoran', 10000, 40, 'Napraviti web stranicu za restoran.');

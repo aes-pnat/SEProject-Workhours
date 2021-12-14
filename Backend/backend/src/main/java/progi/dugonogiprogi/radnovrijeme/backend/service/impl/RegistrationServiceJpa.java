@@ -1,9 +1,9 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
-import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.RequiredDataException;
@@ -13,10 +13,18 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.RegistrationService;
 public class RegistrationServiceJpa implements RegistrationService {
 
     @Autowired
-    EmployeeRepository repository;
+    EmployeeRepository eRepository;
+
+    @Autowired
+    RoleRepository rRepository;
+
+    //TODO: password encoder i spremati kriptirane sifre kad se doda security
 
     @Override
     public void registerEmployee(RegistrationDTO regData) {
+        if(regData.getPid() == null)
+            throw new RequiredDataException("Pid should not be empty.");
+
         if(regData.getName() == null)
             throw new RequiredDataException("Name should not be empty.");
 
@@ -38,15 +46,28 @@ public class RegistrationServiceJpa implements RegistrationService {
         if(!regData.getPassword().equals(regData.getPasswordCheck()))
             throw new IllegalArgumentException("Password did not match password check.");
 
-        if(repository.getByUsername(regData.getUsername()).isPresent()) {
+        if(eRepository.getByUsername(regData.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Employee with pid " + regData.getPid() + " already exists");
+        }
+
+        if(eRepository.getByUsername(regData.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Employee with username " + regData.getUsername() + " already exists");
         }
 
-        if(repository.getByEmail(regData.getEmail()).isPresent()) {
+        if(eRepository.getByEmail(regData.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Employee with email " + regData.getEmail() + " already exists");
         }
 
-        Employee newEployee = new Employee();
-        newEployee.setName();
+        Employee newEmployee = new Employee();
+
+        newEmployee.setId(regData.getPid());
+        newEmployee.setName(regData.getName());
+        newEmployee.setSurname(regData.getSurname());
+        newEmployee.setEmail(regData.getEmail());
+        newEmployee.setUsername(regData.getUsername());
+        newEmployee.setPassword(regData.getPassword());
+        newEmployee.setIdrole(rRepository.getByName("employee").get());
+
+        eRepository.save(newEmployee);
     }
 }

@@ -2,6 +2,8 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
 public class RegistrationDTO {
 
+    private String pid;
+
     private String name;
 
     private String surname;
@@ -13,6 +15,10 @@ public class RegistrationDTO {
     private String password;
 
     private String passwordCheck;
+
+    public String getPid() {
+        return pid;
+    }
 
     public String getName() {
         return name;
