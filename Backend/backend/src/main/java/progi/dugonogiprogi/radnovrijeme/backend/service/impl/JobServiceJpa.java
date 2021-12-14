@@ -18,49 +18,5 @@ import java.util.List;
 @Service
 public class JobServiceJpa implements JobService {
 
-    @Autowired
-    private JobRepository jobRepo;
 
-    /**
-     * Lists all jobs.
-     *
-     * @return a list of jobs
-     */
-    @Override
-    public List<JobDTO> listAll() {
-        List<Job> jobs = jobRepo.findAll();
-        List<JobDTO> returnList = new ArrayList<JobDTO>();
-
-        for(Job j : jobs) {
-            returnList.add(new JobDTO(j.getName(), j.getDescription()));
-        }
-
-        return returnList;
-    }
-
-    /**
-     * Gets detailed description of a job.
-     *
-     * @param idJob ID of the job whose description is looked for
-     * @return a String containing a detailed description of the job
-     */
-    @Override
-    public String showJobDescription(Long idJob) {return jobRepo.findByIdJob(idJob).get().getDescription();
-    }
-
-    /**
-     * Creates a new job.
-     *
-     * @param jobName name of the new job
-     * @param jobDescription description of the new job
-     * @return newly created job
-     */
-    @Override
-    public Job createJob(String jobName, String jobDescription) {
-        Assert.notNull(jobName, "Job name must be given!");
-        Assert.notNull(jobDescription, "Job decription must be given!");
-        if (jobRepo.countByName(jobName) > 0)
-            throw new RequestDeniedException("A job with the name " + jobName + "already exists");
-        return jobRepo.save(new Job(jobName, jobDescription));
-    }
 }

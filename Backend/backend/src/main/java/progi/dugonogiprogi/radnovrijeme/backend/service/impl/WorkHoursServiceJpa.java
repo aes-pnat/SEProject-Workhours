@@ -15,39 +15,5 @@ import java.util.List;
 @Service
 public class WorkHoursServiceJpa implements WorkHoursService {
 
-    @Autowired
-    WorkHoursRepository workHoursRepository;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
-
-    @Override
-    public List<Workhoursinput> listWorkHoursEmployee(String username) {
-        return workHoursRepository.findByHasDoneEquals(employeeRepository.findByUsername(username).get());
-    }
-
-    @Override
-    public List<WorkHoursInputDTO> listAllWorkHours() {
-        List<Employee> employees = employeeRepository.findAll();
-        List<WorkHoursInputDTO> returnList = new ArrayList<>();
-
-        for(Employee e : employees) {
-            returnList.add(new WorkHoursInputDTO(e, workHoursRepository.findByHasDoneEquals(e)));
-        }
-
-        return returnList;
-    }
-
-    @Override
-    public WorkHoursInputDTO workHoursEmployee(String pid) {
-        Employee employee = employeeRepository.findById(pid).get();
-        List<Workhoursinput> workHoursInputList = workHoursRepository.findByHasDoneEquals(employee);
-
-        return new WorkHoursInputDTO(employee, workHoursInputList);
-    }
-
-    @Override
-    public void inputWorkHours(Workhoursinput workHoursInput) {
-        workHoursRepository.save(workHoursInput);
-    }
 }

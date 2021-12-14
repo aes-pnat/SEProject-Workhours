@@ -9,11 +9,5 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 @Service
 public class MoneyManagementServiceJpa implements MoneyManagementService {
 
-    @Autowired
-    TaskRepository taskRepository;
 
-    @Override
-    public MoneyManagementDTO getFinancialStatus() {
-        return new MoneyManagementDTO(taskRepository.findAll());
-    }
 }

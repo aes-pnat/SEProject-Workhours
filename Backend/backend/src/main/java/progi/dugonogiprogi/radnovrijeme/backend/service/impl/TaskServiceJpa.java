@@ -17,32 +17,6 @@ import java.util.Set;
 @Service
 public class TaskServiceJpa implements TaskService {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
-    @Autowired
-    GroupRepository groupRepository;
 
-    @Override
-    public List<TasksDTO> listTaskEmployee(String username) {
-        Employee employee = null;
-        if (employeeRepository.findByUsername(username).isPresent())
-            employee = employeeRepository.findByUsername(username).get();
-        List<TasksDTO> returnList = new ArrayList<>();
-
-   /*     if (employee != null) {
-            for (Group g : groupRepository.findAll()) {
-                if (g.getMembers().contains(employee)) {
-                    List<Task> tasksForGroup = new ArrayList<>();
-                    for(Task t : employee.getTasks()) {
-                        if(t.getBelongsTo().equals(g.getAssignedJob()))
-                            tasksForGroup.add(t);
-                    }
-                    returnList.add(new TasksDTO(g.getName(), tasksForGroup));
-                }
-            }
-        }
-*/
-        return returnList;
-    }
 }
