@@ -2,8 +2,8 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import javax.persistence.*;
 
-@Entity
 @Table(name = "job")
+@Entity
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,6 +12,12 @@ public class Job {
 
     @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "price", nullable = false)
+    private Double price;
+
+    @Column(name = "hourprice", nullable = false)
+    private Double hourprice;
 
     @Lob
     @Column(name = "description")
@@ -23,6 +29,22 @@ public class Job {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getHourprice() {
+        return hourprice;
+    }
+
+    public void setHourprice(Double hourprice) {
+        this.hourprice = hourprice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getName() {
@@ -39,14 +61,5 @@ public class Job {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Job() {
-
-    }
-
-    public Job(String name, String description) {
-        this.name = name;
-        this.description = description;
     }
 }
