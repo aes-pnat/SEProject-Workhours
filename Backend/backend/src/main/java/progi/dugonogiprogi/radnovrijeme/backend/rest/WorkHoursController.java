@@ -11,6 +11,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/workhours")
 public class WorkHoursController {

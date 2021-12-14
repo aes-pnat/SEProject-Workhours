@@ -1,71 +1,31 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
-import java.util.Set;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-
-/**
- * Class Role represents what role an employee has in the company.
- * @author Bernard
- */
 @Entity
+@Table(name = "role")
 public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idrole", nullable = false)
+    private Integer id;
 
-	/**
-	 * Role identifier.
-	 * Generated value.
-	 */
-	@Id
-	@GeneratedValue
-	private Long idRole;
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
 
-	/**
-	 * Role name.
-	 */
-	@NotNull
-	private String name;
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * All employees with this role.
-	 */
-	@OneToMany(mappedBy = "role")
-	private Set<Employee> employeesWithRole;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Long getIdRole() {
-		return idRole;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setIdRole(Long idRole) {
-		this.idRole = idRole;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Set<Employee> getEmployeesWithRole() {
-		return employeesWithRole;
-	}
-
-	public void setEmployeesWithRole(Set<Employee> employeesWithRole) {
-		this.employeesWithRole = employeesWithRole;
-	}
-
-
-	//za potrebe unosa podataka
-	public Role() {
-
-	}
-
-	public Role(String name) {
-		this.name = name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

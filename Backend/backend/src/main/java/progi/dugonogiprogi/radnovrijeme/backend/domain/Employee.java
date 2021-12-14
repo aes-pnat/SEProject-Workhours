@@ -1,161 +1,88 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
-import java.util.Set;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-/**
- * Class employee represents an generic employee in the company.
- * Afterwards employees are differentiated by roles.
- * @author Bernard
- */
 
 @Entity
+@Table(name = "employee")
 public class Employee {
+    @Id
+    @Column(name = "pid", nullable = false, length = 11)
+    private String id;
 
-	@Id
-	@Size(min = 11, max = 11)
-	private String pid;
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
 
-	@Column(unique = true)
-	@NotNull
-	private String username;
+    @Column(name = "surname", nullable = false, length = 50)
+    private String surname;
 
-	@NotNull
-	private String password;
+    @Column(name = "email", nullable = false, length = 50)
+    private String email;
 
-	@Column(unique = true)
-	@NotNull
-	private String email;
+    @Column(name = "password", nullable = false, length = 50)
+    private String password;
 
-	@NotNull
-	private String name;
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
 
-	@NotNull
-	private String surname;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "idrole", nullable = false)
+    private Role idrole;
 
-	@ManyToOne
-	@JoinColumn(name = "idRole", nullable = false)
-	private Role role;
+    public Role getIdrole() {
+        return idrole;
+    }
 
-	@OneToMany(mappedBy = "leader")
-	private Set<Group> isLeader;
+    public void setIdrole(Role idrole) {
+        this.idrole = idrole;
+    }
 
-	@ManyToMany(mappedBy = "members")
-	private Set<Group> isMember;
+    public String getUsername() {
+        return username;
+    }
 
-	/**
-	 * Tasks given to this employee.
-	 */
-	@ManyToMany
-	@JoinTable(
-			name = "EmployeeTask",
-			joinColumns = @JoinColumn(name = "pid"),
-			inverseJoinColumns = @JoinColumn(name = "idTask"))
-	private Set<Task> tasks;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/**
-	 * How many hours has this employee done in a day.
-	 */
-	@OneToMany(mappedBy = "hasDone")
-	private Set<WorkHoursInput> workHours;
+    public String getPassword() {
+        return password;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setUsername(String username) { this.username = username; }
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPassword() { return password; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPassword(String password) {	this.password = password; }
+    public String getSurname() {
+        return surname;
+    }
 
-	public String getPid() {
-		return pid;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public Set<Group> getIsLeader() {
-		return isLeader;
-	}
-
-	public void setIsLeader(Set<Group> isLeader) {
-		this.isLeader = isLeader;
-	}
-
-	public Set<Group> getIsMember() {
-		return isMember;
-	}
-
-	public void setIsMember(Set<Group> isMember) {
-		this.isMember = isMember;
-	}
-
-	public Set<Task> getTasks() {
-		return tasks;
-	}
-
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
-	}
-
-	public Set<WorkHoursInput> getWorkHours() {
-		return workHours;
-	}
-
-	public void setWorkHours(Set<WorkHoursInput> workHours) {
-		this.workHours = workHours;
-	}
-
-
-	//za potrebe unosa podataka
-	public Employee() {
-
-	}
-
-	public Employee(String pid, String username, String password, String email, String name, String surname, Role role) {
-		this.pid = pid;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.name = name;
-		this.surname = surname;
-		this.role = role;
-	}
+    //randomkomentar
 }

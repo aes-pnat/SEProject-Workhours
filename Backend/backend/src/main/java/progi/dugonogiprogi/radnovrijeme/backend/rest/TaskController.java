@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/tasks")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 public class TaskController {
 
     @Autowired
@@ -33,5 +33,6 @@ public class TaskController {
     public List<TasksDTO> listTasksEmployee() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return taskService.listTaskEmployee(userDetails.getUsername());
+
     }
 }
