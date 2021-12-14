@@ -19,7 +19,17 @@ import java.util.List;
 @RequestMapping("/groups")
 public class GroupController {
 
-    @GetMapping("")
+    @Autowired
+    private GroupService groupService;
 
+    @GetMapping("")
+    public List<Group> listAllGroups() {
+        return groupService.listAllGroups();
+    }
+
+    @PostMapping("/add")
+    public Group crateGroup(@Requestbody group) {
+        return groupService.createGroup();
+    }
 
 }

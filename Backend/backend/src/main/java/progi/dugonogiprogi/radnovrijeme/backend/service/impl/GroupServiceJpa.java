@@ -23,6 +23,26 @@ import java.util.Set;
 @Service
 public class GroupServiceJpa implements GroupService {
 
+    @Autowired
+    private GroupRepository groupRepository;
 
+    @Override
+    public List<Group> listAllGroups() {
 
+    }
+
+    @Override
+    public Group createGroup() {
+
+    }
+
+    @Override
+    public void deleteGroup(Integer groupId) {
+        if (groupRepository.getById(groupId).getId().equals(groupId)) {
+            groupRepository.deleteById(groupId);
+        } else {
+            throw new MissingGroupException();
+        }
+
+    }
 }

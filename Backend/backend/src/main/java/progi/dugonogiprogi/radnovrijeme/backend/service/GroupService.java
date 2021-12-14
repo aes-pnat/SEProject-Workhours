@@ -16,5 +16,10 @@ import java.util.Optional;
 @Service
 public interface GroupService {
 
+    public List<Group> listAllGroups();
+
+    public Group createGroup();
+
+    public void deleteGroup(Integer groupId);
 
 }
