@@ -13,6 +13,8 @@ import Tasks from './Tasks';
 import Login from './Login';
 import Moneymanagement from './Moneymanagement';
 import Register from './Register';
+import MainPage from './MainPage';
+import JobsAdd from './JobsAdd';
 
 function Navbar() {
   return (
@@ -26,11 +28,15 @@ function Navbar() {
           <div className="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
             <div className="navbar-nav justify-content-around">
               <div className="nav-link">
+              {/* <div className="nav-link">
+                <Link to='/'>Main page</Link>
+              </div> */}
                 <Link to='/groups'>Groups</Link>
               </div>
               <div className="nav-link">
-                <Link to='/'>Jobs</Link>
+                <Link to='/jobs'>Jobs</Link>
               </div>
+              
               <div className="nav-link">
                 <Link to='/moneymanagement'>Moneymanagement</Link>
               </div>
@@ -49,14 +55,20 @@ function Navbar() {
         </div>
       </nav>
       <Switch>
+            <Route exact path="/">
+              <MainPage />
+            </Route>
             <Route path="/login">
               <Login />
             </Route>
             <Route path="/groups">
               <Groups />
             </Route>
-            <Route exact path="/">
+            <Route path="/jobs">
               <Jobs />
+            </Route>
+            <Route path="/jobs/add">
+              <JobsAdd/>
             </Route>
             <Route path="/moneymanagement">
               <Moneymanagement />

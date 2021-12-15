@@ -1,8 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch
+  } from 'react-router-dom';
 import '../Jobs.css';
+import JobsAdd from './JobsAdd';
 const Jobs = () => {
     const [data, setData] = useState([]);
+    let { path, url } = useRouteMatch();
+
+    //const navigator = useNavigation();
+
 
     //var API_URI = "https://radno-vrijeme-app.herokuapp.com/jobs";
     var API_URI = 'https://radno-vrijeme-app.herokuapp.com/jobs'
@@ -39,10 +52,22 @@ const Jobs = () => {
     
     return (
         <div>
-            <li>Pozdrav iz job stranice</li>
-            {data && (data.length > 1) ?
-                data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
-            }
+            <Link to={`${url}/add`}>Dodaj djelatnost</Link>
+
+            <Switch>
+                <Route exact path={path}>
+                <div>
+                    <li>Pozdrav iz job stranice</li>
+                    {data && (data.length > 1) ?
+                        data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
+                    }
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <JobsAdd />
+                </Route>
+            </Switch>
+
         </div>
     ); 
 };
