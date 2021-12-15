@@ -19,7 +19,6 @@ public class Job {
     @Column(name = "hourprice", nullable = false)
     private Double hourprice;
 
-    @Lob
     @Column(name = "description")
     private String description;
 
