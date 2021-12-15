@@ -39,7 +39,7 @@ class Register extends React.Component {
 
         this.setState({ responseMsg: '', error: null });
 
-        await fetch('https://radno-vrijeme-app.herokuapp.com/register', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/register', {
             method: 'POST',
             headers: myHeaders,
             body: body
