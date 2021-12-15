@@ -1,7 +1,11 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -10,6 +14,8 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.RequiredDataException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.RegistrationService;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 
 @Service
@@ -24,7 +30,7 @@ public class RegistrationServiceJpa implements RegistrationService {
     //TODO: password encoder i spremati kriptirane sifre kad se doda security
 
     @Override
-    public void registerEmployee(RegistrationDTO regData) {
+    public Employee registerEmployee(RegistrationDTO regData) {
 
         if(regData.getPid() == null)
             throw new RequiredDataException("Pid should not be empty.");
@@ -63,7 +69,6 @@ public class RegistrationServiceJpa implements RegistrationService {
         }
 
         Employee newEmployee = new Employee();
-
         newEmployee.setId(regData.getPid());
         newEmployee.setName(regData.getName());
         newEmployee.setSurname(regData.getSurname());
@@ -77,7 +82,6 @@ public class RegistrationServiceJpa implements RegistrationService {
         else {
             throw new IllegalArgumentException("Role employee does not exist.");
         }
-
-        eRepository.save(newEmployee);
+        return eRepository.save(newEmployee);
     }
 }
