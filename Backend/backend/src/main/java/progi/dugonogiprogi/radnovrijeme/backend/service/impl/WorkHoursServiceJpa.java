@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
@@ -19,6 +16,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkHoursServiceJpa implements WorkHoursService {
@@ -31,6 +29,9 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    EmployeetaskRepository employeetaskRepository;
 
     @Override
     public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, Integer idEmployee) {
@@ -56,8 +57,18 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     }
 
     @Override
-    public List<Workhoursinput> listAllWorkHours() {
-        return workHoursRepository.findAll();
+    public List<String> listTaskNamesForEmployee(String idEmployee) {
+        Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
+        if (!employeeTaskList.isPresent())
+            throw new NoSuchTaskException("Employee with ID >" + idEmployee + "< doesn't have any tasks.");
+        List<Integer> taskIDList = new ArrayList<>();
+        for (Employeetask et : employeeTaskList.get())
+            taskIDList.add(et.getId().getIdtask());
+        List<String> taskNames = new ArrayList<>();
+        for (Task task : taskRepository.findAll())
+            if (taskIDList.contains(task.getId()))
+                taskNames.add(task.getName());
+        return taskNames;
     }
 
 }
