@@ -19,7 +19,7 @@ function Navbar() {
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid justify-content-around">
-        <a class="navbar-brand" href="#">Radno vrijeme</a>
+        <a className="navbar-brand" href="#">Radno vrijeme</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -43,7 +43,9 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/login'>Log In</Link>
               </div>
-              {/* <Link to='/register'>Register</Link> */}
+              <div className="nav-link">
+                <Link to='/register'>Register</Link>
+              </div>
             </div>
           </div>
         </div>

@@ -67,11 +67,6 @@ function Login(){
                     <button type="submit" className="btn btn-primary">Prijavi se</button>
                 </form>
             </div>
-            
-            <div className="container register-card">
-                <h3>Not a member yet?</h3>
-                <Link to='/register'>Register</Link>
-            </div>
         </div>
     )
 };
