@@ -28,4 +28,13 @@ public class Role {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Role(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Role() {
+
+    }
 }

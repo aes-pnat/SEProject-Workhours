@@ -84,5 +84,17 @@ public class Employee {
         this.id = id;
     }
 
-    //randomkomentar
+    public Employee() {
+
+    }
+
+    public Employee(String id, String name, String surname, String email, String password, String username, Role idrole) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.idrole = idrole;
+    }
 }
