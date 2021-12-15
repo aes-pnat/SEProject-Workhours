@@ -1,7 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+//import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.CreateJobDTO;
@@ -13,47 +13,28 @@ import java.util.List;
 /**
  * Handles requests for Jobs page.
  */
+
 @RestController
 @RequestMapping("/jobs")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 public class JobController {
-
 
     @Autowired
     private JobService jobService;
 
-    /**
-     * Handles HTTP GET request for listing all the jobs.
-     *
-     * @return a list of jobs
-     */
-
     @GetMapping("")
-    public List<JobDTO> listAllJobs() {
+    public List<Job> listAllJobs() {
         return jobService.listAll();
     }
 
-    /**
-     * Handles HTTP GET request for showing job description.
-     *
-     * @param idJob ID of the job whose description is looked for
-     * @return a String containing a detailed description of the job
-     */
-    @GetMapping("/details")
-    public String showJobDescription(@RequestParam Long idJob) {
-        return jobService.showJobDescription(idJob);
+    @PostMapping("/add")
+    public Job createJob(@RequestBody Job job) {
+        return jobService.createJob(job);
     }
 
-    /**
-     * Handles HTTP POST requst for creating a new job.
-     *
-     * @param jobDTO a Data Transfer Object used for creating the job
-     * @return newly created Job
-     */
-    @PostMapping("")
-    @Secured("ROLE_OWNER")
-    public Job createJob(@RequestBody CreateJobDTO jobDTO) {
-        return jobService.createJob(jobDTO.getJobName(), jobDTO.getJobDescription());
+    @DeleteMapping("/delete")
+    public void deleteJob(@RequestParam Integer id) {
+        jobService.deleteJob(id);
     }
 
 }

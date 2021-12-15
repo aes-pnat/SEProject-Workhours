@@ -1,9 +1,12 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.WorkHoursInput;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,31 +16,8 @@ import java.util.List;
 @Service
 public interface WorkHoursService {
 
-    /**
-     * This method gets data from repository.
-     * @return list of all work hours inputs for a given employee.
-     */
-    List<WorkHoursInput> listWorkHoursEmployee(String username);
+    List<String> listTaskNamesForEmployee(String idEmployee);
 
-    /**
-     * This method gets data from repository and processes it into a data transfer object.
-     * @return A data transfer object that contains all work hours inputs and
-     * a sum of work hours done for each worker.
-     */
-    List<WorkHoursInputDTO> listAllWorkHours();
-
-    /**
-     * This method gets data from repository and processes it into a data transfer object.
-     * @param pid Personal identification number of an employee.
-     * @return A data transfer object that contains all work hours inputs and
-     * a sum of work hours done for a worker with given pid.
-     */
-    WorkHoursInputDTO workHoursEmployee(String pid);
-
-    /**
-     * This method receives work hours input and stores it in database.
-     * @param workHoursInput work hours input that needs to be stored.
-     */
-    void inputWorkHours(WorkHoursInput workHoursInput);
+    Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, Integer idEmployee);
 
 }

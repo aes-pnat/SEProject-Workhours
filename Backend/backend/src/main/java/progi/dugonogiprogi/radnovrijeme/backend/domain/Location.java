@@ -1,101 +1,65 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
-/**
- * Class location represents a location that is assigned to a job
- * that employee needs to do outside of company.
- * @author Bernard
- */
 @Entity
+@Table(name = "location")
 public class Location {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idlocation", nullable = false)
+    private Integer id;
 
-	/**
-	 * Location identifier.
-	 * Generated value.
-	 */
-	@Id
-	@GeneratedValue
-	private Long idLocation;
+    @Column(name = "address", length = 100)
+    private String address;
 
-	/**
-	 * Location longitude.
-	 */
-	@NotNull
-	private Float longitude;
+    @Column(name = "placename", length = 50)
+    private String placename;
 
-	/**
-	 * Location latitude.
-	 */
-	@NotNull
-	private Float latitude;
+    @Column(name = "latitude", nullable = false, precision = 8, scale = 6)
+    private BigDecimal latitude;
 
-	/**
-	 * Name of the place that is on this location.
-	 */
-	private String placeName;
+    @Column(name = "longitude", nullable = false, precision = 9, scale = 6)
+    private BigDecimal longitude;
 
-	/**
-	 * Address of location.
-	 */
-	private String address;
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
 
-	/**
-	 * All tasks that are on this location.
-	 */
-	@OneToMany(mappedBy = "location")
-	private Set<Task> locationOfTask;
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
 
-	public Long getIdLocation() {
-		return idLocation;
-	}
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
 
-	public void setIdLocation(Long idLocation) {
-		this.idLocation = idLocation;
-	}
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
 
-	public Float getLongitude() {
-		return longitude;
-	}
+    public String getPlacename() {
+        return placename;
+    }
 
-	public void setLongitude(Float longitude) {
-		this.longitude = longitude;
-	}
+    public void setPlacename(String placename) {
+        this.placename = placename;
+    }
 
-	public Float getLatitude() {
-		return latitude;
-	}
+    public String getAddress() {
+        return address;
+    }
 
-	public void setLatitude(Float latitude) {
-		this.latitude = latitude;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public String getPlaceName() {
-		return placeName;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setPlaceName(String placeName) {
-		this.placeName = placeName;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Set<Task> getLocationOfTask() {
-		return locationOfTask;
-	}
-
-	public void setLocationOfTask(Set<Task> locationOfTask) {
-		this.locationOfTask = locationOfTask;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

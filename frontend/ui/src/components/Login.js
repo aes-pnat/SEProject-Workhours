@@ -26,13 +26,16 @@ function Login(){
         const password = inputs.password;
         const credentials = {username, password};	
 		const authdata = window.btoa(username + ':' + password);
-		
+
+		//const LOGIN_URL = 'http://localhost:8080/login';
+        const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
+        
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 		myHeaders.append("Authorization", "Basic " + authdata);
 
-        await fetch('http://localhost:8080/login',{
+        await fetch(LOGIN_URL,{
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify(credentials)

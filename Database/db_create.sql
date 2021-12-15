@@ -1,10 +1,14 @@
+DROP TABLE Job CASCADE;
 CREATE TABLE Job
 (
   idJob SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
+  price FLOAT NOT NULL,
+  hourPrice FLOAT NOT NULL,
   description TEXT
 );
 
+DROP TABLE Location CASCADE;
 CREATE TABLE Location
 (
   idLocation SERIAL PRIMARY KEY,
@@ -14,12 +18,14 @@ CREATE TABLE Location
   longitude DECIMAL(9, 6) NOT NULL
 );
 
+DROP TABLE Role CASCADE;
 CREATE TABLE Role
 (
   idRole SERIAL PRIMARY KEY,
   name VARCHAR(50) NOT NULL
 );
 
+DROP TABLE Employee CASCADE;
 CREATE TABLE Employee
 (
   pid CHAR(11) PRIMARY KEY,
@@ -32,6 +38,7 @@ CREATE TABLE Employee
   FOREIGN KEY (idRole) REFERENCES Role(idRole)
 );
 
+DROP TABLE "group" CASCADE;
 CREATE TABLE "group"
 (
   idGroup SERIAL PRIMARY KEY,
@@ -42,6 +49,7 @@ CREATE TABLE "group"
   FOREIGN KEY (idJob) REFERENCES Job(idJob)
 );
 
+DROP TABLE Task CASCADE;
 CREATE TABLE Task
 (
   idTask SERIAL PRIMARY KEY,
@@ -50,10 +58,6 @@ CREATE TABLE Task
   dateTimeStart TIMESTAMP NOT NULL,
   dateTimeEnd TIMESTAMP NOT NULL,
   hoursNeededEstimate SMALLINT,
-  plannedProfit FLOAT,
-  realizedProfit FLOAT,
-  plannedCost FLOAT,
-  realizedCost FLOAT,
   idJob INT,
   idLocation INT,
   FOREIGN KEY (idJob) REFERENCES Job(idJob),
@@ -63,6 +67,7 @@ CREATE TABLE Task
   )
 );
 
+DROP TABLE WorkHoursInput CASCADE;
 CREATE TABLE WorkHoursInput
 (
   idWorkHoursInput SERIAL PRIMARY KEY,
@@ -74,6 +79,7 @@ CREATE TABLE WorkHoursInput
   FOREIGN KEY (idTask) REFERENCES Task(idTask)
 );
 
+DROP TABLE EmployeeGroup CASCADE;
 CREATE TABLE EmployeeGroup
 (
   idEmployee CHAR(11) NOT NULL,
@@ -83,6 +89,7 @@ CREATE TABLE EmployeeGroup
   FOREIGN KEY (idGroup) REFERENCES "group"(idGroup)
 );
 
+DROP TABLE EmployeeTask CASCADE;
 CREATE TABLE EmployeeTask
 (
   idEmployee CHAR(11) NOT NULL,

@@ -6,5 +6,4 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 @Service
 public interface MoneyManagementService {
 
-    MoneyManagementDTO getFinancialStatus();
 }

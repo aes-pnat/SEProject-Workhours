@@ -1,218 +1,101 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.time.Instant;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-/**
- * Class Task represents a task
- * that leader of a group has given to a group for their job.
- * @author Bernard
- */
+@Table(name = "task")
 @Entity
 public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idtask", nullable = false)
+    private Integer id;
 
-	/**
-	 * Task idetifier.
-	 * Generated value.
-	 */
-	@Id
-	@GeneratedValue
-	private Long idTask;
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-	/**
-	 * Task name.
-	 */
-	@NotNull
-	private String name;
+    @Lob
+    @Column(name = "description")
+    private String description;
 
-	/**
-	 * Task description.
-	 */
-	private String description;
+    @Column(name = "datetimestart", nullable = false)
+    private Instant datetimestart;
 
-	/**
-	 * Date and time when a task started.
-	 */
-	@NotNull
-	@DateTimeFormat
-	private LocalDateTime dateTimeStart;
+    @Column(name = "datetimeend", nullable = false)
+    private Instant datetimeend;
 
-	/**
-	 * Date and time when a task ended.
-	 */
+    @Column(name = "hoursneededestimate")
+    private Integer hoursneededestimate;
 
-	@NotNull
-	@DateTimeFormat
-	private LocalDateTime dateTimeEnd;
+    @ManyToOne
+    @JoinColumn(name = "idjob")
+    private Job idjob;
 
-	/**
-	 * Estimate of hours needed to complete a task.
-	 */
-	private String hoursNeededEstimate;
+    @ManyToOne
+    @JoinColumn(name = "idlocation")
+    private Location idlocation;
 
-	/**
-	 * Planned profit on a task.
-	 */
-	private Double plannedProfit;
+    public Location getIdlocation() {
+        return idlocation;
+    }
 
-	/**
-	 * Realized profit on a task.
-	 */
-	private Double realizedProfit;
+    public void setIdlocation(Location idlocation) {
+        this.idlocation = idlocation;
+    }
 
-	/**
-	 * Planned cost of a task.
-	 */
-	private Double plannedCost;
+    public Job getIdjob() {
+        return idjob;
+    }
 
-	/**
-	 * Realized cost of a task.
-	 */
-	private Double realizedCost;
+    public void setIdjob(Job idjob) {
+        this.idjob = idjob;
+    }
 
-	/**
-	 * Job that this task belongs to.
-	 */
-	@ManyToOne
-	@JoinColumn(name = "idJob", nullable = false)
-	private Job belongsTo;
+    public Integer getHoursneededestimate() {
+        return hoursneededestimate;
+    }
 
-	/**
-	 * If a task needs to be completed outside of company,
-	 * this value stores location of a task.
-	 */
-	@ManyToOne
-	@JoinColumn(name = "idLocation", nullable = false)
-	private Location location;
+    public void setHoursneededestimate(Integer hoursneededestimate) {
+        this.hoursneededestimate = hoursneededestimate;
+    }
 
-	/**
-	 * Set of employees that are assigned to this task.
-	 */
-    @ManyToMany(mappedBy = "tasks")
-    private List<Employee> doingThisTask;
+    public Instant getDatetimeend() {
+        return datetimeend;
+    }
 
-	/**
-	 * Hours that an employee spent on this task in a day.
-	 */
-	@OneToMany(mappedBy = "onTask")
-	private Set<WorkHoursInput> hoursInputs;
+    public void setDatetimeend(Instant datetimeend) {
+        this.datetimeend = datetimeend;
+    }
 
-	public Long getIdTask() {
-		return idTask;
-	}
+    public Instant getDatetimestart() {
+        return datetimestart;
+    }
 
-	public void setIdTask(Long idTask) {
-		this.idTask = idTask;
-	}
+    public void setDatetimestart(Instant datetimestart) {
+        this.datetimestart = datetimestart;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public LocalDateTime getDateTimeStart() {
-		return dateTimeStart;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setDateTimeStart(LocalDateTime dateTimeStart) {
-		this.dateTimeStart = dateTimeStart;
-	}
-
-	public LocalDateTime getDateTimeEnd() {
-		return dateTimeEnd;
-	}
-
-	public void setDateTimeEnd(LocalDateTime dateTimeEnd) {
-		this.dateTimeEnd = dateTimeEnd;
-	}
-
-	public String getHoursNeededEstimate() {
-		return hoursNeededEstimate;
-	}
-
-	public void setHoursNeededEstimate(String hoursNeededEstimate) {
-		this.hoursNeededEstimate = hoursNeededEstimate;
-	}
-
-	public Job getBelongsTo() {
-		return belongsTo;
-	}
-
-	public void setBelongsTo(Job belongsTo) {
-		this.belongsTo = belongsTo;
-	}
-
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-
-	public List<Employee> getDoingThisTask() {
-		return doingThisTask;
-	}
-
-	public void setDoingThisTask(List<Employee> doingThisTask) {
-		this.doingThisTask = doingThisTask;
-	}
-
-	public Set<WorkHoursInput> getHoursInputs() {
-		return hoursInputs;
-	}
-
-	public void setHoursInputs(Set<WorkHoursInput> hoursInputs) {
-		this.hoursInputs = hoursInputs;
-	}
-
-	public Double getPlannedProfit() {
-		return plannedProfit;
-	}
-
-	public void setPlannedProfit(Double plannedProfit) {
-		this.plannedProfit = plannedProfit;
-	}
-
-	public Double getRealizedProfit() {
-		return realizedProfit;
-	}
-
-	public void setRealizedProfit(Double realizedProfit) {
-		this.realizedProfit = realizedProfit;
-	}
-
-	public Double getPlannedCost() {
-		return plannedCost;
-	}
-
-	public void setPlannedCost(Double plannedCost) {
-		this.plannedCost = plannedCost;
-	}
-
-	public Double getRealizedCost() {
-		return realizedCost;
-	}
-
-	public void setRealizedCost(Double realizedCost) {
-		this.realizedCost = realizedCost;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
