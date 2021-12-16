@@ -13,6 +13,7 @@ import Tasks from './Tasks';
 import Login from './Login';
 import Moneymanagement from './Moneymanagement';
 import Register from './Register';
+import Occupancy from './Occupancy';
 
 function Navbar() {
   return (
@@ -44,7 +45,10 @@ function Navbar() {
                 <Link to='/login'>Log In</Link>
               </div>
               <div className="nav-link">
-                <Link to='/register'>Register</Link>
+                <Link to='/register'>Registracija</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/occupancy'>Zauzetost</Link>
               </div>
             </div>
           </div>
@@ -71,6 +75,9 @@ function Navbar() {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/occupancy">
+              <Occupancy />
             </Route>
           </Switch>
     </Router>
