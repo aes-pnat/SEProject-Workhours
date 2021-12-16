@@ -1,12 +1,16 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 import org.springframework.beans.factory.annotation.*;
 //import org.springframework.security.access.annotation.Secured;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
+import java.net.URI;
 import java.util.List;
 //import org.springframework.security.access.annotation.Secured;
 
@@ -19,7 +23,23 @@ import java.util.List;
 @RequestMapping("/groups")
 public class GroupController {
 
+    @Autowired
+    private GroupService groupService;
 
+    @GetMapping("")
+    public ResponseEntity<List<Group>> listAllGroups() {
+        return ResponseEntity.ok().body(groupService.listAllGroups());
+    }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteGroup(@RequestParam Integer groupId) {
+        return ResponseEntity.ok().body(groupService.deleteGroup(groupId));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> crateGroup(@Validated @RequestBody GroupDTO group) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/groups/add").toUriString());
+        return ResponseEntity.created(uri).body(groupService.createGroup(group));
+    }
 
 }

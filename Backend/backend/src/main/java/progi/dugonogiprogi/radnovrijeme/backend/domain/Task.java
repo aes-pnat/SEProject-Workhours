@@ -27,7 +27,7 @@ public class Task {
     private Integer hoursneededestimate;
 
     @ManyToOne
-    @JoinColumn(name = "idjob")
+    @JoinColumn(name = "idjob", nullable = false)
     private Job idjob;
 
     @ManyToOne
