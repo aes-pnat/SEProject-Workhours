@@ -40,16 +40,18 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public Group createGroup(GroupDTO group) {
+        Group newGroup = new Group();
 
         if (groupRepository.findByName(group.getName()).isPresent()) {
             log.error("Group with name {} already exists", group.getName());
             throw new IllegalArgumentException("Group with name " + group.getName() + " already exists");
         }
-
-        Group newGroup = new Group();
         newGroup.setName(group.getName());
         newGroup.setIdleader(group.getLeader());
-        newGroup.setIdjob(group.getIdJob());
+
+        if (group.getIdJob() != null)  {
+            newGroup.setIdjob(group.getIdJob());
+        }
 
         groupRepository.save(newGroup);
 
@@ -63,13 +65,14 @@ public class GroupServiceJpa implements GroupService {
             employeegroupRepository.save(employeegroup);
         }
 
-        return newGroup;
+        return groupRepository.findByName(newGroup.getName()).get();
     }
 
     @Override
-    public void deleteGroup(Integer groupId) {
+    public Integer deleteGroup(Integer groupId) {
         if (groupRepository.getById(groupId).getId().equals(groupId)) {
             groupRepository.deleteById(groupId);
+            return groupId;
         } else {
             throw new MissingGroupException("Group with given groupID not found.");
         }
