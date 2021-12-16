@@ -14,6 +14,7 @@ import Login from './Login';
 import Moneymanagement from './Moneymanagement';
 import Register from './Register';
 import Occupancy from './Occupancy';
+import WorkHoursInput from './WorkHoursInput';
 
 function Navbar() {
   return (
@@ -50,6 +51,9 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
+              <div className="nav-link">
+                <Link to='/workhoursinput'>Unos radnih sati</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -78,6 +82,9 @@ function Navbar() {
             </Route>
             <Route path="/occupancy">
               <Occupancy />
+            </Route>
+            <Route path="/workhoursinput">
+              <WorkHoursInput />
             </Route>
           </Switch>
     </Router>
