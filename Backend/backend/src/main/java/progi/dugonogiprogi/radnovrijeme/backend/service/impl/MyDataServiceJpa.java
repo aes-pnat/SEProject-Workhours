@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
@@ -26,10 +27,13 @@ public class MyDataServiceJpa implements MyDataService {
     @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    EmployeegroupRepository employeegroupRepository;
+
 
     @Override
     public List<String> listGroupNamesForEmployee(String idEmployee) throws NoSuchGroupException {
-       Optional<List<Employeegroup>> employeeGroupsList = groupRepository.findById_Idemployee(idEmployee);
+       Optional<List<Employeegroup>> employeeGroupsList = employeegroupRepository.findById_Idemployee(idEmployee);
        if(!employeeGroupsList.isPresent()){
            throw new NoSuchGroupException("Employee with ID >" + idEmployee + "< does not belong to any group.");
        }

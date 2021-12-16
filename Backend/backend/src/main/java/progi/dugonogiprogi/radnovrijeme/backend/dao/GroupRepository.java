@@ -16,4 +16,6 @@ import java.util.Optional;
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
     Optional<List<Employeegroup>> findById_Idemployee(String idemployee);
+
+    Group findById_Idleader(String idleader);
 }

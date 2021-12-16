@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
@@ -21,5 +18,12 @@ import java.util.List;
 @CrossOrigin("*")
 public class TaskController {
 
+    @Autowired
+    TaskService taskService;
+
+    @GetMapping("")
+    public List<TasksDTO> listTasksForLeader(@RequestParam String idLeader){
+        return taskService.listTasksForLeader(idLeader);
+    }
 
 }
