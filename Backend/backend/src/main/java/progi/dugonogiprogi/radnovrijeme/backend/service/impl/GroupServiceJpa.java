@@ -32,6 +32,7 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public Group createGroup(GroupDTO group) {
         Group newGroup = new Group();
+        newGroup.setId(group.getId());
         newGroup.setName(group.getName());
         newGroup.setIdleader(group.getLeader());
         newGroup.setIdjob(group.getIdJob());

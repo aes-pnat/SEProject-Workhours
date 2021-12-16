@@ -6,13 +6,23 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import java.util.List;
 
 public class GroupDTO {
+    Integer id;
+
     String name;
 
     Employee leader;
 
+    Job idJob;
+
     List<Employee> members;
 
-    Job idJob;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -30,19 +40,19 @@ public class GroupDTO {
         this.leader = leader;
     }
 
-    public List<Employee> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Employee> members) {
-        this.members = members;
-    }
-
     public Job getIdJob() {
         return idJob;
     }
 
     public void setIdJob(Job idJob) {
         this.idJob = idJob;
+    }
+
+    public List<Employee> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Employee> members) {
+        this.members = members;
     }
 }
