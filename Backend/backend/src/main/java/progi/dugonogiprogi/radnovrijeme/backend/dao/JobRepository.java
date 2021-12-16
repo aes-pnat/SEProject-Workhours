@@ -10,6 +10,8 @@ import java.util.Optional;
  * Repository of jobs in the firm.
  */
 @Repository
-public interface JobRepository extends JpaRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Integer> {
 
+    @Override
+    void deleteById(Integer id);
 }

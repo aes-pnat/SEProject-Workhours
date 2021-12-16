@@ -64,4 +64,15 @@ public class Workhoursinput {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Workhoursinput() {
+
+    }
+
+    public Workhoursinput(Task task, LocalDate date, Integer hoursDone, Employee employee) {
+        this.date = date;
+        this.idtask = task;
+        this.workhoursdone = hoursDone;
+        this.idemployee = employee;
+    }
 }

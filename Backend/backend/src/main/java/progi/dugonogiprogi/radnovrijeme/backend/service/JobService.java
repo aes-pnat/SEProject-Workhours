@@ -12,5 +12,9 @@ import java.util.List;
 @Service
 public interface JobService {
 
+    List<Job> listAll();
 
+    Job createJob(Job job);
+
+    void deleteJob(Integer id);
 }

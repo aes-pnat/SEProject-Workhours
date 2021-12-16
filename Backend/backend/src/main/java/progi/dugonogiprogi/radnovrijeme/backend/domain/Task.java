@@ -3,8 +3,8 @@ package progi.dugonogiprogi.radnovrijeme.backend.domain;
 import javax.persistence.*;
 import java.time.Instant;
 
-@Entity
 @Table(name = "task")
+@Entity
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,20 +27,8 @@ public class Task {
     @Column(name = "hoursneededestimate")
     private Integer hoursneededestimate;
 
-    @Column(name = "plannedprofit")
-    private Double plannedprofit;
-
-    @Column(name = "realizedprofit")
-    private Double realizedprofit;
-
-    @Column(name = "plannedcost")
-    private Double plannedcost;
-
-    @Column(name = "realizedcost")
-    private Double realizedcost;
-
     @ManyToOne
-    @JoinColumn(name = "idjob")
+    @JoinColumn(name = "idjob", nullable = false)
     private Job idjob;
 
     @ManyToOne
@@ -61,38 +49,6 @@ public class Task {
 
     public void setIdjob(Job idjob) {
         this.idjob = idjob;
-    }
-
-    public Double getRealizedcost() {
-        return realizedcost;
-    }
-
-    public void setRealizedcost(Double realizedcost) {
-        this.realizedcost = realizedcost;
-    }
-
-    public Double getPlannedcost() {
-        return plannedcost;
-    }
-
-    public void setPlannedcost(Double plannedcost) {
-        this.plannedcost = plannedcost;
-    }
-
-    public Double getRealizedprofit() {
-        return realizedprofit;
-    }
-
-    public void setRealizedprofit(Double realizedprofit) {
-        this.realizedprofit = realizedprofit;
-    }
-
-    public Double getPlannedprofit() {
-        return plannedprofit;
-    }
-
-    public void setPlannedprofit(Double plannedprofit) {
-        this.plannedprofit = plannedprofit;
     }
 
     public Integer getHoursneededestimate() {
