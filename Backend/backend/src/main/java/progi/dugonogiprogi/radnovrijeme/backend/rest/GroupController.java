@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.util.List;
@@ -19,7 +19,22 @@ import java.util.List;
 @RequestMapping("/groups")
 public class GroupController {
 
+    @Autowired
+    private GroupService groupService;
 
+    @GetMapping("")
+    public List<Group> listAllGroups() {
+        return groupService.listAllGroups();
+    }
 
+    @PostMapping("/delete")
+    public void deleteGroup(@RequestParam Integer groupId) {
+        groupService.deleteGroup(groupId);
+    }
+
+    @PostMapping("/add")
+    public Group crateGroup(@RequestBody GroupDTO group) {
+        return groupService.createGroup(group);
+    }
 
 }

@@ -12,7 +12,6 @@ import java.util.Optional;
  */
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
-
+public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 }

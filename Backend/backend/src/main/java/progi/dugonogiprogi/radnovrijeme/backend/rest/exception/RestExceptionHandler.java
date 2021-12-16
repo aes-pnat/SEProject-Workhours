@@ -29,6 +29,15 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(props, HttpStatus.EXPECTATION_FAILED);
     }
 
+    @ExceptionHandler(MissingGroupException.class)
+    protected ResponseEntity<?> handleMissingGroup(Exception e, WebRequest request) {
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "417");
+        props.put("error", "Expectation Failed");
+        return new ResponseEntity<>(props, HttpStatus.EXPECTATION_FAILED);
+    }
+
     @ExceptionHandler(RequestDeniedException.class)
     protected ResponseEntity<?> handleDeniedRequest(Exception e, WebRequest request) {
         Map<String, String> props = new HashMap<>();
