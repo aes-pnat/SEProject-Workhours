@@ -14,5 +14,5 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    Optional<Task> findById_Idjob(Integer idjob);
+    Optional<Task> findByIdjob_Id(Integer idjob);
 }

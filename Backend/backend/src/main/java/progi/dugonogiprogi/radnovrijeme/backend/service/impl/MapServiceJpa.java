@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.LocationRepository;
@@ -12,6 +13,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MapService;
 import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class MapServiceJpa implements MapService {
 
     @Autowired
