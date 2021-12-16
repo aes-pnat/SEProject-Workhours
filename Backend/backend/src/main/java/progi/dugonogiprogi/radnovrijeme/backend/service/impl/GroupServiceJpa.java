@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import java.util.Set;
  *
  */
 
+@Slf4j
 @Service
 public class GroupServiceJpa implements GroupService {
 
@@ -38,6 +40,12 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public Group createGroup(GroupDTO group) {
+
+        if (groupRepository.findByName(group.getName()).isPresent()) {
+            log.error("Group with name {} already exists", group.getName());
+            throw new IllegalArgumentException("Group with name " + group.getName() + " already exists");
+        }
+
         Group newGroup = new Group();
         newGroup.setName(group.getName());
         newGroup.setIdleader(group.getLeader());
