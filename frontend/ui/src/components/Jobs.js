@@ -10,7 +10,8 @@ import {
   } from 'react-router-dom';
 import '../Jobs.css';
 import JobsAdd from './JobsAdd';
-const Jobs = () => {
+import JobDisplay from './compartments/JobDisplay';
+const Jobs = ({jobslist}) => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
 
@@ -52,7 +53,7 @@ const Jobs = () => {
     
     return (
         <div>
-            <Link to={`${url}/add`}>Dodaj djelatnost</Link>
+            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
 
             <Switch>
                 <Route exact path={path}>
@@ -61,6 +62,13 @@ const Jobs = () => {
                     {data && (data.length > 1) ?
                         data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
                     }
+
+                    {jobslist.map((data)=>(
+                        <JobDisplay 
+                            key={data.index}
+                            job={data}
+                        ></JobDisplay>
+                    ))}
                 </div>
                 </Route>
                 <Route path={`${path}/add`}>
