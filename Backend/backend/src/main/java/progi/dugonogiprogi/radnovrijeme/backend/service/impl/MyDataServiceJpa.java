@@ -1,10 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
