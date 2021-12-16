@@ -1,4 +1,4 @@
-package progi.dugonogiprogi.radnovrijeme.backend.rest;
+package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
