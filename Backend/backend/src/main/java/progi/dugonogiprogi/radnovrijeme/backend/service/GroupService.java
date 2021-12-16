@@ -18,6 +18,6 @@ public interface GroupService {
 
     public Group createGroup(GroupDTO group);
 
-    public void deleteGroup(Integer groupId);
+    public Integer deleteGroup(Integer groupId);
 
 }

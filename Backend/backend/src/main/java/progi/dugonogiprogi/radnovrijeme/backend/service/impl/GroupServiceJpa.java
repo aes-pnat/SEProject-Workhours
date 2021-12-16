@@ -69,9 +69,10 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public void deleteGroup(Integer groupId) {
+    public Integer deleteGroup(Integer groupId) {
         if (groupRepository.getById(groupId).getId().equals(groupId)) {
             groupRepository.deleteById(groupId);
+            return groupId;
         } else {
             throw new MissingGroupException("Group with given groupID not found.");
         }
