@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
@@ -21,10 +23,10 @@ import java.util.Set;
 @SpringBootApplication
 public class BackendApplication {
 
-/*	@Bean
-	public PasswordEncoder passwordEncoder() {
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	} */
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
