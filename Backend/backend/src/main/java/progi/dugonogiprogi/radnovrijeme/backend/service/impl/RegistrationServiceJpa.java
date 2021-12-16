@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.RoleRepository;
@@ -23,7 +24,8 @@ public class RegistrationServiceJpa implements RegistrationService {
     @Autowired
     RoleRepository rRepository;
 
-    //TODO: password encoder i spremati kriptirane sifre kad se doda security
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Employee registerEmployee(RegistrationDTO regData) {
@@ -50,10 +52,10 @@ public class RegistrationServiceJpa implements RegistrationService {
         newEmployee.setSurname(regData.getSurname());
         newEmployee.setEmail(regData.getEmail());
         newEmployee.setUsername(regData.getUsername());
-        newEmployee.setPassword(regData.getPassword());
+        newEmployee.setPassword(passwordEncoder.encode(regData.getPassword()));
         Optional<Role> r = rRepository.findByName("employee");
         if(r.isPresent()) {
-            log.info("Adding role {} to user {}.", r.get(), newEmployee.getUsername());
+            log.info("Adding role {} to user {}.", r.get().getName(), newEmployee.getUsername());
             newEmployee.setIdrole(r.get());
         }
         else {
