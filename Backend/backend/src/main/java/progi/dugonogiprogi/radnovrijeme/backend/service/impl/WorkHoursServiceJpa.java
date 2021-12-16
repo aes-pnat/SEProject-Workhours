@@ -13,6 +13,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeEx
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,8 @@ public class WorkHoursServiceJpa implements WorkHoursService {
         List<String> taskNames = new ArrayList<>();
         for (Task task : taskRepository.findAll())
             if (taskIDList.contains(task.getId()))
-                taskNames.add(task.getName());
+                if (task.getDatetimestart().compareTo(Instant.now()) <= 0 && task.getDatetimeend().compareTo(Instant.now()) >= 0)
+                    taskNames.add(task.getName());
         return taskNames;
     }
 
