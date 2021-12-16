@@ -3,16 +3,20 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class GroupDTO {
 
+    @NotEmpty(message = "Name should not be empty.")
     String name;
 
+    @NotEmpty(message = "Group leader should be selected.")
     Employee leader;
 
     Job idJob;
 
+    @NotEmpty(message = "At least one employee should be selected.")
     List<Employee> members;
 
     public String getName() {

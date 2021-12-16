@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 import org.springframework.beans.factory.annotation.*;
 //import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
@@ -33,7 +34,7 @@ public class GroupController {
     }
 
     @PostMapping("/add")
-    public Group crateGroup(@RequestBody GroupDTO group) {
+    public Group crateGroup(@Validated @RequestBody GroupDTO group) {
         return groupService.createGroup(group);
     }
 
