@@ -1,6 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -11,27 +10,21 @@ public class RegistrationDTO {
     private String pid;
 
     @NotEmpty(message = "Name should not be empty.")
-    @NotBlank(message = "Name should not be blank.")
     private String name;
 
     @NotEmpty(message = "Surname should not be empty.")
-    @NotBlank(message = "Surname should not be blank.")
     private String surname;
 
     @NotEmpty(message = "Email should not be empty.")
-    @NotBlank(message = "Email should not be blank.")
     private String email;
 
     @NotEmpty(message = "Username should not be empty.")
-    @NotBlank(message = "Username should not be blank.")
     private String username;
 
     @NotEmpty(message = "Password should not be empty.")
-    @NotBlank(message = "Password should not be blank.")
     private String password;
 
     @NotEmpty(message = "Password check should not be empty.")
-    @NotBlank(message = "Password check should not be blank.")
     private String passwordCheck;
 
     public String getPid() {
