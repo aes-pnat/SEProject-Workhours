@@ -2,17 +2,16 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,8 @@ public class WorkHoursServiceJpa implements WorkHoursService {
         List<String> taskNames = new ArrayList<>();
         for (Task task : taskRepository.findAll())
             if (taskIDList.contains(task.getId()))
-                taskNames.add(task.getName());
+                if (task.getDatetimestart().compareTo(Instant.now()) <= 0 && task.getDatetimeend().compareTo(Instant.now()) >= 0)
+                    taskNames.add(task.getName());
         return taskNames;
     }
 
