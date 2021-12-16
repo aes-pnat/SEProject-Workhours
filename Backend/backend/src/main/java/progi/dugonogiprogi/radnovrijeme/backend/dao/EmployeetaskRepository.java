@@ -1,6 +1,8 @@
-package progi.dugonogiprogi.radnovrijeme.backend.domain;
+package progi.dugonogiprogi.radnovrijeme.backend.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeetask;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.EmployeetaskId;
 
 import java.util.List;
 import java.util.Optional;
