@@ -33,7 +33,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     EmployeetaskRepository employeetaskRepository;
 
     @Override
-    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, Integer idEmployee) {
+    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
         Task task = null;
         for (Task t : taskRepository.findAll()) {
             if (t.getName().equals(taskName)) {
