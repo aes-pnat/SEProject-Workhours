@@ -3,7 +3,11 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeegroup;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.EmployeegroupId;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
@@ -24,6 +28,9 @@ public class GroupServiceJpa implements GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private EmployeegroupRepository employeegroupRepository;
+
     @Override
     public List<Group> listAllGroups() {
         return groupRepository.findAll();
@@ -32,10 +39,22 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public Group createGroup(GroupDTO group) {
         Group newGroup = new Group();
-        newGroup.setId(group.getId());
         newGroup.setName(group.getName());
         newGroup.setIdleader(group.getLeader());
         newGroup.setIdjob(group.getIdJob());
+
+        groupRepository.save(newGroup);
+
+        List<Employee> members = group.getMembers();
+        for(Employee e : members) {
+            EmployeegroupId employeegroupId = new EmployeegroupId();
+            employeegroupId.setIdemployee(e.getId());
+            employeegroupId.setIdgroup(groupRepository.findByName(group.getName()).get().getId());
+            Employeegroup employeegroup = new Employeegroup();
+            employeegroup.setId(employeegroupId);
+            employeegroupRepository.save(employeegroup);
+        }
+
         return newGroup;
     }
 

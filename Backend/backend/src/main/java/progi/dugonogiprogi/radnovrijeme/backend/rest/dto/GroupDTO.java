@@ -6,7 +6,6 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import java.util.List;
 
 public class GroupDTO {
-    Integer id;
 
     String name;
 
@@ -15,14 +14,6 @@ public class GroupDTO {
     Job idJob;
 
     List<Employee> members;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
