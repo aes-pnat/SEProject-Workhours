@@ -67,6 +67,5 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         props.put("error", "Unauthorized");
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), props);
-        super.unsuccessfulAuthentication(request, response, failed);
     }
 }
