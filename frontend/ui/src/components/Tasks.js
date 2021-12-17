@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 class Tasks extends React.Component {
     state = {
@@ -9,9 +8,6 @@ class Tasks extends React.Component {
     render () {
         return (
             <div className="container">
-                <div className="container mb-3 mt-3">
-                    <button className="btn btn-primary"><Link to='/tasks/add'>Dodaj zadatak</Link></button>
-                </div>
                 <div className="card">
                     <div className="card-body">
                         <p className="h5">Zadatak 1</p>

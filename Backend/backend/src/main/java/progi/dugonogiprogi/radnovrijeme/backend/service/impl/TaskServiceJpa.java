@@ -39,7 +39,7 @@ public class TaskServiceJpa implements TaskService {
     public List<TasksDTO> listTasksForLeader(String idLeader) {
         List<TasksDTO> list = new LinkedList<>();
 
-        Group g = groupRepository.findById_Idleader(idLeader);
+        Group g = groupRepository.findByIdleader_Id(idLeader);
 
         Optional<List<Employeegroup>> listEmployees = employeegroupRepository.findById_Idgroup(g.getId());
         if(!listEmployees.isPresent()){
@@ -47,7 +47,7 @@ public class TaskServiceJpa implements TaskService {
         }
         for(Employeegroup eg : listEmployees.get()) {
             TasksDTO tasksDTO = new TasksDTO();
-            Optional<Task> task = taskRepository.findById_Idjob(g.getIdjob().getId());
+            Optional<Task> task = taskRepository.findByIdjob_Id(g.getIdjob().getId());
             if(!task.isPresent()){
                 throw new NoSuchElementException("This group has none tasks set yet");
             }

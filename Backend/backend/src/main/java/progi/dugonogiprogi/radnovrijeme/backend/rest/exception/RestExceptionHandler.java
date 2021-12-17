@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import java.net.PasswordAuthentication;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +39,16 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(RequestDeniedException.class)
     protected ResponseEntity<?> handleDeniedRequest(Exception e, WebRequest request) {
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "400");
+        props.put("error", "Bad Request");
+        log.error(e.getMessage());
+        return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchGroupException.class)
+    protected ResponseEntity<?> noSuchGroup(Exception e, WebRequest request) {
         Map<String, String> props = new HashMap<>();
         props.put("message", e.getMessage());
         props.put("status", "400");
