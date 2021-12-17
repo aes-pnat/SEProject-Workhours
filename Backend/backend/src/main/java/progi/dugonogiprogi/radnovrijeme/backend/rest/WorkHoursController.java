@@ -23,8 +23,8 @@ public class WorkHoursController {
     WorkHoursService workHoursService;
 
     @PostMapping("")
-    public Workhoursinput createNewWorkHoursInput(@RequestParam String task, @RequestParam LocalDate date, @RequestParam Integer hoursDone, @RequestParam String idEmployee) {
-        return workHoursService.createNewWorkHoursInput(task, date, hoursDone, idEmployee);
+    public Workhoursinput createNewWorkHoursInput(@RequestBody WorkHoursInputDTO workHoursInputDTO) {
+        return workHoursService.createNewWorkHoursInput(workHoursInputDTO.getTask(), workHoursInputDTO.getDate(), workHoursInputDTO.getHoursDone(), workHoursInputDTO.getIdEmployee());
     }
 
     @GetMapping("")
