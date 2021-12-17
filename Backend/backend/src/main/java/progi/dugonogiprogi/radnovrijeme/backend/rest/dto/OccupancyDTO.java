@@ -15,7 +15,7 @@ public class OccupancyDTO {
     private String dateEnd;
 
     public OccupancyDTO(String id, String dateStart, String dateEnd) {
-        this.id = idEmployee;
+        this.id = id;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
