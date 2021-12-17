@@ -1,22 +1,22 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.context.support.BeanDefinitionDsl;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchGroupException;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 
 import java.util.*;
 
-@Service
 public class MyDataServiceJpa implements MyDataService {
 
 
     @Autowired
-    EmployeetaskRepository employeeTaskRepository;
+    EmployeetaskRepository employeetaskRepository;
 
     @Autowired
     EmployeeRepository employeeRepository;
@@ -30,53 +30,63 @@ public class MyDataServiceJpa implements MyDataService {
     @Autowired
     EmployeegroupRepository employeegroupRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
 
     @Override
-    public List<String> listGroupNamesForEmployee(String idEmployee) {
-       Optional<List<Employeegroup>> employeeGroupsList = employeegroupRepository.findById_Idemployee(idEmployee);
-       if(!employeeGroupsList.isPresent()){
-           throw new NoSuchGroupException("Employee with ID >" + idEmployee + "< does not belong to any group.");
-       }
-       List<Integer> list = new LinkedList<>();
-       for (Employeegroup eg : employeeGroupsList.get())
-            list.add(eg.getId().getIdgroup());
-       List<String> groupNameList = new ArrayList<>();
-       for(Group g : groupRepository.findAll())
-           if(list.contains(g.getId()))
-               groupNameList.add(g.getName());
-       return groupNameList;
-    }
-
-    @Override
-    public List<Task> listTasksForEmployee(String idEmployee) {
-        Optional<List<Employeetask>> employeeTaskList = employeeTaskRepository.findById_Idemployee(idEmployee);
-        if(!employeeTaskList.isPresent()) {
-            throw new NoSuchTaskException("Employee with ID >" + idEmployee + "< doesn't have any tasks.");
+    public MyDataDTO myData(String username) {
+        MyDataDTO myData = new MyDataDTO();
+        Optional<Employee> employee = employeeRepository.findByUsername(username);
+        if(!employee.isPresent()){
+            throw new MissingEmployeeException("Employee with username " +username+ "does not exist");
         }
-        List<Integer> taskIDList = new ArrayList<>();
-        for (Employeetask et : employeeTaskList.get())
-            taskIDList.add(et.getId().getIdtask());
-        List<Task> taskList = new ArrayList<>();
-        for(Task t : taskRepository.findAll())
-            if(taskIDList.contains(t.getId()))
-                taskList.add(t);
-
-        return taskList;
-    }
-
-    @Override
-    public Employee showDataForEmployee(String idEmployee) {
-        Optional<Employee> employee = employeeRepository.findById(idEmployee);
-        if(!employee.isPresent()) {
-            throw new MissingEmployeeException("Employee with ID >" + "< doesn't exist.");
+        Employee e = employee.get();
+        myData.setUsername(e.getUsername());
+        myData.setName(e.getName());
+        myData.setSurname(e.getSurname());
+        myData.setPid(e.getId());
+        myData.setEmail(e.getEmail());
+        Optional<Role> role = roleRepository.findById(e.getIdrole().getId());
+        if(!role.isPresent()) {
+            throw new NoSuchElementException("Role with id "+e.getIdrole().getId()+"does not exist");
         }
-        Employee employeeData = null;
-        for(Employee e : employeeRepository.findAll()){
-            if(e.getId().equals(idEmployee))
-                employeeData = e;
+        Role myRole = role.get();
+        myData.setRoleName(myRole.getName());
+        Optional<List<Employeegroup>> employeegroupList = employeegroupRepository.findById_Idemployee(myData.getPid());
+        if(!employeegroupList.isPresent()) {
+            throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
         }
-        return employeeData;
+        List<Employeegroup> list = employeegroupList.get();
+        List<String> lista = new LinkedList<>();
+        for(Employeegroup eg : list){
+            int groupId = eg.getId().getIdgroup();
+            Optional<Group> group = groupRepository.findById(groupId);
+            if(!group.isPresent()){
+                throw new MissingGroupException("Group with id "+groupId+"does not exist");
+            }
+            Group g = group.get();
+            lista.add(g.getName());
+        }
+        myData.setGroupNames(lista);
+        Optional<List<Employeetask>> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
+        if(!employeetaskList.isPresent()) {
+            throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
+        }
+        List<Employeetask> employeetasks = employeetaskList.get();
+        List<String> listaTaskova = new LinkedList<>();
+        for(Employeetask et : employeetasks){
+            int taskId = et.getId().getIdtask();
+            Optional<Task> task = taskRepository.findById(Long.valueOf(taskId));
+            if(!task.isPresent()){
+                throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
+            }
+            Task t = task.get();
+            listaTaskova.add(t.getName());
+
+        }
+        myData.setTaskNames(listaTaskova);
+        return myData;
+
     }
-
-
 }
