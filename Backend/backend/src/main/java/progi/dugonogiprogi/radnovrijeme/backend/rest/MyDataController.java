@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 import progi.dugonogiprogi.radnovrijeme.backend.service.impl.NoSuchGroupException;
 
@@ -22,18 +23,8 @@ public class MyDataController {
     MyDataService myDataService;
 
     @GetMapping("")
-    public List<String> listGroupNamesForEmployee(@RequestParam String idEmployee) throws NoSuchGroupException {
-        return myDataService.listGroupNamesForEmployee(idEmployee);
-    }
-
-    @GetMapping("")
-    public List<Task> listTasksForEmployee(@RequestParam String idEmployee){
-        return myDataService.listTasksForEmployee(idEmployee);
-    }
-
-    @GetMapping("")
-    public Employee showDataForEmployee(@RequestParam String idEmployee) {
-        return myDataService.showDataForEmployee(idEmployee);
+    public MyDataDTO myData(@RequestParam String username) throws NoSuchGroupException {
+        return myDataService.myData(username);
     }
 
 
