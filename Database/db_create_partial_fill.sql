@@ -82,8 +82,8 @@ CREATE TABLE WorkHoursInput
 DROP TABLE EmployeeGroup CASCADE;
 CREATE TABLE EmployeeGroup
 (
-  idEmployee CHAR(11) NOT NULL,
-  idGroup INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL REFERENCES Employee ON DELETE CASCADE ON UPDATE CASCADE,
+  idGroup INT NOT NULL REFERENCES "group" ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (idEmployee, idGroup),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
   FOREIGN KEY (idGroup) REFERENCES "group"(idGroup)
@@ -92,8 +92,8 @@ CREATE TABLE EmployeeGroup
 DROP TABLE EmployeeTask CASCADE;
 CREATE TABLE EmployeeTask
 (
-  idEmployee CHAR(11) NOT NULL,
-  idTask INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL REFERENCES Employee ON DELETE CASCADE ON UPDATE CASCADE,
+  idTask INT NOT NULL REFERENCES Task ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (idEmployee, idTask),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
   FOREIGN KEY (idTask) REFERENCES Task(idTask)
