@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.BeanDefinitionDsl;
+import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
@@ -12,6 +13,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 
 import java.util.*;
 
+@Service
 public class MyDataServiceJpa implements MyDataService {
 
 
