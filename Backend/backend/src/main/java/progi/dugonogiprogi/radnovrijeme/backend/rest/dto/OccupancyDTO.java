@@ -10,18 +10,18 @@ import java.util.Set;
 
 public class OccupancyDTO {
 
-    private String idEmployee;
+    private String id;
     private String dateStart;
     private String dateEnd;
 
-    public OccupancyDTO(String idEmployee, String dateStart, String dateEnd) {
-        this.idEmployee = idEmployee;
+    public OccupancyDTO(String id, String dateStart, String dateEnd) {
+        this.id = idEmployee;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
     }
 
     public String getIdEmployee() {
-        return idEmployee;
+        return id;
     }
 
     public String getDateStart() {
