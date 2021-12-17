@@ -6,6 +6,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
 import java.util.*;
@@ -39,8 +40,11 @@ public class TaskServiceJpa implements TaskService {
     public List<TasksDTO> listTasksForLeader(String idLeader) {
         List<TasksDTO> list = new LinkedList<>();
 
-        Group g = groupRepository.findByIdleader_Id(idLeader);
-
+        Optional<Group> group = groupRepository.findByIdleader_Id(idLeader);
+        if(!group.isPresent()) {
+            throw new NoSuchGroupException("Employee with id "+idLeader+"is not a leader");
+        }
+        Group g = group.get();
         Optional<List<Employeegroup>> listEmployees = employeegroupRepository.findById_Idgroup(g.getId());
         if(!listEmployees.isPresent()){
             throw new MissingEmployeeException("The group with id"+ g.getId()+ "has no members");
@@ -56,9 +60,17 @@ public class TaskServiceJpa implements TaskService {
             tasksDTO.setEstimatedDuration(t.getHoursneededestimate());
             tasksDTO.setStartDateAndTime(t.getDatetimestart());
             tasksDTO.setEndDateAndTime(t.getDatetimeend());
-            Location l = locationRepository.getById(t.getIdlocation().getId());
+            Optional<Location> loc = locationRepository.findById(t.getIdlocation().getId());
+            if(!loc.isPresent()){
+                throw new NoSuchElementException("Location with id "+t.getIdlocation().getId()+"doesn't exist");
+            }
+            Location l = loc.get();
             tasksDTO.setLocation(l);
-            Job job = jobRepository.getById(t.getIdjob().getId());
+            Optional<Job> j = jobRepository.findById(t.getIdjob().getId());
+            if(!j.isPresent()) {
+                throw new NoSuchElementException("Job with id "+t.getIdjob().getId()+"doesn't exist");
+            }
+            Job job = j.get();
             tasksDTO.setJob(job);
             Optional<List<Employeetask>> et = employeetaskRepository.findById_Idemployee(eg.getId().getIdemployee());
             if(!et.isPresent()) {
@@ -66,7 +78,11 @@ public class TaskServiceJpa implements TaskService {
             }
             for(Employeetask emt : et.get()){
                 if(emt.getId().getIdtask().equals(t.getId())){
-                    Employee e = employeeRepository.getById(emt.getId().getIdemployee());
+                    Optional<Employee> employee = employeeRepository.findById(emt.getId().getIdemployee());
+                    if(!employee.isPresent()) {
+                        throw new MissingEmployeeException("Employee with id "+emt.getId().getIdemployee()+"doesn't exist");
+                    }
+                    Employee e = employee.get();
                     tasksDTO.setEmployeeName(e.getName());
                     tasksDTO.setEmployeeSurname(e.getSurname());
                     break;
