@@ -12,27 +12,9 @@ import java.util.List;
 @Service
 public interface JobService {
 
-    /**
-     * Lists all jobs.
-     *
-     * @return a list of jobs
-     */
-    List<JobDTO> listAll();
+    List<Job> listAll();
 
-    /**
-     * Gets detailed description of a job.
-     *
-     * @param idJob ID of the job whose description is looked for
-     * @return a String containing a detailed description of the job
-     */
-    String showJobDescription(Long idJob);
+    Job createJob(Job job);
 
-    /**
-     * Creates a new job.
-     *
-     * @param jobName name of the new job
-     * @param jobDescription description of the new job
-     * @return newly created job
-     */
-    Job createJob(String jobName, String jobDescription);
+    void deleteJob(Integer id);
 }

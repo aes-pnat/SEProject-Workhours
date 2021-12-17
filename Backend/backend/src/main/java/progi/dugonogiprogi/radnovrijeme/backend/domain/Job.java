@@ -1,156 +1,64 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
 
-/**
- * Class job represents job that employees are working on.
- * Director creates and assigns jobs to groups.
- * @author Bernard
- *
- */
+@Table(name = "job")
 @Entity
 public class Job {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idjob", nullable = false)
+    private Integer id;
 
-	/**
-	 * Job identifier.
-	 * Generated value.
-	 */
-	@Id
-	@GeneratedValue
-	private Long idJob;
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-	/**
-	 * Job name.
-	 */
-	@Column(unique = true)
-	@NotNull
-	private String name;
+    @Column(name = "price", nullable = false)
+    private Double price;
 
+    @Column(name = "hourprice", nullable = false)
+    private Double hourprice;
 
-	/**
-	 * Job description.
-	 */
-	private String description;
+    @Column(name = "description")
+    private String description;
 
-	/**
-	 * Groups that this job is assigned to.
-	 */
-	@OneToMany(mappedBy = "assignedJob")
-	private Set<Group> groupsWithJob;
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * Job that this task is part of.
-	 */
-	@OneToMany(mappedBy = "belongsTo")
-	private Set<Task> tasks;
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	/**
-	 * Gets the ID of the job.
-	 *
-	 * @return ID of the job
-	 */
-	public Long getIdJob() {
-		return idJob;
-	}
+    public Double getHourprice() {
+        return hourprice;
+    }
 
-	/**
-	 * Sets the ID of the job.
-	 *
-	 * @param idJob ID of the job
-	 */
-	public void setIdJob(Long idJob) {
-		this.idJob = idJob;
-	}
+    public void setHourprice(Double hourprice) {
+        this.hourprice = hourprice;
+    }
 
-	/**
-	 * Gets the name of the job.
-	 *
-	 * @return name of the job
-	 */
-	public String getName() {
-		return name;
-	}
+    public Double getPrice() {
+        return price;
+    }
 
-	/**
-	 * Sets the name of the job.
-	 *
-	 * @param name name of the job
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
-	/**
-	 * Gets the job description.
-	 *
-	 * @return a String containing the description of the job
- 	 */
-	public String getDescription() {
-		return description;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Sets the job description.
-	 *
-	 * @param description decription of the job
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Gets a collection of group that have this job assigned.
-	 *
-	 * @return a Set of Groups
-	 */
-	public Set<Group> getGroupsWithJob() {
-		return groupsWithJob;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * Sets a collection of group that have this job assigned.
-	 *
-	 * @param groupsWithJob a set of groups
-	 */
-	public void setGroupsWithJob(Set<Group> groupsWithJob) {
-		this.groupsWithJob = groupsWithJob;
-	}
-
-	/**
-	 * Gets a collection of tasks that are parts of the job
-	 *
-	 * @return a set of tasks
-	 */
-	public Set<Task> getTasks() {
-		return tasks;
-	}
-
-	/**
-	 * Sets a collection of tasks that are parts of the job.
-	 *
-	 * @param tasks a set of tasks
-	 */
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
-	}
-
-	/**
-	 * The default constructor.
-	 */
-	public Job() {
-
-	}
-
-	/**
-	 * Creates a new job.
-	 *
-	 * @param jobName name of the new job
-	 * @param jobDescription description of the new job
-	 */
-	public Job(String jobName, String jobDescription) {
-		this.name = jobName;
-		this.description = jobDescription;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

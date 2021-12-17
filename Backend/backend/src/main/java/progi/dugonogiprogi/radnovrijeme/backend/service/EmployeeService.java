@@ -10,17 +10,4 @@ import java.util.Optional;
 @Service
 public interface EmployeeService {
 
-    List<Employee> listAllEmployees();
-
-    Optional<Employee> getASingleEmployee(String employeeUsername
-    );
-
-//  Employee updateEmployee(String employeeId, Employee employee);
-
-    Employee createEmployee(Employee employee);
-
-    void deleteEmployee(String employeeId);
-
-    OccupancyDTO viewOccupancy(String employeeId);
-
 }

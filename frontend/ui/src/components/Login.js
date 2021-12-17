@@ -173,13 +173,16 @@ export default class Login extends Component {
         const password = inputs.password;
         const credentials = {username, password};	
 		const authdata = window.btoa(username + ':' + password);
-		
+
+		//const LOGIN_URL = 'http://localhost:8080/login';
+        const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
+        
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 		myHeaders.append("Authorization", "Basic " + authdata);
 
-        await fetch('http://localhost:8080/login',{
+        await fetch(LOGIN_URL,{
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify(credentials)
@@ -213,11 +216,6 @@ export default class Login extends Component {
                     </div>
                     <button type="submit" className="btn btn-primary">Prijavi se</button>
                 </form>
-            </div>
-            
-            <div className="container register-card">
-                <h3>Not a member yet?</h3>
-                <Link to='/register'>Register</Link>
             </div>
         </div>
     )
