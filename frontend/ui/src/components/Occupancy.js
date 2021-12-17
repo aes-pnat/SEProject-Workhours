@@ -2,9 +2,9 @@ import React from 'react';
 
 class Occupancy extends React.Component {
     state = {
-        employee: '',
-        startDate: '',
-        endDate: '',
+        id: '',
+        dateStart: '',
+        dateEnd: '',
         message: '',
         employeesList: []
     }
@@ -32,6 +32,35 @@ class Occupancy extends React.Component {
         this.setState({ [name]: value });
     }
 
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const body = JSON.stringify({
+            id: this.state.id,
+            dateStart: this.state.dateStart,
+            dateEnd: this.state.dateEnd
+        });
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        this.setState({ message: '' });
+        console.log(body);
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
+            method: 'POST',
+            headers: myHeaders,
+            body: body
+        }).then((response) => {
+            if(response.ok){
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            console.log(jsonResponse);
+        });
+
+    }
+
     render() {
         let employeesOptions = this.state.employeesList.map((employee) => {
             return (
@@ -49,7 +78,7 @@ class Occupancy extends React.Component {
                         <div className="mb-3">
                             <label className="form-label">Djelatnik:</label>
                             <select className="form-select"
-                                    name="employee"
+                                    name="id"
                                     onChange={this.handleChange}
                             >
                                 {employeesOptions}
@@ -60,7 +89,7 @@ class Occupancy extends React.Component {
                             <input 
                                 type="date" 
                                 className="form-control"
-                                name="startDate" 
+                                name="dateStart" 
                                 onChange={this.handleChange} 
                             />
                         </div>
@@ -69,11 +98,17 @@ class Occupancy extends React.Component {
                             <input 
                                 type="date" 
                                 className="form-control"
-                                name="endDate" 
+                                name="dateEnd" 
                                 onChange={this.handleChange} 
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary mb-5">Provjeri</button>
+                        <button
+                            type="submit" 
+                            className="btn btn-primary mb-5"
+                            onClick={this.handleSubmit}
+                        >
+                            Provjeri
+                        </button>
                     </form>
                 </div>
             </div>

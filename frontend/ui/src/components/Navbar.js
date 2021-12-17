@@ -16,6 +16,8 @@ import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
+import MainPage from './MainPage';
+import JobsAdd from './JobsAdd';
 
 function Navbar() {
   return (
