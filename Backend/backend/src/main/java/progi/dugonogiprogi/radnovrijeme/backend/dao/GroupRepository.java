@@ -16,6 +16,6 @@ import java.util.Optional;
 public interface GroupRepository extends JpaRepository<Group, Integer> {
     Optional<Group> findByName(String name);
 
-    Optional<Group> findByIdleader_Id(String idleader);
+    Optional<List<Group>> findByIdleader(Employee idleader);
 
 }
