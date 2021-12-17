@@ -16,6 +16,7 @@ import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
+import Map from './Map';
 
 function Navbar() {
   return (
@@ -58,6 +59,9 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
+              <div className="nav-link">
+                <Link to='/map'>Karta</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -92,6 +96,9 @@ function Navbar() {
             </Route>
             <Route path="/mydata">
               <MyData />
+            </Route>
+            <Route path="/map">
+              <Map />
             </Route>
           </Switch>
     </Router>
