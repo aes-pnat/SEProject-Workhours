@@ -5,7 +5,25 @@ class Occupancy extends React.Component {
         employee: '',
         startDate: '',
         endDate: '',
-        message: ''
+        message: '',
+        employeesList: []
+    }
+
+    componentDidMount = async () => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ employeesList: jsonResponse });
+        })
     }
 
     handleChange = (e) => {
@@ -15,6 +33,12 @@ class Occupancy extends React.Component {
     }
 
     render() {
+        let employeesOptions = this.state.employeesList.map((employee) => {
+            return (
+                <option key={employee.id} value={employee.id}>{employee.name}</option>
+            );
+        });
+
         return (
             <div className="container mt-5">
                 <div className="container">
@@ -28,8 +52,7 @@ class Occupancy extends React.Component {
                                     name="employee"
                                     onChange={this.handleChange}
                             >
-                                <option value="1">Pero Perić</option>
-                                <option value="2">Đuro Đurić</option>
+                                {employeesOptions}
                             </select>
                         </div>
                         <div className='mb-3'>
