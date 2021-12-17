@@ -13,15 +13,16 @@ import Tasks from './Tasks';
 import Login from './Login';
 import Moneymanagement from './Moneymanagement';
 import Register from './Register';
-import MainPage from './MainPage';
-import JobsAdd from './JobsAdd';
+import Occupancy from './Occupancy';
+import WorkHoursInput from './WorkHoursInput';
+import MyData from './MyData';
 
 function Navbar() {
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid justify-content-around">
-        <a class="navbar-brand" href="#">Radno vrijeme</a>
+        <a className="navbar-brand" href="#">Radno vrijeme</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -49,7 +50,18 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/login'>Log In</Link>
               </div>
-              {/* <Link to='/register'>Register</Link> */}
+              <div className="nav-link">
+                <Link to='/register'>Registracija</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/occupancy'>Zauzetost</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/workhoursinput'>Unos radnih sati</Link>
+              </div>
+              <div className="nav-link">
+                <Link to='/mydata'>Moji podaci</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -81,6 +93,15 @@ function Navbar() {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/occupancy">
+              <Occupancy />
+            </Route>
+            <Route path="/workhoursinput">
+              <WorkHoursInput />
+            </Route>
+            <Route path="/mydata">
+              <MyData />
             </Route>
           </Switch>
     </Router>

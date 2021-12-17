@@ -14,7 +14,6 @@ public class Task {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Lob
     @Column(name = "description")
     private String description;
 
@@ -28,7 +27,7 @@ public class Task {
     private Integer hoursneededestimate;
 
     @ManyToOne
-    @JoinColumn(name = "idjob")
+    @JoinColumn(name = "idjob", nullable = false)
     private Job idjob;
 
     @ManyToOne
