@@ -34,11 +34,11 @@ class Occupancy extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const body = JSON.stringify({
+        const body = {
             id: this.state.id,
             dateStart: this.state.dateStart,
             dateEnd: this.state.dateEnd
-        });
+        };
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
@@ -81,6 +81,7 @@ class Occupancy extends React.Component {
                                     name="id"
                                     onChange={this.handleChange}
                             >
+                                <option selected disabled>Odaberite djelatnika</option>
                                 {employeesOptions}
                             </select>
                         </div>
