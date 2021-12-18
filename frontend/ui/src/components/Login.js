@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Redirect} from "react-router-dom";
-
+import User from "../services/User"
 const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -9,7 +9,7 @@ const Login = (props) => {
     const submit = async (e) => {
         e.preventDefault();
 
-        const content = await fetch('http://localhost:8080/login', {
+        await fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             //credentials: 'include',
@@ -17,19 +17,17 @@ const Login = (props) => {
                 username,
                 password
             })
-        }).then( (response) => {
-          console.log(response);
-          return response.accessToken;
+        }).then((data) => {
+            console.log(data.stringify());
+            if(data.headers.get("accessToken")){
+                console.log(data.headers.accessToken);
+                props.setUsername(data.headers.accessToken);
+                User.saveToken(data.headers.accessToken);
+                setRedirect(true);
+            }
         }).catch( (e) => {
-            console.log(e);
-            alert("Doslo je do errora!");
+            console.log("Error u login fetchu");
         });
-
-        setRedirect(true);
-        if(content){
-          props.setUsername(content);
-        }
-        
     }
 
     if (redirect) {
