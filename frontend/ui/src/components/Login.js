@@ -1,223 +1,55 @@
-import ReactDOM from 'react-dom';
-import {useState} from 'react';
-import '../Login.css';
-import '../Navbar.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Redirect} from "react-router-dom";
 
-import React, { Component } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+const Login = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
-import AuthService from "../services/auth.service";
+    const submit = async (e) => {
+        e.preventDefault();
 
-const required = value => {
-  if (!value) {
+        const content = await fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            //credentials: 'include',
+            body: JSON.stringify({
+                username,
+                password
+            })
+        }).then( (response) => {
+          console.log(response);
+          return response.accessToken;
+        }).catch( (e) => {
+            console.log(e);
+            alert("Doslo je do errora!");
+        });
+
+        setRedirect(true);
+        if(content){
+          props.setUsername(content);
+        }
+        
+    }
+
+    if (redirect) {
+        return <Redirect to="/"/>;
+    }
+
     return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
+        <form onSubmit={submit}>
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <input type="text" className="form-control" placeholder="Username" required
+                   onChange={e => setUsername(e.target.value)}
+            />
+
+            <input type="password" className="form-control" placeholder="Password" required
+                   onChange={e => setPassword(e.target.value)}
+            />
+
+            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
     );
-  }
 };
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-
-    this.state = {
-      username: "",
-      password: "",
-      loading: false,
-      message: ""
-    };
-  }
-
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
-  }
-
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
-
-  handleLogin(e) {
-    e.preventDefault();
-
-    this.setState({
-      message: "",
-      loading: true
-    });
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/profile");
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
-        }
-      );
-    } else {
-      this.setState({
-        loading: false
-      });
-    }
-  }
-
-  render() {
-    return (
-      <div className="col-md-12">
-        <div className="card card-container">
-
-          <Form
-            onSubmit={this.handleLogin}
-            ref={c => {
-              this.form = c;
-            }}
-          >
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                validations={[required]}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
-
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-
-            {this.state.message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {this.state.message}
-                </div>
-              </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            />
-          </Form>
-        </div>
-      </div>
-    );
-  }
-}
-
-/* function Login(){
-    const [inputs, setInputs] = useState({});
-
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]:value}))
-    }
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const username = inputs.username;
-        const password = inputs.password;
-        const credentials = {username, password};	
-		const authdata = window.btoa(username + ':' + password);
-
-		//const LOGIN_URL = 'http://localhost:8080/login';
-        const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
-        
-		const myHeaders = new Headers();
-		myHeaders.append("Content-Type","application/json");
-        myHeaders.append("Accept","application/json");
-		myHeaders.append("Authorization", "Basic " + authdata);
-
-        await fetch(LOGIN_URL,{
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify(credentials)
-        }).then((response) => {
-            if(response.ok){
-                alert("successful login");
-                console.log("success");
-            }else{
-                alert("failed login");
-                console.log(response);
-            }
-        }).catch(() =>{
-            console.log("error fetching");
-        });
-      }
-    return (
-        <div className="container">
-            <div className="container login-card">
-                <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label className="form-label">Korisničko ime:</label>
-                        <input type="text" className="form-control" name="username" 
-                                            value={inputs.username || ""} 
-                                            onChange={handleChange} />
-                    </div>
-                    <div className='mb-3'>
-                        <label className="form-label">Zaporka:</label>
-                        <input type="password" className="form-control" name="password"
-                                            value={inputs.password || ""}
-                                            onChange={handleChange} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Prijavi se</button>
-                </form>
-            </div>
-        </div>
-    )
-}; */
-//export default Login;
+export default Login;
