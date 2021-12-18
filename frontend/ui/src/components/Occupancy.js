@@ -34,18 +34,17 @@ class Occupancy extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const body = {
+        const body = JSON.stringify({
             id: this.state.id,
             dateStart: this.state.dateStart,
             dateEnd: this.state.dateEnd
-        };
+        });
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
         this.setState({ message: '' });
-        console.log(body);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
             method: 'POST',
@@ -53,10 +52,12 @@ class Occupancy extends React.Component {
             body: body
         }).then((response) => {
             if(response.ok){
-                return response.json();
+                return response.text();
             }
-        }).then((jsonResponse) => {
-            console.log(jsonResponse);
+        }).then((responseText) => {
+            this.setState({ message: responseText });
+        }).catch((err) => {
+            throw err;
         });
 
     }
@@ -68,10 +69,25 @@ class Occupancy extends React.Component {
             );
         });
 
+        let messageBox = '';
+        if (this.state.message === "Djelatnik je slobodan u odabranom periodu.") {
+            messageBox = (
+                <div className="alert alert-success">
+                    {this.state.message}
+                </div>
+            );
+        } else if (this.state.message !== '') {
+            messageBox = (
+                <div className="alert alert-danger">
+                    {this.state.message}
+                </div>
+            );
+        }
+
         return (
             <div className="container mt-5">
                 <div className="container">
-                    {this.state.message}
+                    {messageBox}
                 </div>
                 <div className="row">
                     <form onSubmit={this.handleSubmit}>
