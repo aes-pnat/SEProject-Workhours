@@ -79,7 +79,7 @@ public class MyDataServiceJpa implements MyDataService {
         List<String> listaTaskova = new LinkedList<>();
         for(Employeetask et : employeetasks){
             int taskId = et.getId().getIdtask();
-            Optional<Task> task = taskRepository.findById(Long.valueOf(taskId));
+            Optional<Task> task = taskRepository.findById(taskId);
             if(!task.isPresent()){
                 throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
             }

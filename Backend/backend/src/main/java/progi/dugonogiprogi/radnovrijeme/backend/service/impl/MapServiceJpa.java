@@ -41,7 +41,7 @@ public class MapServiceJpa implements MapService {
             dataDTO.setLocation(location);
             Integer id = location.getId();
             for(Task task : taskRepository.findAll()) {
-                if(task.getIdlocation().getId().equals(id)){
+                if(task.getIdlocation() != null && task.getIdlocation().getId().equals(id)){
                     dataDTO.setStartDateAndTime(task.getDatetimestart());
                     dataDTO.setEndDateAndTime(task.getDatetimeend());
                     Optional<List<Employeetask>> employeetask = employeetaskRepository.findById_Idtask(task.getId());

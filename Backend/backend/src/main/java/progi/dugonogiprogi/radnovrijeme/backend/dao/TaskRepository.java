@@ -12,7 +12,7 @@ import java.util.Optional;
  * Repository for tasks in a company.
  */
 @Repository
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     Optional<List<Task>> findByIdjob_Id(Integer idjob);
 }
