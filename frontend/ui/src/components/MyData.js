@@ -2,16 +2,56 @@ import React from 'react';
 
 class MyData extends React.Component {
     state = {
-        firstName: '',
-        lastName: '',
+        HARDKODIRANI_USERNAME_PROMIJENITI_OVO: 'hWang',
+        name: '',
+        surname: '',
         username: '',
         pid: '',
-        role: '',
-        groups: [],
-        tasks: []
+        roleName: '',
+        groupNames: [],
+        taskNames: []
+    }
+
+    componentDidMount = async () => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/mydata?username='
+             + this.state.HARDKODIRANI_USERNAME_PROMIJENITI_OVO, {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({
+                name: jsonResponse.name,
+                surname: jsonResponse.surname,
+                email: jsonResponse.email,
+                username: jsonResponse.username,
+                pid: jsonResponse.pid,
+                roleName: jsonResponse.roleName,
+                groupNames: jsonResponse.groupNames,
+                taskNames: jsonResponse.taskNames
+            });
+        });
     }
 
     render() {
+        let groupNames = this.state.groupNames.map((group) => {
+            return (
+                <li key={group}>{group}</li>
+            );
+        });
+
+        let taskNames = this.state.taskNames.map((task) => {
+            return (
+                <li key={task}>{task}</li>
+            );
+        });
+
         return (
             <div className="container">
                 <div className="card mt-5">
@@ -19,23 +59,23 @@ class MyData extends React.Component {
                         <p className="h3 mb-3">Moji podaci</p>
                         <p>
                             <span className="fw-bold">Ime i prezime: </span>
-                            Pero Perić
+                            {this.state.name} {this.state.surname}
                         </p>
                         <p>
                             <span className="fw-bold">E-mail: </span>
-                            pero.peric@firma.hr
+                            {this.state.email}
                         </p>
                         <p>
                             <span className="fw-bold">Korisničko ime: </span>
-                            peroperic
+                            {this.state.username}
                         </p>
                         <p>
                             <span className="fw-bold">OIB: </span>
-                            12345678901
+                            {this.state.pid}
                         </p>
                         <p>
                             <span className="fw-bold">Uloga: </span>
-                            Djelatnik
+                            {this.state.roleName}
                         </p>
                     </div>
                 </div>
@@ -43,26 +83,16 @@ class MyData extends React.Component {
                     <div className="card-body">
                         <p className="h3 mb-3">Moje grupe</p>
                         <ul>
-                            <li>Grupa 1</li>
-                            <li>Grupa 2</li>
+                            {groupNames}
                         </ul>
                     </div>
                 </div>
                 <div className="card mt-5 mb-3">
                     <div className="card-body">
                         <p className="h3 mb-3">Moji zadaci</p>
-                        <div className="card">
-                            <div className="card-body">
-                                <p className="h5">Zadatak 1</p>
-                                <p className="fst-italic">
-                                    Od: 1.1.2021. 
-                                    do: 2.1.2021.
-                                </p>
-                                <p>
-                                    Opis zadatka opis zadatka opis zadatka opis zadatka opis zadatka
-                                </p>
-                            </div>
-                        </div>
+                        <ul>
+                            {taskNames}
+                        </ul>
                     </div>
                 </div>
             </div>
