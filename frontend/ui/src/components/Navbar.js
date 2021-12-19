@@ -15,8 +15,12 @@ import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
+<<<<<<< HEAD
 import MainPage from './MainPage';
 import JobsAdd from './JobsAdd';
+=======
+import Map from './Map';
+>>>>>>> petar_map
 
 function Navbar() {
   return (
@@ -60,6 +64,9 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
+              <div className="nav-link">
+                <Link to='/map'>Karta</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -97,6 +104,9 @@ function Navbar() {
             </Route>
             <Route path="/mydata">
               <MyData />
+            </Route>
+            <Route path="/map">
+              <Map />
             </Route>
           </Switch>
     </Router>
