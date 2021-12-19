@@ -18,9 +18,9 @@ const Login = (props) => {
                 password
             })
         }).then((data) => {
-            console.log(data.stringify());
+            console.log(data.headers);
             if(data.headers.get("accessToken")){
-                console.log(data.headers.accessToken);
+                
                 props.setUsername(data.headers.accessToken);
                 User.saveToken(data.headers.accessToken);
                 setRedirect(true);
