@@ -82,6 +82,7 @@ class MyData extends React.Component {
                 <div className="card mt-5">
                     <div className="card-body">
                         <p className="h3 mb-3">Moje grupe</p>
+                        <p className="fst-italic">(prikazuju se grupe kojih sam član, ne voditelj)</p>
                         <ul>
                             {groupNames}
                         </ul>

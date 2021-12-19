@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import Groups from './Groups';
 import Jobs from './Jobs';
-import Workhours from './Workhours';
 import Tasks from './Tasks';
 import Login from './Login';
 import Moneymanagement from './Moneymanagement';
@@ -45,9 +44,6 @@ function Navbar() {
               </div>
               <div className="nav-link">
                 <Link to='/tasks'>Tasks</Link>
-              </div>
-              <div className="nav-link">
-                <Link to='/workhours'>Workhours</Link>
               </div>
               <div className="nav-link">
                 <Link to='/login'>Log In</Link>
@@ -89,9 +85,6 @@ function Navbar() {
             </Route>
             <Route path="/tasks">
               <Tasks />
-            </Route>
-            <Route path="/workhours">
-              <Workhours />
             </Route>
             <Route path="/register">
               <Register />

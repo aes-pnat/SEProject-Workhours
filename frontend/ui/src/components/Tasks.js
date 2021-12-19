@@ -31,15 +31,16 @@ class Tasks extends React.Component {
     render () {
         let tasks = this.state.tasks.map(task => {
             return (
-                <div className="card">
+                <div className="card mb-3">
                     <div className="card-body">
                         <p className="h5">{task.taskName}</p>
                         <p className="fst-italic">
-                            Djelatnik: {task.employeeName} {task.employeeSurname}
+                            Djelatnik: {task.employeeName} {task.employeeSurname} <br />
+                            Djelatnost: {task.job.name}
                         </p>
                         <p className="fst-italic">
-                            Od: {task.startDateAndTime} 
-                            do: {task.endDateAndTime}
+                            Od: {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do: {(new Date(task.endDateAndTime)).toLocaleString('en-GB')} <br />
+                            Procjena broja sati: {task.estimatedDuration}
                         </p>
                         <p>
                             Opis zadatka opis zadatka opis zadatka opis zadatka opis zadatka
