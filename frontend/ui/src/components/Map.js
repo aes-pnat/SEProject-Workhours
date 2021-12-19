@@ -7,7 +7,30 @@ class Map extends React.Component {
         map: null
     };
 
-    componentDidMount() {
+    fetchData = async () => {
+        let dataList = [];
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/map', {
+            method: 'GET',
+            headers: myHeaders
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then(jsonResponse => {
+            dataList = jsonResponse;
+        }).catch(err => {
+            throw err;
+        });
+
+        return dataList;
+    }
+
+    componentDidMount = async() => {
         const H = window.H;
         const platform = new H.service.Platform({
             apikey: "_avtU1QAAd7wlen69G44690--o6AVuc_kiN9O-qwGe0"
@@ -20,9 +43,8 @@ class Map extends React.Component {
             this.mapRef.current,
             defaultLayers.vector.normal.map,
             {
-                // This map is centered over Europe
-                center: { lat: 50, lng: 5 },
-                zoom: 4,
+                center: { lat: 45.8150, lng: 15.9819 },
+                zoom: 8,
                 pixelRatio: window.devicePixelRatio || 1
             }
         );
@@ -35,12 +57,10 @@ class Map extends React.Component {
         // Create the default UI components to allow the user to interact with them
         // This variable is unused
         const ui = H.ui.UI.createDefault(map, defaultLayers);
-
         
-        // TEST: add marker
+        
         var group = new H.map.Group();
         map.addObject(group);
-        
         group.addEventListener('tap', function (e) {
             var bubble = new H.ui.InfoBubble(e.target.getGeometry(), {
                 content: e.target.getData()
@@ -48,12 +68,30 @@ class Map extends React.Component {
             ui.addBubble(bubble);
         }, false);
         
-        var coords = {lat: 45.00, lng: 0.00};
-        
-        var marker = new H.map.Marker(coords);
-        marker.setData('<div><a href="https://www.liverpoolfc.tv">Liverpool</a></div>' +
-        '<div>Anfield<br />Capacity: 54,074</div>');
-        group.addObject(marker);
+        let taskList = await this.fetchData();
+
+        taskList.forEach(task => {
+            let coords = {
+                lat: task.location.latitude, 
+                lng: task.location.longitude
+            };
+
+            let marker = new H.map.Marker(coords);
+            marker.setData(
+                <div>
+                    <div>{task.location.placename}</div>
+                    <div>{task.location.address}</div>
+                    <div>{task.employeeName} {task.employeeSurname}</div>
+                    <div>Datum i vrijeme intervencije:</div>
+                    <div>
+                        Od {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do
+                        {(new Date(task.endDateAndTime)).toLocaleString('en-GB')}
+                    </div>
+                </div>
+            );
+
+            group.addObject(marker);
+        });
         
         this.setState({ map });
     }
@@ -67,7 +105,7 @@ class Map extends React.Component {
     render() {
         return (
             // Set a height on the map so it will display
-            <div ref={this.mapRef} style={{ height: "500px" }} />
+            <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />
         );
     }
 }
