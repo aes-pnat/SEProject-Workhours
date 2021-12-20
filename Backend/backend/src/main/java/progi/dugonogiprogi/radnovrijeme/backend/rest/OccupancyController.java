@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
@@ -23,14 +24,14 @@ public class OccupancyController {
     OccupancyService occupancyService;
 
     @GetMapping("")
-    public List<EmployeeDTO> listAllEmployees() {
-        return occupancyService.listAllEmployees();
+    public ResponseEntity<?> listAllEmployees() {
+        return ResponseEntity.ok().body(occupancyService.listAllEmployees());
     }
 
     @PostMapping("")
-    public String isOccupied(@RequestBody OccupancyDTO occupancyDTO) throws ParseException {
+    public ResponseEntity<?> isOccupied(@RequestBody OccupancyDTO occupancyDTO) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        return occupancyService.isOccupied(occupancyDTO.getIdEmployee(), formatter.parse(occupancyDTO.getDateStart()), formatter.parse(occupancyDTO.getDateEnd()));
+        return ResponseEntity.ok().body(occupancyService.isOccupied(occupancyDTO.getIdEmployee(), formatter.parse(occupancyDTO.getDateStart()), formatter.parse(occupancyDTO.getDateEnd())));
     }
 
 }
