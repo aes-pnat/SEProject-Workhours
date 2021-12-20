@@ -1,7 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
@@ -76,7 +75,7 @@ public class MyDataServiceJpa implements MyDataService {
             throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
         }
         List<Employeetask> employeetasks = employeetaskList.get();
-        List<String> listaTaskova = new LinkedList<>();
+        List<Task> listaTaskova = new LinkedList<>();
         for(Employeetask et : employeetasks){
             int taskId = et.getId().getIdtask();
             Optional<Task> task = taskRepository.findById(taskId);
@@ -84,10 +83,10 @@ public class MyDataServiceJpa implements MyDataService {
                 throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
             }
             Task t = task.get();
-            listaTaskova.add(t.getName());
+            listaTaskova.add(t);
 
         }
-        myData.setTaskNames(listaTaskova);
+        myData.setTasks(listaTaskova);
         return myData;
 
     }

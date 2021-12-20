@@ -13,7 +13,7 @@ public class MyDataDTO {
     private String pid;
     private String roleName;
     private List<String> groupNames;
-    private List<String> taskNames;
+    private List<Task> tasks;
 
     public String getName() {
         return name;
@@ -71,11 +71,11 @@ public class MyDataDTO {
         this.groupNames = groupNames;
     }
 
-    public List<String> getTaskNames() {
-        return taskNames;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTaskNames(List<String> taskNames) {
-        this.taskNames = taskNames;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

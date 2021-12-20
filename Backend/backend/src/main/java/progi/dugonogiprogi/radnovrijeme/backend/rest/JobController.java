@@ -36,5 +36,4 @@ public class JobController {
     public void deleteJob(@RequestParam Integer id) {
         jobService.deleteJob(id);
     }
-
 }
