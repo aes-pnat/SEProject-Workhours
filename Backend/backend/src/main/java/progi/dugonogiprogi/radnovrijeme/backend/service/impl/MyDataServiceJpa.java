@@ -11,6 +11,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskExcepti
 import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MyDataServiceJpa implements MyDataService {
@@ -40,7 +41,7 @@ public class MyDataServiceJpa implements MyDataService {
         MyDataDTO myData = new MyDataDTO();
         Optional<Employee> employee = employeeRepository.findByUsername(username);
         if(!employee.isPresent()){
-            throw new MissingEmployeeException("Employee with username " +username+ "does not exist");
+            throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
         }
         Employee e = employee.get();
         myData.setUsername(e.getUsername());
@@ -58,6 +59,7 @@ public class MyDataServiceJpa implements MyDataService {
         if(!employeegroupList.isPresent()) {
             throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
         }
+
         List<Employeegroup> list = employeegroupList.get();
         List<String> lista = new LinkedList<>();
         for(Employeegroup eg : list){
@@ -69,6 +71,11 @@ public class MyDataServiceJpa implements MyDataService {
             Group g = group.get();
             lista.add(g.getName());
         }
+        Optional<List<Group>> g = groupRepository.findByIdleader(e);
+        if(g.isPresent()){
+            lista.addAll(g.get().stream().map(Group::getName).collect(Collectors.toList()));
+        }
+        lista = lista.stream().distinct().toList();
         myData.setGroupNames(lista);
         Optional<List<Employeetask>> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
         if(!employeetaskList.isPresent()) {
