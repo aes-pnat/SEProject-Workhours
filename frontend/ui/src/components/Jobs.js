@@ -68,7 +68,10 @@ const Jobs = () => {
             console.log(myJson);
             setData(myJson)
           });
-      }
+    }
+    useEffect(()=>{
+        getData()
+      },[])
     
     return (
         <div>
@@ -86,13 +89,13 @@ const Jobs = () => {
                         data && data.length>0 && data.map((item)=><p>{item.about}</p>)
                         }
                     </div>
-                    <JobDisplay
+                    {/* <JobDisplay
                         jobname="Jobitis"
 
                         jobhp="14"
                         jobtp="3610"
                         jobdesc="ovoe neki poso"
-                    />
+                    /> */}
                     
                     {data.map((job)=>(
                         <JobDisplay 
