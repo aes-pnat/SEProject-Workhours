@@ -11,6 +11,7 @@ import {
 import '../Jobs.css';
 import JobsAdd from './JobsAdd';
 import JobDisplay from './compartments/JobDisplay';
+//import jobs from './json_ph/jobs.json'
 const Jobs = () => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
@@ -51,7 +52,7 @@ const Jobs = () => {
     //     console.log("error u tasks");
     // }
     const getData=()=>{
-        fetch('jobs.json'
+        fetch('data.json'
         ,{
           headers : { 
             'Content-Type': 'application/json',
@@ -68,9 +69,6 @@ const Jobs = () => {
             setData(myJson)
           });
       }
-      useEffect(()=>{
-        getData()
-      },[])
     
     return (
         <div>
@@ -83,6 +81,11 @@ const Jobs = () => {
                     {/* {data && (data.length > 1) ?
                         data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
                     } */}
+                    <div className="App">
+                        {
+                        data && data.length>0 && data.map((item)=><p>{item.about}</p>)
+                        }
+                    </div>
                     <JobDisplay
                         jobname="Jobitis"
 
