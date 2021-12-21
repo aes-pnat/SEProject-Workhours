@@ -15,12 +15,8 @@ import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
-<<<<<<< HEAD
-import MainPage from './MainPage';
 import JobsAdd from './JobsAdd';
-=======
 import Map from './Map';
->>>>>>> petar_map
 
 function Navbar() {
   return (
@@ -72,9 +68,6 @@ function Navbar() {
         </div>
       </nav>
       <Switch>
-            <Route exact path="/">
-              <MainPage />
-            </Route>
             <Route path="/login">
               <Login />
             </Route>

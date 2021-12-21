@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Map.css'
 
 class Map extends React.Component {
     mapRef = React.createRef();
@@ -78,16 +79,18 @@ class Map extends React.Component {
 
             let marker = new H.map.Marker(coords);
             marker.setData(
-                <div>
-                    <div>{task.location.placename}</div>
-                    <div>{task.location.address}</div>
-                    <div>{task.employeeName} {task.employeeSurname}</div>
-                    <div>Datum i vrijeme intervencije:</div>
+                `<div class="infobubble-container">
+                    <div class="fw-bold">Lokacija:</div>
+                    <div>${task.location.placename}</div>
+                    <div class="mb-3">${task.location.address}</div>
+                    <div class="fw-bold">Djelatnik:</div>
+                    <div class="mb-3">${task.employeeName} ${task.employeeSurname}</div>
+                    <div class="fw-bold">Datum i vrijeme intervencije:</div>
                     <div>
-                        Od {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do
-                        {(new Date(task.endDateAndTime)).toLocaleString('en-GB')}
+                        Od ${(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do
+                        ${(new Date(task.endDateAndTime)).toLocaleString('en-GB')}
                     </div>
-                </div>
+                </div>`
             );
 
             group.addObject(marker);
