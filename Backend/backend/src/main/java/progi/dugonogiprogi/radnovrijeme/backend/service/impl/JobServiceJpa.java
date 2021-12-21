@@ -32,7 +32,8 @@ public class JobServiceJpa implements JobService {
     }
 
     @Override
-    public void deleteJob(Integer id) {
+    public Integer deleteJob(Integer id) {
         jobRepository.deleteById(id);
+        return id;
     }
 }
