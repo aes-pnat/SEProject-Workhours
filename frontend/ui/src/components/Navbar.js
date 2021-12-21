@@ -17,6 +17,7 @@ import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
 import JobsAdd from './JobsAdd';
 import Map from './Map';
+import AddTask from './AddTask';
 
 function Navbar() {
   return (
@@ -83,8 +84,11 @@ function Navbar() {
             <Route path="/moneymanagement">
               <Moneymanagement />
             </Route>
-            <Route path="/tasks">
+            <Route path="/tasks" component={Tasks}>
               <Tasks />
+            </Route>
+            <Route path="/tasks/add">
+              <AddTask />
             </Route>
             <Route path="/register">
               <Register />

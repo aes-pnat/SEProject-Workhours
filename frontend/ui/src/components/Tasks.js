@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom';
+import AddTask from './AddTask';
 
 class Tasks extends React.Component {
     state = {
@@ -29,6 +31,7 @@ class Tasks extends React.Component {
     }
 
     render () {
+
         let tasks = this.state.tasks.map(task => {
             return (
                 <div className="card mb-3">
@@ -51,8 +54,17 @@ class Tasks extends React.Component {
         })
         return (
             <div className="container mt-5">
-                <div className="h3 mb-5">Zadaci djelatnika iz mojih grupa</div>
+                <div className="h3 mb-3">Zadaci djelatnika iz mojih grupa</div>
+                <Link to={`/add`}>
+                    <button className="btn btn-primary mb-3">Novi zadatak</button>
+                </Link>
                 {tasks}
+
+                <Switch>
+                    <Route exact path={`/add`}>
+                        <AddTask />
+                    </Route>
+                </Switch>
             </div>
         );
     }
