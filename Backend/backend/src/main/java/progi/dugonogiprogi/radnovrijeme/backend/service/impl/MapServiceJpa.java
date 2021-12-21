@@ -9,6 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.LocationDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MapService;
 
 import java.util.LinkedList;
@@ -36,12 +37,12 @@ public class MapServiceJpa implements MapService {
         List<LocationDataDTO> list = new LinkedList<>();
         LocationDataDTO dataDTO = new LocationDataDTO();
 
-
         for(Location location : locationRepository.findAll()) {
             dataDTO.setLocation(location);
             Integer id = location.getId();
-            for(Task task : taskRepository.findAll()) {
-                if(task.getIdlocation() != null && task.getIdlocation().getId().equals(id)){
+            Optional<Task> t = taskRepository.findByIdlocation_Id(id);
+            if(t.isPresent()){
+                    Task task = t.get();
                     dataDTO.setStartDateAndTime(task.getDatetimestart());
                     dataDTO.setEndDateAndTime(task.getDatetimeend());
                     Optional<List<Employeetask>> employeetask = employeetaskRepository.findById_Idtask(task.getId());
@@ -57,7 +58,7 @@ public class MapServiceJpa implements MapService {
                         dataDTO.setEmployeeName(employee.get().getName());
                         dataDTO.setEmployeeSurname(employee.get().getSurname());
                     }
-                }
+                    list.add(dataDTO);
             }
         }
         return list;
