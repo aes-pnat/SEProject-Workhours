@@ -107,8 +107,10 @@ class Map extends React.Component {
 
     render() {
         return (
-            // Set a height on the map so it will display
-            <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />
+            <div className="container">
+                <div className="h3 mt-3">Prikaz intervencija</div>
+                <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />
+            </div>
         );
     }
 }

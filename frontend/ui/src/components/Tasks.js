@@ -43,7 +43,7 @@ class Tasks extends React.Component {
                             Procjena broja sati: {task.estimatedDuration}
                         </p>
                         <p>
-                            Opis zadatka opis zadatka opis zadatka opis zadatka opis zadatka
+                            {task.description}
                         </p>
                     </div>
                 </div>
