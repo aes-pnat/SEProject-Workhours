@@ -13,27 +13,53 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Provides some functionalities regarding information about employees
+ *
+ */
+
 @Service
 public class MyDataServiceJpa implements MyDataService {
 
+    /**
+     * Injection of values of {@link EmployeetaskRepository} properties
+     */
 
     @Autowired
     EmployeetaskRepository employeetaskRepository;
 
+    /**
+     * Injection of values of {@link EmployeeRepository} properties
+     */
+
     @Autowired
     EmployeeRepository employeeRepository;
+
+    /**
+     * Injection of values of {@link GroupRepository} properties
+     */
 
     @Autowired
     GroupRepository groupRepository;
 
+    /**
+     * Injection of values of {@link TaskRepository} properties
+     */
     @Autowired
     TaskRepository taskRepository;
 
+    /**
+     * Injection of values of {@link EmployeegroupRepository} properties
+     */
     @Autowired
     EmployeegroupRepository employeegroupRepository;
-
+    /**
+     * Injection of values of {@link RoleRepository} properties
+     */
     @Autowired
     RoleRepository roleRepository;
+
+
 
 
     @Override
