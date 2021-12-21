@@ -9,7 +9,9 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeetask;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.TimePeriodException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.OccupancyService;
 
 import java.time.Instant;
@@ -52,6 +54,10 @@ public class OccupancyServiceJpa implements OccupancyService {
 
     @Override
     public String isOccupied(String id, Date dateStart, Date dateEnd) {
+        if (!employeeRepository.findById(id).isPresent())
+            throw new MissingEmployeeException("Employee with ID >" + id + "< doesn't exist.");
+        if (dateStart.after(dateEnd))
+            throw new TimePeriodException("The ending date cannot be a date before the starting date.");
         Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(id);
         if (!employeeTaskList.isPresent())
             return "Djelatnik je slobodan u odabranom periodu.";

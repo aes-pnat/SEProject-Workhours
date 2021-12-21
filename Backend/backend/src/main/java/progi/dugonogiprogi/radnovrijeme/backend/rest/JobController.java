@@ -3,6 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.annotation.Secured;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
@@ -31,7 +32,7 @@ public class JobController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> createJob(@RequestBody Job job) {
+    public ResponseEntity<?> createJob(@Validated @RequestBody Job job) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/jobs/add").toUriString());
         return ResponseEntity.created(uri).body(jobService.createJob(job));
     }
