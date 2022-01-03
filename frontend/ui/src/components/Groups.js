@@ -46,7 +46,7 @@ const Groups = () => {
         <div>
             <li>Pozdrav iz groups stranice</li>
             {group && (group.length > 1) ?
-                group.map((item) => <li>{item.pid}</li>) : <li>Pogroupk: {group.pid}</li>
+                group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
             }
         </div>
         
