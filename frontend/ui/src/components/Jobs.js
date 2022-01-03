@@ -10,7 +10,6 @@ import {
   } from 'react-router-dom';
 import '../Jobs.css';
 import JobsAdd from './JobsAdd';
-import JobDisplay from './compartments/JobDisplay';
 //import jobs from './json_ph/jobs.json'
 const Jobs = () => {
     const [data, setData] = useState([]);
@@ -20,57 +19,57 @@ const Jobs = () => {
 
 
     //var API_URI = "https://radno-vrijeme-app.herokuapp.com/jobs";
-    var API_URI = 'https://radno-vrijeme-app.herokuapp.com/jobs'
+    var API_URI = 'http://localhost:8080/jobs'
     
-    // const myHeaders = new Headers();
-	// myHeaders.append("Content-Type","application/json");
-    // myHeaders.append("Accept","application/json");
-    // const getJobs = () => {
-    //     fetch(API_URI,
-    //     {
-    //         headers : myHeaders
-    //     })
-    //     .then(response => {
-    //         if(response.ok){
-    //             return response.json();
-    //         }else{
-    //             alert("Error in fetching tasks from server");
-    //         }
-    //     })
-    //     .then(myData => {
-    //         console.log(myData);
-    //         setData(myData);
-    //     }).catch(() => {
-    //         console.log("error u dohvacanju api u tasks")
-    //     });
-    // }
-    // try{
-    //     useEffect( () => {
-    //         getJobs();
-    //     },[]);
-    // }catch(err){
-    //     console.log("error u tasks");
-    // }
-    const getData=()=>{
-        fetch('data.json'
-        ,{
-          headers : { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-           }
-        }
-        )
-          .then(function(response){
-            console.log(response)
-            return response.json();
-          })
-          .then(function(myJson) {
-            console.log(myJson);
-            setData(myJson)
-          });
+    const myHeaders = new Headers();
+	myHeaders.append("Content-Type","application/json");
+    myHeaders.append("Accept","application/json");
+    const getJobs = () => {
+        fetch(API_URI,
+        {
+            headers : myHeaders
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }else{
+                alert("Error in fetching tasks from server");
+            }
+        })
+        .then(myData => {
+            console.log(myData);
+            setData(myData);
+        }).catch(() => {
+            console.log("error u dohvacanju api u tasks")
+        });
     }
+    try{
+        useEffect( () => {
+            getJobs();
+        },[]);
+    }catch(err){
+        console.log("error u tasks");
+    }
+    // const getData=()=>{
+    //     fetch('data.json'
+    //     ,{
+    //       headers : { 
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json'
+    //        }
+    //     }
+    //     )
+    //       .then(function(response){
+    //         console.log(response)
+    //         return response.json();
+    //       })
+    //       .then(function(myJson) {
+    //         console.log(myJson);
+    //         setData(myJson)
+    //       });
+    // }
     useEffect(()=>{
-        getData()
+        getJobs()
       },[])
     
     return (
@@ -80,32 +79,26 @@ const Jobs = () => {
             <Switch>
                 <Route exact path={path}>
                 <div>
-                    <li>Pozdrav iz job stranice</li>
                     {/* {data && (data.length > 1) ?
                         data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
                     } */}
-                    <div className="App">
+                    {/* <div className="App">
                         {
-                        data && data.length>0 && data.map((item)=><p>{item.about}</p>)
+                        data && data.length>0 && data.map((item)=><p>{item.name}</p>)
                         }
-                    </div>
-                    {/* <JobDisplay
-                        jobname="Jobitis"
-
-                        jobhp="14"
-                        jobtp="3610"
-                        jobdesc="ovoe neki poso"
-                    /> */}
-                    
+                    </div> */}
                     {data.map((job)=>(
-                        <JobDisplay 
-                            key={job.index}
-                            jobname={job.name}
+                        <div className="container">
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{job.name}</p>
+                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
+                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
+                                    <p>{job.description}</p>
+                                </div>
+                            </div>
+                        </div>
 
-                            jobhp={job.hprice}
-                            jobtp={job.tprice}
-                            jobdesc={job.desc}
-                        ></JobDisplay>
                     ))}
                 </div>
                 </Route>
