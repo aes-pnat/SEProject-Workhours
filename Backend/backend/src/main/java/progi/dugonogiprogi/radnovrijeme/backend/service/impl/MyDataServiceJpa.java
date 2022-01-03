@@ -11,28 +11,55 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskExcepti
 import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Provides some functionalities regarding information about employees
+ *
+ */
 
 @Service
 public class MyDataServiceJpa implements MyDataService {
 
+    /**
+     * Injection of values of {@link EmployeetaskRepository} properties
+     */
 
     @Autowired
     EmployeetaskRepository employeetaskRepository;
 
+    /**
+     * Injection of values of {@link EmployeeRepository} properties
+     */
+
     @Autowired
     EmployeeRepository employeeRepository;
+
+    /**
+     * Injection of values of {@link GroupRepository} properties
+     */
 
     @Autowired
     GroupRepository groupRepository;
 
+    /**
+     * Injection of values of {@link TaskRepository} properties
+     */
     @Autowired
     TaskRepository taskRepository;
 
+    /**
+     * Injection of values of {@link EmployeegroupRepository} properties
+     */
     @Autowired
     EmployeegroupRepository employeegroupRepository;
-
+    /**
+     * Injection of values of {@link RoleRepository} properties
+     */
     @Autowired
     RoleRepository roleRepository;
+
+
 
 
     @Override
@@ -40,7 +67,7 @@ public class MyDataServiceJpa implements MyDataService {
         MyDataDTO myData = new MyDataDTO();
         Optional<Employee> employee = employeeRepository.findByUsername(username);
         if(!employee.isPresent()){
-            throw new MissingEmployeeException("Employee with username " +username+ "does not exist");
+            throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
         }
         Employee e = employee.get();
         myData.setUsername(e.getUsername());
@@ -58,6 +85,7 @@ public class MyDataServiceJpa implements MyDataService {
         if(!employeegroupList.isPresent()) {
             throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
         }
+
         List<Employeegroup> list = employeegroupList.get();
         List<String> lista = new LinkedList<>();
         for(Employeegroup eg : list){
@@ -69,6 +97,11 @@ public class MyDataServiceJpa implements MyDataService {
             Group g = group.get();
             lista.add(g.getName());
         }
+        Optional<List<Group>> g = groupRepository.findByIdleader(e);
+        if(g.isPresent()){
+            lista.addAll(g.get().stream().map(Group::getName).collect(Collectors.toList()));
+        }
+        lista = lista.stream().distinct().toList();
         myData.setGroupNames(lista);
         Optional<List<Employeetask>> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
         if(!employeetaskList.isPresent()) {

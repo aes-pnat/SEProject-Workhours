@@ -64,7 +64,7 @@ class WorkHoursInput extends React.Component {
         let tasks;
         if (this.state.tasksList.length === 0) {
             tasks = (
-                <option disabled>Nema dostupnih zadataka za djelatnika</option>
+                <option disabled>Nema aktivnih zadataka za djelatnika</option>
             );
         } else {
             tasks = this.state.tasksList.map(task => {
@@ -85,6 +85,7 @@ class WorkHoursInput extends React.Component {
 
         return (
             <div className="container mt-5">
+                <div className="h3 mb-3">Unos radnih sati</div>
                 <div className="container">
                     {messageBox}
                 </div>

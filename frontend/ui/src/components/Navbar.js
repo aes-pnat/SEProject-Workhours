@@ -69,9 +69,6 @@ function Navbar() {
         </div>
       </nav>
       <Switch>
-            <Route exact path="/">
-              <MainPage />
-            </Route>
             <Route path="/login">
               <Login />
             </Route>
@@ -87,8 +84,11 @@ function Navbar() {
             <Route path="/moneymanagement">
               <Moneymanagement />
             </Route>
-            <Route path="/tasks">
+            <Route path="/tasks" component={Tasks}>
               <Tasks />
+            </Route>
+            <Route path="/tasks/add">
+              <AddTask />
             </Route>
             <Route path="/register">
               <Register />

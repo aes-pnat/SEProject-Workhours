@@ -86,6 +86,7 @@ class Occupancy extends React.Component {
 
         return (
             <div className="container mt-5">
+                <div className="h3 mb-3">Provjera zauzetosti djelatnika</div>
                 <div className="container">
                     {messageBox}
                 </div>

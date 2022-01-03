@@ -40,75 +40,59 @@ public class TaskServiceJpa implements TaskService {
     public List<TasksDTO> listTasksForLeader(String idLeader) {
         List<TasksDTO> list = new LinkedList<>();
 
-        Employee leader = null;
+        Optional<Employee> lead = employeeRepository.findById(idLeader);
 
-        if (employeeRepository.findById(idLeader).isPresent())
-            leader = employeeRepository.findById(idLeader).get();
+        if (!lead.isPresent())
+            throw new MissingEmployeeException("Employee with id "+idLeader+ " not found");
 
-        if (leader == null)
-            return list;
+        Employee leader = lead.get();
 
         Optional<List<Group>> groups = groupRepository.findByIdleader(leader);
+
         if(!groups.isPresent()) {
             throw new NoSuchGroupException("Employee with id "+idLeader+"is not a leader");
         }
         List<Group> groupList = groups.get();
 
         for (Group g : groupList) {
+
             Optional<List<Employeegroup>> listEmployees = employeegroupRepository.findById_Idgroup(g.getId());
-            if(!listEmployees.isPresent()){
-                throw new MissingEmployeeException("The group with id"+ g.getId()+ "has no members");
+            if (!listEmployees.isPresent()) {
+                throw new MissingEmployeeException("The group with id" + g.getId() + "has no members");
             }
-            for(Employeegroup eg : listEmployees.get()) {
-                TasksDTO tasksDTO = new TasksDTO();
-                Optional<List<Task>> taskss = taskRepository.findByIdjob_Id(g.getIdjob().getId());
-                if(!taskss.isPresent()){
-                    throw new NoSuchElementException("This group has none tasks set yet");
-                }
-                for (Task t : taskss.get()) {
-                    tasksDTO.setTaskName(t.getName());
-                    tasksDTO.setEstimatedDuration(t.getHoursneededestimate());
-                    tasksDTO.setStartDateAndTime(t.getDatetimestart());
-                    tasksDTO.setEndDateAndTime(t.getDatetimeend());
-                    if (t.getIdlocation() != null) {
-                        Optional<Location> loc = locationRepository.findById(t.getIdlocation().getId());
-                        if(!loc.isPresent()){
-                            throw new NoSuchElementException("Location with id "+t.getIdlocation().getId()+"doesn't exist");
-                        }
-                        Location l = loc.get();
-                        tasksDTO.setLocation(l);
-                    } else {
-                        tasksDTO.setLocation(null);
-                    }
-                    Optional<Job> j = jobRepository.findById(t.getIdjob().getId());
-                    if(!j.isPresent()) {
-                        throw new NoSuchElementException("Job with id "+t.getIdjob().getId()+"doesn't exist");
-                    }
-                    Job job = j.get();
-                    tasksDTO.setJob(job);
+            Optional<List<Task>> taskss = taskRepository.findByIdjob_Id(g.getIdjob().getId());
+            if (!taskss.isPresent()) {
+                throw new NoSuchElementException("This group has none tasks set yet");
+            }
+            for (Task t : taskss.get()) {
+                for (Employeegroup eg : listEmployees.get()) {
+                    TasksDTO tasksDTO = new TasksDTO();
                     Optional<List<Employeetask>> et = employeetaskRepository.findById_Idemployee(eg.getId().getIdemployee());
-                    if(!et.isPresent()) {
+                    if (!et.isPresent()) {
                         throw new NoSuchElementException("This employee hasn't been given any tasks");
                     }
-                    for(Employeetask emt : et.get()){
-                        if(emt.getId().getIdtask().equals(t.getId())){
+                    for (Employeetask emt : et.get()) {
+                        if (emt.getId().getIdtask().equals(t.getId())) {
                             Optional<Employee> employee = employeeRepository.findById(emt.getId().getIdemployee());
-                            if(!employee.isPresent()) {
-                                throw new MissingEmployeeException("Employee with id "+emt.getId().getIdemployee()+"doesn't exist");
+                            if (!employee.isPresent()) {
+                                throw new MissingEmployeeException("Employee with id " + emt.getId().getIdemployee() + " doesn't exist");
                             }
                             Employee e = employee.get();
+                            tasksDTO.setTaskName(t.getName());
+                            tasksDTO.setEstimatedDuration(t.getHoursneededestimate());
+                            tasksDTO.setStartDateAndTime(t.getDatetimestart());
+                            tasksDTO.setEndDateAndTime(t.getDatetimeend());
                             tasksDTO.setEmployeeName(e.getName());
                             tasksDTO.setEmployeeSurname(e.getSurname());
-                            break;
+                            tasksDTO.setLocation(t.getIdlocation());
+                            tasksDTO.setJob(t.getIdjob());
+                            list.add(tasksDTO);
                         }
                     }
-                    list.add(tasksDTO);
                 }
 
             }
         }
-
-
         return list;
     }
 }

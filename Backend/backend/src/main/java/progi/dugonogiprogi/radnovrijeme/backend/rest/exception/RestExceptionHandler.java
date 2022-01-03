@@ -109,4 +109,24 @@ public class RestExceptionHandler {
         props.put("error", "Bad Request");
         return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(TimePeriodException.class)
+    protected ResponseEntity<?> handleTimePeriodException(Exception e, WebRequest request) {
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "400");
+        props.put("error", "Bad Request");
+        log.error(e.getMessage());
+        return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchTaskException.class)
+    protected ResponseEntity<?> handleNoSuchTaskException(Exception e, WebRequest request) {
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "400");
+        props.put("error", "Bad Request");
+        log.error(e.getMessage());
+        return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
+    }
 }
