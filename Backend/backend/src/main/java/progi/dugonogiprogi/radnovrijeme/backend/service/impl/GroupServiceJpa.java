@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -31,12 +32,21 @@ public class GroupServiceJpa implements GroupService {
     @Autowired
     private EmployeegroupRepository employeegroupRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @Override
     public Map<Group, List<Employee>> listAllGroups() {
         Map<Group, List<Employee>> listGroups = new HashMap<>();
         List<Group> groups = groupRepository.findAll();
         for (Group g : groups) {
             List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId()).get();
+            List<Employee> employeeList = new ArrayList<>();
+            for (Employeegroup e : employeegroups) {
+                Employee employee = employeeRepository.findById(e.getId().getIdemployee()).get();
+                employeeList.add(employee);
+            }
+            listGroups.put(g, employeeList);
         }
         return listGroups;
     }
