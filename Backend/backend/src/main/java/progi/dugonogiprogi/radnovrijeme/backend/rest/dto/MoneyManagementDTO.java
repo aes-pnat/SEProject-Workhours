@@ -9,6 +9,24 @@ import java.util.List;
  */
 public class MoneyManagementDTO {
 
+    private double price;
+    private double difference;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getDifference() {
+        return difference;
+    }
+
+    public void setDifference(double difference) {
+        this.difference = difference;
+    }
 }
 
 

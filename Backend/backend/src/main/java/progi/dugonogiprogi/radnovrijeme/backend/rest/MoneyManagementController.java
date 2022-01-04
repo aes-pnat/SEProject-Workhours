@@ -1,11 +1,8 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 
@@ -17,6 +14,20 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 @RestController
 @RequestMapping("/moneymanagement")
 public class MoneyManagementController {
+
+    @Autowired
+    MoneyManagementService moneyManagementService;
+
+    @PostMapping("/expense")
+    public ResponseEntity<?> seeExpenseDifference(@RequestParam double price) {
+        return ResponseEntity.ok().body(moneyManagementService.seeExpense(price));
+
+    }
+
+    @PostMapping("/profit")
+    public ResponseEntity<?> seeProfitDifference(@RequestParam double price) {
+        return ResponseEntity.ok().body(moneyManagementService.seeProfit(price));
+    }
 
 
 }
