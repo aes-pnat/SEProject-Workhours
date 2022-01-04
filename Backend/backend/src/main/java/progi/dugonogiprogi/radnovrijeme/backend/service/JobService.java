@@ -16,5 +16,5 @@ public interface JobService {
 
     Job createJob(Job job);
 
-    void deleteJob(Integer id);
+    Integer deleteJob(Integer id);
 }

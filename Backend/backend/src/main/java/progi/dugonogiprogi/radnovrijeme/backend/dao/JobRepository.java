@@ -13,5 +13,8 @@ import java.util.Optional;
 public interface JobRepository extends JpaRepository<Job, Integer> {
 
     @Override
+    Optional<Job> findById(Integer integer);
+
+    @Override
     void deleteById(Integer id);
 }

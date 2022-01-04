@@ -2,12 +2,16 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.annotation.Secured;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.CreateJobDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.JobDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -23,18 +27,18 @@ public class JobController {
     private JobService jobService;
 
     @GetMapping("")
-    public List<Job> listAllJobs() {
-        return jobService.listAll();
+    public ResponseEntity<?> listAllJobs() {
+        return ResponseEntity.ok().body(jobService.listAll());
     }
 
     @PostMapping("/add")
-    public Job createJob(@RequestBody Job job) {
-        return jobService.createJob(job);
+    public ResponseEntity<?> createJob(@Validated @RequestBody Job job) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/jobs/add").toUriString());
+        return ResponseEntity.created(uri).body(jobService.createJob(job));
     }
 
     @DeleteMapping("/delete")
-    public void deleteJob(@RequestParam Integer id) {
-        jobService.deleteJob(id);
+    public ResponseEntity<?> deleteJob(@RequestParam Integer id) {
+        return ResponseEntity.ok().body(jobService.deleteJob(id));
     }
-
 }

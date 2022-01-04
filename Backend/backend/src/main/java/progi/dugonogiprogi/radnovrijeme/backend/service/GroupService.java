@@ -2,13 +2,11 @@ package progi.dugonogiprogi.radnovrijeme.backend.service;
 
 
 import org.springframework.stereotype.Service;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Specifies how certain business functionalities should be provided.
@@ -16,5 +14,10 @@ import java.util.Optional;
 @Service
 public interface GroupService {
 
+    List<GroupDTO> listAllGroups();
+
+    Group createGroup(AddGroupDTO group);
+
+    Integer deleteGroup(Integer groupId);
 
 }
