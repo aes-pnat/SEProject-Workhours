@@ -26,6 +26,4 @@ public class EmployeeServiceJpa implements EmployeeService {
         return employeeRepository.findAll();
     }
 
-    @Override List<Employee>
-
 }

@@ -8,4 +8,6 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.EmployeegroupId;
 import java.util.Optional;
 
 public interface EmployeegroupRepository extends JpaRepository<Employeegroup, EmployeegroupId> {
+
+    Optional<Employeegroup> findAllEmployeesByGroupId(Integer groupId);
 }

@@ -37,7 +37,7 @@ public class GroupServiceJpa implements GroupService {
     public List<Group> listAllGroups() {
         List<Group> groups = groupRepository.findAll();
         for (Group g : groups) {
-            g.getId()
+          employeegroupRepository.findAllEmployeesByGroupId(g.getId());
         }
 
     }
