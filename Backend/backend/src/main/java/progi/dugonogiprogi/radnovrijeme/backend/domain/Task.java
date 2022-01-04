@@ -14,7 +14,6 @@ public class Task {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Lob
     @Column(name = "description")
     private String description;
 
@@ -97,5 +96,18 @@ public class Task {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Task() {
+    }
+
+    public Task(String name, String description, Instant datetimestart, Instant datetimeend, Integer hoursneededestimate, Job idjob, Location idlocation) {
+        this.name = name;
+        this.description = description;
+        this.datetimestart = datetimestart;
+        this.datetimeend = datetimeend;
+        this.hoursneededestimate = hoursneededestimate;
+        this.idjob = idjob;
+        this.idlocation = idlocation;
     }
 }

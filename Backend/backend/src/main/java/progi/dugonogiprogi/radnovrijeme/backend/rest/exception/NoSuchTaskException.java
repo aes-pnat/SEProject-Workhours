@@ -7,7 +7,7 @@ public class NoSuchTaskException extends RuntimeException {
     }
 
     public NoSuchTaskException(String msg) {
-        super("Task with the name \"" + msg + "\" doesn't exist.");
+        super(msg);
     }
 
 }

@@ -1,6 +1,8 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Table(name = "job")
 @Entity
@@ -11,12 +13,15 @@ public class Job {
     private Integer id;
 
     @Column(name = "name", nullable = false, length = 100)
+    @NotEmpty(message = "Name of the job should not be empty.")
     private String name;
 
     @Column(name = "price", nullable = false)
+    @NotNull(message = "Price of the job should be defined.")
     private Double price;
 
     @Column(name = "hourprice", nullable = false)
+    @NotNull(message = "Hour price of the job should be defined.")
     private Double hourprice;
 
     @Column(name = "description")

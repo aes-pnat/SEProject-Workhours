@@ -32,7 +32,7 @@ CREATE TABLE Employee
   name VARCHAR(50) NOT NULL,
   surname VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(256) NOT NULL,
   username VARCHAR(50) NOT NULL,
   idRole INT NOT NULL,
   FOREIGN KEY (idRole) REFERENCES Role(idRole)
@@ -82,8 +82,8 @@ CREATE TABLE WorkHoursInput
 DROP TABLE EmployeeGroup CASCADE;
 CREATE TABLE EmployeeGroup
 (
-  idEmployee CHAR(11) NOT NULL,
-  idGroup INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL REFERENCES Employee ON DELETE CASCADE ON UPDATE CASCADE,
+  idGroup INT NOT NULL REFERENCES "group" ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (idEmployee, idGroup),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
   FOREIGN KEY (idGroup) REFERENCES "group"(idGroup)
@@ -92,8 +92,8 @@ CREATE TABLE EmployeeGroup
 DROP TABLE EmployeeTask CASCADE;
 CREATE TABLE EmployeeTask
 (
-  idEmployee CHAR(11) NOT NULL,
-  idTask INT NOT NULL,
+  idEmployee CHAR(11) NOT NULL REFERENCES Employee ON DELETE CASCADE ON UPDATE CASCADE,
+  idTask INT NOT NULL REFERENCES Task ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (idEmployee, idTask),
   FOREIGN KEY (idEmployee) REFERENCES Employee(pid),
   FOREIGN KEY (idTask) REFERENCES Task(idTask)
@@ -167,3 +167,45 @@ VALUES
 ('00000000006', 6),
 ('00000000010', 6),
 ('00000000014', 6);
+
+INSERT INTO Location (address, placeName, latitude, longitude)
+VALUES
+('Mlinksa ulica 71', 'Pozega', 45.358930, 17.682673);
+
+INSERT INTO Task (name, description, dateTimeStart, dateTimeEnd, hoursNeededEstimate, idJob, idLocation)
+VALUES
+('Nabava', 'Nabava materijala i komponenti potrebnih za sustav.', '2020-02-10 09:00:00', '2020-02-20 17:00:00', 20, 1, null),
+('Pregled terena', 'Pregled i mjerenje terena na kojemu se ugraduje sustav.', '2020-02-10 09:00:00', '2020-02-20 17:00:00', 20, 1, 1),
+('Izrada programske potpore', 'Izrada programske potpore za sustav.', '2020-02-21 09:00:00', '2020-05-15 17:00:00', 640, 1, null),
+('Izrada dokumentacije', 'Pisanje dokumentacije sustava.', '2020-02-10 09:00:00', '2020-05-20 17:00:00', 80, 1, null),
+('Izrada korisnickih uputa', 'Pisanje korisnickih uputa za koristenje sustava.', '2020-05-10 09:00:00', '2020-05-20 17:00:00', 20, 1, null),
+('Izrada plana rada', 'Izrada plana rada projekta.', '2020-02-10 09:00:00', '2020-02-20 17:00:00', 20, 1, null),
+('Izrada plana rada', 'Izrada plana rada projekta.', '2021-10-04 09:00:00', '2021-11-03 17:00:00', 20, 5, null),
+('Izrada dokumentacije', 'Pisanje dokumentacije sustava.', '2021-10-04 09:00:00', '2022-01-21 17:00:00', 80, 5, null),
+('Razrada arhitekture sustava', 'Razrada arhitekture sustava.', '2021-11-04 09:00:00', '2021-11-17 17:00:00', 20, 5, null),
+('Implementacija generickih funkcionalnosti', 'Implementacija registriranja i prijave korisnika.', '2021-11-18 09:00:00', '2021-12-10 17:00:00', 126, 5, null),
+('Implementacija projekta', 'Implementacija trazenih funkcionalnosti sustava.', '2021-12-11 09:00:00', '2022-01-07 17:00:00', 168, 5, null),
+('Ispitivanje aplikacije', 'Ispitivanje funckionalnosti sustava.', '2022-01-08 09:00:00', '2022-01-14 17:00:00', 21, 5, null),
+('Dovrsavanje implementacije i pustanje u pogon', 'Popravljanje funckionalnosti i pustanje u pogon.', '2022-01-15 09:00:00', '2022-01-21 17:00:00', 42, 5, null);
+
+INSERT INTO EmployeeTask (idEmployee, idTask)
+VALUES
+('00000000001', 1),
+('00000000001', 2),
+('00000000001', 3),
+('00000000001', 6),
+('00000000002', 2),
+('00000000002', 3),
+('00000000002', 4),
+('00000000003', 3),
+('00000000003', 5),
+('00000000004', 3),
+('00000000004', 5),
+('00000000020', 7),
+('00000000020', 8),
+('00000000020', 9),
+('00000000018', 10),
+('00000000018', 11),
+('00000000019', 12),
+('00000000019', 13);
+

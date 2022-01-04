@@ -8,6 +8,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
 import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.util.List;
 
