@@ -11,24 +11,48 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides some functionalities regarding information about expense and profit
+ *
+ */
+
 @Service
 public class MoneyManagementServiceJpa implements MoneyManagementService {
+
+    /**
+     * Injection of values of {@link JobRepository} properties
+     */
 
     @Autowired
     private JobRepository jobRepository;
 
+    /**
+     * Injection of values of {@link EmployeetaskRepository} properties
+     */
+
     @Autowired
     private EmployeetaskRepository employeetaskRepository;
+
+    /**
+     * Injection of values of {@link TaskRepository} properties
+     */
 
     @Autowired
     private TaskRepository taskRepository;
 
+    /**
+     * Injection of values of {@link EmployeeRepository} properties
+     */
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    /**
+     * Injection of values of {@link WorkHoursRepository} properties
+     */
+
     @Autowired
     private WorkHoursRepository workHoursRepository;
-
 
     @Override
     public MoneyManagementDTO seeExpense(double price) {
