@@ -27,8 +27,8 @@ function Login(){
         const credentials = {username, password};	
 		const authdata = window.btoa(username + ':' + password);
 
-		//const LOGIN_URL = 'http://localhost:8080/login';
-        const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
+		const LOGIN_URL = 'http://localhost:8080/login';
+        //const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
         
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");

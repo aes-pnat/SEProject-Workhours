@@ -38,10 +38,17 @@ function Moneymanagement(){
     return (
         <div>
             <h2>Money management</h2>
-            <p>plannedProfitSum: {profits.plannedProfitSum}</p>
-            <p>realizedProfitSum: {profits.realizedProfitSum}</p>
-            <p>plannedCostSum: {profits.plannedCostSum}</p>
-            <p>realizedCostSum: {profits.realizedCostSum}</p>
+            {profits ? 
+                <div>
+                    <p>plannedProfitSum: {profits.plannedProfitSum}</p>
+                    <p>realizedProfitSum: {profits.realizedProfitSum}</p>
+                    <p>plannedCostSum: {profits.plannedCostSum}</p>
+                    <p>realizedCostSum: {profits.realizedCostSum}</p>
+                </div>
+                :
+                <p>Nothing to show...</p>
+            }
+            
 
             {/* {profits && (profits.length > 1) ?
                 profits.map((item) => <li>{item.name}</li>) : <li>Poprofitsk: {profits.name}</li>

@@ -32,7 +32,7 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return localStorage.getItem('user');
   }
 }
 
