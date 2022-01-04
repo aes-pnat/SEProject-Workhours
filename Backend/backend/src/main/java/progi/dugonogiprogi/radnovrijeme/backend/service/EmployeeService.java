@@ -10,4 +10,6 @@ import java.util.Optional;
 @Service
 public interface EmployeeService {
 
+    public List<Employee> listAllEmployees();
+
 }

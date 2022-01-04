@@ -19,5 +19,8 @@ import java.util.Set;
 public class EmployeeServiceJpa implements EmployeeService {
 
 
-
+    @Override
+    public List<Employee> listAllEmployees() {
+        return null;
+    }
 }
