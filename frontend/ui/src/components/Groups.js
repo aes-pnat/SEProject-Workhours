@@ -15,6 +15,7 @@ import GroupsAdd from './GroupsAdd';
 const Groups = () => {
     const [groups, setGroup] = useState([]);
     let { path, url } = useRouteMatch();
+    
 
     var API_URI = "http://localhost:8080/groups";
     const myHeaders = new Headers();
@@ -46,6 +47,34 @@ const Groups = () => {
     }catch(err){
         console.log("error u tasks");
     }
+    let keys = Object.keys(groups)
+    console.log('here')
+    console.log(keys)
+    let keyslist =[]
+    keys.forEach( (key) =>(
+        keyslist.push(
+            <div className="container">
+                <div className="card">
+                    <div className="card-body">
+                        <p className="h5">{key}</p>
+                        <p className="fst-italic">Voditelj: 
+                            {groups[key].filter((mem)=> (
+                                mem.idrole.id===2
+                            )).map(s => <p> {s.name} {s.surname} </p>)}
+                        </p>
+                        <p className="fst-italic">Članovi: 
+                            <ul>
+                                {groups[key].filter((mem)=> (
+                                    mem.idrole.id===1
+                                )).map(s => <li> {s.name} {s.surname} </li>)}
+                            </ul>
+                        </p>
+                        <button>Obriši</button>
+                    </div>
+                </div>
+            </div>
+        )
+    ))
     
     return (
         <div>
@@ -55,22 +84,9 @@ const Groups = () => {
             <Switch>
                 <Route exact path={path}>
                 <div>
-                    {groups.map((gr)=>(
-                        <div className="container">
-                            <div className="card">
-                                <div className="card-body">
-                                    <p className="h5">{gr.name}</p>
-                                    <p className="fst-italic">Voditelj: {gr.idleader.name} {gr.idleader.surname} </p>
-                                    <p className="fst-italic">E-mail: {gr.idleader.email}</p>
-                                    <p className="fst-italic">Posao: {gr.idjob.name}</p>
-                                    <p className="fst-italic">Opis: {gr.idjob.description}</p>
-                                    {/* <p>{job.description}</p> */}
-                                    <button>Obriši</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    ))}
+                    {keyslist.map((k)=>(k))}
+                    
+                    
                 </div>
                 </Route>
                 <Route path={`${path}/add`}>
