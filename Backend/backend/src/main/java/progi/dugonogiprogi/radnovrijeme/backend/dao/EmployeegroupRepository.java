@@ -12,5 +12,6 @@ public interface EmployeegroupRepository extends JpaRepository<Employeegroup, Em
 
     Optional<List<Employeegroup>> findById_Idemployee(String idemployee);
 
-    Optional<List<Employee>> findByGroupId(Integer groupId);
+    Optional<List<Employeegroup>> findById_Idgroup(String idgroup);
+
 }
