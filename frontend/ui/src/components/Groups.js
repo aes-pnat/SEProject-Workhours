@@ -58,22 +58,12 @@ const Groups = () => {
         console.log("there");
 
         const body = JSON.stringify({
-            groupId: parseInt(e)
+            groupId: parseInt(e),
         });
         console.log(body);
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?param='+e, {
-            method: 'POST',
-        }).then((response) => {
-            if(response.ok){
-                //this.setState({ success: true });
-            }
-        }).catch((err) => {
-            throw err;
-        });
-        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
+        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?param='+e, {
+            
         //     method: 'POST',
-        //     headers: myHeaders,
-        //     param: body //parseInt(e)
         // }).then((response) => {
         //     if(response.ok){
         //         //this.setState({ success: true });
@@ -81,6 +71,17 @@ const Groups = () => {
         // }).catch((err) => {
         //     throw err;
         // });
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
+            method: 'POST',
+            headers: myHeaders,
+            param: body //parseInt(e)
+        }).then((response) => {
+            if(response.ok){
+                //this.setState({ success: true });
+            }
+        }).catch((err) => {
+            throw err;
+        });
     }
 
     let keys = Object.keys(groups)
