@@ -18,6 +18,7 @@ import MyData from './MyData';
 import MainPage from './MainPage';
 import JobsAdd from './JobsAdd';
 import Map from './Map';
+import AddTask from './AddTask';
 
 function Navbar() {
   return (
