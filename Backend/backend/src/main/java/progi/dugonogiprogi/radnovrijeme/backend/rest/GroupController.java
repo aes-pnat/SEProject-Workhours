@@ -12,6 +12,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 //import org.springframework.security.access.annotation.Secured;
 
 /**
@@ -27,7 +28,7 @@ public class GroupController {
     private GroupService groupService;
 
     @GetMapping("")
-    public ResponseEntity<List<Group>> listAllGroups() {
+    public ResponseEntity<Map<Group, List<Employee>>> listAllGroups() {
         return ResponseEntity.ok().body(groupService.listAllGroups());
     }
 
