@@ -77,6 +77,7 @@ class Register extends React.Component {
         }
         return (
             <div className="container register-form-container">
+                <div className="h3 mb-3">Registracija novog djelatnika</div>
                 <div className="container">
                     {messageBox}
                 </div>

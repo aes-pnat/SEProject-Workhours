@@ -1,49 +1,73 @@
-import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
-function Tasks(){
-    const [data, setData] = useState([]);
+import React from 'react';
+import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom';
+import AddTask from './AddTask';
 
-    //var API_URI = "http://localhost:8080/tasks";
-    var API_URI = 'https://radno-vrijeme-app.herokuapp.com/tasks'
-    
-    const myHeaders = new Headers();
-	myHeaders.append("Content-Type","application/json");
-    myHeaders.append("Accept","application/json");
-    const getTasks = () => {
-        fetch(API_URI,
-        {
-            headers : myHeaders
-        })
-        .then(response => {
-            if(response.ok)
+class Tasks extends React.Component {
+    state = {
+        HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
+        tasks: []
+    }
+
+    componentDidMount = async () => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader='
+             + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) => {
+            if(response.ok) {
                 return response.json();
-            else
-                alert("Error in fetching tasks from server");
-        })
-        .then(myData => {
-            console.log(myData);
-            setData(myData);
-        }).catch(() => {
-            console.log("error u dohvacanju api u tasks")
+            }
+        }).then((jsonResponse) => {
+            jsonResponse.forEach(task => {
+                this.setState({
+                    task: this.state.tasks.push(task)
+                });
+            });
         });
     }
-    try{
-        useEffect(()=>{
-            getTasks();
-        },[]);
-    }catch(err){
-        console.log("error u tasks");
+
+    render () {
+
+        let tasks = this.state.tasks.map(task => {
+            return (
+                <div className="card mb-3">
+                    <div className="card-body">
+                        <p className="h5">{task.taskName}</p>
+                        <p className="fst-italic">
+                            Djelatnik: {task.employeeName} {task.employeeSurname} <br />
+                            Djelatnost: {task.job.name}
+                        </p>
+                        <p className="fst-italic">
+                            Od: {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do: {(new Date(task.endDateAndTime)).toLocaleString('en-GB')} <br />
+                            Procjena broja sati: {task.estimatedDuration}
+                        </p>
+                        <p>
+                            {task.description}
+                        </p>
+                    </div>
+                </div>
+            );
+        })
+        return (
+            <div className="container mt-5">
+                <div className="h3 mb-3">Zadaci djelatnika iz mojih grupa</div>
+                <Link to={`/add`}>
+                    <button className="btn btn-primary mb-3">Novi zadatak</button>
+                </Link>
+                {tasks}
+
+                <Switch>
+                    <Route exact path={`/add`}>
+                        <AddTask />
+                    </Route>
+                </Switch>
+            </div>
+        );
     }
-    
-    return (
-        <div>
-            <li>Pozdrav iz tasks stranice</li>
-            {data && (data.length > 1) ?
-                data.map((item) => <li>{item.name}</li>) :
-                <li>Podatak: {data.name}</li> }
-        </div>
-        
-    ); 
 }
 
 export default Tasks;

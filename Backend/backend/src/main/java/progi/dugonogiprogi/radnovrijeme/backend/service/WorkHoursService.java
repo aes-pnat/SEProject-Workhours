@@ -18,6 +18,6 @@ public interface WorkHoursService {
 
     List<String> listTaskNamesForEmployee(String idEmployee);
 
-    Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, Integer idEmployee);
+    Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee);
 
 }

@@ -1,14 +1,20 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.OccupancyDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.OccupancyService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @CrossOrigin("*")
 @RestController
@@ -19,13 +25,14 @@ public class OccupancyController {
     OccupancyService occupancyService;
 
     @GetMapping("")
-    public List<EmployeeDTO> listAllEmployees() {
-        return occupancyService.listAllEmployees();
+    public ResponseEntity<?> listAllEmployees() {
+        return ResponseEntity.ok().body(occupancyService.listAllEmployees());
     }
 
     @PostMapping("")
-    public String isOccupied(@RequestParam String id, @RequestParam Date dateStart, @RequestParam Date dateEnd) {
-        return occupancyService.isOccupied(id, dateStart, dateEnd);
+    public ResponseEntity<?> isOccupied(@Validated @RequestBody OccupancyDTO occupancyDTO) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return ResponseEntity.ok().body(occupancyService.isOccupied(occupancyDTO.getIdEmployee(), formatter.parse(occupancyDTO.getDateStart()), formatter.parse(occupancyDTO.getDateEnd())));
     }
 
 }

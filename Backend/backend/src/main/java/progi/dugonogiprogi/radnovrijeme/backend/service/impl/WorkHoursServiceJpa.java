@@ -33,7 +33,11 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     EmployeetaskRepository employeetaskRepository;
 
     @Override
-    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, Integer idEmployee) {
+    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
+        if (hoursDone < 0 || hoursDone > 24)
+            throw new IllegalArgumentException("Number of hours done should be between 0 and 24.");
+        if (!employeeRepository.findById(idEmployee).isPresent())
+            throw new MissingEmployeeException("Employee with ID >" + "< doesn't exist.");
         Task task = null;
         for (Task t : taskRepository.findAll()) {
             if (t.getName().equals(taskName)) {
@@ -41,15 +45,8 @@ public class WorkHoursServiceJpa implements WorkHoursService {
             }
         }
         if (task == null)
-            throw new NoSuchTaskException(taskName);
-        Employee employee = null;
-        for (Employee e : employeeRepository.findAll()) {
-            if (e.getId().equals(idEmployee)) {
-                employee = e;
-            }
-        }
-        if (employee == null)
-            throw new MissingEmployeeException("Employee with ID >" + "< doesn't exist.");
+            throw new NoSuchTaskException("Task with the name " + taskName + " doesn't exist.");
+        Employee employee = employeeRepository.findById(idEmployee).get();
         Workhoursinput workhoursinput = new Workhoursinput(task, date, hoursDone, employee);
         workHoursRepository.save(workhoursinput);
         return workhoursinput;
@@ -57,9 +54,13 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Override
     public List<String> listTaskNamesForEmployee(String idEmployee) {
+        if (idEmployee == null || idEmployee.isEmpty())
+            throw new IllegalArgumentException("ID of the employee should be defined.");
+        if (!employeeRepository.findById(idEmployee).isPresent())
+            throw new MissingEmployeeException("Employee with ID >" + idEmployee + "< doesn't exist.");
         Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
         if (!employeeTaskList.isPresent())
-            throw new NoSuchTaskException("Employee with ID >" + idEmployee + "< doesn't have any tasks.");
+            return new ArrayList<String>();
         List<Integer> taskIDList = new ArrayList<>();
         for (Employeetask et : employeeTaskList.get())
             taskIDList.add(et.getId().getIdtask());

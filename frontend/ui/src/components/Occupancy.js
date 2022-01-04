@@ -2,10 +2,28 @@ import React from 'react';
 
 class Occupancy extends React.Component {
     state = {
-        employee: '',
-        startDate: '',
-        endDate: '',
-        message: ''
+        id: '',
+        dateStart: '',
+        dateEnd: '',
+        message: '',
+        employeesList: []
+    }
+
+    componentDidMount = async () => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ employeesList: jsonResponse });
+        })
     }
 
     handleChange = (e) => {
@@ -14,22 +32,74 @@ class Occupancy extends React.Component {
         this.setState({ [name]: value });
     }
 
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const body = JSON.stringify({
+            id: this.state.id,
+            dateStart: this.state.dateStart,
+            dateEnd: this.state.dateEnd
+        });
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        this.setState({ message: '' });
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
+            method: 'POST',
+            headers: myHeaders,
+            body: body
+        }).then((response) => {
+            if(response.ok){
+                return response.text();
+            }
+        }).then((responseText) => {
+            this.setState({ message: responseText });
+        }).catch((err) => {
+            throw err;
+        });
+
+    }
+
     render() {
+        let employeesOptions = this.state.employeesList.map((employee) => {
+            return (
+                <option key={employee.id} value={employee.id}>{employee.name}</option>
+            );
+        });
+
+        let messageBox = '';
+        if (this.state.message === "Djelatnik je slobodan u odabranom periodu.") {
+            messageBox = (
+                <div className="alert alert-success">
+                    {this.state.message}
+                </div>
+            );
+        } else if (this.state.message !== '') {
+            messageBox = (
+                <div className="alert alert-danger">
+                    {this.state.message}
+                </div>
+            );
+        }
+
         return (
             <div className="container mt-5">
+                <div className="h3 mb-3">Provjera zauzetosti djelatnika</div>
                 <div className="container">
-                    {this.state.message}
+                    {messageBox}
                 </div>
                 <div className="row">
                     <form onSubmit={this.handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">Djelatnik:</label>
                             <select className="form-select"
-                                    name="employee"
+                                    name="id"
                                     onChange={this.handleChange}
                             >
-                                <option value="1">Pero Perić</option>
-                                <option value="2">Đuro Đurić</option>
+                                <option selected disabled>Odaberite djelatnika</option>
+                                {employeesOptions}
                             </select>
                         </div>
                         <div className='mb-3'>
@@ -37,7 +107,7 @@ class Occupancy extends React.Component {
                             <input 
                                 type="date" 
                                 className="form-control"
-                                name="startDate" 
+                                name="dateStart" 
                                 onChange={this.handleChange} 
                             />
                         </div>
@@ -46,11 +116,17 @@ class Occupancy extends React.Component {
                             <input 
                                 type="date" 
                                 className="form-control"
-                                name="endDate" 
+                                name="dateEnd" 
                                 onChange={this.handleChange} 
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary mb-5">Provjeri</button>
+                        <button
+                            type="submit" 
+                            className="btn btn-primary mb-5"
+                            onClick={this.handleSubmit}
+                        >
+                            Provjeri
+                        </button>
                     </form>
                 </div>
             </div>

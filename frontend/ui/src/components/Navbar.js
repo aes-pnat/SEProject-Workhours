@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import Groups from './Groups';
 import Jobs from './Jobs';
-import Workhours from './Workhours';
 import Tasks from './Tasks';
 import Login from './Login';
 import Moneymanagement from './Moneymanagement';
@@ -16,6 +15,9 @@ import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
 import MyData from './MyData';
+import MainPage from './MainPage';
+import JobsAdd from './JobsAdd';
+import Map from './Map';
 
 function Navbar() {
   return (
@@ -29,19 +31,20 @@ function Navbar() {
           <div className="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
             <div className="navbar-nav justify-content-around">
               <div className="nav-link">
+              {/* <div className="nav-link">
+                <Link to='/'>Main page</Link>
+              </div> */}
                 <Link to='/groups'>Groups</Link>
               </div>
               <div className="nav-link">
-                <Link to='/'>Jobs</Link>
+                <Link to='/jobs'>Jobs</Link>
               </div>
+              
               <div className="nav-link">
                 <Link to='/moneymanagement'>Moneymanagement</Link>
               </div>
               <div className="nav-link">
                 <Link to='/tasks'>Tasks</Link>
-              </div>
-              <div className="nav-link">
-                <Link to='/workhours'>Workhours</Link>
               </div>
               <div className="nav-link">
                 <Link to='/login'>Log In</Link>
@@ -58,6 +61,9 @@ function Navbar() {
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
+              <div className="nav-link">
+                <Link to='/map'>Karta</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -69,17 +75,20 @@ function Navbar() {
             <Route path="/groups">
               <Groups />
             </Route>
-            <Route exact path="/">
+            <Route path="/jobs">
               <Jobs />
+            </Route>
+            <Route path="/jobs/add">
+              <JobsAdd/>
             </Route>
             <Route path="/moneymanagement">
               <Moneymanagement />
             </Route>
-            <Route path="/tasks">
+            <Route path="/tasks" component={Tasks}>
               <Tasks />
             </Route>
-            <Route path="/workhours">
-              <Workhours />
+            <Route path="/tasks/add">
+              <AddTask />
             </Route>
             <Route path="/register">
               <Register />
@@ -92,6 +101,9 @@ function Navbar() {
             </Route>
             <Route path="/mydata">
               <MyData />
+            </Route>
+            <Route path="/map">
+              <Map />
             </Route>
           </Switch>
     </Router>

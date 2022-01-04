@@ -1,11 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch
+  } from 'react-router-dom';
 import '../Jobs.css';
+import JobsAdd from './JobsAdd';
+//import jobs from './json_ph/jobs.json'
 const Jobs = () => {
     const [data, setData] = useState([]);
+    let { path, url } = useRouteMatch();
+
+    //const navigator = useNavigation();
+
 
     //var API_URI = "https://radno-vrijeme-app.herokuapp.com/jobs";
-    var API_URI = 'https://radno-vrijeme-app.herokuapp.com/jobs'
+    var API_URI = 'http://localhost:8080/jobs'
     
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
@@ -36,14 +50,65 @@ const Jobs = () => {
     }catch(err){
         console.log("error u tasks");
     }
+    // const getData=()=>{
+    //     fetch('data.json'
+    //     ,{
+    //       headers : { 
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json'
+    //        }
+    //     }
+    //     )
+    //       .then(function(response){
+    //         console.log(response)
+    //         return response.json();
+    //       })
+    //       .then(function(myJson) {
+    //         console.log(myJson);
+    //         setData(myJson)
+    //       });
+    // }
+    useEffect(()=>{
+        getJobs()
+      },[])
     
     return (
         <div>
-            <li>Pozdrav iz job stranice</li>
-            {data && (data.length > 1) ?
-                data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
-            }
+            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+
+            <Switch>
+                <Route exact path={path}>
+                <div>
+                    {/* {data && (data.length > 1) ?
+                        data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
+                    } */}
+                    {/* <div className="App">
+                        {
+                        data && data.length>0 && data.map((item)=><p>{item.name}</p>)
+                        }
+                    </div> */}
+                    {data.map((job)=>(
+                        <div className="container">
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{job.name}</p>
+                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
+                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
+                                    <p>{job.description}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <JobsAdd />
+                </Route>
+            </Switch>
+
         </div>
     ); 
 };
+
 export default Jobs;

@@ -1,6 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 import {useState, useEffect} from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Switch,
+    Route,
+    Link
+  } from 'react-router-dom';
 
 const Groups = () => {
     const [group, setGroup] = useState([]);
@@ -39,7 +46,7 @@ const Groups = () => {
         <div>
             <li>Pozdrav iz groups stranice</li>
             {group && (group.length > 1) ?
-                group.map((item) => <li>{item.pid}</li>) : <li>Pogroupk: {group.pid}</li>
+                group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
             }
         </div>
         
