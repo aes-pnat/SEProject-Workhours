@@ -18,6 +18,7 @@ import MyData from './MyData';
 import MainPage from './MainPage';
 import JobsAdd from './JobsAdd';
 import Map from './Map';
+import AddTask from './AddTask';
 
 function Navbar() {
   return (
@@ -84,10 +85,10 @@ function Navbar() {
             <Route path="/moneymanagement">
               <Moneymanagement />
             </Route>
-            <Route path="/tasks" component={Tasks}>
+            <Route path="/tasks" exact component={Tasks}>
               <Tasks />
             </Route>
-            <Route path="/tasks/add">
+            <Route path="/tasks/add" exact component={AddTask}>
               <AddTask />
             </Route>
             <Route path="/register">

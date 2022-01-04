@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -14,9 +15,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Provides some business functionalities.
@@ -33,9 +32,32 @@ public class GroupServiceJpa implements GroupService {
     @Autowired
     private EmployeegroupRepository employeegroupRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
     @Override
-    public List<Group> listAllGroups() {
-        return groupRepository.findAll();
+    public List<GroupDTO> listAllGroups() {
+        List<GroupDTO> listGroups = new ArrayList<>();
+        List<Group> groups = groupRepository.findAll();
+        for (Group g : groups) {
+            GroupDTO group = new GroupDTO();
+            group.setId(g.getId());
+            group.setName(g.getName());
+            group.setLeader(g.getIdleader());
+            group.setIdJob(g.getIdjob());
+
+
+            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId()).get();
+            List<Employee> employeeList = new ArrayList<>();
+            for (Employeegroup e : employeegroups) {
+                Employee employee = employeeRepository.findById(e.getId().getIdemployee()).get();
+                employeeList.add(employee);
+            }
+            group.setMembers(employeeList);
+
+            listGroups.add(group);
+        }
+        return listGroups;
     }
 
     @Override

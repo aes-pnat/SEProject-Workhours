@@ -9,6 +9,9 @@ import java.util.List;
 
 public class GroupDTO {
 
+    @NotEmpty(message = "ID must not be null")
+    Integer id;
+
     @NotEmpty(message = "Name should not be empty.")
     String name;
 
@@ -19,6 +22,14 @@ public class GroupDTO {
 
     @NotEmpty(message = "At least one employee should be selected.")
     List<Employee> members;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

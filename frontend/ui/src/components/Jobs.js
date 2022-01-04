@@ -74,8 +74,8 @@ const Jobs = () => {
     
     return (
         <div>
+            <br></br>
             <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
-
             <Switch>
                 <Route exact path={path}>
                 <div>
