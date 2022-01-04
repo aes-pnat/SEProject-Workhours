@@ -94,12 +94,9 @@ class GroupsAdd extends React.Component {
                         <div className="mb-3">
                             <label className="form-label">Ime grupe:</label>
                             <input
-                                type="number"
                                 className="form-control"
-                                name="hoursDone"
+                                name="groupName"
                                 onChange={this.handleChange}
-                                min="1"
-                                max="24"
                             />
                         </div>
                         <div className="mb-3">
@@ -112,24 +109,25 @@ class GroupsAdd extends React.Component {
                                 {employees}
                             </select>
                         </div>
-                        <ul>
-                            {employees.map(item => {
-                                <li
-                                key={item.id}
-                                style={{ height: '250px', border: '1px solid black' }}
-                                >
-                                <div>{item.firstname}</div>
-                                <div>{item.lastname}</div>
-                                </li>
-                            })}
-                        </ul>
-                        
+                        <div>
+                            <ul>
+                                {employees.map(item => {
+                                    <li
+                                    key={item.id}
+                                    style={{ height: '250px', border: '1px solid black' }}
+                                    >
+                                    <div>{item.firstname}</div>
+                                    <div>{item.lastname}</div>
+                                    </li>
+                                })}
+                            </ul>
+                        </div>
                         <button 
                             type="submit"
                             className="btn btn-primary mb-5"
                             onClick={this.handleSubmit}
                         >
-                            Napravi
+                            Stvori grupu
                         </button>
                     </form>
                 </div>
