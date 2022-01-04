@@ -55,7 +55,7 @@ class Tasks extends React.Component {
         return (
             <div className="container mt-5">
                 <div className="h3 mb-3">Zadaci djelatnika iz mojih grupa</div>
-                <Link to={`/add`}>
+                <Link to={`tasks/add`}>
                     <button className="btn btn-primary mb-3">Novi zadatak</button>
                 </Link>
                 {tasks}

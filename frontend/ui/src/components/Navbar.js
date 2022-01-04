@@ -85,10 +85,10 @@ function Navbar() {
             <Route path="/moneymanagement">
               <Moneymanagement />
             </Route>
-            <Route path="/tasks" component={Tasks}>
+            <Route path="/tasks" exact component={Tasks}>
               <Tasks />
             </Route>
-            <Route path="/tasks/add">
+            <Route path="/tasks/add" exact component={AddTask}>
               <AddTask />
             </Route>
             <Route path="/register">
