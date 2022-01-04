@@ -230,7 +230,7 @@ class AddTask extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div className="mb-10">
+                        <div className="mb-3">
                             <label className="form-label">Geografska duljina nove lokacije:</label>
                             <input
                                 type="number"
@@ -239,13 +239,15 @@ class AddTask extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <button 
-                            type="submit"
-                            className="btn btn-primary mb-5"
-                            onClick={this.handleSubmit}
-                        >
-                            Stvori zadatak
-                        </button>
+                        <div>
+                            <button 
+                                type="submit"
+                                className="btn btn-primary mb-5"
+                                onClick={this.handleSubmit}
+                            >
+                                Stvori zadatak
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
