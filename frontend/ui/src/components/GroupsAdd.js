@@ -53,9 +53,9 @@ class GroupsAdd extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const body = JSON.stringify({
-            name: this.state.name,
-            leaderid: this.state.leaderid,
-            employeesids: this.state.employeesids,
+            groupName: this.state.name,
+            idLeader: this.state.leaderid,
+            idMembers: this.state.employeesids,
         });
         console.log("almost");
         console.log(body);
