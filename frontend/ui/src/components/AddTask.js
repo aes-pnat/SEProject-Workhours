@@ -1,5 +1,5 @@
 import React from 'react';
-
+import authHeader from '../services/auth-header';
 class AddTask extends React.Component {
     state = {
         taskName: '',
@@ -22,6 +22,8 @@ class AddTask extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks/add', {
             method: 'GET',
@@ -76,6 +78,8 @@ class AddTask extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         console.log(body);
 
@@ -85,10 +89,10 @@ class AddTask extends React.Component {
             body: body
         }).then((response) => {
             if(response.ok){
-                // this.setState({ success: true });
+                alert("Uspjesno dodano");
             }
         }).catch((err) => {
-            throw err;
+            alert("ERROR - NIJE USPJESNO IZVEDENO!");
         });
     }
 

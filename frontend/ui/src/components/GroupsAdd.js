@@ -2,6 +2,7 @@ import React from 'react'
 import Select from 'react-select';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import authHeader from '../services/auth-header';
 class GroupsAdd extends React.Component {
     state = {
         name: '',
@@ -14,6 +15,8 @@ class GroupsAdd extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy?idEmployee='
             + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
@@ -45,7 +48,9 @@ class GroupsAdd extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/add', {
             method: 'POST',
             headers: myHeaders,

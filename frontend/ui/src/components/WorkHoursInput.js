@@ -1,5 +1,5 @@
 import React from 'react';
-
+import authHeader from '../services/auth-header';
 class WorkHoursInput extends React.Component {
     state = {
         HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
@@ -14,6 +14,8 @@ class WorkHoursInput extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/workhoursinput?idEmployee='
             + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
@@ -46,7 +48,9 @@ class WorkHoursInput extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         await fetch(process.env.REACT_APP_BACKEND_URL + '/workhoursinput', {
             method: 'POST',
             headers: myHeaders,

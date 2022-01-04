@@ -1,24 +1,24 @@
 
 class User{
     saveToken(token){
-        localStorage.setItem("user", token);
+        localStorage.setItem("token", token);
     }
     getToken(){
-        return localStorage.getItem("user");
+        let token = localStorage.getItem("token");
+        return token != null ? token : "";
     }
     removeToken(){
-        localStorage.removeItem("user");
+        localStorage.removeItem("token");
     }
     saveRole(role){
         localStorage.setItem("role",role);
     }
     getRole(){
         let role = localStorage.getItem("role");
-        if(role){
-            return role;
-        }else{
-            return ""
-        }
+        return role != null ? role : "";
+    }
+    removeRole(){
+        localStorage.removeItem("role");
     }
 }
 

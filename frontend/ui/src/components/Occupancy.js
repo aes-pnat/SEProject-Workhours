@@ -1,5 +1,5 @@
 import React from 'react';
-
+import authHeader from '../services/auth-header';
 class Occupancy extends React.Component {
     state = {
         id: '',
@@ -13,6 +13,8 @@ class Occupancy extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
             method: 'GET',
@@ -43,7 +45,9 @@ class Occupancy extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         this.setState({ message: '' });
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {

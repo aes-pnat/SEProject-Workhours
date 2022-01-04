@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 import {useState, useEffect} from 'react';
+import authHeader from '../services/auth-header';
 import {
     BrowserRouter as Router,
     Routes,
@@ -9,7 +10,6 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
-import '../Jobs.css'
 import GroupsAdd from './GroupsAdd';
 
 const Groups = () => {
@@ -21,6 +21,9 @@ const Groups = () => {
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
+    const token = authHeader();
+    myHeaders.append("Authorization", token);
+
     const getJobs = () => {
         fetch(API_URI,
         {
