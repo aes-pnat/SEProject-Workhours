@@ -36,17 +36,24 @@ public class GroupServiceJpa implements GroupService {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Map<Group, List<Employee>> listAllGroups() {
-        Map<Group, List<Employee>> listGroups = new HashMap<>();
+    public List<GroupDTO> listAllGroups() {
+        List<GroupDTO> listGroups = new ArrayList<>();
+        GroupDTO group = new GroupDTO();
         List<Group> groups = groupRepository.findAll();
         for (Group g : groups) {
+            group.setName(g.getName());
+            group.setLeader(g.getIdleader());
+            group.setIdJob(g.getIdjob());
+
             List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId()).get();
             List<Employee> employeeList = new ArrayList<>();
             for (Employeegroup e : employeegroups) {
                 Employee employee = employeeRepository.findById(e.getId().getIdemployee()).get();
                 employeeList.add(employee);
             }
-            listGroups.put(g, employeeList);
+            group.setMembers(employeeList);
+
+            listGroups.add(group);
         }
         return listGroups;
     }
