@@ -76,6 +76,11 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
         return dto;
     }
 
+    /**
+     * Method that counts total expense.
+     *
+     * @return double value of total expense.
+     */
     public double countExpense(){
         double setPrice = 0;
         for(Job job : jobRepository.findAll()) {
