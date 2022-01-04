@@ -47,7 +47,7 @@ class GroupsAdd extends React.Component {
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
             method: 'POST',
             headers: myHeaders,
             body: body
