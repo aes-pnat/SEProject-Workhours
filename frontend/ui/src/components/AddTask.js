@@ -1,7 +1,11 @@
-import React from 'react';
+import React from 'react'
 
-class AddTask extends React.Component {
-
+const AddTask = () => {
+    return (
+        <div>
+            <p>addtask page</p>
+        </div>
+    )
 }
 
-export default AddTask;
+export default AddTask

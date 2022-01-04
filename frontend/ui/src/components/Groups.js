@@ -6,11 +6,16 @@ import {
     Routes,
     Switch,
     Route,
-    Link
+    Link,
+    useRouteMatch
   } from 'react-router-dom';
+import '../Jobs.css'
+import GroupsAdd from './GroupsAdd';
 
 const Groups = () => {
-    const [group, setGroup] = useState([]);
+    const [groups, setGroup] = useState([]);
+    let { path, url } = useRouteMatch();
+
     var API_URI = "http://localhost:8080/groups";
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
@@ -44,10 +49,39 @@ const Groups = () => {
     
     return (
         <div>
-            <li>Pozdrav iz groups stranice</li>
+            <br></br>
+            <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+
+            <Switch>
+                <Route exact path={path}>
+                <div>
+                    {groups.map((gr)=>(
+                        <div className="container">
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{gr.name}</p>
+                                    <p className="fst-italic">Voditelj: {gr.idleader.name} {gr.idleader.surname} </p>
+                                    <p className="fst-italic">E-mail: {gr.idleader.email}</p>
+                                    <p className="fst-italic">Posao: {gr.idjob.name}</p>
+                                    <p className="fst-italic">Opis: {gr.idjob.description}</p>
+                                    {/* <p>{job.description}</p> */}
+                                    <button>Obriši</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <GroupsAdd />
+                </Route>
+            </Switch>
+
+            {/* <li>Pozdrav iz groups stranice</li>
             {group && (group.length > 1) ?
                 group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
-            }
+            } */}
         </div>
         
     ); 
