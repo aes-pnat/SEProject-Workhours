@@ -26,14 +26,16 @@ const Login = (props) => {
             })
         }).then((data) => {
             //console.log(data.headers.get("accessToken"));
-            if(data.headers.get("accessToken")){
-                
+            if(data && data.headers && data.headers.get("accessToken")){
                 User.saveToken(data.headers.get("accessToken"));
-                props.setUsername(data.headers.get("accessToken"));
+                props.setToken(data.headers.get("accessToken"));
+                User.saveRole(data.headers.get("roles"));
+                props.setRole(data.headers.get("roles"))
                 setRedirect(true);
             }
         }).catch( (error) => {
             console.log("Error u login fetchu");
+            console.log(error);
         });
     }
 

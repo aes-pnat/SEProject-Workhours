@@ -5,33 +5,14 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./components/Home";
 import './App.css';
 import User from './services/User';
+import Navbar from './components/Navbar';
 function App() {
-    const [username, setUsername] = useState(User.getToken());
+    const [token, setToken] = useState(User.getToken());
+    const [role, setRole] = useState(User.getRole());
 
     return (
-        <BrowserRouter>
-            <div className="App">
-                <Nav username={username} setUsername={setUsername}/>
-
-                <main>
-                    <Switch>
-                        <Route path="/" exact>
-                            <Home username={username} />
-                        </Route>
-                        <Route path="/login">
-                            <Login username={username} setUsername={setUsername} />                        </Route>
-                    </Switch>
-                </main>
-            </div>
-        </BrowserRouter>
+        <Navbar token={token} setToken={setToken} role={role} setRole={setRole}/>
     );
 }
 
 export default App;
-
-/*              <main>
-                    <Route path="/" component={() => <Home username={username}/>}/>
-                    {!username &&
-                        <Route path="/login" exact component={() => <Login setUsername={setUsername} />} />
-                    }
-                </main> */

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from "react"
-
+import authHeader from '../services/auth-header';
 
 class JobsAdd extends React.Component {
 
@@ -57,7 +57,9 @@ class JobsAdd extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         console.log(body);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/add', {
