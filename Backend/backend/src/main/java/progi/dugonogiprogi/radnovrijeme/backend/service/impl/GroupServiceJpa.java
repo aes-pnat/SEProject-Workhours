@@ -35,7 +35,11 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public List<Group> listAllGroups() {
-        return groupRepository.findAll();
+        List<Group> groups = groupRepository.findAll();
+        for (Group g : groups) {
+            g.getId()
+        }
+
     }
 
     @Override
