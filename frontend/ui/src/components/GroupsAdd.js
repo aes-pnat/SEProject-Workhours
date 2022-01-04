@@ -83,6 +83,8 @@ class GroupsAdd extends React.Component {
             );
         }
 
+        console.log(employees)
+
         return (
             <div className="container mt-5">
                 <div className="h3 mb-3">Stvaranje grupe</div>
@@ -110,7 +112,7 @@ class GroupsAdd extends React.Component {
                             </select>
                         </div>
                         <div>
-                            <ul>
+                            {/* <ul>
                                 {employees.map(item => {
                                     <li
                                     key={item.id}
@@ -120,7 +122,7 @@ class GroupsAdd extends React.Component {
                                     <div>{item.lastname}</div>
                                     </li>
                                 })}
-                            </ul>
+                            </ul> */}
                         </div>
                         <button 
                             type="submit"
