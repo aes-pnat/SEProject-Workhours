@@ -38,9 +38,9 @@ public class GroupServiceJpa implements GroupService {
     @Override
     public List<GroupDTO> listAllGroups() {
         List<GroupDTO> listGroups = new ArrayList<>();
-        GroupDTO group = new GroupDTO();
         List<Group> groups = groupRepository.findAll();
         for (Group g : groups) {
+            GroupDTO group = new GroupDTO();
             group.setId(g.getId());
             group.setName(g.getName());
             group.setLeader(g.getIdleader());
