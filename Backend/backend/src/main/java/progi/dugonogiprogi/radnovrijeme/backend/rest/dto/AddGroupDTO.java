@@ -14,7 +14,6 @@ public class AddGroupDTO {
     String idLeader;
 
     @NotEmpty(message = "At least one member is required.")
-    @Size(min = 11, max = 11, message = "Member pid should be 11 characters long.")
     List<String> idMembers;
 
     public String getGroupName() {
