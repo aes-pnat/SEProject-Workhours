@@ -1,9 +1,13 @@
+
 class User{
     saveToken(token){
-        localStorage.setItem("token", token);
+        localStorage.setItem("user", token);
     }
     getToken(){
-        return localStorage.getItem("token");
+        return localStorage.getItem("user");
+    }
+    removeToken(){
+        localStorage.removeItem("user");
     }
 }
 

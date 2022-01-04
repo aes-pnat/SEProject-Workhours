@@ -1,29 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import Login from "./components/Login";
 import Nav from "./components/Nav";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./components/Home";
 import './App.css';
 import User from './services/User';
 function App() {
     const [username, setUsername] = useState(User.getToken());
-    useEffect(() => {
-        console.log(username);
-    },[username]);
-
 
     return (
-        <div className="App">
-            <BrowserRouter>
+        <BrowserRouter>
+            <div className="App">
                 <Nav username={username} setUsername={setUsername}/>
 
-                <main className="form-signin">
-                    <Route path="/" exact component={() => <Home username={username}/>}/>
-                    <Route path="/login" component={() => <Login setUsername={setUsername}/>}/>
+                <main>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Home username={username} />
+                        </Route>
+                        <Route path="/login">
+                            <Login username={username} setUsername={setUsername} />                        </Route>
+                    </Switch>
                 </main>
-            </BrowserRouter>
-        </div>
+            </div>
+        </BrowserRouter>
     );
 }
 
 export default App;
+
+/*              <main>
+                    <Route path="/" component={() => <Home username={username}/>}/>
+                    {!username &&
+                        <Route path="/login" exact component={() => <Login setUsername={setUsername} />} />
+                    }
+                </main> */
