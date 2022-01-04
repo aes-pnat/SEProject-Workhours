@@ -11,6 +11,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeegroup;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.EmployeegroupId;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
@@ -61,27 +62,40 @@ public class GroupServiceJpa implements GroupService {
     }
 
     @Override
-    public Group createGroup(GroupDTO group) {
+    public Group createGroup(AddGroupDTO group) {
         Group newGroup = new Group();
 
-        if (groupRepository.findByName(group.getName()).isPresent()) {
-            log.error("Group with name {} already exists", group.getName());
-            throw new IllegalArgumentException("Group with name " + group.getName() + " already exists");
-        }
-        newGroup.setName(group.getName());
-        newGroup.setIdleader(group.getLeader());
-
-        if (group.getIdJob() != null)  {
-            newGroup.setIdjob(group.getIdJob());
+        if (groupRepository.findByName(group.getGroupName()).isPresent()) {
+            log.error("Group with name {} already exists", group.getGroupName());
+            throw new IllegalArgumentException("Group with name " + group.getGroupName() + " already exists");
         }
 
+        newGroup.setName(group.getGroupName());
+
+        Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
+        if(leader.isEmpty()) {
+            log.error("Employee with pid {} does not exist", group.getIdLeader());
+            throw new IllegalArgumentException("Employee with pid " + group.getIdLeader() + " does not exist");
+        }
+
+        newGroup.setIdleader(leader.get());
         groupRepository.save(newGroup);
 
-        List<Employee> members = group.getMembers();
+        List<Employee> members = new ArrayList<>();
+        for(String idMember : group.getIdMembers()) {
+            Optional<Employee> e = employeeRepository.findById(idMember);
+            if(e.isEmpty()) {
+                log.error("Employee with pid {} does not exist", idMember);
+                throw new IllegalArgumentException("Employee with pid " + idMember + " does not exist");
+            }
+
+            members.add(e.get());
+        }
+
         for(Employee e : members) {
             EmployeegroupId employeegroupId = new EmployeegroupId();
             employeegroupId.setIdemployee(e.getId());
-            employeegroupId.setIdgroup(groupRepository.findByName(group.getName()).get().getId());
+            employeegroupId.setIdgroup(groupRepository.findByName(group.getGroupName()).get().getId());
             Employeegroup employeegroup = new Employeegroup();
             employeegroup.setId(employeegroupId);
             employeegroupRepository.save(employeegroup);
