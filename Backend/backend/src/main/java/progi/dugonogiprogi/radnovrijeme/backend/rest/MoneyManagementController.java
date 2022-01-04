@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
 
 /**
  * REST controller for the web application money management site.
@@ -15,6 +16,9 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
 @RequestMapping("/moneymanagement")
 public class MoneyManagementController {
 
+    /**
+     * Injection of values of {@link MoneyManagementService} properties
+     */
     @Autowired
     MoneyManagementService moneyManagementService;
 
