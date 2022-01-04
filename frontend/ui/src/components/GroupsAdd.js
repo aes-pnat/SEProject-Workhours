@@ -4,12 +4,10 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 class GroupsAdd extends React.Component {
     state = {
-        HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
-        employee: '',
-        date: '',
-        hoursDone: '',
-        success: null,
-        employeesList: []
+        name: '',
+        leaderid: '',
+        employeesids: [],
+        //success: null,
     }
 
     componentDidMount = async () => {
@@ -39,23 +37,22 @@ class GroupsAdd extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         const body = JSON.stringify({
-            employee: this.state.employee,
-            date: this.state.date,
-            hoursDone: this.state.hoursDone,
-            idEmployee: this.state.HARDKODIRANI_ID_PROMIJENITI_OVO
+            name: this.state.name,
+            leaderid: this.state.leaderid,
+            employeesids: this.state.employeesids,
         });
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/add', {
             method: 'POST',
             headers: myHeaders,
             body: body
         }).then((response) => {
             if(response.ok){
-                this.setState({ success: true });
+                //this.setState({ success: true });
             }
         }).catch((err) => {
             throw err;
@@ -86,7 +83,7 @@ class GroupsAdd extends React.Component {
                 return (
                     <div>
                     
-                    <li key={employee.name} value={employee.name}>{employee.name}  <input value={employee.name} type="checkbox" />  </li>
+                    <li key={employee.name} value={employee.name}>   <input value={employee.name} type="checkbox" />   {employee.name}    </li>
                     </div>
                 );
             })
