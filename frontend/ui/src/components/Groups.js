@@ -57,16 +57,16 @@ const Groups = () => {
                 <div className="card">
                     <div className="card-body">
                         <p className="h5">{key}</p>
-                        <p className="fst-italic">Voditelj: 
+                        <p>Voditelj: 
                             {groups[key].filter((mem)=> (
                                 mem.idrole.id===2
-                            )).map(s => <p> {s.name} {s.surname} </p>)}
+                            )).map(s => <p className="fst-italic"> {s.name} {s.surname} </p>)}
                         </p>
-                        <p className="fst-italic">Članovi: 
+                        <p>Članovi: 
                             <ul>
                                 {groups[key].filter((mem)=> (
                                     mem.idrole.id===1
-                                )).map(s => <li> {s.name} {s.surname} </li>)}
+                                )).map(s => <li className="fst-italic"> {s.name} {s.surname} </li>)}
                             </ul>
                         </p>
                         <button>Obriši</button>
