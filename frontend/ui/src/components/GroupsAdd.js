@@ -1,5 +1,7 @@
 import React from 'react'
 import Select from 'react-select';
+import '../index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 class GroupsAdd extends React.Component {
     state = {
         HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
@@ -15,7 +17,7 @@ class GroupsAdd extends React.Component {
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups?idEmployee='
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy?idEmployee='
             + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
             method: 'GET',
             headers: myHeaders
@@ -47,7 +49,7 @@ class GroupsAdd extends React.Component {
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups', {
             method: 'POST',
             headers: myHeaders,
             body: body
@@ -74,6 +76,22 @@ class GroupsAdd extends React.Component {
             })
         }
 
+        let emplist=[];
+        if (this.state.employeesList.length === 0) {
+            emplist = (
+                <li>Nema zaposlenika</li>
+            );
+        } else {
+            emplist = this.state.employeesList.map(employee => {
+                return (
+                    <div>
+                    
+                    <li key={employee.name} value={employee.name}>{employee.name}  <input value={employee.name} type="checkbox" />  </li>
+                    </div>
+                );
+            })
+        }
+
         let messageBox = '';
         if (this.state.success) {
             messageBox = (
@@ -86,6 +104,8 @@ class GroupsAdd extends React.Component {
         console.log(employees)
 
         return (
+            
+            
             <div className="container mt-5">
                 <div className="h3 mb-3">Stvaranje grupe</div>
                 <div className="container">
@@ -111,18 +131,10 @@ class GroupsAdd extends React.Component {
                                 {employees}
                             </select>
                         </div>
-                        <div>
-                            {/* <ul>
-                                {employees.map(item => {
-                                    <li
-                                    key={item.id}
-                                    style={{ height: '250px', border: '1px solid black' }}
-                                    >
-                                    <div>{item.firstname}</div>
-                                    <div>{item.lastname}</div>
-                                    </li>
-                                })}
-                            </ul> */}
+                        <div className="scroll">
+                            <ul>
+                                {emplist}
+                            </ul>
                         </div>
                         <button 
                             type="submit"
