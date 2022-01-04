@@ -10,5 +10,7 @@ import java.util.Optional;
 
 public interface EmployeegroupRepository extends JpaRepository<Employeegroup, EmployeegroupId> {
 
-    Optional<List<Employee>> findAllEmployeesByGroupId(Integer groupId);
+    Optional<List<Employeegroup>> findByEmployeeId(String idEmployee);
+
+    Optional<List<Employee>> findByGroupId(Integer groupId);
 }

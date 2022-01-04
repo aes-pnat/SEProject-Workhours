@@ -36,7 +36,7 @@ public class GroupServiceJpa implements GroupService {
         Map<Group, List<Employee>> listGroups = new HashMap<>();
         List<Group> groups = groupRepository.findAll();
         for (Group g : groups) {
-          listGroups.put(g, employeegroupRepository.findAllEmployeesByGroupId(g.getId()).get());
+          listGroups.put(g, employeegroupRepository.findByGroupId(g.getId()).get());
         }
         return listGroups;
     }
