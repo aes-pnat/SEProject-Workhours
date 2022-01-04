@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddTaskDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddTaskInfoDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
@@ -34,6 +36,16 @@ public class TaskController {
     @GetMapping("")
     public List<TasksDTO> listTasksForLeader(@RequestParam String idLeader){
         return taskService.listTasksForLeader(idLeader);
+    }
+
+    @PostMapping("/add")
+    public Task addTask(@RequestBody AddTaskDTO addTaskDTO) {
+        return taskService.addTask(addTaskDTO);
+    }
+
+    @GetMapping("/add")
+    public AddTaskInfoDTO getAddTaskInfo() {
+        return taskService.getAddTaskInfo();
     }
 
 }

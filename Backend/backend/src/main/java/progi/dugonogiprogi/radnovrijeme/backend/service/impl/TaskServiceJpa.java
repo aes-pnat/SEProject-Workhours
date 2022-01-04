@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
 
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -94,5 +95,56 @@ public class TaskServiceJpa implements TaskService {
             }
         }
         return list;
+    }
+
+    @Override
+    public Task addTask(AddTaskDTO addTaskDTO) {
+        Integer locID = addTaskDTO.getLocationID();
+        Location loc;
+        if (locID == null) {
+            loc = new Location();
+            loc.setAddress(addTaskDTO.getNewLocationAddress());
+            loc.setPlacename(addTaskDTO.getNewLocationPlaceName());
+            loc.setLatitude(addTaskDTO.getNewLocationLatitude());
+            loc.setLongitude(addTaskDTO.getNewLocationLongitude());
+            locationRepository.save(loc);
+        } else {
+            if (!locationRepository.findById(locID).isPresent())
+                throw new IllegalArgumentException("Location with ID " + locID + " doesn't exist!");
+            loc = locationRepository.findById(locID).get();
+        }
+        Integer jobID = addTaskDTO.getJobID();
+        if (!jobRepository.findById(addTaskDTO.getJobID()).isPresent())
+            throw new IllegalArgumentException("Job with ID " + jobID + " doesn't exist!");
+        Job job = jobRepository.findById(addTaskDTO.getJobID()).get();
+        Task task = new Task(addTaskDTO.getTaskName(), addTaskDTO.getTaskDescription(), addTaskDTO.getDateStart().toInstant(), addTaskDTO.getDateEnd().toInstant(), addTaskDTO.getHoursEstimate(), job, loc);
+        taskRepository.save(task);
+        for (String id : addTaskDTO.getEmployeeIDs()) {
+            EmployeetaskId employeetaskId = new EmployeetaskId();
+            employeetaskId.setIdemployee(id);
+            employeetaskId.setIdtask(task.getId());
+            Employeetask employeetask = new Employeetask();
+            employeetask.setId(employeetaskId);
+            employeetaskRepository.save(employeetask);
+        }
+        return task;
+    }
+
+    @Override
+    public AddTaskInfoDTO getAddTaskInfo() {
+        List<EmployeeDTO> employees = new ArrayList<>();
+        List<LocationDTO> locations = new ArrayList<>();
+        List<JobDTO> jobs = new ArrayList<>();
+
+        for (Employee e : employeeRepository.findAll())
+            employees.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+
+        for (Location l : locationRepository.findAll())
+            locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
+
+        for (Job j : jobRepository.findAll())
+            jobs.add(new JobDTO(j.getName(), j.getId()));
+
+        return new AddTaskInfoDTO(employees, locations, jobs);
     }
 }
