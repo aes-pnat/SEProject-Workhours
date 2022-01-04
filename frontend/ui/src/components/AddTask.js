@@ -48,6 +48,49 @@ class AddTask extends React.Component {
         this.setState({ [name]: value });
     }
 
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        let employeeIDs = [];
+        this.state.employees.forEach(employee => {
+            if (this.state[employee.id]) {
+                employeeIDs.push(employee.id);
+            }
+        });
+
+        const body = JSON.stringify({
+            taskName: this.state.taskName,
+            employeeIDs,
+            taskDescription: this.state.taskDescription,
+            hoursEstimate: this.state.hoursEstimate,
+            dateStart: this.state.dateStart,
+            dateEnd: this.state.dateEnd,
+            jobID: this.state.jobID,
+            locationID: this.state.locationID,
+            newLocationAddress: this.state.newLocationAddress,
+            newLocationPlaceName: this.state.newLocationPlaceName,
+            newLocationLatitude: this.state.newLocationLatitude,
+            newLocationLongitude: this.state.newLocationLongitude
+        });
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+
+        console.log(body);
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks/add', {
+            method: 'POST',
+            headers: myHeaders,
+            body: body
+        }).then((response) => {
+            if(response.ok){
+                // this.setState({ success: true });
+            }
+        }).catch((err) => {
+            throw err;
+        });
+    }
 
     render () {
         let employeeChecks = this.state.employees.map(employee => {
@@ -68,6 +111,27 @@ class AddTask extends React.Component {
             );
         });
 
+        let locationOptions = this.state.existingLocations.map(location => {
+            return (
+                <option
+                    key={location.id}
+                    value={location.id}
+                >
+                    {location.address}
+                </option>
+            );
+        });
+
+        let jobOptions = this.state.jobs.map(job => {
+            return (
+                <option
+                    key={job.id}
+                    value={job.id}
+                >
+                    {job.name}
+                </option>
+            )
+        })
         return (
             <div className="container mt-5">
                 <div className="h3 mb-3">Novi zadatak</div>
@@ -127,7 +191,7 @@ class AddTask extends React.Component {
                                     onChange={this.handleChange}
                             >
                                 <option selected disabled>Odaberite djelatnost</option>
-                                <option>Nesto</option>
+                                {jobOptions}
                             </select>
                         </div>
                         <div className="h6 mb-3 mt-3">Lokacija - odaberite postojeću ili dodajte novu</div>
@@ -138,7 +202,7 @@ class AddTask extends React.Component {
                                     onChange={this.handleChange}
                             >
                                 <option selected disabled>Odaberite lokaciju</option>
-                                <option>Nesto</option>
+                                {locationOptions}
                             </select>
                         </div>
                         <div className="mb-3">
@@ -175,6 +239,13 @@ class AddTask extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
+                        <button 
+                            type="submit"
+                            className="btn btn-primary mb-5"
+                            onClick={this.handleSubmit}
+                        >
+                            Stvori zadatak
+                        </button>
                     </form>
                 </div>
             </div>
