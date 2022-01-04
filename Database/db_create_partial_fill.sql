@@ -107,7 +107,7 @@ VALUES
 
 INSERT INTO Employee(pid, name, surname, email, password, username, idRole)
 VALUES
-('00000000001', 'Heena', 'Wang', 'heena.wang@email.com', 'pass', 'hWang', 2),
+('00000000001', 'Heena', 'Wang', 'heena.wang@email.com', '$2a$12$n5lr.aSBHk1w9KVJfNMMXumkLjXbGW1Ht3Yjo87zY5JkNeD1udIlS', 'hWang', 2),
 ('00000000002', 'Amirah', 'Bevan', 'amirah.bevan@email.com', 'pass', 'aBevan', 1),
 ('00000000003', 'Nolan', 'Salgado', 'nolan.salgado@email.com', 'pass', 'nSalgado', 1),
 ('00000000004', 'Eamon', 'Donald', 'eamon.donald@email.com', 'pass', 'eDonald', 1),
