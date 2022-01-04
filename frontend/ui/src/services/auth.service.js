@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import User from './User';
 //promijeniti u environment variablu API_URL
 const API_URL = "http://localhost:8080/";
 
@@ -12,14 +12,15 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          User.saveToken(token);
+
         }
         return response.data;
       });
   }
 
   logout() {
-    localStorage.removeItem("user");
+    User.removeToken(token);
   }
 
   register(username, email, password) {
