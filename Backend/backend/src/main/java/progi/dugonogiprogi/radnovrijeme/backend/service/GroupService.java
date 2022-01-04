@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public interface GroupService {
 
-    public Map<Group, List<Employee>> listAllGroups();
+    public List<GroupDTO> listAllGroups();
 
     public Group createGroup(GroupDTO group);
 

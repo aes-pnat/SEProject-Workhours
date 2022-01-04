@@ -8,6 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.ListGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
 import java.net.URI;
@@ -28,7 +29,7 @@ public class GroupController {
     private GroupService groupService;
 
     @GetMapping("")
-    public ResponseEntity<Map<Group, List<Employee>>> listAllGroups() {
+    public ResponseEntity<List<GroupDTO>> listAllGroups() {
         return ResponseEntity.ok().body(groupService.listAllGroups());
     }
 
