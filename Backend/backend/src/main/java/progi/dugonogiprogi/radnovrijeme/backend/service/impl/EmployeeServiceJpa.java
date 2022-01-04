@@ -18,9 +18,13 @@ import java.util.Set;
 @Service
 public class EmployeeServiceJpa implements EmployeeService {
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public List<Employee> listAllEmployees() {
-        return null;
+        return employeeRepository.findAll();
     }
+
+
 }
