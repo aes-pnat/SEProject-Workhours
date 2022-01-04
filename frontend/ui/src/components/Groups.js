@@ -17,7 +17,8 @@ const Groups = () => {
     let { path, url } = useRouteMatch();
     
 
-    var API_URI = "http://localhost:8080/groups";
+    //var API_URI = "http://localhost:8080/groups";
+    var API_URI = process.env.REACT_APP_BACKEND_URL + '/groups';
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
@@ -47,6 +48,42 @@ const Groups = () => {
     }catch(err){
         console.log("error u tasks");
     }
+
+    const handleDelete = async (e) => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+        console.log("here");
+        console.log(e);
+        console.log("there");
+
+        const body = JSON.stringify({
+            groupId: parseInt(e),
+        });
+        console.log(body);
+        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?param='+e, {
+            
+        //     method: 'POST',
+        // }).then((response) => {
+        //     if(response.ok){
+        //         //this.setState({ success: true });
+        //     }
+        // }).catch((err) => {
+        //     throw err;
+        // });
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
+            method: 'POST',
+            headers: myHeaders,
+            param: body //parseInt(e)
+        }).then((response) => {
+            if(response.ok){
+                //this.setState({ success: true });
+            }
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
     let keys = Object.keys(groups)
     console.log('here')
     console.log(keys)
@@ -98,7 +135,10 @@ const Groups = () => {
                                     )}
                                     </ul>
                                 </p>
-                                <button>Obriši</button>
+                                <button 
+                                    className="btn btn-danger mb-5"
+                                    onClick={() => handleDelete(gr.id)}
+                                >Obriši</button>
                             </div>
                         </div>
                     </div>

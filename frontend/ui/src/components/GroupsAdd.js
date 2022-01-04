@@ -7,6 +7,7 @@ class GroupsAdd extends React.Component {
         name: '',
         leaderid: '',
         employeesids: [],
+        employeesList:[],
         //success: null,
     }
 
@@ -15,8 +16,7 @@ class GroupsAdd extends React.Component {
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy?idEmployee='
-            + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -27,6 +27,7 @@ class GroupsAdd extends React.Component {
             this.setState({ employeesList: jsonResponse });
         })
     }
+    
 
     handleChange = (e) => {
         const name = e.target.name;
@@ -34,13 +35,31 @@ class GroupsAdd extends React.Component {
         this.setState({ [name]: value });
     }
 
+    handleChangeLID = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value });
+    }
+
+    handleChangeArray = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        //const newempid = this.state.employeesids;
+        this.setState(previousState => ({
+            employeesids: [...previousState.employeesids, value]
+        }));
+    }
+
     handleSubmit = async (e) => {
         e.preventDefault();
         const body = JSON.stringify({
-            name: this.state.name,
-            leaderid: this.state.leaderid,
-            employeesids: this.state.employeesids,
+            groupName: this.state.name,
+            idLeader: this.state.leaderid,
+            idMembers: this.state.employeesids,
         });
+        console.log("almost");
+        console.log(body);
+        console.log("did it");
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
@@ -60,6 +79,9 @@ class GroupsAdd extends React.Component {
     }
 
     render () {
+        console.log('here');
+        console.log(this.state.employeesList);
+        console.log('done');
         let employees;
         if (this.state.employeesList.length === 0) {
             employees = (
@@ -68,7 +90,7 @@ class GroupsAdd extends React.Component {
         } else {
             employees = this.state.employeesList.map(employee => {
                 return (
-                    <option key={employee.name} value={employee.name}>{employee.name}</option>
+                    <option key={employee.name} value={employee.id}>{employee.name}</option>
                 );
             })
         }
@@ -81,9 +103,15 @@ class GroupsAdd extends React.Component {
         } else {
             emplist = this.state.employeesList.map(employee => {
                 return (
-                    <div>
-                    
-                    <li key={employee.name} value={employee.name}>   <input value={employee.name} type="checkbox" />   {employee.name}    </li>
+                    <div>                    
+                    <li key={employee.name} value={employee.id}>   
+                        <input
+                            name="employeesids"
+                            value={employee.id} 
+                            type="checkbox" 
+                            onChange={this.handleChangeArray}
+                        />   {employee.name}    
+                    </li>
                     </div>
                 );
             })
@@ -114,15 +142,15 @@ class GroupsAdd extends React.Component {
                             <label className="form-label">Ime grupe:</label>
                             <input
                                 className="form-control"
-                                name="groupName"
+                                name="name"
                                 onChange={this.handleChange}
                             />
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Voditelj:</label>
                             <select className="form-select"
-                                    name="employee"
-                                    onChange={this.handleChange}
+                                    name="leaderid"
+                                    onChange={this.handleChangeLID}
                             >
                                 <option selected disabled>Odaberite voditelja</option>
                                 {employees}
