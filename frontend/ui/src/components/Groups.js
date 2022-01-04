@@ -51,30 +51,30 @@ const Groups = () => {
     console.log('here')
     console.log(keys)
     let keyslist =[]
-    keys.forEach( (key) =>(
-        keyslist.push(
-            <div className="container">
-                <div className="card">
-                    <div className="card-body">
-                        <p className="h5">{key}</p>
-                        <p>Voditelj: 
-                            {groups[key].filter((mem)=> (
-                                mem.idrole.id===2
-                            )).map(s => <p className="fst-italic"> {s.name} {s.surname} </p>)}
-                        </p>
-                        <p>Članovi: 
-                            <ul>
-                                {groups[key].filter((mem)=> (
-                                    mem.idrole.id===1
-                                )).map(s => <li className="fst-italic"> {s.name} {s.surname} </li>)}
-                            </ul>
-                        </p>
-                        <button>Obriši</button>
-                    </div>
-                </div>
-            </div>
-        )
-    ))
+    // keys.forEach( (key) =>(
+    //     keyslist.push(
+    //         <div className="container">
+    //             <div className="card">
+    //                 <div className="card-body">
+    //                     <p className="h5">{key}</p>
+    //                     <p>Voditelj: 
+    //                         {groups[key].filter((mem)=> (
+    //                             mem.idrole.id===2
+    //                         )).map(s => <p className="fst-italic"> {s.name} {s.surname} </p>)}
+    //                     </p>
+    //                     <p>Članovi: 
+    //                         <ul>
+    //                             {groups[key].filter((mem)=> (
+    //                                 mem.idrole.id===1
+    //                             )).map(s => <li className="fst-italic"> {s.name} {s.surname} </li>)}
+    //                         </ul>
+    //                     </p>
+    //                     <button>Obriši</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // ))
     
     return (
         <div>
@@ -84,7 +84,26 @@ const Groups = () => {
             <Switch>
                 <Route exact path={path}>
                 <div>
-                    {keyslist.map((k)=>(k))}
+                    {/* {keyslist.map((k)=>(k))} */}
+                    {groups.map((gr)=>
+                        <div className="container">
+                        <div className="card">
+                            <div className="card-body">
+                                <p className="h5">{gr.name}</p>
+                                <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
+                                <p>Članovi: 
+                                    <ul>
+                                    {gr.members.map((mem)=>
+                                        <li>{mem.name} {mem.surname}</li>                    
+                                    )}
+                                    </ul>
+                                </p>
+                                <button>Obriši</button>
+                            </div>
+                        </div>
+                    </div>
+                    )}
+
                     
                     
                 </div>
