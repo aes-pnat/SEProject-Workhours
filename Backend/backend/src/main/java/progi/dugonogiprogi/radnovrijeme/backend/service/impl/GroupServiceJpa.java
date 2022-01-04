@@ -14,9 +14,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Provides some business functionalities.
@@ -34,8 +32,13 @@ public class GroupServiceJpa implements GroupService {
     private EmployeegroupRepository employeegroupRepository;
 
     @Override
-    public List<Group> listAllGroups() {
-        return groupRepository.findAll();
+    public Map<Group, List<Employee>> listAllGroups() {
+        Map<Group, List<Employee>> listGroups = new HashMap<>();
+        List<Group> groups = groupRepository.findAll();
+        for (Group g : groups) {
+          listGroups.put(g, employeegroupRepository.findByGroupId(g.getId()).get());
+        }
+        return listGroups;
     }
 
     @Override
