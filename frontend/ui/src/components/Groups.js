@@ -10,7 +10,7 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
-import '../Jobs.css'
+//import '../Jobs.css'
 import GroupsAdd from './GroupsAdd';
 
 const Groups = () => {
@@ -56,6 +56,8 @@ const Groups = () => {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
         console.log("here");
         console.log(e);
         console.log("there");
@@ -67,6 +69,7 @@ const Groups = () => {
         await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?groupId='+e, {
 
             method: 'POST',
+            headers : myHeaders
         }).then((response) => {
             if(response.ok){
                 //this.setState({ success: true });
