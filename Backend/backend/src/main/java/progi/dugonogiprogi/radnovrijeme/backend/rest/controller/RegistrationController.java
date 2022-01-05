@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,6 +19,7 @@ public class RegistrationController {
     @Autowired
     RegistrationService registrationService;
 
+    @Secured({"ROLE_OWNER"})
     @PostMapping("")
     public ResponseEntity<?> registerEmployee(@Validated @RequestBody RegistrationDTO regData) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/register").toUriString());
