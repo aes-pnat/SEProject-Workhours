@@ -19,7 +19,6 @@ public class MapController {
     @Autowired
     MapService mapService;
 
-    @Secured({"ROLE_OWNER"})
     @GetMapping("")
     public List<LocationDataDTO> showLocationData() {
         return mapService.showLocationData();

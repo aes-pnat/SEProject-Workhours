@@ -28,14 +28,12 @@ public class JobController {
         return ResponseEntity.ok().body(jobService.listAll());
     }
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("/add")
     public ResponseEntity<?> createJob(@Validated @RequestBody Job job) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/jobs/add").toUriString());
         return ResponseEntity.created(uri).body(jobService.createJob(job));
     }
 
-    @Secured({"ROLE_OWNER"})
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteJob(@RequestParam Integer id) {
         return ResponseEntity.ok().body(jobService.deleteJob(id));

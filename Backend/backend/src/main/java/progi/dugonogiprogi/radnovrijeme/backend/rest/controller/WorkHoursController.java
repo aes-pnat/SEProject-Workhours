@@ -19,19 +19,14 @@ public class WorkHoursController {
     @Autowired
     WorkHoursService workHoursService;
 
-    @Secured({"ROLE_EMPLOYEE", "ROLE_LEADER"})
     @PostMapping("")
     public ResponseEntity<?> createNewWorkHoursInput(@Validated @RequestBody WorkHoursInputDTO workHoursInputDTO) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/workhoursinput").toUriString());
         return ResponseEntity.created(uri).body(workHoursService.createNewWorkHoursInput(workHoursInputDTO.getTask(), workHoursInputDTO.getDate(), workHoursInputDTO.getHoursDone(), workHoursInputDTO.getIdEmployee()));
     }
 
-    @Secured({"ROLE_EMPLOYEE", "ROLE_LEADER"})
     @GetMapping("")
     public ResponseEntity<?> listTaskNamesForEmployee(@RequestParam String idEmployee) {
         return ResponseEntity.ok().body(workHoursService.listTaskNamesForEmployee(idEmployee));
     }
-
-
-
 }

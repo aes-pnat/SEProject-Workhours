@@ -24,19 +24,16 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @Secured({"ROLE_OWNER"})
     @GetMapping("")
     public ResponseEntity<List<GroupDTO>> listAllGroups() {
         return ResponseEntity.ok().body(groupService.listAllGroups());
     }
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("/delete")
     public ResponseEntity<?> deleteGroup(@RequestParam Integer groupId) {
         return ResponseEntity.ok().body(groupService.deleteGroup(groupId));
     }
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("/add")
     public ResponseEntity<?> crateGroup(@Validated @RequestBody AddGroupDTO group) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/groups/add").toUriString());

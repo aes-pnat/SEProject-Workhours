@@ -21,14 +21,12 @@ public class MoneyManagementController {
     @Autowired
     MoneyManagementService moneyManagementService;
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("/expense")
     public ResponseEntity<?> seeExpenseDifference(@RequestParam double price) {
         return ResponseEntity.ok().body(moneyManagementService.seeExpense(price));
 
     }
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("/profit")
     public ResponseEntity<?> seeProfitDifference(@RequestParam double price) {
         return ResponseEntity.ok().body(moneyManagementService.seeProfit(price));

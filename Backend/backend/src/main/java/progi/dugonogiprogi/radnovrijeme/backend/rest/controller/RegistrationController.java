@@ -19,7 +19,6 @@ public class RegistrationController {
     @Autowired
     RegistrationService registrationService;
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("")
     public ResponseEntity<?> registerEmployee(@Validated @RequestBody RegistrationDTO regData) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/register").toUriString());

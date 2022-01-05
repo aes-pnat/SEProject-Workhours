@@ -20,13 +20,11 @@ public class OccupancyController {
     @Autowired
     OccupancyService occupancyService;
 
-    @Secured({"ROLE_OWNER"})
     @GetMapping("")
     public ResponseEntity<?> listAllEmployees() {
         return ResponseEntity.ok().body(occupancyService.listAllEmployees());
     }
 
-    @Secured({"ROLE_OWNER"})
     @PostMapping("")
     public ResponseEntity<?> isOccupied(@Validated @RequestBody OccupancyDTO occupancyDTO) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);

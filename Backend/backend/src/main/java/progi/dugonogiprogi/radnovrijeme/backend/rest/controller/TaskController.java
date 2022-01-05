@@ -29,19 +29,16 @@ public class TaskController {
      * @return list of DTOs representing tasks given to members of a group whose leader is an employee with given id
      */
 
-    @Secured({"ROLE_LEADER"})
     @GetMapping("")
     public List<TasksDTO> listTasksForLeader(@RequestParam String idLeader){
         return taskService.listTasksForLeader(idLeader);
     }
 
-    @Secured({"ROLE_LEADER"})
     @PostMapping("/add")
     public Task addTask(@RequestBody AddTaskDTO addTaskDTO) {
         return taskService.addTask(addTaskDTO);
     }
 
-    @Secured({"ROLE_LEADER"})
     @GetMapping("/add")
     public AddTaskInfoDTO getAddTaskInfo() {
         return taskService.getAddTaskInfo();

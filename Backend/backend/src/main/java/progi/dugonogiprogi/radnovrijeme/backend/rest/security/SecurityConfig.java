@@ -18,6 +18,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.security.filter.CustomAutho
 
 import java.util.Arrays;
 
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -41,7 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/login","/jobs").permitAll();
+        http.authorizeRequests().antMatchers(POST, "/jobs/**").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(DELETE, "/jobs/**").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(POST, "/register").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(GET, "/groups").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(POST, "/groups/**").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(GET, "/occupancy").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(POST, "/occupancy").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(GET, "/map").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(GET, "/myData").hasAnyAuthority("ROLE_EMPLOYEE", "ROLE_LEADER");
+        http.authorizeRequests().antMatchers(GET, "/workhoursinput").hasAnyAuthority("ROLE_EMPLOYEE", "ROLE_LEADER");
+        http.authorizeRequests().antMatchers(POST, "/workhoursinput").hasAnyAuthority("ROLE_EMPLOYEE", "ROLE_LEADER");
+        http.authorizeRequests().antMatchers(GET, "/tasks", "/tasks/add").hasAuthority("ROLE_LEADER");
+        http.authorizeRequests().antMatchers(POST, "/tasks/add").hasAuthority("ROLE_LEADER");
         http.authorizeRequests().anyRequest().authenticated();
+
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

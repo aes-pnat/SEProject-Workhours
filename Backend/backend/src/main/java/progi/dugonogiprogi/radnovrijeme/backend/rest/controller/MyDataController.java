@@ -29,7 +29,6 @@ public class MyDataController {
      * @return DTO of data belonging to an employee
      */
 
-    @Secured({"ROLE_OWNER", "ROLE_EMPLOYEE", "ROLE_LEADER"})
     @GetMapping("")
     public MyDataDTO myData(@RequestParam String username){
         return myDataService.myData(username);
