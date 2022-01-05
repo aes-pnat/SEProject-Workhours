@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 import {useState, useEffect} from 'react';
+import authHeader from '../services/auth-header';
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,11 +18,13 @@ const Groups = () => {
     let { path, url } = useRouteMatch();
     
 
-    //var API_URI = "http://localhost:8080/groups";
     var API_URI = process.env.REACT_APP_BACKEND_URL + '/groups';
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
+    const token = authHeader();
+    myHeaders.append("Authorization", token);
+
     const getJobs = () => {
         fetch(API_URI,
         {
@@ -62,7 +65,7 @@ const Groups = () => {
         });
         console.log(body);
         await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?groupId='+e, {
-            
+
             method: 'POST',
         }).then((response) => {
             if(response.ok){
@@ -135,7 +138,7 @@ const Groups = () => {
                                     )}
                                     </ul>
                                 </p>
-                                <button 
+                                <button
                                     className="btn btn-danger mb-5"
                                     onClick={() => handleDelete(gr.id)}
                                 >Obriši</button>

@@ -3,7 +3,6 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
@@ -14,7 +13,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.GroupService;
 
 import java.util.*;
 

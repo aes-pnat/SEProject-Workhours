@@ -1,5 +1,5 @@
 import React from 'react';
-
+import authHeader from '../services/auth-header';
 class MyData extends React.Component {
     state = {
         HARDKODIRANI_USERNAME_PROMIJENITI_OVO: 'hWang',
@@ -16,6 +16,8 @@ class MyData extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/mydata?username='
              + this.state.HARDKODIRANI_USERNAME_PROMIJENITI_OVO, {

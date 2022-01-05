@@ -1,12 +1,8 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Data transfer object that stores all work hours inputs and sum of all hours done for an employee.
