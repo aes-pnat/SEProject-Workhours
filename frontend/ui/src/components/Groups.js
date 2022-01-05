@@ -17,7 +17,7 @@ const Groups = () => {
     let { path, url } = useRouteMatch();
     
 
-    var API_URI = "http://localhost:8080/groups";
+    var API_URI = process.env.REACT_APP_BACKEND_URL + '/groups';
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");
     myHeaders.append("Accept","application/json");
