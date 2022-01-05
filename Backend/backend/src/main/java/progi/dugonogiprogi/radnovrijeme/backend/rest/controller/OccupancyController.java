@@ -2,18 +2,13 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.OccupancyDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.OccupancyService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.OccupancyService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 @CrossOrigin("*")

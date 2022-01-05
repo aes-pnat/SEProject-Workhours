@@ -1,8 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Location;
-import progi.dugonogiprogi.radnovrijeme.backend.service.MapService;
 
 import java.time.Instant;
 

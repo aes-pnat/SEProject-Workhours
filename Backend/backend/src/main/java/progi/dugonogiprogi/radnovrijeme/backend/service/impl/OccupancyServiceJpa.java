@@ -10,11 +10,9 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeetask;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.TimePeriodException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.OccupancyService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.OccupancyService;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

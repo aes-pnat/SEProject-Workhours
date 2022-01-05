@@ -5,15 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddTaskDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddTaskInfoDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.TasksDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.TaskService;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

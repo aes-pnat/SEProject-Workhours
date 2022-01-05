@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.GroupService;
 
 import java.net.URI;
 import java.util.List;

@@ -1,4 +1,4 @@
-package progi.dugonogiprogi.radnovrijeme.backend.service;
+package progi.dugonogiprogi.radnovrijeme.backend.service.abstractService;
 
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
@@ -10,6 +10,6 @@ import java.util.Optional;
 @Service
 public interface EmployeeService {
 
-    public List<Employee> listAllEmployees();
+    List<Employee> listAllEmployees();
 
 }
