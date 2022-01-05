@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.domain;
 
+
 import javax.persistence.*;
 
 @Entity

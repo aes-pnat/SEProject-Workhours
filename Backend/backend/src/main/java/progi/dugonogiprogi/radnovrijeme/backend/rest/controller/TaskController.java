@@ -1,9 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.annotation.Secured;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;

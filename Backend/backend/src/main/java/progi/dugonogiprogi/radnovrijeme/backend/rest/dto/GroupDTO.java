@@ -1,6 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import org.springframework.validation.annotation.Validated;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 

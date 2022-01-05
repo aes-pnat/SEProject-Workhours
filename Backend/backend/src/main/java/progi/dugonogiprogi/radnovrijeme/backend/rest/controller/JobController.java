@@ -1,7 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.annotation.Secured;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;

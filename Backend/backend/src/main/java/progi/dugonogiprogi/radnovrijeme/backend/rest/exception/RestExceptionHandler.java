@@ -1,7 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.exception;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
