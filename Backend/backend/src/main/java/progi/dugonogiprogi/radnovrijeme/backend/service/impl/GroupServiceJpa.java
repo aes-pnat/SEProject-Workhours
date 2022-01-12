@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeegroup;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.EmployeegroupId;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
@@ -68,7 +65,6 @@ public class GroupServiceJpa implements GroupService {
         }
 
         newGroup.setName(group.getGroupName());
-
         newGroup.setIdjob(group.getIdJob());
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
