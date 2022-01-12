@@ -45,4 +45,12 @@ public class AddGroupDTO {
     public void setIdMembers(List<String> idMembers) {
         this.idMembers = idMembers;
     }
+
+    public Job getIdJob() {
+        return idJob;
+    }
+
+    public void setIdJob(Job idJob) {
+        this.idJob = idJob;
+    }
 }
