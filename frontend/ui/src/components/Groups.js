@@ -12,7 +12,7 @@ import {
   } from 'react-router-dom';
 import GroupsAdd from './GroupsAdd';
 
-const Groups = () => {
+const Groups = (props) => {
     const [groups, setGroup] = useState([]);
     let { path, url } = useRouteMatch();
     
@@ -51,8 +51,8 @@ const Groups = () => {
         console.log("error u tasks");
     }
     let keys = Object.keys(groups)
-    console.log('here')
-    console.log(keys)
+    // console.log('here')
+    // console.log(keys)
     let keyslist =[]
     // keys.forEach( (key) =>(
     //     keyslist.push(
@@ -80,48 +80,45 @@ const Groups = () => {
     // ))
     
     return (
-        <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+        props.role === "[ROLE_OWNER]" ? 
+            <div className='container'>
+                <br></br>
+                <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
 
-            <Switch>
-                <Route exact path={path}>
-                <div>
-                    {/* {keyslist.map((k)=>(k))} */}
-                    {groups.map((gr)=>
-                        <div className="container">
-                        <div className="card">
-                            <div className="card-body">
-                                <p className="h5">{gr.name}</p>
-                                <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
-                                <p>Članovi: 
+                <Switch>
+                    <Route exact path={path}>
+                    <div>
+                        {/* {keyslist.map((k)=>(k))} */}
+                        {groups.map((gr)=>
+                            <div>
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{gr.name}</p>
+                                    <span>Voditelj: {gr.leader.name} {gr.leader.surname}</span>
+                                    <br />
+                                    <span>Članovi: </span>
                                     <ul>
-                                    {gr.members.map((mem)=>
-                                        <li>{mem.name} {mem.surname}</li>                    
-                                    )}
+                                        {gr.members.map( (mem)=>
+                                            <li>{mem.name} {mem.surname}</li>                    
+                                        )}
                                     </ul>
-                                </p>
-                                <button>Obriši</button>
+                                    
+                                    <button>Obriši</button>
+                                </div>
                             </div>
                         </div>
+                        )}
                     </div>
-                    )}
-
-                    
-                    
-                </div>
-                </Route>
-                <Route path={`${path}/add`}>
-                    <GroupsAdd />
-                </Route>
-            </Switch>
-
-            {/* <li>Pozdrav iz groups stranice</li>
-            {group && (group.length > 1) ?
-                group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
-            } */}
+                    </Route>
+                    <Route path={`${path}/add`}>
+                        <GroupsAdd />
+                    </Route>
+                </Switch>
+            </div>
+        :
+        <div className='container d-flex justify-content-center'>
+            <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
         </div>
-        
     ); 
     
 };

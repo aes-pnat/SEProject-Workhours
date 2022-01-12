@@ -1,8 +1,10 @@
 import React from 'react';
 import '../Register.css';
 import authHeader from '../services/auth-header';
+import User from '../services/User';
 
 class Register extends React.Component {
+    
     state = {
         pid: '',
         name: '',
@@ -77,80 +79,92 @@ class Register extends React.Component {
                 </div>
             );
         }
+        let role = User.getRole();
         return (
-            <div className="container register-form-container">
-                <div className="h3 mb-3">Registracija novog djelatnika</div>
-                <div className="container">
-                    {messageBox}
+            <div className="container">
+                {role === "[ROLE_OWNER]" ?
+                    <div className='register-form-container'>
+                        <div className="h3 mb-3">Registracija novog djelatnika</div>
+                        <div className="container">
+                            {messageBox}
+                        </div>
+                        <div className="row">
+                            <form onSubmit={this.handleSubmit}>
+                                <div className='mb-3'>
+                                    <label className="form-label">Ime djelatnika:</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        name="name"
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Prezime djelatnika:</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        name="surname" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">E-mail djelatnika:</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        name="email" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">OIB djelatnika:</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        name="pid" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Korisničko ime:</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                        name="username" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Lozinka:</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control"
+                                        name="password" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Ponovljena lozinka:</label>
+                                    <input 
+                                        type="password" 
+                                        className="form-control"
+                                        name="passwordCheck" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary mb-5">Registriraj djelatnika</button>
+                            </form>
+                        </div>
                 </div>
-                <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className='mb-3'>
-                            <label className="form-label">Ime djelatnika:</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                name="name"
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Prezime djelatnika:</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                name="surname" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">E-mail djelatnika:</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                name="email" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">OIB djelatnika:</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                name="pid" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Korisničko ime:</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                name="username" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Lozinka:</label>
-                            <input 
-                                type="password" 
-                                className="form-control"
-                                name="password" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Ponovljena lozinka:</label>
-                            <input 
-                                type="password" 
-                                className="form-control"
-                                name="passwordCheck" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary mb-5">Registriraj djelatnika</button>
-                    </form>
-                </div>
+                
+                :
+                <div className='d-flex flex-row justify-content-center'>
+                    <br />
+                    <h1 className='text-danger'>Nedovoljne permisije za registraciju korisnika!</h1>    
+                </div>}
+                
+
             </div>
         );
     }

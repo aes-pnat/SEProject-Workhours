@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Routes,
@@ -10,7 +9,7 @@ import {
   } from 'react-router-dom';
 import JobsAdd from './JobsAdd';
 //import jobs from './json_ph/jobs.json'
-const Jobs = () => {
+const Jobs = (props) => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
 
@@ -72,9 +71,13 @@ const Jobs = () => {
       },[])
     
     return (
-        <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+        <div className='container'>
+            <br />
+            {props.role === "[ROLE_OWNER]" &&
+                <div>
+                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+                </div>
+            }
             <Switch>
                 <Route exact path={path}>
                 <div>
@@ -87,7 +90,7 @@ const Jobs = () => {
                         }
                     </div> */}
                     {data.map((job)=>(
-                        <div className="container">
+                        <div>
                             <div className="card">
                                 <div className="card-body">
                                     <p className="h5">{job.name}</p>
