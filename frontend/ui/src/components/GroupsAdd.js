@@ -162,6 +162,7 @@ class GroupsAdd extends React.Component {
                             </select>
                         </div>
                         <div className="scroll">
+                            <label className="form-label">Članovi:</label>
                             <ul>
                                 {emplist}
                             </ul>
