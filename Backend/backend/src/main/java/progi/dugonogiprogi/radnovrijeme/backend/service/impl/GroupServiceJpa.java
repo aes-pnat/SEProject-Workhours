@@ -65,6 +65,7 @@ public class GroupServiceJpa implements GroupService {
         }
 
         newGroup.setName(group.getGroupName());
+
         newGroup.setIdjob(group.getIdJob());
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
