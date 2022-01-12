@@ -34,19 +34,20 @@ public class MapServiceJpa implements MapService {
     public List<LocationDataDTO> showLocationData() {
 
         List<LocationDataDTO> list = new LinkedList<>();
-        LocationDataDTO dataDTO = new LocationDataDTO();
+        LocationDataDTO dataDTO;
 
         for(Location location : locationRepository.findAll()) {
-            dataDTO.setLocation(location);
             Integer id = location.getId();
-            Optional<Task> t = taskRepository.findByIdlocation_Id(id);
-            if(t.isPresent()){
-                    Task task = t.get();
-                    dataDTO.setStartDateAndTime(task.getDatetimestart());
-                    dataDTO.setEndDateAndTime(task.getDatetimeend());
-                    Optional<List<Employeetask>> employeetask = employeetaskRepository.findById_Idtask(task.getId());
+            Optional<List<Task>> tasks = taskRepository.findByIdlocation_Id(id);
+            if(tasks.isPresent()){
+                for (Task t : tasks.get()) {
+                    dataDTO = new LocationDataDTO();
+                    dataDTO.setLocation(location);
+                    dataDTO.setStartDateAndTime(t.getDatetimestart());
+                    dataDTO.setEndDateAndTime(t.getDatetimeend());
+                    Optional<List<Employeetask>> employeetask = employeetaskRepository.findById_Idtask(t.getId());
                     if(!employeetask.isPresent()) {
-                        throw new MissingEmployeeException("No employees were given task with id "+task.getId());
+                        throw new MissingEmployeeException("No employees were given task with id "+t.getId());
                     }
                     for(Employeetask et : employeetask.get()){
                         String idEmployee = et.getId().getIdemployee();
@@ -58,6 +59,7 @@ public class MapServiceJpa implements MapService {
                         dataDTO.setEmployeeSurname(employee.get().getSurname());
                     }
                     list.add(dataDTO);
+                }
             }
         }
         return list;
