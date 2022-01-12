@@ -9,8 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.LocationDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.MapService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MapService;
 
 import java.util.LinkedList;
 import java.util.List;

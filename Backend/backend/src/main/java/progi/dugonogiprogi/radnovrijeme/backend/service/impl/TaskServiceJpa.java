@@ -7,9 +7,8 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchGroupException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.TaskService;
 
-import java.time.Instant;
 import java.util.*;
 
 @Service

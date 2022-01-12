@@ -1,10 +1,10 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MyDataService;
 
 /**
  * Handles requests for myData page

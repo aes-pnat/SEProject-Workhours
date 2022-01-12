@@ -1,7 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.exception;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,6 +80,16 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(InvalidPasswordCheckException.class)
     protected ResponseEntity<?> handleInvalidPasswordCheck(Exception e, WebRequest request) {
+        Map<String, String> props = new HashMap<>();
+        props.put("message", e.getMessage());
+        props.put("status", "400");
+        props.put("error", "Bad Request");
+        log.error(e.getMessage());
+        return new ResponseEntity<>(props, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ParseException.class)
+    protected ResponseEntity<?> handleParse(Exception e, WebRequest request) {
         Map<String, String> props = new HashMap<>();
         props.put("message", e.getMessage());
         props.put("status", "400");

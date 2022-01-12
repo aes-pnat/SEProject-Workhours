@@ -1,18 +1,15 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.annotation.Secured;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.CreateJobDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.JobDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.JobService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.JobService;
 
 import java.net.URI;
-import java.util.List;
 
 /**
  * Handles requests for Jobs page.

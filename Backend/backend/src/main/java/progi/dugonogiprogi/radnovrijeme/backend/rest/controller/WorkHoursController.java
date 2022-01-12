@@ -1,24 +1,15 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.annotation.Secured;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Workhoursinput;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.WorkHoursInputDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.EmployeeService;
-import progi.dugonogiprogi.radnovrijeme.backend.service.TaskService;
-import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.WorkHoursService;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -38,7 +29,4 @@ public class WorkHoursController {
     public ResponseEntity<?> listTaskNamesForEmployee(@RequestParam String idEmployee) {
         return ResponseEntity.ok().body(workHoursService.listTaskNamesForEmployee(idEmployee));
     }
-
-
-
 }

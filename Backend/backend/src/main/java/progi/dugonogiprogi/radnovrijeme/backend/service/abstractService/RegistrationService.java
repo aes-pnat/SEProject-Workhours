@@ -1,6 +1,5 @@
-package progi.dugonogiprogi.radnovrijeme.backend.service;
+package progi.dugonogiprogi.radnovrijeme.backend.service.abstractService;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
@@ -9,4 +8,5 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 public interface RegistrationService {
 
     Employee registerEmployee(RegistrationDTO regData);
+
 }

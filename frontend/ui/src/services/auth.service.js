@@ -1,12 +1,12 @@
 import axios from "axios";
 import User from './User';
 //promijeniti u environment variablu API_URL
-const API_URL = "http://localhost:8080/";
+const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 class AuthService {
   login(username, password) {
     return axios
-      .post(API_URL+"login", {
+      .post(API_URL + "/login", {
         "username":username,
         "password":password
       })
@@ -24,7 +24,7 @@ class AuthService {
   }
 
   register(username, email, password) {
-    return axios.post(API_URL + "register", {
+    return axios.post(API_URL + "/register", {
       username,
       email,
       password

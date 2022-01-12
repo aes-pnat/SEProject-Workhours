@@ -1,12 +1,13 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.controller;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.GroupService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.GroupService;
 
 import java.net.URI;
 import java.util.List;

@@ -9,7 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.WorkHoursService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.WorkHoursService;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -60,7 +60,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
             throw new MissingEmployeeException("Employee with ID >" + idEmployee + "< doesn't exist.");
         Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
         if (!employeeTaskList.isPresent())
-            return new ArrayList<String>();
+            return new ArrayList<>();
         List<Integer> taskIDList = new ArrayList<>();
         for (Employeetask et : employeeTaskList.get())
             taskIDList.add(et.getId().getIdtask());

@@ -1,9 +1,8 @@
-package progi.dugonogiprogi.radnovrijeme.backend.service;
+package progi.dugonogiprogi.radnovrijeme.backend.service.abstractService;
 
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.EmployeeDTO;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 

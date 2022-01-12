@@ -11,7 +11,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.domain.Role;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.InvalidPasswordCheckException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.RegistrationService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.RegistrationService;
 import java.util.Optional;
 
 @Slf4j
