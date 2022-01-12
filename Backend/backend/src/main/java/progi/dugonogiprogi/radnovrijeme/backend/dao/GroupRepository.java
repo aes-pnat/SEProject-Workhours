@@ -18,5 +18,5 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     Optional<List<Group>> findByIdleader(Employee idleader);
 
-    Optional<Group> findByIdJob(Job idJob);
+    Optional<Group> findByIdjob(Job idJob);
 }
