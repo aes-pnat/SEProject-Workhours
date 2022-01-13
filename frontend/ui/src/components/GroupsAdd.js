@@ -81,7 +81,7 @@ class GroupsAdd extends React.Component {
             groupName: this.state.name,
             idLeader: this.state.leaderid,
             idMembers: this.state.employeesids,
-            idJob: this.state.jobid,
+            idJob: Number(this.state.jobid),
         });
         console.log("almost");
         console.log(body);
