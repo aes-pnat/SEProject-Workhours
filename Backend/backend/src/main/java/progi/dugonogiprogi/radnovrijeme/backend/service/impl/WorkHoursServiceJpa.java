@@ -1,7 +1,9 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class WorkHoursServiceJpa implements WorkHoursService {
 
@@ -34,21 +37,31 @@ public class WorkHoursServiceJpa implements WorkHoursService {
 
     @Override
     public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
-        if (hoursDone < 0 || hoursDone > 24)
+        String user = BackendApplication.getUser();
+        if (hoursDone < 0 || hoursDone > 24) {
+            log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24");
             throw new IllegalArgumentException("Number of hours done should be between 0 and 24.");
-        if (!employeeRepository.findById(idEmployee).isPresent())
-            throw new MissingEmployeeException("Employee with ID >" + "< doesn't exist.");
+        }
+        if (!employeeRepository.findById(idEmployee).isPresent()) {
+            log.error("{}: Creating work hours input failed: Employee with inputted id doesn't exist", user);
+            throw new MissingEmployeeException("Employee with id " + idEmployee + " doesn't exist.");
+        }
+
         Task task = null;
         for (Task t : taskRepository.findAll()) {
             if (t.getName().equals(taskName)) {
                 task = t;
             }
         }
-        if (task == null)
+        if (task == null) {
+            log.error("{}: Creating work hours input failed: Task with the name {} doesn't exist", user, taskName);
             throw new NoSuchTaskException("Task with the name " + taskName + " doesn't exist.");
+        }
+
         Employee employee = employeeRepository.findById(idEmployee).get();
         Workhoursinput workhoursinput = new Workhoursinput(task, date, hoursDone, employee);
         workHoursRepository.save(workhoursinput);
+        log.info("{}: Creating work hours input successful: Created new work hours input for employee {} at date {}", user, employee.getUsername(), date.toString());
         return workhoursinput;
     }
 
