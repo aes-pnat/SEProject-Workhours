@@ -61,13 +61,15 @@ const Jobs = (props) => {
         // console.log("there");
 
         const body = JSON.stringify({
-            groupId: parseInt(e),
+            id: parseInt(e),
         });
         console.log(body);
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete?id='+e, {
+        //await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete?id='+e, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete', {
 
             method: 'POST',
-            headers : myHeaders
+            headers : myHeaders,
+            body: body
         }).then((response) => {
             if(response.ok){
                 //this.setState({ success: true });
