@@ -125,6 +125,13 @@ public class TaskServiceJpa implements TaskService {
         Job job = jobRepository.findById(addTaskDTO.getJobID()).get();
         Task task = new Task(addTaskDTO.getTaskName(), addTaskDTO.getTaskDescription(), addTaskDTO.getDateStart().toInstant(), addTaskDTO.getDateEnd().toInstant(), addTaskDTO.getHoursEstimate(), job, loc);
         taskRepository.save(task);
+        if(locID == null) {
+            log.info("{}: Creating task successful: Created task with id {}", user, task.getId());
+        }
+        else {
+            log.info("{}: Creating task successful: Created task with id {} at location {}", user, task.getId(), loc.getAddress());
+        }
+
         for (String id : addTaskDTO.getEmployeeIDs()) {
             EmployeetaskId employeetaskId = new EmployeetaskId();
             employeetaskId.setIdemployee(id);
