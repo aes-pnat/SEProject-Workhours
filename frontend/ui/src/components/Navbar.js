@@ -44,7 +44,12 @@ function Navbar(props) {
               </div> */}
             {props.token !== "" &&
               <div className="nav-link">
-                <Link to='/tasks'>Tasks</Link>
+                <Link to='/groups'>Grupe</Link>
+              </div>
+            }
+            {props.token !== "" &&
+              <div className="nav-link">
+                <Link to='/tasks'>Zadaci</Link>
               </div>
             }
             {props.token !== "" &&
@@ -53,7 +58,7 @@ function Navbar(props) {
               </div>
             }
               <div className="nav-link">
-                <Link to='/jobs'>Jobs</Link>
+                <Link to='/jobs'>Djelatnosti</Link>
               </div>
             {props.token !== "" &&
               <div className="nav-link">
@@ -85,11 +90,11 @@ function Navbar(props) {
             }
             {props.token !== "" ?
               <div className="nav-link">
-                <Link to='/login' onClick={logout}>Log out</Link>
+                <Link to='/login' onClick={logout}>Odjava</Link>
               </div>
               :
               <div className="nav-link">
-                <Link to='/login'>Log in</Link>
+                <Link to='/login'>Prijava</Link>
               </div>
             }
             </div>
@@ -104,7 +109,7 @@ function Navbar(props) {
               <Groups />
             </Route>
             <Route path="/" exact>
-              <Jobs />
+              <MainPage />
             </Route>
             <Route path="/jobs">
               <Jobs role={props.role}/>

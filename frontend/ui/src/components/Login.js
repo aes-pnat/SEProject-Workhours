@@ -49,8 +49,8 @@ const Login = (props) => {
                     <h5 className='justify-content-center'>{msg}</h5>
                 </div>
             }
-            
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            
             <input type="text" className="form-control" placeholder="Username" required
                    onChange={e => setUsername(e.target.value)}
             />

@@ -1,9 +1,86 @@
-import React from 'react'
-import Select from 'react-select';
-import '../index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import authHeader from '../services/auth-header';
-class GroupsAdd extends React.Component {
+import React, {useState, useEffect} from 'react';
+import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch
+  } from 'react-router-dom';
+import JobsAdd from './JobsAdd';
+
+const Jobs = () => {
+    const [data, setData] = useState([]);
+    let { path, url } = useRouteMatch();
+
+    var API_URI = process.env.REACT_APP_BACKEND_URL + '/jobs';
+    
+    const myHeaders = new Headers();
+	myHeaders.append("Content-Type","application/json");
+    myHeaders.append("Accept","application/json");
+    const getJobs = () => {
+        fetch(API_URI,
+        {
+            headers : myHeaders
+        })
+        .then(response => {
+            if(response.ok){
+                return response.json();
+            }else{
+                alert("Error in fetching tasks from server");
+            }
+        })
+        .then(myData => {
+            console.log(myData);
+            setData(myData);
+        }).catch(() => {
+            console.log("error u dohvacanju api u tasks")
+        });
+    }
+    try{
+        useEffect( () => {
+            getJobs();
+        },[]);
+    }catch(err){
+        console.log("error u tasks");
+    }
+    useEffect(()=>{
+        getJobs()
+      },[])
+    
+    return (
+        <div>
+            <br></br>
+            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+            <Switch>
+                <Route exact path={path}>
+                <div>
+                    {data.map((job)=>(
+                        <div className="container">
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{job.name}</p>
+                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
+                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
+                                    <p>{job.description}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    ))}
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <JobsAdd />
+                </Route>
+            </Switch>
+
+        </div>
+    ); 
+};
+/////////////////////////////////////////////////////////////////////////////////////
+class Jobs extends React.Component {
     state = {
         name: '',
         leaderid: '',
@@ -226,4 +303,5 @@ class GroupsAdd extends React.Component {
         );
     }
 }
-export default GroupsAdd
+
+export default Jobs;

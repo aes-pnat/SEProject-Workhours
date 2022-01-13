@@ -10,6 +10,7 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
+//import '../Jobs.css'
 import GroupsAdd from './GroupsAdd';
 
 const Groups = (props) => {
@@ -50,10 +51,49 @@ const Groups = (props) => {
     }catch(err){
         console.log("error u tasks");
     }
-    let keys = Object.keys(groups)
+
+    const handleDelete = async (e) => {
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        console.log("here");
+        console.log(e);
+        console.log("there");
+
+        const body = JSON.stringify({
+            groupId: parseInt(e),
+        });
+        console.log(body);
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete?groupId='+e, {
+
+            method: 'POST',
+            headers : myHeaders
+        }).then((response) => {
+            if(response.ok){
+                //this.setState({ success: true });
+            }
+        }).catch((err) => {
+            throw err;
+        });
+        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     param: body //parseInt(e)
+        // }).then((response) => {
+        //     if(response.ok){
+        //         //this.setState({ success: true });
+        //     }
+        // }).catch((err) => {
+        //     throw err;
+        // });
+    }
+
+    // let keys = Object.keys(groups)
     // console.log('here')
     // console.log(keys)
-    let keyslist =[]
+    // let keyslist =[]
     // keys.forEach( (key) =>(
     //     keyslist.push(
     //         <div className="container">
@@ -102,9 +142,11 @@ const Groups = (props) => {
                                             <li>{mem.name} {mem.surname}</li>                    
                                         )}
                                     </ul>
-                                    
-                                    <button>Obriši</button>
                                 </div>
+                                <button
+                                    className="btn btn-danger mb-5"
+                                    onClick={() => handleDelete(gr.id)}
+                                >Obriši</button>
                             </div>
                         </div>
                         )}

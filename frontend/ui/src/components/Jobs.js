@@ -7,6 +7,7 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
+//import '../Jobs.css';
 import JobsAdd from './JobsAdd';
 //import jobs from './json_ph/jobs.json'
 const Jobs = (props) => {
