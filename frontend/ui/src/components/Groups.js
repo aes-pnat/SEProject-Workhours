@@ -115,7 +115,8 @@ const Groups = (props) => {
     // ))
     
     return (
-        props.role === "[ROLE_OWNER]" ? 
+        <div>
+        {props.role === "[ROLE_OWNER]" ? 
             <div className='container'>
                 <br></br>
                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
@@ -131,18 +132,18 @@ const Groups = (props) => {
                                 <p className="h5">{gr.name}</p>
                                 <p>Djelatnost: {gr.job.name}</p>
                                 <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
-                                <p>Članovi: 
+                                <span>Članovi: 
                                     <ul>
                                         {gr.members.map( (mem)=>
                                             <li>{mem.name} {mem.surname}</li>                    
                                         )}
                                     </ul>
-                                </p>
-                                </div>
+                                </span>
                                 <button
                                     className="btn btn-danger mb-5"
                                     onClick={() => handleDelete(gr.id)}
                                 >Obriši</button>
+                                </div>
                             </div>
                         </div>
                         )}
@@ -156,6 +157,7 @@ const Groups = (props) => {
         :
         <div className='container d-flex justify-content-center'>
             <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+        </div>}
         </div>
     ); 
     

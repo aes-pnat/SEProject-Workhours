@@ -24,6 +24,7 @@ class GroupsAdd extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ features: jsonResponse });
+            console.log(this.state.features);
         })
 
     }

@@ -100,27 +100,28 @@ const Jobs = (props) => {
                 <Route exact path={path}>
                 <div>
                     {data.map((job)=>(
-                        <div>
+                        <div className="container">
                             <div className="card">
                                 <div className="card-body">
                                     <p className="h5">{job.name}</p>
                                     <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
                                     <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
                                     <p>{job.description}</p>
-                                    <button
-                                        className="btn btn-danger mb-5"
-                                        onClick={() => handleDelete(job.id)}
-                                    >Obriši
-                                    </button>
+                                    {props.role === "[ROLE_OWNER]" &&
+                                        <button className="btn btn-danger mb-5" onClick={() => handleDelete(job.id)}>Obriši</button>
+                                    }
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
                 </Route>
-                <Route path={`${path}/add`}>
-                    <JobsAdd />
-                </Route>
+                {props.role === "[ROLE_OWNER]" &&
+                    <Route path={`${path}/add`}>
+                        <JobsAdd />
+                    </Route>
+                }
+                
             </Switch>
 
         </div>

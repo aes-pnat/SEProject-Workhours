@@ -112,7 +112,7 @@ function Navbar(props) {
               <Login setToken={props.setToken} setRole={props.setRole}/>
             </Route>
             <Route path="/groups">
-              <Groups />
+              <Groups role={props.role}/>
             </Route>
             <Route path="/" exact>
               <MainPage />
