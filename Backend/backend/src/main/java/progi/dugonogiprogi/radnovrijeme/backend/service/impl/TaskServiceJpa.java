@@ -1,7 +1,9 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.*;
@@ -11,6 +13,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.TaskServ
 
 import java.util.*;
 
+@Slf4j
 @Service
 public class TaskServiceJpa implements TaskService {
 
@@ -43,7 +46,7 @@ public class TaskServiceJpa implements TaskService {
         Optional<Employee> lead = employeeRepository.findById(idLeader);
 
         if (!lead.isPresent())
-            throw new MissingEmployeeException("Employee with id "+idLeader+ " not found");
+            throw new MissingEmployeeException("Employee with id " + idLeader + " not found");
 
         Employee leader = lead.get();
 
@@ -98,6 +101,7 @@ public class TaskServiceJpa implements TaskService {
 
     @Override
     public Task addTask(AddTaskDTO addTaskDTO) {
+        String user = BackendApplication.getUser();
         Integer locID = addTaskDTO.getLocationID();
         Location loc;
         if (locID == null) {
@@ -107,7 +111,9 @@ public class TaskServiceJpa implements TaskService {
             loc.setLatitude(addTaskDTO.getNewLocationLatitude());
             loc.setLongitude(addTaskDTO.getNewLocationLongitude());
             locationRepository.save(loc);
-        } else {
+            log.info("{}: Creating location successful: Created location with address {}", user, addTaskDTO.getNewLocationAddress());
+        }
+        else {
             if (!locationRepository.findById(locID).isPresent())
                 throw new IllegalArgumentException("Location with ID " + locID + " doesn't exist!");
             loc = locationRepository.findById(locID).get();
