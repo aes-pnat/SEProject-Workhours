@@ -70,6 +70,7 @@ public class TaskServiceJpa implements TaskService {
             for (Task t : taskss.get()) {
                 for (Employeegroup eg : listEmployees.get()) {
                     TasksDTO tasksDTO = new TasksDTO();
+                    tasksDTO.setTaskGroup(g);
                     Optional<List<Employeetask>> et = employeetaskRepository.findById_Idemployee(eg.getId().getIdemployee());
                     if (!et.isPresent()) {
                         throw new NoSuchElementException("This employee hasn't been given any tasks");

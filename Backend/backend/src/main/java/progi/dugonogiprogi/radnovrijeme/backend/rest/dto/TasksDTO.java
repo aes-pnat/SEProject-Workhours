@@ -1,5 +1,6 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Location;
 import java.time.Instant;
@@ -26,6 +27,15 @@ public class TasksDTO {
 
     private Instant endDateAndTime;
 
+    private Group taskGroup;
+
+    public Group getTaskGroup() {
+        return taskGroup;
+    }
+
+    public void setTaskGroup(Group taskGroup) {
+        this.taskGroup = taskGroup;
+    }
 
     public String getEmployeeSurname() {
         return employeeSurname;
