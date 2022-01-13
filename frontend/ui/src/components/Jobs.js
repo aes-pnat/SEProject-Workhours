@@ -81,14 +81,6 @@ const Jobs = (props) => {
             <Switch>
                 <Route exact path={path}>
                 <div>
-                    {/* {data && (data.length > 1) ?
-                        data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
-                    } */}
-                    {/* <div className="App">
-                        {
-                        data && data.length>0 && data.map((item)=><p>{item.name}</p>)
-                        }
-                    </div> */}
                     {data.map((job)=>(
                         <div>
                             <div className="card">
@@ -100,7 +92,6 @@ const Jobs = (props) => {
                                 </div>
                             </div>
                         </div>
-
                     ))}
                 </div>
                 </Route>

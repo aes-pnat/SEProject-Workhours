@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Register.css';
+//import '../Register.css';
 import authHeader from '../services/auth-header';
 import User from '../services/User';
 

@@ -32,7 +32,7 @@ function Navbar(props) {
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid justify-content-around">
-        <a className="navbar-brand" href="#">Radno vrijeme</a>
+        <a className="navbar-brand" href="/">Radno vrijeme</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -55,11 +55,6 @@ function Navbar(props) {
               <div className="nav-link">
                 <Link to='/jobs'>Jobs</Link>
               </div>
-            {props.token !== "" && 
-              <div className="nav-link">
-                <Link to='/workhoursinput'>Unos radnih sati</Link>
-              </div>
-            }
             {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
@@ -73,6 +68,11 @@ function Navbar(props) {
               {/* <div className="nav-link">
                 <Link to='/moneymanagement'>Moneymanagement</Link>
               </div> */}
+              {props.role !== "[ROLE_OWNER]" && props.token !== "" &&
+              <div className="nav-link">
+                <Link to='/workhoursinput'>Unos radnih sati</Link>
+              </div>
+            }
             {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/groups'>Groups</Link>

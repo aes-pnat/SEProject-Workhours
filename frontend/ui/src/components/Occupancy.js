@@ -25,7 +25,9 @@ class Occupancy extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ employeesList: jsonResponse });
-        })
+        }).catch( (err) => {
+            console.log(err);
+        });
     }
 
     handleChange = (e) => {
@@ -60,8 +62,8 @@ class Occupancy extends React.Component {
             }
         }).then((responseText) => {
             this.setState({ message: responseText });
-        }).catch((err) => {
-            throw err;
+        }).catch( (err) => {
+            console.log(err);
         });
 
     }
