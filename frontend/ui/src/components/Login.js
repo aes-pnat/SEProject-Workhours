@@ -7,6 +7,8 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
+    const [msg, setMsg] = useState('');
+    const [err, setErr] = useState('');
     let history = useHistory();
     
     useEffect( () => {
@@ -25,7 +27,6 @@ const Login = (props) => {
                 password
             })
         }).then((data) => {
-            //console.log(data.headers.get("accessToken"));
             if(data && data.headers && data.headers.get("accessToken")){
                 User.saveToken(data.headers.get("accessToken"));
                 props.setToken(data.headers.get("accessToken"));
@@ -34,7 +35,7 @@ const Login = (props) => {
                 setRedirect(true);
             }
         }).catch( (error) => {
-            console.log("Error u login fetchu");
+            setMsg("Neuspjesno prijavljivanje");
             console.log(error);
         });
     }
@@ -43,7 +44,13 @@ const Login = (props) => {
 
     return (
         <form onSubmit={submit} className="centered">
+            {msg !== '' && 
+                <div className="d-flex alert alert-danger justify-content-center">
+                    <h5 className='justify-content-center'>{msg}</h5>
+                </div>
+            }
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            
             <input type="text" className="form-control" placeholder="Username" required
                    onChange={e => setUsername(e.target.value)}
             />

@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Routes,
@@ -8,89 +7,15 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
+import authHeader from '../services/auth-header';
 import JobsAdd from './JobsAdd';
 
-const Jobs = () => {
-    const [data, setData] = useState([]);
-    let { path, url } = useRouteMatch();
-
-    var API_URI = process.env.REACT_APP_BACKEND_URL + '/jobs';
-    
-    const myHeaders = new Headers();
-	myHeaders.append("Content-Type","application/json");
-    myHeaders.append("Accept","application/json");
-    const getJobs = () => {
-        fetch(API_URI,
-        {
-            headers : myHeaders
-        })
-        .then(response => {
-            if(response.ok){
-                return response.json();
-            }else{
-                alert("Error in fetching tasks from server");
-            }
-        })
-        .then(myData => {
-            console.log(myData);
-            setData(myData);
-        }).catch(() => {
-            console.log("error u dohvacanju api u tasks")
-        });
-    }
-    try{
-        useEffect( () => {
-            getJobs();
-        },[]);
-    }catch(err){
-        console.log("error u tasks");
-    }
-    useEffect(()=>{
-        getJobs()
-      },[])
-    
-    return (
-        <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
-            <Switch>
-                <Route exact path={path}>
-                <div>
-                    {data.map((job)=>(
-                        <div className="container">
-                            <div className="card">
-                                <div className="card-body">
-                                    <p className="h5">{job.name}</p>
-                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
-                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
-                                    <p>{job.description}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    ))}
-                </div>
-                </Route>
-                <Route path={`${path}/add`}>
-                    <JobsAdd />
-                </Route>
-            </Switch>
-
-        </div>
-    ); 
-};
-/////////////////////////////////////////////////////////////////////////////////////
 class Jobs extends React.Component {
     state = {
-        name: '',
-        leaderid: '',
-        employeesids: [],
-        employeesList:[],
-        employeesWoLeader:[],
-        jobid:'',
-        jobs:[],
+        data:[],
         success: null,
     }
+    
 
     componentDidMount = async () => {
         const myHeaders = new Headers();
@@ -98,18 +23,6 @@ class Jobs extends React.Component {
         myHeaders.append("Accept","application/json");
         const token = authHeader();
         myHeaders.append("Authorization", token);
-
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
-            method: 'GET',
-            headers: myHeaders
-        }).then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-        }).then((jsonResponse) => {
-            this.setState({ employeesList: jsonResponse });
-            this.setState({ employeesWoLeader: jsonResponse });
-        })
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs', {
             method: 'GET',
@@ -119,74 +32,46 @@ class Jobs extends React.Component {
                 return response.json();
             }
         }).then((jsonResponse) => {
-            this.setState({ jobs: jsonResponse });
+            this.setState({ data: jsonResponse });
         })
-    }
-    
 
-    handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value });
-        console.log(name , value);
-        
     }
 
-    handleChangeLID = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({ [name]: value });
-        let removeleader = this.state.employeesList.filter ( a => a.id != value);
-        this.setState({ employeesWoLeader: removeleader });
-    }
-
-    
-
-    handleChangeArray = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        //const newempid = this.state.employeesids;
-        this.setState(previousState => ({
-            employeesids: [...previousState.employeesids, value]
-        }));
-    }
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        const body = JSON.stringify({
-            groupName: this.state.name,
-            idLeader: this.state.leaderid,
-            idMembers: this.state.employeesids,
-            idJob: this.state.jobid,
-        });
-        console.log("almost");
-        console.log(body);
-        console.log("did it");
-
+    handleDelete = async (e) => {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
         const token = authHeader();
         myHeaders.append("Authorization", token);
-        
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/add', {
+        // console.log("here");
+        // console.log(e);
+        // console.log("there");
+
+        const body = JSON.stringify({
+            groupId: parseInt(e),
+        });
+        console.log(body);
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete?id='+e, {
+
             method: 'POST',
-            headers: myHeaders,
-            body: body
+            headers : myHeaders
         }).then((response) => {
             if(response.ok){
-                this.setState({ success: true });
+                //this.setState({ success: true });
             }
         }).catch((err) => {
             throw err;
         });
+        try{
+            getJobs();
+        }catch(err){
+            console.log("error u jobs");
+        }
+        
     }
+    
 
     render () {
-        //console.log('here');
-        //console.log(this.state.jobs);
-        //console.log('done');
         let employees;
         if (this.state.employeesList.length === 0) {
             employees = (
@@ -247,59 +132,41 @@ class Jobs extends React.Component {
         //console.log(employees)
 
         return (
-            
-            
-            <div className="container mt-5">
-                <div className="h3 mb-3">Stvaranje grupe</div>
-                <div className="container">
-                    {messageBox}
+            <div className='container'>
+            <br />
+            {props.role === "[ROLE_OWNER]" &&
+                <div>
+                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
                 </div>
-                <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Ime grupe:</label>
-                            <input
-                                className="form-control"
-                                name="name"
-                                onChange={this.handleChange}
-                            />
+            }
+            <Switch>
+                <Route exact path={path}>
+                <div>
+                    {this.state.data.map((job)=>(
+                        <div>
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{job.name}</p>
+                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
+                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
+                                    <p>{job.description}</p>
+                                    <button
+                                        className="btn btn-danger mb-5"
+                                        onClick={() => handleDelete(job.id)}
+                                    >Obriši
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label">Djelatnost:</label>
-                            <select className="form-select"
-                                    name="jobid"
-                                    onChange={this.handleChange}
-                            >
-                                <option selected disabled>Odaberite djelatnost</option>
-                                {jobslist}
-                            </select>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Voditelj:</label>
-                            <select className="form-select"
-                                    name="leaderid"
-                                    onChange={this.handleChangeLID}
-                            >
-                                <option selected disabled>Odaberite voditelja</option>
-                                {employees}
-                            </select>
-                        </div>
-                        <div className="scroll">
-                            <label className="form-label">Članovi:</label>
-                            <ul>
-                                {emplist}
-                            </ul>
-                        </div>
-                        <button 
-                            type="submit"
-                            className="btn btn-primary mb-5"
-                            onClick={this.handleSubmit}
-                        >
-                            Stvori grupu
-                        </button>
-                    </form>
+                    ))}
                 </div>
-            </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <JobsAdd />
+                </Route>
+            </Switch>
+
+        </div>
         );
     }
 }

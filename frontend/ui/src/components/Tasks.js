@@ -35,7 +35,7 @@ class Tasks extends React.Component {
     }
 
     render () {
-
+        
         let tasks = this.state.tasks.map(task => {
             return (
                 <div className="card mb-3">

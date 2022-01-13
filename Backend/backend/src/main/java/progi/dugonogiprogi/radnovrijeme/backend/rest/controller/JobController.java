@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.DeleteJobDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.JobService;
 
 import java.net.URI;
@@ -34,8 +35,8 @@ public class JobController {
         return ResponseEntity.created(uri).body(jobService.createJob(job));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteJob(@RequestParam Integer id) {
-        return ResponseEntity.ok().body(jobService.deleteJob(id));
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteJob(@RequestBody DeleteJobDTO deleteJobDTO) {
+        return ResponseEntity.ok().body(jobService.deleteJob(deleteJobDTO.getId()));
     }
 }

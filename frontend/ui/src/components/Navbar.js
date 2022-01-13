@@ -20,6 +20,7 @@ import JobsAdd from './JobsAdd';
 import Map from './Map';
 import AddTask from './AddTask';
 import User from '../services/User';
+import MoneyManagement from './MoneyManagement';
 
 function Navbar(props) {
   const logout = () => {
@@ -32,7 +33,7 @@ function Navbar(props) {
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid justify-content-around">
-        <a className="navbar-brand" href="#">Radno vrijeme</a>
+        <a className="navbar-brand" href="/">Radno vrijeme</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -44,11 +45,6 @@ function Navbar(props) {
               </div> */}
             {props.token !== "" &&
               <div className="nav-link">
-                <Link to='/groups'>Grupe</Link>
-              </div>
-            }
-            {props.token !== "" &&
-              <div className="nav-link">
                 <Link to='/tasks'>Zadaci</Link>
               </div>
             }
@@ -57,14 +53,14 @@ function Navbar(props) {
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
             }
+            {props.token !== "" &&
+              <div className="nav-link">
+                <Link to='/moneymanagement'>Upravljanje resursima</Link>
+              </div>
+            }
               <div className="nav-link">
                 <Link to='/jobs'>Djelatnosti</Link>
               </div>
-            {props.token !== "" && 
-              <div className="nav-link">
-                <Link to='/workhoursinput'>Unos radnih sati</Link>
-              </div>
-            }
             {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
@@ -78,6 +74,16 @@ function Navbar(props) {
               {/* <div className="nav-link">
                 <Link to='/moneymanagement'>Moneymanagement</Link>
               </div> */}
+              {props.role !== "[ROLE_OWNER]" && props.token !== "" &&
+              <div className="nav-link">
+                <Link to='/workhoursinput'>Unos radnih sati</Link>
+              </div>
+            }
+            {props.role === "[ROLE_OWNER]" &&
+              <div className="nav-link">
+                <Link to='/groups'>Grupe</Link>
+              </div>
+            }
             {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/register'>Registracija</Link>
@@ -101,16 +107,19 @@ function Navbar(props) {
               <Login setToken={props.setToken} setRole={props.setRole}/>
             </Route>
             <Route path="/groups">
-              <Groups />
+              <Groups role={props.role}/>
             </Route>
             <Route path="/" exact>
               <MainPage />
             </Route>
+            <Route path="/moneymanagement" exact>
+              <MoneyManagement />
+            </Route>
             <Route path="/jobs">
-              <Jobs />
+              <Jobs role={props.role}/>
             </Route>
             <Route path="/jobs/add">
-              <JobsAdd/>
+              <JobsAdd role={props.role} />
             </Route>
             {/* <Route path="/moneymanagement">
               <Moneymanagement />

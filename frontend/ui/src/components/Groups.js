@@ -13,7 +13,7 @@ import {
 //import '../Jobs.css'
 import GroupsAdd from './GroupsAdd';
 
-const Groups = () => {
+const Groups = (props) => {
     const [groups, setGroup] = useState([]);
     let { path, url } = useRouteMatch();
     
@@ -34,14 +34,14 @@ const Groups = () => {
             if(response.ok){
                 return response.json();
             }else{
-                alert("Error in fetching tasks from server");
+                alert("Error in fetching groups from server");
             }
         })
         .then(myGroup => {
             console.log(myGroup);
             setGroup(myGroup);
         }).catch(() => {
-            console.log("error u dohvacanju api u tasks")
+            console.log("error u dohvacanju api u groups")
         });
     }
     try{
@@ -49,7 +49,7 @@ const Groups = () => {
             getJobs();
         },[]);
     }catch(err){
-        console.log("error u tasks");
+        console.log("error u groups");
     }
 
     const handleDelete = async (e) => {
@@ -58,9 +58,9 @@ const Groups = () => {
         myHeaders.append("Accept","application/json");
         const token = authHeader();
         myHeaders.append("Authorization", token);
-        console.log("here");
-        console.log(e);
-        console.log("there");
+        // console.log("here");
+        // console.log(e);
+        // console.log("there");
 
         const body = JSON.stringify({
             groupId: parseInt(e),
@@ -77,17 +77,12 @@ const Groups = () => {
         }).catch((err) => {
             throw err;
         });
-        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     param: body //parseInt(e)
-        // }).then((response) => {
-        //     if(response.ok){
-        //         //this.setState({ success: true });
-        //     }
-        // }).catch((err) => {
-        //     throw err;
-        // });
+        try{
+            getJobs();
+        }catch(err){
+            console.log("error u groups");
+        }
+        
     }
 
     // let keys = Object.keys(groups)
@@ -121,51 +116,50 @@ const Groups = () => {
     
     return (
         <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+        {props.role === "[ROLE_OWNER]" ? 
+            <div className='container'>
+                <br></br>
+                <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
 
             <Switch>
                 <Route exact path={path}>
                 <div>
                     {/* {keyslist.map((k)=>(k))} */}
                     {groups.map((gr)=>
-                        <div className="container">
+                    <div>
                         <div className="card">
                             <div className="card-body">
                                 <p className="h5">{gr.name}</p>
                                 <p>Djelatnost: {gr.job.name}</p>
                                 <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
-                                <p>Članovi: 
+                                <span>Članovi: 
                                     <ul>
-                                    {gr.members.map((mem)=>
-                                        <li>{mem.name} {mem.surname}</li>                    
-                                    )}
+                                        {gr.members.map( (mem)=>
+                                            <li>{mem.name} {mem.surname}</li>                    
+                                        )}
                                     </ul>
-                                </p>
+                                </span>
                                 <button
                                     className="btn btn-danger mb-5"
                                     onClick={() => handleDelete(gr.id)}
                                 >Obriši</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    
                     )}
-
-                    
-                    
                 </div>
                 </Route>
                 <Route path={`${path}/add`}>
                     <GroupsAdd />
                 </Route>
             </Switch>
-
-            {/* <li>Pozdrav iz groups stranice</li>
-            {group && (group.length > 1) ?
-                group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
-            } */}
+            </div>
+        :
+        <div className='container d-flex justify-content-center'>
+            <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+        </div>}
         </div>
-        
     ); 
     
 };

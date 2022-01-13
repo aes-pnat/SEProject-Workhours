@@ -4,6 +4,7 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
 class GroupsAdd extends React.Component {
+
     state = {
         name: '',
         leaderid: '',
@@ -14,6 +15,7 @@ class GroupsAdd extends React.Component {
         jobs:[],
         success: null,
     }
+
 
     componentDidMount = async () => {
         const myHeaders = new Headers();
@@ -100,6 +102,8 @@ class GroupsAdd extends React.Component {
         }).then((response) => {
             if(response.ok){
                 this.setState({ success: true });
+            } else {
+                this.setState({ success: false });
             }
         }).catch((err) => {
             throw err;
@@ -165,6 +169,12 @@ class GroupsAdd extends React.Component {
                     Grupa je stvorena
                 </div>
             );
+        } else if(this.state.success==false){
+            messageBox = (
+                <div className="alert alert-danger">
+                    Neispravan unos grupe
+                </div>
+            );
         }
 
         //console.log(employees)
@@ -173,7 +183,9 @@ class GroupsAdd extends React.Component {
             
             
             <div className="container mt-5">
-                <div className="h3 mb-3">Stvaranje grupe</div>
+                {this.props.role === "[ROLE_OWNER]" ?
+                    <div>
+                        <div className="h3 mb-3">Stvaranje grupe</div>
                 <div className="container">
                     {messageBox}
                 </div>
@@ -222,6 +234,13 @@ class GroupsAdd extends React.Component {
                         </button>
                     </form>
                 </div>
+                    </div>
+                :
+                <div className='d-flex justify-content-center alert alert-danger'>
+                    <h2>Nedovoljne ovlasti za dodavanje grupa!</h2>
+                </div>
+            }
+                
             </div>
         );
     }

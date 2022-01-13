@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
+import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.JobService;
@@ -22,6 +22,18 @@ public class JobServiceJpa implements JobService {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
+
+    @Autowired
+    private EmployeegroupRepository employeegroupRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private EmployeetaskRepository employeetaskRepository;
 
     @Override
     public List<Job> listAll() {
@@ -44,6 +56,27 @@ public class JobServiceJpa implements JobService {
             throw new EntityMissingException("Job with id " + id + " does not exist");
         }
         log.info("{}: Deleting job successful: Deleted job with id: {}", user, id);
+        Optional<List<Group>> groups = groupRepository.findByIdjob(job.get());
+        if (groups.isPresent()) {
+            for (Group g : groups.get()) {
+                for (Employeegroup eg : employeegroupRepository.findAll()) {
+                    if (eg.getId().getIdgroup() == g.getId())
+                        employeegroupRepository.delete(eg);
+                }
+                groupRepository.delete(g);
+            }
+        }
+        Optional<List<Task>> tasks = taskRepository.findByIdjob_Id(id);
+        if (tasks.isPresent()) {
+            for (Task t : tasks.get()) {
+                for (Employeetask et : employeetaskRepository.findAll()) {
+                    if (et.getId().getIdtask() == t.getId()) {
+                        employeetaskRepository.delete(et);
+                    }
+                }
+                taskRepository.delete(t);
+            }
+        }
         jobRepository.deleteById(id);
         return id;
     }
