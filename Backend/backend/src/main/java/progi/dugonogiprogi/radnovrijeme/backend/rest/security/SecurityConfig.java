@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.cors();
-        http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.sessionManagement().sessionCreationPolicy(STATELESS);/*
         http.authorizeRequests().antMatchers("/login","/jobs").permitAll();
         http.authorizeRequests().antMatchers(POST, "/jobs/**").hasAuthority("ROLE_OWNER");
         http.authorizeRequests().antMatchers(DELETE, "/jobs/**").hasAuthority("ROLE_OWNER");
@@ -55,7 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers(POST, "/workhoursinput").hasAnyAuthority("ROLE_EMPLOYEE", "ROLE_LEADER");
         http.authorizeRequests().antMatchers(GET, "/tasks", "/tasks/add").hasAuthority("ROLE_LEADER");
         http.authorizeRequests().antMatchers(POST, "/tasks/add").hasAuthority("ROLE_LEADER");
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();*/
+
+        http.authorizeRequests().anyRequest().permitAll();
 
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
