@@ -120,7 +120,7 @@ const Groups = () => {
             <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
 
             <Switch>
-                <Route exact path={path} onClick={getJobs}>
+                <Route exact path={path}>
                 <div>
                     {/* {keyslist.map((k)=>(k))} */}
                     {groups.map((gr)=>
