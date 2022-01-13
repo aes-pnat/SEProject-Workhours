@@ -98,6 +98,8 @@ public class GroupServiceJpa implements GroupService {
             employeegroupRepository.save(employeegroup);
         }
 
+        log.info("{}: Creating group successful: Created group with id {}", user, newGroup.getId());
+
         return groupRepository.findByName(newGroup.getName()).get();
     }
 
@@ -110,6 +112,7 @@ public class GroupServiceJpa implements GroupService {
             throw new MissingGroupException("Group with id " + groupId + " does not exist");
         }
 
+        log.info("{}: Deleting group successful: Deleted group with id {}", user, groupId);
         groupRepository.deleteById(groupId);
         return groupId;
     }

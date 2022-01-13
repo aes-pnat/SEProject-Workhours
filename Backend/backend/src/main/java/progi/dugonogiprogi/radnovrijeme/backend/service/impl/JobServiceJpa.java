@@ -27,13 +27,15 @@ public class JobServiceJpa implements JobService {
 
     @Override
     public Job createJob(Job job) {
+        String user = BackendApplication.getUser();
+        log.info("{}: Creating job successful: Created job with id {}", user, job.getId());
         return jobRepository.save(job);
     }
 
     @Override
     public Integer deleteJob(Integer id) {
         String user = BackendApplication.getUser();
-        log.info("{}: Deleted job with id: {}", user, id);
+        log.info("{}: Deleting job successful: Deleted job with id: {}", user, id);
         jobRepository.deleteById(id);
         return id;
     }
