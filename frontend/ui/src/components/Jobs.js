@@ -10,7 +10,7 @@ import {
 import authHeader from '../services/auth-header';
 //import '../Jobs.css';
 import JobsAdd from './JobsAdd';
-//import jobs from './json_ph/jobs.json'
+import Backvid from './video/background.mp4';
 const Jobs = (props) => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
@@ -100,7 +100,7 @@ const Jobs = (props) => {
                 <Route exact path={path}>
                 <div>
                     {data.map((job)=>(
-                        <div>
+                        <div className="container">
                             <div className="card">
                                 <div className="card-body">
                                     <p className="h5">{job.name}</p>
@@ -121,9 +121,12 @@ const Jobs = (props) => {
                     ))}
                 </div>
                 </Route>
-                <Route path={`${path}/add`}>
-                    <JobsAdd />
-                </Route>
+                {props.role === "[ROLE_OWNER]" &&
+                    <Route path={`${path}/add`}>
+                        <JobsAdd />
+                    </Route>
+                }
+                
             </Switch>
 
         </div>
