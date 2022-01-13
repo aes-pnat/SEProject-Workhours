@@ -1,8 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
-
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class AddGroupDTO {
     //@Size(min = 11, max = 11, message = "Member pid should be 11 characters long.")
     List<String> idMembers;
 
-    @NotEmpty(message = "Job must be added.")
+    @NotNull(message = "Job must be added.")
     Integer idJob;
 
     public String getGroupName() {
