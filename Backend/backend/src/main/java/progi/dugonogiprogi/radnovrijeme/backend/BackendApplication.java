@@ -22,6 +22,6 @@ public class BackendApplication {
 	public static String getUser() {
 		return SecurityContextHolder.getContext().getAuthentication() != null
 				? SecurityContextHolder.getContext().getAuthentication().getName()
-				: "User";
+				: "Guest";
 	}
 }
