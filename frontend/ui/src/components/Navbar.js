@@ -10,7 +10,7 @@ import Groups from './Groups';
 import Jobs from './Jobs';
 import Tasks from './Tasks';
 import Login from './Login';
-import Moneymanagement from './Moneymanagement';
+//import Moneymanagement from './Moneymanagement';
 import Register from './Register';
 import Occupancy from './Occupancy';
 import WorkHoursInput from './WorkHoursInput';
@@ -19,8 +19,15 @@ import MainPage from './MainPage';
 import JobsAdd from './JobsAdd';
 import Map from './Map';
 import AddTask from './AddTask';
+import User from '../services/User';
 
-function Navbar() {
+function Navbar(props) {
+  const logout = () => {
+    User.removeToken();
+    User.removeRole();
+    props.setToken('');
+    props.setRole('');
+  }
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,50 +38,73 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse justify-content-around" id="navbarNavAltMarkup">
             <div className="navbar-nav justify-content-around">
-              <div className="nav-link">
+              
               {/* <div className="nav-link">
                 <Link to='/'>Main page</Link>
               </div> */}
-                <Link to='/groups'>Groups</Link>
-              </div>
+            {props.token !== "" &&
               <div className="nav-link">
-                <Link to='/jobs'>Jobs</Link>
+                <Link to='/groups'>Grupe</Link>
               </div>
-              
+            }
+            {props.token !== "" &&
               <div className="nav-link">
-                <Link to='/moneymanagement'>Moneymanagement</Link>
+                <Link to='/tasks'>Zadaci</Link>
               </div>
-              <div className="nav-link">
-                <Link to='/tasks'>Tasks</Link>
-              </div>
-              <div className="nav-link">
-                <Link to='/login'>Log In</Link>
-              </div>
-              <div className="nav-link">
-                <Link to='/register'>Registracija</Link>
-              </div>
+            }
+            {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
+            }
+              <div className="nav-link">
+                <Link to='/jobs'>Djelatnosti</Link>
+              </div>
+            {props.token !== "" && 
               <div className="nav-link">
                 <Link to='/workhoursinput'>Unos radnih sati</Link>
               </div>
+            }
+            {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
+            }
+            {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/map'>Karta</Link>
               </div>
+            }
+              {/* <div className="nav-link">
+                <Link to='/moneymanagement'>Moneymanagement</Link>
+              </div> */}
+            {props.role === "[ROLE_OWNER]" &&
+              <div className="nav-link">
+                <Link to='/register'>Registracija</Link>
+              </div>
+            }
+            {props.token !== "" ?
+              <div className="nav-link">
+                <Link to='/login' onClick={logout}>Odjava</Link>
+              </div>
+              :
+              <div className="nav-link">
+                <Link to='/login'>Prijava</Link>
+              </div>
+            }
             </div>
           </div>
         </div>
       </nav>
       <Switch>
             <Route path="/login">
-              <Login />
+              <Login setToken={props.setToken} setRole={props.setRole}/>
             </Route>
             <Route path="/groups">
               <Groups />
+            </Route>
+            <Route path="/" exact>
+              <MainPage />
             </Route>
             <Route path="/jobs">
               <Jobs />
@@ -82,9 +112,9 @@ function Navbar() {
             <Route path="/jobs/add">
               <JobsAdd/>
             </Route>
-            <Route path="/moneymanagement">
+            {/* <Route path="/moneymanagement">
               <Moneymanagement />
-            </Route>
+            </Route> */}
             <Route path="/tasks" exact component={Tasks}>
               <Tasks />
             </Route>

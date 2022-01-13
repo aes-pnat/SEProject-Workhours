@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom';
 import AddTask from './AddTask';
-
+import authHeader from '../services/auth-header';
 class Tasks extends React.Component {
     state = {
         HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
@@ -12,6 +12,8 @@ class Tasks extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader='
              + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
@@ -27,6 +29,8 @@ class Tasks extends React.Component {
                     task: this.state.tasks.push(task)
                 });
             });
+        }).catch(error => {
+            console.log(error);
         });
     }
 

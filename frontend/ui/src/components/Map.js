@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Map.css'
-
+import authHeader from '../services/auth-header';
 class Map extends React.Component {
     mapRef = React.createRef();
 
@@ -14,7 +14,9 @@ class Map extends React.Component {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         await fetch(process.env.REACT_APP_BACKEND_URL + '/map', {
             method: 'GET',
             headers: myHeaders

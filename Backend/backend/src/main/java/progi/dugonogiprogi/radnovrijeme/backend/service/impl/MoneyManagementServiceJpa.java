@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
-import progi.dugonogiprogi.radnovrijeme.backend.service.MoneyManagementService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MoneyManagementService;
 
 import java.util.LinkedList;
 import java.util.List;

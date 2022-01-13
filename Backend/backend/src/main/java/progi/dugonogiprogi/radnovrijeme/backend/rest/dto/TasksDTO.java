@@ -3,11 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Location;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
-
-import java.awt.*;
 import java.time.Instant;
-import java.util.List;
 
 /**
  * Data transfer object that stores all tasks from a group of one employee.

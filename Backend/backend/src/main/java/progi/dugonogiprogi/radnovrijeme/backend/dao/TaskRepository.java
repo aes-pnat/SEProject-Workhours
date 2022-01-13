@@ -2,8 +2,6 @@ package progi.dugonogiprogi.radnovrijeme.backend.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Employeegroup;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Location;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 
 import java.util.List;
@@ -16,7 +14,7 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
 
-    Optional<Task> findByIdlocation_Id(Integer id);
+    Optional<List<Task>> findByIdlocation_Id(Integer id);
 
     Optional<List<Task>> findByIdjob_Id(Integer idjob);
 }

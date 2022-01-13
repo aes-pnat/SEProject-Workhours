@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
@@ -8,7 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
-import progi.dugonogiprogi.radnovrijeme.backend.service.MyDataService;
+import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MyDataService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,7 +64,8 @@ public class MyDataServiceJpa implements MyDataService {
 
 
     @Override
-    public MyDataDTO myData(String username) {
+    public MyDataDTO myData(String uselessUsername) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         MyDataDTO myData = new MyDataDTO();
         Optional<Employee> employee = employeeRepository.findByUsername(username);
         if(!employee.isPresent()){

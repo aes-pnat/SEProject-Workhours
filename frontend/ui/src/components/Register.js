@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Register.css';
-
+import authHeader from '../services/auth-header';
 
 class Register extends React.Component {
     state = {
@@ -36,7 +36,9 @@ class Register extends React.Component {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
         this.setState({ responseMsg: '', error: null });
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/register', {

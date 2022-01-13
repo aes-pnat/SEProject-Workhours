@@ -8,7 +8,7 @@ import {
     Link,
     useRouteMatch
   } from 'react-router-dom';
-import '../Jobs.css';
+//import '../Jobs.css';
 import JobsAdd from './JobsAdd';
 //import jobs from './json_ph/jobs.json'
 const Jobs = () => {
@@ -19,7 +19,7 @@ const Jobs = () => {
 
 
     //var API_URI = "https://radno-vrijeme-app.herokuapp.com/jobs";
-    var API_URI = 'http://localhost:8080/jobs'
+    var API_URI = process.env.REACT_APP_BACKEND_URL + '/jobs';
     
     const myHeaders = new Headers();
 	myHeaders.append("Content-Type","application/json");

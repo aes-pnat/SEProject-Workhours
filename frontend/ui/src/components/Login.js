@@ -1,76 +1,60 @@
-import ReactDOM from 'react-dom';
-import {useState} from 'react';
-import '../Login.css';
-import '../Navbar.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
-import Register from './Register';
+import React, {useState} from 'react';
+//import {Redirect} from "react-router-dom";
+import User from "../services/User"
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+const Login = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
+    let history = useHistory();
+    
+    useEffect( () => {
+        if(redirect) history.push("/");
+    }, [redirect]);
 
-function Login(){
-    const [inputs, setInputs] = useState({});
+    const submit = async (e) => {
+        e.preventDefault();
 
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]:value}))
-    }
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const username = inputs.username;
-        const password = inputs.password;
-        const credentials = {username, password};	
-		const authdata = window.btoa(username + ':' + password);
-
-		//const LOGIN_URL = 'http://localhost:8080/login';
-        const LOGIN_URL = 'https://radno-vrijeme-app.herokuapp.com/login'
-        
-		const myHeaders = new Headers();
-		myHeaders.append("Content-Type","application/json");
-        myHeaders.append("Accept","application/json");
-		myHeaders.append("Authorization", "Basic " + authdata);
-
-        await fetch(LOGIN_URL,{
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/login', {
             method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify(credentials)
-        }).then((response) => {
-            if(response.ok){
-                alert("successful login");
-                console.log("success");
-            }else{
-                alert("failed login");
-                console.log(response);
+            headers: {'Content-Type': 'application/json'},
+            //credentials: 'include',
+            body: JSON.stringify({
+                username,
+                password
+            })
+        }).then((data) => {
+            //console.log(data.headers.get("accessToken"));
+            if(data && data.headers && data.headers.get("accessToken")){
+                User.saveToken(data.headers.get("accessToken"));
+                props.setToken(data.headers.get("accessToken"));
+                User.saveRole(data.headers.get("roles"));
+                props.setRole(data.headers.get("roles"))
+                setRedirect(true);
             }
-        }).catch(() =>{
-            console.log("error fetching");
+        }).catch( (error) => {
+            console.log("Error u login fetchu");
+            console.log(error);
         });
-      }
+    }
+
+    
+
     return (
-        <div className="container">
-            <div className="container login-card">
-                <form onSubmit={handleSubmit}>
-                    <div className='mb-3'>
-                        <label className="form-label">Korisničko ime:</label>
-                        <input type="text" className="form-control" name="username" 
-                                            value={inputs.username || ""} 
-                                            onChange={handleChange} />
-                    </div>
-                    <div className='mb-3'>
-                        <label className="form-label">Zaporka:</label>
-                        <input type="password" className="form-control" name="password"
-                                            value={inputs.password || ""}
-                                            onChange={handleChange} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Prijavi se</button>
-                </form>
-            </div>
-        </div>
-    )
+        <form onSubmit={submit} className="centered">
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <input type="text" className="form-control" placeholder="Username" required
+                   onChange={e => setUsername(e.target.value)}
+            />
+
+            <input type="password" className="form-control" placeholder="Password" required
+                   onChange={e => setPassword(e.target.value)}
+            />
+
+            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
+    );
 };
+
 export default Login;

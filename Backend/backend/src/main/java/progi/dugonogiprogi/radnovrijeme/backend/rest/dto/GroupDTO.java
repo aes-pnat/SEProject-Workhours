@@ -1,6 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import org.springframework.validation.annotation.Validated;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Employee;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
 
@@ -18,7 +17,7 @@ public class GroupDTO {
     @NotEmpty(message = "Group leader should be selected.")
     Employee leader;
 
-    Job idJob;
+    Job job;
 
     @NotEmpty(message = "At least one employee should be selected.")
     List<Employee> members;
@@ -47,12 +46,12 @@ public class GroupDTO {
         this.leader = leader;
     }
 
-    public Job getIdJob() {
-        return idJob;
+    public Job getJob() {
+        return job;
     }
 
-    public void setIdJob(Job idJob) {
-        this.idJob = idJob;
+    public void setJob(Job idJob) {
+        this.job = idJob;
     }
 
     public List<Employee> getMembers() {

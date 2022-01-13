@@ -1,9 +1,5 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
-import progi.dugonogiprogi.radnovrijeme.backend.domain.Location;
-
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

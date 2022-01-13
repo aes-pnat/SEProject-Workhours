@@ -2,23 +2,27 @@ import React from 'react'
 import Select from 'react-select';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import authHeader from '../services/auth-header';
 class GroupsAdd extends React.Component {
     state = {
-        HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
-        employee: '',
-        date: '',
-        hoursDone: '',
+        name: '',
+        leaderid: '',
+        employeesids: [],
+        employeesList:[],
+        employeesWoLeader:[],
+        jobid:'',
+        jobs:[],
         success: null,
-        employeesList: []
     }
 
     componentDidMount = async () => {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy?idEmployee='
-            + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/occupancy', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -27,29 +31,69 @@ class GroupsAdd extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ employeesList: jsonResponse });
+            this.setState({ employeesWoLeader: jsonResponse });
+        })
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs', {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ jobs: jsonResponse });
         })
     }
+    
 
     handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value });
+        console.log(name , value);
+        
+    }
+
+    handleChangeLID = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({ [name]: value });
+        let removeleader = this.state.employeesList.filter ( a => a.id != value);
+        this.setState({ employeesWoLeader: removeleader });
+    }
+
+    
+
+    handleChangeArray = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        //const newempid = this.state.employeesids;
+        this.setState(previousState => ({
+            employeesids: [...previousState.employeesids, value]
+        }));
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
+        
         const body = JSON.stringify({
-            employee: this.state.employee,
-            date: this.state.date,
-            hoursDone: this.state.hoursDone,
-            idEmployee: this.state.HARDKODIRANI_ID_PROMIJENITI_OVO
+            groupName: this.state.name,
+            idLeader: this.state.leaderid,
+            idMembers: this.state.employeesids,
+            idJob: this.state.jobid,
         });
+        console.log("almost");
+        console.log(body);
+        console.log("did it");
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
-
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups', {
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/add', {
             method: 'POST',
             headers: myHeaders,
             body: body
@@ -63,30 +107,52 @@ class GroupsAdd extends React.Component {
     }
 
     render () {
+        //console.log('here');
+        //console.log(this.state.jobs);
+        //console.log('done');
         let employees;
         if (this.state.employeesList.length === 0) {
             employees = (
-                <option disabled>Nema zaposlenika</option>
+                <option disabled>Nema zaposlenika za voditelja</option>
             );
         } else {
             employees = this.state.employeesList.map(employee => {
                 return (
-                    <option key={employee.name} value={employee.name}>{employee.name}</option>
+                    <option key={employee.name} value={employee.id}>{employee.name}</option>
+                );
+            })
+        }
+
+        let jobslist;
+        if (this.state.jobs.length === 0) {
+            jobslist = (
+                <option disabled>Nema djelatnosti</option>
+            );
+        } else {
+            jobslist = this.state.jobs.map(job => {
+                return (
+                    <option key={job.id} value={job.id}>{job.name}</option>
                 );
             })
         }
 
         let emplist=[];
-        if (this.state.employeesList.length === 0) {
+        if (this.state.employeesWoLeader.length === 0) {
             emplist = (
                 <li>Nema zaposlenika</li>
             );
         } else {
-            emplist = this.state.employeesList.map(employee => {
+            emplist = this.state.employeesWoLeader.map(employee => {
                 return (
-                    <div>
-                    
-                    <li key={employee.name} value={employee.name}>{employee.name}  <input value={employee.name} type="checkbox" />  </li>
+                    <div>                    
+                    <li key={employee.name} value={employee.id}>   
+                        <input
+                            name="employeesids"
+                            value={employee.id} 
+                            type="checkbox" 
+                            onChange={this.handleChangeArray}
+                        />   {employee.name}    
+                    </li>
                     </div>
                 );
             })
@@ -101,7 +167,7 @@ class GroupsAdd extends React.Component {
             );
         }
 
-        console.log(employees)
+        //console.log(employees)
 
         return (
             
@@ -117,21 +183,32 @@ class GroupsAdd extends React.Component {
                             <label className="form-label">Ime grupe:</label>
                             <input
                                 className="form-control"
-                                name="groupName"
+                                name="name"
                                 onChange={this.handleChange}
                             />
                         </div>
                         <div className="mb-3">
+                            <label className="form-label">Djelatnost:</label>
+                            <select className="form-select"
+                                    name="jobid"
+                                    onChange={this.handleChange}
+                            >
+                                <option selected disabled>Odaberite djelatnost</option>
+                                {jobslist}
+                            </select>
+                        </div>
+                        <div className="mb-3">
                             <label className="form-label">Voditelj:</label>
                             <select className="form-select"
-                                    name="employee"
-                                    onChange={this.handleChange}
+                                    name="leaderid"
+                                    onChange={this.handleChangeLID}
                             >
                                 <option selected disabled>Odaberite voditelja</option>
                                 {employees}
                             </select>
                         </div>
                         <div className="scroll">
+                            <label className="form-label">Članovi:</label>
                             <ul>
                                 {emplist}
                             </ul>
