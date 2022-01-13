@@ -6,9 +6,12 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Job;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.JobService;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Provide some functionalities regarding jobs.
@@ -35,6 +38,11 @@ public class JobServiceJpa implements JobService {
     @Override
     public Integer deleteJob(Integer id) {
         String user = BackendApplication.getUser();
+        Optional<Job> job = jobRepository.findById(id);
+        if(job.isEmpty()) {
+            log.error("{}: Deleting job failed: Job with id {} does not exist", user, id);
+            throw new EntityMissingException("Job with id " + id + " does not exist");
+        }
         log.info("{}: Deleting job successful: Deleted job with id: {}", user, id);
         jobRepository.deleteById(id);
         return id;
