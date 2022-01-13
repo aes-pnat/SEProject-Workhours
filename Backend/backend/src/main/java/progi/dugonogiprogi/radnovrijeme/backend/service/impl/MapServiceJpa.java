@@ -1,7 +1,9 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.LocationRepository;
@@ -15,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class MapServiceJpa implements MapService {
 
@@ -32,7 +35,6 @@ public class MapServiceJpa implements MapService {
 
     @Override
     public List<LocationDataDTO> showLocationData() {
-
         List<LocationDataDTO> list = new LinkedList<>();
         LocationDataDTO dataDTO;
 
@@ -46,14 +48,14 @@ public class MapServiceJpa implements MapService {
                     dataDTO.setStartDateAndTime(t.getDatetimestart());
                     dataDTO.setEndDateAndTime(t.getDatetimeend());
                     Optional<List<Employeetask>> employeetask = employeetaskRepository.findById_Idtask(t.getId());
-                    if(!employeetask.isPresent()) {
-                        throw new MissingEmployeeException("No employees were given task with id "+t.getId());
+                    if(employeetask.isEmpty()) {
+                        throw new MissingEmployeeException("No employees were given task with id " + t.getId());
                     }
                     for(Employeetask et : employeetask.get()){
                         String idEmployee = et.getId().getIdemployee();
                         Optional<Employee> employee = employeeRepository.findById(et.getId().getIdemployee());
-                        if(!employee.isPresent()){
-                            throw new MissingEmployeeException("Employee with id "+idEmployee+"doesn't exist");
+                        if(employee.isEmpty()){
+                            throw new MissingEmployeeException("Employee with id " + idEmployee + "doesn't exist");
                         }
                         dataDTO.setEmployeeName(employee.get().getName());
                         dataDTO.setEmployeeSurname(employee.get().getSurname());
