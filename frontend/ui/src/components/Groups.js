@@ -90,10 +90,10 @@ const Groups = () => {
         // });
     }
 
-    let keys = Object.keys(groups)
-    console.log('here')
-    console.log(keys)
-    let keyslist =[]
+    // let keys = Object.keys(groups)
+    // console.log('here')
+    // console.log(keys)
+    // let keyslist =[]
     // keys.forEach( (key) =>(
     //     keyslist.push(
     //         <div className="container">
