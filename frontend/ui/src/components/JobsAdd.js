@@ -12,6 +12,7 @@ class JobsAdd extends React.Component {
         price: '',
         hourprice: '',
         description: '',
+        success: null,
 
     }
 
@@ -68,7 +69,7 @@ class JobsAdd extends React.Component {
             body: body
         }).then((response) => {
             if(response.ok){
-                // this.setState({ success: true });
+                this.setState({ success: true });
             }
         }).catch((err) => {
             throw err;
@@ -76,11 +77,30 @@ class JobsAdd extends React.Component {
     }
 
     render () {
+
+        let messageBox = '';
+        if (this.state.success) {
+            messageBox = (
+                <div className="alert alert-success">
+                    Djelatnost je stvorena
+                </div>
+            );
+        } else if(this.state.success==false){
+            messageBox = (
+                <div className="alert alert-danger">
+                    Neispravan unos djelatnosti
+                </div>
+            );
+        }
+        
         
 
         return (
             <div className="container mt-5">
                 <div className="h3 mb-3">Dodavanje nove djelatnosti</div>
+                <div className="container">
+                    {messageBox}
+                </div>
                 <div className="row">
                     <form onSubmit={this.handleSubmit}>
                         <div className="mb-3">

@@ -5,7 +5,7 @@ const MainPage = () => {
         <div>
             <div class="align-top"></div>
             <div class="align-middle">
-                <h1 class="text-center">Radno vrijeme&copy; by Mi puno radimo </h1>
+                <p class="text-center h1">Radno vrijeme&copy; by Mi puno radimo </p>
             </div>
         </div>
     )
