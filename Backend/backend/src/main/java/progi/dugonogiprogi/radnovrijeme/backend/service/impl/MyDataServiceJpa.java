@@ -5,12 +5,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupTaskDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MyDataDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingGroupException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MyDataService;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -77,12 +79,7 @@ public class MyDataServiceJpa implements MyDataService {
         myData.setSurname(e.getSurname());
         myData.setPid(e.getId());
         myData.setEmail(e.getEmail());
-        Optional<Role> role = roleRepository.findById(e.getIdrole().getId());
-        if(!role.isPresent()) {
-            throw new NoSuchElementException("Role with id "+e.getIdrole().getId()+"does not exist");
-        }
-        Role myRole = role.get();
-        myData.setRoleName(myRole.getName());
+        myData.setRoleName(e.getIdrole().getName());
         Optional<List<Employeegroup>> employeegroupList = employeegroupRepository.findById_Idemployee(myData.getPid());
         if(!employeegroupList.isPresent()) {
             throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
@@ -110,7 +107,7 @@ public class MyDataServiceJpa implements MyDataService {
             throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
         }
         List<Employeetask> employeetasks = employeetaskList.get();
-        List<Task> listaTaskova = new LinkedList<>();
+        List<GroupTaskDTO> listaTaskova = new LinkedList<>();
         for(Employeetask et : employeetasks){
             int taskId = et.getId().getIdtask();
             Optional<Task> task = taskRepository.findById(taskId);
@@ -118,7 +115,28 @@ public class MyDataServiceJpa implements MyDataService {
                 throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
             }
             Task t = task.get();
-            listaTaskova.add(t);
+            GroupTaskDTO dto = new GroupTaskDTO();
+            dto.setTask(t);
+            Optional<List<Employeegroup>> employeegroup = employeegroupRepository.findById_Idemployee(myData.getPid());
+            if(employeegroup.isPresent()){
+                for(Employeegroup eg : employeegroup.get()) {
+                    Optional<Group> grupa = groupRepository.findById(eg.getId().getIdgroup());
+                    if(grupa.isPresent()){
+                        if(grupa.get().getIdjob().equals(t.getIdjob())){
+                            dto.setGroup(grupa.get());
+                        }
+                    }
+                }
+            }
+            //System.out.println(myData.getPid());
+            for(Group grupa : groupRepository.findAll()){
+                if(grupa.getIdleader().getId().equals(myData.getPid())
+                    && grupa.getIdjob().equals(dto.getTask().getIdjob())){
+                    dto.setGroup(grupa);
+                }
+            }
+            listaTaskova.add(dto);
+
 
         }
         myData.setTasks(listaTaskova);
