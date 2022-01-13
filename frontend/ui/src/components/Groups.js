@@ -13,7 +13,7 @@ import {
 //import '../Jobs.css'
 import GroupsAdd from './GroupsAdd';
 
-const Groups = () => {
+const Groups = (props) => {
     const [groups, setGroup] = useState([]);
     let { path, url } = useRouteMatch();
     
@@ -115,9 +115,10 @@ const Groups = () => {
     // ))
     
     return (
-        <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+        props.role === "[ROLE_OWNER]" ? 
+            <div className='container'>
+                <br></br>
+                <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
 
             <Switch>
                 <Route exact path={path} onClick={getJobs}>
@@ -132,35 +133,29 @@ const Groups = () => {
                                 <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
                                 <p>Članovi: 
                                     <ul>
-                                    {gr.members.map((mem)=>
-                                        <li>{mem.name} {mem.surname}</li>                    
-                                    )}
+                                        {gr.members.map( (mem)=>
+                                            <li>{mem.name} {mem.surname}</li>                    
+                                        )}
                                     </ul>
-                                </p>
+                                </div>
                                 <button
                                     className="btn btn-danger mb-5"
                                     onClick={() => handleDelete(gr.id)}
                                 >Obriši</button>
                             </div>
                         </div>
+                        )}
                     </div>
-                    )}
-
-                    
-                    
-                </div>
-                </Route>
-                <Route path={`${path}/add`}>
-                    <GroupsAdd />
-                </Route>
-            </Switch>
-
-            {/* <li>Pozdrav iz groups stranice</li>
-            {group && (group.length > 1) ?
-                group.map((item) => <li>{item.pid}</li>) : <li>Ime grupe: {group.name}</li>
-            } */}
+                    </Route>
+                    <Route path={`${path}/add`}>
+                        <GroupsAdd />
+                    </Route>
+                </Switch>
+            </div>
+        :
+        <div className='container d-flex justify-content-center'>
+            <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
         </div>
-        
     ); 
     
 };

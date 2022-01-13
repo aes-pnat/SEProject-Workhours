@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
     Routes,
@@ -12,7 +11,7 @@ import authHeader from '../services/auth-header';
 //import '../Jobs.css';
 import JobsAdd from './JobsAdd';
 //import jobs from './json_ph/jobs.json'
-const Jobs = () => {
+const Jobs = (props) => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
 
@@ -88,22 +87,18 @@ const Jobs = () => {
     },[])
     
     return (
-        <div>
-            <br></br>
-            <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+        <div className='container'>
+            <br />
+            {props.role === "[ROLE_OWNER]" &&
+                <div>
+                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+                </div>
+            }
             <Switch>
                 <Route exact path={path}>
                 <div>
-                    {/* {data && (data.length > 1) ?
-                        data.map((item) => <li>{item.name}</li>) : <li>Podatak: {data.name}</li>
-                    } */}
-                    {/* <div className="App">
-                        {
-                        data && data.length>0 && data.map((item)=><p>{item.name}</p>)
-                        }
-                    </div> */}
                     {data.map((job)=>(
-                        <div className="container">
+                        <div>
                             <div className="card">
                                 <div className="card-body">
                                     <p className="h5">{job.name}</p>
@@ -118,7 +113,6 @@ const Jobs = () => {
                                 </div>
                             </div>
                         </div>
-
                     ))}
                 </div>
                 </Route>

@@ -3,6 +3,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
@@ -63,10 +64,11 @@ public class GroupServiceJpa implements GroupService {
 
     @Override
     public Group createGroup(AddGroupDTO group) {
+        String user = BackendApplication.getUser();
         Group newGroup = new Group();
 
         if (groupRepository.findByName(group.getGroupName()).isPresent()) {
-            log.error("Group with name {} already exists", group.getGroupName());
+            log.error("{}: Creating group failed: Group with name {} already exists", user, group.getGroupName());
             throw new IllegalArgumentException("Group with name " + group.getGroupName() + " already exists");
         }
 
@@ -77,7 +79,7 @@ public class GroupServiceJpa implements GroupService {
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
         if(leader.isEmpty()) {
-            log.error("Employee with pid {} does not exist", group.getIdLeader());
+            log.error("{}: Creating group failed: Employee with pid {} does not exist", user, group.getIdLeader());
             throw new IllegalArgumentException("Employee with pid " + group.getIdLeader() + " does not exist");
         }
 
@@ -88,7 +90,7 @@ public class GroupServiceJpa implements GroupService {
         for(String idMember : group.getIdMembers()) {
             Optional<Employee> e = employeeRepository.findById(idMember);
             if(e.isEmpty()) {
-                log.error("Employee with pid {} does not exist", idMember);
+                log.error("{}: Creating group failed: Employee with pid {} does not exist", user, idMember);
                 throw new IllegalArgumentException("Employee with pid " + idMember + " does not exist");
             }
 
@@ -104,17 +106,21 @@ public class GroupServiceJpa implements GroupService {
             employeegroupRepository.save(employeegroup);
         }
 
+        log.info("{}: Creating group successful: Created group with id {}", user, newGroup.getId());
+
         return groupRepository.findByName(newGroup.getName()).get();
     }
 
     @Override
     public Integer deleteGroup(Integer groupId) {
+        String user = BackendApplication.getUser();
         Optional<Group> group = groupRepository.findById(groupId);
         if(group.isEmpty()) {
-            log.error("Group with id {} does not exist", groupId);
+            log.error("{}: Deleting group failed: Group with id {} does not exist", user, groupId);
             throw new MissingGroupException("Group with id " + groupId + " does not exist");
         }
 
+        log.info("{}: Deleting group successful: Deleted group with id {}", user, groupId);
         groupRepository.deleteById(groupId);
         return groupId;
     }

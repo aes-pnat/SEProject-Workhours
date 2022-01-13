@@ -72,7 +72,8 @@ class JobsAdd extends React.Component {
                 this.setState({ success: true });
             }
         }).catch((err) => {
-            throw err;
+            console.log("Error prilikom POST-a serveru:")
+            console.log(err);
         });
     }
 
@@ -141,8 +142,7 @@ class JobsAdd extends React.Component {
                         <button 
                             type="submit"
                             className="btn btn-primary mb-5"
-                            onClick={this.handleSubmit}
-                        >
+                            onClick={this.handleSubmit}>
                             Dodaj
                         </button>
                     </form>
