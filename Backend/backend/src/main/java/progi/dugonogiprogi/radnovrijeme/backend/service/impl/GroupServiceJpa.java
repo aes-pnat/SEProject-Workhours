@@ -72,10 +72,6 @@ public class GroupServiceJpa implements GroupService {
         newGroup.setName(group.getGroupName());
 
         Optional<Job> job = jobRepository.findById(group.getIdJob());
-        if(job.isEmpty()) {
-            log.error("Job with pid {} does not exist", group.getIdJob());
-            throw new IllegalArgumentException("Job with id " + group.getIdJob() + " does not exist");
-        }
         newGroup.setIdjob(job.get());
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
