@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
@@ -31,6 +32,10 @@ public class GroupServiceJpa implements GroupService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
+
 
     @Override
     public List<GroupDTO> listAllGroups() {
@@ -66,7 +71,12 @@ public class GroupServiceJpa implements GroupService {
 
         newGroup.setName(group.getGroupName());
 
-        newGroup.setIdjob(group.getIdJob());
+        Optional<Job> job = jobRepository.findById(group.getIdJob());
+        if(job.isEmpty()) {
+            log.error("Job with pid {} does not exist", group.getIdJob());
+            throw new IllegalArgumentException("Job with id " + group.getIdJob() + " does not exist");
+        }
+        newGroup.setIdjob(job.get());
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
         if(leader.isEmpty()) {
