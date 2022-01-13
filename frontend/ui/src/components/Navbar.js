@@ -104,7 +104,7 @@ function Navbar(props) {
               <Groups />
             </Route>
             <Route path="/" exact>
-              <Jobs />
+              <MainPage />
             </Route>
             <Route path="/jobs">
               <Jobs />
