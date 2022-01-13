@@ -98,55 +98,63 @@ class JobsAdd extends React.Component {
 
         return (
             <div className="container mt-5">
-                <div className="h3 mb-3">Dodavanje nove djelatnosti</div>
-                <div className="container">
-                    {messageBox}
+                {this.props.role === "[ROLE_OWNER]" ? 
+                <div>
+                    <div className="h3 mb-3">Dodavanje nove djelatnosti</div>
+                    <div className="container">
+                        {messageBox}
+                    </div>
+                    <div className="row">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="mb-3">
+                                <label className="form-label">Naziv djelatnosti:</label>
+                                <input
+                                    className="form-control"
+                                    name="name"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label className="form-label">Cijena djelatnosti:</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    name="price"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Cijena radnog sata:</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    name="hourprice"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Opis djelatnosti:</label>
+                                <input
+                                    className="form-control"
+                                    name="description"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                            <button 
+                                type="submit"
+                                className="btn btn-primary mb-5"
+                                onClick={this.handleSubmit}>
+                                Dodaj
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Naziv djelatnosti:</label>
-                            <input
-                                className="form-control"
-                                name="name"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        
-                        <div className="mb-3">
-                            <label className="form-label">Cijena djelatnosti:</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="price"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Cijena radnog sata:</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="hourprice"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">Opis djelatnosti:</label>
-                            <input
-                                className="form-control"
-                                name="description"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                        <button 
-                            type="submit"
-                            className="btn btn-primary mb-5"
-                            onClick={this.handleSubmit}>
-                            Dodaj
-                        </button>
-                    </form>
-                </div>
+                :
+                <h2 className='alert alert-danger'>Nedovoljne ovlasti za dodavanje djelatnosti!</h2>
+            }
+
+                
             </div>
         );
     }

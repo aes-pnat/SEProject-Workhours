@@ -157,12 +157,12 @@ class Register extends React.Component {
                             </form>
                         </div>
                 </div>
-                
                 :
                 <div className='d-flex flex-row justify-content-center'>
                     <br />
-                    <h1 className='text-danger'>Nedovoljne permisije za registraciju korisnika!</h1>    
-                </div>}
+                    <h1 className='alert alert-danger'>Nedovoljne permisije za registraciju korisnika!</h1>    
+                </div>
+                }
                 
 
             </div>

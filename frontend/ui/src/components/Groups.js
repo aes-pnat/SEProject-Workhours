@@ -126,7 +126,7 @@ const Groups = (props) => {
                 <div>
                     {/* {keyslist.map((k)=>(k))} */}
                     {groups.map((gr)=>
-                        <div className="container">
+                    <div>
                         <div className="card">
                             <div className="card-body">
                                 <p className="h5">{gr.name}</p>
@@ -146,13 +146,14 @@ const Groups = (props) => {
                                 </div>
                             </div>
                         </div>
-                        )}
                     </div>
-                    </Route>
-                    <Route path={`${path}/add`}>
-                        <GroupsAdd />
-                    </Route>
-                </Switch>
+                    )}
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <GroupsAdd />
+                </Route>
+            </Switch>
             </div>
         :
         <div className='container d-flex justify-content-center'>
