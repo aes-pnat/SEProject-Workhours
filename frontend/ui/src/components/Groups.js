@@ -125,7 +125,7 @@ const Groups = (props) => {
                 <div>
                     {/* {keyslist.map((k)=>(k))} */}
                     {groups.map((gr)=>
-                        <div className="container">
+                    <div>
                         <div className="card">
                             <div className="card-body">
                                 <p className="h5">{gr.name}</p>
@@ -138,24 +138,25 @@ const Groups = (props) => {
                                         )}
                                     </ul>
                                 </p>
-                                </div>
+                                
                                 <button
                                     className="btn btn-danger mb-5"
                                     onClick={() => handleDelete(gr.id)}
                                 >Obriši</button>
                             </div>
                         </div>
-                        )}
                     </div>
-                    </Route>
-                    <Route path={`${path}/add`}>
-                        <GroupsAdd />
-                    </Route>
-                </Switch>
+                    )}
+                </div>
+                </Route>
+                <Route path={`${path}/add`}>
+                    <GroupsAdd />
+                </Route>
+            </Switch>
             </div>
         :
         <div className='container d-flex justify-content-center'>
-            <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+            <h1 className='alert alert-danger'>Nedovoljne permisije za prikaz grupa!</h1>
         </div>
     ); 
     

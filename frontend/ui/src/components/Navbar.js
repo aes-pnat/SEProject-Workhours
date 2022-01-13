@@ -45,11 +45,6 @@ function Navbar(props) {
               </div> */}
             {props.token !== "" &&
               <div className="nav-link">
-                <Link to='/groups'>Grupe</Link>
-              </div>
-            }
-            {props.token !== "" &&
-              <div className="nav-link">
                 <Link to='/tasks'>Zadaci</Link>
               </div>
             }
@@ -86,7 +81,7 @@ function Navbar(props) {
             }
             {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
-                <Link to='/groups'>Groups</Link>
+                <Link to='/groups'>Grupe</Link>
               </div>
             }
             {props.role === "[ROLE_OWNER]" &&
@@ -112,7 +107,7 @@ function Navbar(props) {
               <Login setToken={props.setToken} setRole={props.setRole}/>
             </Route>
             <Route path="/groups">
-              <Groups />
+              <Groups role={props.role}/>
             </Route>
             <Route path="/" exact>
               <MainPage />
@@ -124,7 +119,7 @@ function Navbar(props) {
               <Jobs role={props.role}/>
             </Route>
             <Route path="/jobs/add">
-              <JobsAdd/>
+              <JobsAdd role={props.role} />
             </Route>
             {/* <Route path="/moneymanagement">
               <Moneymanagement />

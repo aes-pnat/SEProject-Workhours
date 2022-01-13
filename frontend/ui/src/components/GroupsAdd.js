@@ -183,7 +183,9 @@ class GroupsAdd extends React.Component {
             
             
             <div className="container mt-5">
-                <div className="h3 mb-3">Stvaranje grupe</div>
+                {this.props.role === "[ROLE_OWNER]" ?
+                    <div>
+                        <div className="h3 mb-3">Stvaranje grupe</div>
                 <div className="container">
                     {messageBox}
                 </div>
@@ -232,6 +234,13 @@ class GroupsAdd extends React.Component {
                         </button>
                     </form>
                 </div>
+                    </div>
+                :
+                <div className='d-flex justify-content-center alert alert-danger'>
+                    <h2>Nedovoljne ovlasti za dodavanje grupa!</h2>
+                </div>
+            }
+                
             </div>
         );
     }

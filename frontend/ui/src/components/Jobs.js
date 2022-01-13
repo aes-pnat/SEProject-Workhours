@@ -107,11 +107,14 @@ const Jobs = (props) => {
                                     <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
                                     <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
                                     <p>{job.description}</p>
-                                    <button
-                                        className="btn btn-danger mb-5"
-                                        onClick={() => handleDelete(job.id)}
-                                    >Obriši
+                                    
+                                    {props.role === "[ROLE_OWNER]" &&
+                                        <button className="btn btn-danger mb-5"
+                                                onClick={() => handleDelete(job.id)}>
+                                            Obriši
                                     </button>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
