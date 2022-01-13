@@ -3,12 +3,12 @@ import Select from 'react-select';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
-class GroupsAdd extends React.Component {
+class MoneyManagement extends React.Component {
     state = {
         features: '',
     }
 
-    componentDidMount = async () => {
+    returnData = async () => {
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
         myHeaders.append("Accept","application/json");
@@ -81,4 +81,4 @@ class GroupsAdd extends React.Component {
         );
     }
 }
-export default GroupsAdd
+export default MoneyManagement;
