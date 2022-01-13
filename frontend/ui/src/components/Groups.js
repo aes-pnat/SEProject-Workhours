@@ -146,7 +146,7 @@ const Groups = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                     )}
                 </div>
                 </Route>
