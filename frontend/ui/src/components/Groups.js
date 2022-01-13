@@ -137,6 +137,7 @@ const Groups = (props) => {
                                             <li>{mem.name} {mem.surname}</li>                    
                                         )}
                                     </ul>
+                                </p>
                                 </div>
                                 <button
                                     className="btn btn-danger mb-5"

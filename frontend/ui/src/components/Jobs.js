@@ -64,7 +64,7 @@ const Jobs = (props) => {
             groupId: parseInt(e),
         });
         console.log(body);
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete?jobId='+e, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/jobs/delete?id='+e, {
 
             method: 'POST',
             headers : myHeaders
