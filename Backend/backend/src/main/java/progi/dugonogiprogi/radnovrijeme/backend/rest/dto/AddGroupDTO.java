@@ -20,7 +20,7 @@ public class AddGroupDTO {
     List<String> idMembers;
 
     @NotEmpty(message = "Job must be added.")
-    Job idJob;
+    Integer idJob;
 
     public String getGroupName() {
         return groupName;
@@ -46,11 +46,11 @@ public class AddGroupDTO {
         this.idMembers = idMembers;
     }
 
-    public Job getIdJob() {
+    public Integer getIdJob() {
         return idJob;
     }
 
-    public void setIdJob(Job idJob) {
+    public void setIdJob(Integer idJob) {
         this.idJob = idJob;
     }
 }
