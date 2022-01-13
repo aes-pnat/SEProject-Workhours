@@ -4,6 +4,7 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
 class GroupsAdd extends React.Component {
+
     state = {
         name: '',
         leaderid: '',
@@ -14,6 +15,7 @@ class GroupsAdd extends React.Component {
         jobs:[],
         success: null,
     }
+
 
     componentDidMount = async () => {
         const myHeaders = new Headers();
@@ -100,6 +102,8 @@ class GroupsAdd extends React.Component {
         }).then((response) => {
             if(response.ok){
                 this.setState({ success: true });
+            } else {
+                this.setState({ success: false });
             }
         }).catch((err) => {
             throw err;
@@ -163,6 +167,12 @@ class GroupsAdd extends React.Component {
             messageBox = (
                 <div className="alert alert-success">
                     Grupa je stvorena
+                </div>
+            );
+        } else if(this.state.success==false){
+            messageBox = (
+                <div className="alert alert-danger">
+                    Neispravan unos grupe
                 </div>
             );
         }

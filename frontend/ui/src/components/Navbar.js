@@ -20,6 +20,7 @@ import JobsAdd from './JobsAdd';
 import Map from './Map';
 import AddTask from './AddTask';
 import User from '../services/User';
+import MoneyManagement from './MoneyManagement';
 
 function Navbar(props) {
   const logout = () => {
@@ -55,6 +56,11 @@ function Navbar(props) {
             {props.token !== "" &&
               <div className="nav-link">
                 <Link to='/occupancy'>Zauzetost</Link>
+              </div>
+            }
+            {props.token !== "" &&
+              <div className="nav-link">
+                <Link to='/moneymanagement'>Upravljanje resursima</Link>
               </div>
             }
               <div className="nav-link">
@@ -110,6 +116,9 @@ function Navbar(props) {
             </Route>
             <Route path="/" exact>
               <MainPage />
+            </Route>
+            <Route path="/moneymanagement" exact>
+              <MoneyManagement />
             </Route>
             <Route path="/jobs">
               <Jobs role={props.role}/>

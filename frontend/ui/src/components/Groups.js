@@ -34,14 +34,14 @@ const Groups = (props) => {
             if(response.ok){
                 return response.json();
             }else{
-                alert("Error in fetching tasks from server");
+                alert("Error in fetching groups from server");
             }
         })
         .then(myGroup => {
             console.log(myGroup);
             setGroup(myGroup);
         }).catch(() => {
-            console.log("error u dohvacanju api u tasks")
+            console.log("error u dohvacanju api u groups")
         });
     }
     try{
@@ -49,7 +49,7 @@ const Groups = (props) => {
             getJobs();
         },[]);
     }catch(err){
-        console.log("error u tasks");
+        console.log("error u groups");
     }
 
     const handleDelete = async (e) => {
@@ -58,9 +58,9 @@ const Groups = (props) => {
         myHeaders.append("Accept","application/json");
         const token = authHeader();
         myHeaders.append("Authorization", token);
-        console.log("here");
-        console.log(e);
-        console.log("there");
+        // console.log("here");
+        // console.log(e);
+        // console.log("there");
 
         const body = JSON.stringify({
             groupId: parseInt(e),
@@ -77,17 +77,12 @@ const Groups = (props) => {
         }).catch((err) => {
             throw err;
         });
-        // await fetch(process.env.REACT_APP_BACKEND_URL + '/groups/delete', {
-        //     method: 'POST',
-        //     headers: myHeaders,
-        //     param: body //parseInt(e)
-        // }).then((response) => {
-        //     if(response.ok){
-        //         //this.setState({ success: true });
-        //     }
-        // }).catch((err) => {
-        //     throw err;
-        // });
+        try{
+            getJobs();
+        }catch(err){
+            console.log("error u groups");
+        }
+        
     }
 
     // let keys = Object.keys(groups)
@@ -125,18 +120,18 @@ const Groups = (props) => {
                 <br></br>
                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
 
-                <Switch>
-                    <Route exact path={path}>
-                    <div>
-                        {/* {keyslist.map((k)=>(k))} */}
-                        {groups.map((gr)=>
-                            <div>
-                            <div className="card">
-                                <div className="card-body">
-                                    <p className="h5">{gr.name}</p>
-                                    <span>Voditelj: {gr.leader.name} {gr.leader.surname}</span>
-                                    <br />
-                                    <span>Članovi: </span>
+            <Switch>
+                <Route exact path={path} onClick={getJobs}>
+                <div>
+                    {/* {keyslist.map((k)=>(k))} */}
+                    {groups.map((gr)=>
+                        <div className="container">
+                        <div className="card">
+                            <div className="card-body">
+                                <p className="h5">{gr.name}</p>
+                                <p>Djelatnost: {gr.job.name}</p>
+                                <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
+                                <p>Članovi: 
                                     <ul>
                                         {gr.members.map( (mem)=>
                                             <li>{mem.name} {mem.surname}</li>                    
