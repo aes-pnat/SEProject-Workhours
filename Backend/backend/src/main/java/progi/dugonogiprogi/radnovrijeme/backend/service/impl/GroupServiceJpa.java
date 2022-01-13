@@ -62,7 +62,7 @@ public class GroupServiceJpa implements GroupService {
         Group newGroup = new Group();
 
         if (groupRepository.findByName(group.getGroupName()).isPresent()) {
-            log.error("{}: Group with name {} already exists", user, group.getGroupName());
+            log.error("{}: Creating group failed: Group with name {} already exists", user, group.getGroupName());
             throw new IllegalArgumentException("Group with name " + group.getGroupName() + " already exists");
         }
 
@@ -71,7 +71,7 @@ public class GroupServiceJpa implements GroupService {
 
         Optional<Employee> leader = employeeRepository.findById(group.getIdLeader());
         if(leader.isEmpty()) {
-            log.error("{}: Employee with pid {} does not exist", user, group.getIdLeader());
+            log.error("{}: Creating group failed: Employee with pid {} does not exist", user, group.getIdLeader());
             throw new IllegalArgumentException("Employee with pid " + group.getIdLeader() + " does not exist");
         }
 
@@ -82,7 +82,7 @@ public class GroupServiceJpa implements GroupService {
         for(String idMember : group.getIdMembers()) {
             Optional<Employee> e = employeeRepository.findById(idMember);
             if(e.isEmpty()) {
-                log.error("{}: Employee with pid {} does not exist", user, idMember);
+                log.error("{}: Creating group failed: Employee with pid {} does not exist", user, idMember);
                 throw new IllegalArgumentException("Employee with pid " + idMember + " does not exist");
             }
 
@@ -106,7 +106,7 @@ public class GroupServiceJpa implements GroupService {
         String user = BackendApplication.getUser();
         Optional<Group> group = groupRepository.findById(groupId);
         if(group.isEmpty()) {
-            log.error("{}: Group with id {} does not exist", user, groupId);
+            log.error("{}: Deleting group failed: Group with id {} does not exist", user, groupId);
             throw new MissingGroupException("Group with id " + groupId + " does not exist");
         }
 
