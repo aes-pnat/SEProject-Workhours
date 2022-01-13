@@ -133,6 +133,7 @@ const Groups = () => {
                         <div className="card">
                             <div className="card-body">
                                 <p className="h5">{gr.name}</p>
+                                <p>Djelatnost: {gr.job.name}</p>
                                 <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
                                 <p>Članovi: 
                                     <ul>
