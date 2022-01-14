@@ -2,7 +2,7 @@ import React from 'react';
 import authHeader from '../services/auth-header';
 class MyData extends React.Component {
     state = {
-        HARDKODIRANI_USERNAME_PROMIJENITI_OVO: 'hWang',
+        username: this.props.username,
         name: '',
         surname: '',
         username: '',
@@ -20,7 +20,7 @@ class MyData extends React.Component {
         myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/mydata?username='
-             + this.state.HARDKODIRANI_USERNAME_PROMIJENITI_OVO, {
+             + this.state.username, {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -38,40 +38,47 @@ class MyData extends React.Component {
                 groupNames: jsonResponse.groupNames,
                 tasks: jsonResponse.tasks
             });
+        }).catch( (error) => {
+            console.log(error);
         });
     }
 
     render() {
-        let groupNames = this.state.groupNames.map((group) => {
-            return (
-                <li key={group}>{group}</li>
-            );
-        });
-
-        let tasks = this.state.tasks.map((task) => {
-            return (
-                <div className="card mb-3">
-                    <div className="card-body">
-                        <p className="h5">{task.name}</p>
-                        <p className="fst-italic">
-                            Djelatnost: {task.idjob.name} <br />
-                            Lokacija: {task.idlocation === null ? "Nema lokacije" : task.idlocation.placename + ', ' + task.idlocation.address}
-                        </p>
-                        <p className="fst-italic">
-                            Od: {(new Date(task.datetimestart)).toLocaleString('en-GB')} do: {(new Date(task.datetimeend)).toLocaleString('en-GB')} <br />
-                            Procjena broja sati: {task.hoursneededestimate}
-                        </p>
-                        <p>
-                            {task.description}
-                        </p>
+        let groupNames;
+        let tasks;
+        if(this.state.username && this.state.username !== ''){
+            groupNames = this.state.groupNames.map((group) => {
+                return (
+                    <li key={group}>{group}</li>
+                );
+            });
+            tasks = this.state.tasks.map((task) => {
+                return (
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <p className="h5">{task.name}</p>
+                            <p className="fst-italic">
+                                Djelatnost: {task.idjob.name} <br />
+                                Lokacija: {task.idlocation === null ? "Nema lokacije" : task.idlocation.placename + ', ' + task.idlocation.address}
+                            </p>
+                            <p className="fst-italic">
+                                Od: {(new Date(task.datetimestart)).toLocaleString('en-GB')} do: {(new Date(task.datetimeend)).toLocaleString('en-GB')} <br />
+                                Procjena broja sati: {task.hoursneededestimate}
+                            </p>
+                            <p>
+                                {task.description}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            );
-        });
+                );
+            });
+        }
 
         return (
             <div className="container">
-                <div className="card mt-5">
+                {this.state.username && this.state.username !== '' ?
+                    <div>
+                        <div className="card mt-5">
                     <div className="card-body">
                         <p className="h3 mb-3">Moji podaci</p>
                         <p>
@@ -110,6 +117,13 @@ class MyData extends React.Component {
                         {tasks}
                     </div>
                 </div>
+                    </div>
+            :
+            <div className='d-flex justify-content-center alert alert-danger'>
+                <h2>Trebate se prijavit kako biste vidjeli svoje podatke!</h2>
+            </div>    
+            }
+                
             </div>
         );
     }
