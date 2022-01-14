@@ -23,7 +23,6 @@ function App() {
                 objectFit:"cover",
                 transform:"translate(-50%, -50%)",
                 zIndex:"-1",
-                overflow:"hidden"
             }}
             >
                 <source src={Backvid} type="video/mp4"/>
