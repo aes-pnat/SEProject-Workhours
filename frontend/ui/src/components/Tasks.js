@@ -57,18 +57,28 @@ class Tasks extends React.Component {
             );
         })
         return (
-            <div className="container mt-5">
-                <div className="h3 mb-3 text-light">Zadaci djelatnika iz mojih grupa</div>
-                <Link to={`tasks/add`}>
-                    <button className="btn btn-light mb-3">Novi zadatak</button>
-                </Link>
-                {tasks}
+            <div>
+                {props.role === "[ROLE_OWNER]" ?
+            
+                <div className="container mt-5">
+                    <div className="h3 mb-3 text-light">Zadaci djelatnika iz mojih grupa</div>
+                    <Link to={`tasks/add`}>
+                        <button className="btn btn-light mb-3">Novi zadatak</button>
+                    </Link>
+                    {tasks}
 
-                <Switch>
-                    <Route exact path={`/add`}>
-                        <AddTask />
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route exact path={`/add`}>
+                            <AddTask />
+                        </Route>
+                    </Switch>
+                </div>
+
+                :
+
+                <div className='container d-flex justify-content-center'>
+                    <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+                </div>}
             </div>
         );
     }

@@ -43,12 +43,12 @@ function Navbar(props) {
               {/* <div className="nav-link">
                 <Link to='/'>Main page</Link>
               </div> */}
-            {props.token !== "" &&
+            {props.role === "[ROLE_LEADER]" &&
               <div className="nav-link">
                 <Link to='/tasks'>Zadaci</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
@@ -66,7 +66,7 @@ function Navbar(props) {
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/map'>Karta</Link>
               </div>
