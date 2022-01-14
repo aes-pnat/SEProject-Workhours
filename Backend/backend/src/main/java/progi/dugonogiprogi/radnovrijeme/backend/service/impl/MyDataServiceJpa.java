@@ -66,7 +66,7 @@ public class MyDataServiceJpa implements MyDataService {
 
 
     @Override
-    public MyDataDTO myData(String uselessUsername) {
+    public MyDataDTO myData() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         MyDataDTO myData = new MyDataDTO();
         Optional<Employee> employee = employeeRepository.findByUsername(username);
