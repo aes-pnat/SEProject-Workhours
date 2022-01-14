@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.CalculateDifferenceDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.FinancialInfoDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MoneyManagementService;
@@ -116,12 +117,47 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
     public FinancialInfoDTO getFinancialInfo() {
         FinancialInfoDTO financialInfo = new FinancialInfoDTO();
 
+        Double realizedRevenue = getRealizedRevenue();
+        financialInfo.setRealizedRevenue(realizedRevenue);
+
+        Double realizedCost = getRealizedCost();
+        financialInfo.setRealizedCost(realizedCost);
+
+        Double realizedProfit = realizedRevenue - realizedCost;
+        financialInfo.setRealizedProfit(realizedProfit);
+
+        return financialInfo;
+    }
+
+    @Override
+    public CalculateDifferenceDTO calculateDifference(double expectedRevenue, double expectedCost) {
+        CalculateDifferenceDTO calculateDifference = new CalculateDifferenceDTO();
+
+        Double realizedRevenue = getRealizedRevenue();
+        Double realizedCost = getRealizedCost();
+        Double realizedProfit = realizedRevenue - realizedCost;
+
+        Double revenueDifference = realizedRevenue - expectedRevenue;
+        calculateDifference.setRevenueDifference(revenueDifference);
+
+        Double costDifference = realizedCost - expectedCost;
+        calculateDifference.setCostDifference(costDifference);
+
+        Double profitDifference = realizedProfit - (expectedRevenue - expectedCost);
+        calculateDifference.setProfitDifference(profitDifference);
+
+        return calculateDifference;
+    }
+
+    private Double getRealizedRevenue() {
         Double realizedRevenue = (double) 0;
         for(Job job : jobRepository.findAll()) {
             realizedRevenue += job.getPrice();
         }
-        financialInfo.setRealizedRevenue(realizedRevenue);
+        return realizedRevenue;
+    }
 
+    private Double getRealizedCost() {
         Double realizedCost = (double) 0;
         for(Job job : jobRepository.findAll()) {
             Optional<List<Task>> optionalTasks = taskRepository.findByIdjob_Id(job.getId());
@@ -133,13 +169,6 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
                 }
             }
         }
-        financialInfo.setRealizedCost(realizedCost);
-
-        Double realizedProfit = realizedRevenue - realizedCost;
-        financialInfo.setRealizedProfit(realizedProfit);
-
-        return financialInfo;
+        return realizedCost;
     }
-
-
 }

@@ -1,6 +1,7 @@
 package progi.dugonogiprogi.radnovrijeme.backend.service.abstractService;
 
 import org.springframework.stereotype.Service;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.CalculateDifferenceDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.FinancialInfoDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 
@@ -30,4 +31,6 @@ public interface MoneyManagementService {
     MoneyManagementDTO seeProfit(double price);
 
     FinancialInfoDTO getFinancialInfo();
+
+    CalculateDifferenceDTO calculateDifference(double expectedRevenue, double expectedCost);
 }
