@@ -90,8 +90,12 @@ class MoneyManagement extends React.Component {
     }
 
     handleSubmit = async (e) => {
-        this.handleProfits(e);
-        this.handleExpenses(e);
+        if(this.state.inpExp===null || this.state.inpProf===null){
+            this.failedInp();
+        } else {
+            this.handleProfits(e);
+            this.handleExpenses(e);
+        }    
     }
 
     render () {
