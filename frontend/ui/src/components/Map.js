@@ -114,6 +114,7 @@ class Map extends React.Component {
     }
 
     render() {
+        
         if (this.props.role !== "[ROLE_OWNER]") {
             return (
                 <div className='container d-flex justify-content-center'>
@@ -125,6 +126,7 @@ class Map extends React.Component {
             <div className="container mt-5">
                 <div className="h3 mt-3 text-light">Prikaz intervencija</div>
                 <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />
+                <br/>
             </div>
         );
     }
