@@ -1,8 +1,10 @@
 package progi.dugonogiprogi.radnovrijeme.backend.rest.dto;
 
+import progi.dugonogiprogi.radnovrijeme.backend.domain.Group;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.Task;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *This data transfer object contains data about employees
@@ -41,7 +43,7 @@ public class MyDataDTO {
     /**
      * List of tasks given to employee
      */
-    private List<Task> tasks;
+    private List<GroupTaskDTO> tasks;
 
     /**
      * Getter for employee's name
@@ -168,7 +170,7 @@ public class MyDataDTO {
      * @return List containing Tasks given to employee
      */
 
-    public List<Task> getTasks() {
+    public List<GroupTaskDTO> getTasks() {
         return tasks;
     }
 
@@ -177,7 +179,7 @@ public class MyDataDTO {
      *
      * @param tasks List containing Tasks given to employee
      */
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<GroupTaskDTO> tasks) {
         this.tasks = tasks;
     }
 }

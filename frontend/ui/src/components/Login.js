@@ -26,16 +26,22 @@ const Login = (props) => {
                 username,
                 password
             })
+        }).then( (response) => {
+            if(response.status === 200){
+                return response.JSON();
+            }else{
+                setMsg("Neuspjesno prijavljivanje");
+            }
         }).then((data) => {
             if(data && data.headers && data.headers.get("accessToken")){
                 User.saveToken(data.headers.get("accessToken"));
                 props.setToken(data.headers.get("accessToken"));
                 User.saveRole(data.headers.get("roles"));
-                props.setRole(data.headers.get("roles"))
+                props.setRole(data.headers.get("roles"));
                 setRedirect(true);
             }
         }).catch( (error) => {
-            setMsg("Neuspjesno prijavljivanje");
+            setMsg("Doslo je do greske prilikom dohvata podataka sa servera...");
             console.log(error);
         });
     }
