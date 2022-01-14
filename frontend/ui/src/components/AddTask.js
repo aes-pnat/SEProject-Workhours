@@ -1,5 +1,6 @@
 import React from 'react';
 import authHeader from '../services/auth-header';
+import User from '../services/User';
 class AddTask extends React.Component {
     state = {
         taskName: '',
@@ -41,6 +42,8 @@ class AddTask extends React.Component {
             this.state.employees.forEach(employee => {
                 this.setState({ [employee.id]: false });
             });
+        }).catch( (error) => {
+            console.log(error);
         })
     }
 
@@ -97,6 +100,7 @@ class AddTask extends React.Component {
     }
 
     render () {
+        var role = User.getRole();
         let employeeChecks = this.state.employees.map(employee => {
             return (
                 <div key={employee.id} className="form-check">
@@ -137,9 +141,11 @@ class AddTask extends React.Component {
             )
         })
         return (
-            <div className="container mt-5 text-light">
-                <div className="h3 mb-3">Novi zadatak</div>
-                <div className="row">
+            <div className="container mt-5">
+                {role !== "" ?
+                    <div>
+                        <div className="h3 mb-3">Novi zadatak</div>
+                     <div className="row">
                     <form onSubmit={this.handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">Naziv zadatka:</label>
@@ -254,6 +260,14 @@ class AddTask extends React.Component {
                         </div>
                     </form>
                 </div>
+                    </div>
+                    :
+                    <div className='d-flex justify-content-center alert alert-danger'>
+                        <h3 className='danger alert-danger'>Prijavite se kako biste mogli dodavat zadatke!</h3>
+                    </div>
+                }
+
+                
             </div>
         );
     }

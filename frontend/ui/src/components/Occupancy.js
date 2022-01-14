@@ -69,11 +69,15 @@ class Occupancy extends React.Component {
     }
 
     render() {
-        let employeesOptions = this.state.employeesList.map((employee) => {
-            return (
-                <option key={employee.id} value={employee.id}>{employee.name}</option>
-            );
-        });
+        var employeesOptions;
+        if(this.state.employeesList && 'length' in this.state.employeesList){
+            employeesOptions = this.state.employeesList.map((employee) => {
+                return (
+                    <option key={employee.id} value={employee.id}>{employee.name}</option>
+                );
+            });
+        }
+        
 
         let messageBox = '';
         if (this.state.message === "Djelatnik je slobodan u odabranom periodu.") {

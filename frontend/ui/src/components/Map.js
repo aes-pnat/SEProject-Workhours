@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Map.css'
 import authHeader from '../services/auth-header';
+import User from '../services/User';
 class Map extends React.Component {
     mapRef = React.createRef();
 
@@ -27,7 +28,7 @@ class Map extends React.Component {
         }).then(jsonResponse => {
             dataList = jsonResponse;
         }).catch(err => {
-            throw err;
+            console.log(err);
         });
 
         return dataList;
@@ -74,33 +75,37 @@ class Map extends React.Component {
             });
             ui.addBubble(bubble);
         }, false);
+        let taskList;
+        if(User.getToken() !== "")
+            taskList = await this.fetchData();
         
-        let taskList = await this.fetchData();
-
-        taskList.forEach(task => {
-            let coords = {
-                lat: task.location.latitude, 
-                lng: task.location.longitude
-            };
-
-            let marker = new H.map.Marker(coords);
-            marker.setData(
-                `<div class="infobubble-container">
-                    <div class="fw-bold">Lokacija:</div>
-                    <div>${task.location.placename}</div>
-                    <div class="mb-3">${task.location.address}</div>
-                    <div class="fw-bold">Djelatnik:</div>
-                    <div class="mb-3">${task.employeeName} ${task.employeeSurname}</div>
-                    <div class="fw-bold">Datum i vrijeme intervencije:</div>
-                    <div>
-                        Od ${(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do
-                        ${(new Date(task.endDateAndTime)).toLocaleString('en-GB')}
-                    </div>
-                </div>`
-            );
-
-            group.addObject(marker);
-        });
+        if(taskList){
+            taskList.forEach(task => {
+                let coords = {
+                    lat: task.location.latitude, 
+                    lng: task.location.longitude
+                };
+    
+                let marker = new H.map.Marker(coords);
+                marker.setData(
+                    `<div class="infobubble-container">
+                        <div class="fw-bold">Lokacija:</div>
+                        <div>${task.location.placename}</div>
+                        <div class="mb-3">${task.location.address}</div>
+                        <div class="fw-bold">Djelatnik:</div>
+                        <div class="mb-3">${task.employeeName} ${task.employeeSurname}</div>
+                        <div class="fw-bold">Datum i vrijeme intervencije:</div>
+                        <div>
+                            Od ${(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do
+                            ${(new Date(task.endDateAndTime)).toLocaleString('en-GB')}
+                        </div>
+                    </div>`
+                );
+    
+                group.addObject(marker);
+            });
+        }
+        
         
         this.setState({ map });
     }
@@ -123,10 +128,18 @@ class Map extends React.Component {
             );
         }
         return (
-            <div className="container mt-5">
-                <div className="h3 mt-3 text-light">Prikaz intervencija</div>
-                <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />
-                <br/>
+            <div className="container">
+                {User.getToken() !== "" && User.getRole() !== "" ?
+                    <div>
+                        <div className="h3 mt-3 text-light">Prikaz intervencija</div>
+                        <div className="mt-5" ref={this.mapRef} style={{ height: "80vh" }} />   
+                    </div>
+                    :
+                    <div className='d-flex justify-content-center mt-3'>
+                        <h3 className='alert alert-danger'>Prijavite se kako biste vidjeli lokacije!</h3>
+                    </div>
+                }
+                
             </div>
         );
     }

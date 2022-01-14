@@ -75,9 +75,9 @@ function Navbar(props) {
                 <Link to='/moneymanagement'>Moneymanagement</Link>
               </div> */}
               {props.role !== "[ROLE_OWNER]" && props.token !== "" &&
-              <div className="nav-link">
-                <Link to='/workhoursinput'>Unos radnih sati</Link>
-              </div>
+                <div className="nav-link">
+                  <Link to='/workhoursinput'>Unos radnih sati</Link>
+                </div>
             }
             {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
@@ -104,7 +104,7 @@ function Navbar(props) {
       </nav>
       <Switch>
             <Route path="/login">
-              <Login setToken={props.setToken} setRole={props.setRole}/>
+              <Login setToken={props.setToken} setRole={props.setRole} setUser={props.setUser}/>
             </Route>
             <Route path="/groups">
               <Groups role={props.role}/>
@@ -140,7 +140,7 @@ function Navbar(props) {
               <WorkHoursInput role={props.role}/>
             </Route>
             <Route path="/mydata">
-              <MyData role={props.role}/>
+              <MyData username={props.user} role={props.role}/>
             </Route>
             <Route path="/map">
               <Map role={props.role}/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import authHeader from '../services/auth-header';
+import User from '../services/User';
 class WorkHoursInput extends React.Component {
     state = {
         HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
@@ -27,7 +28,9 @@ class WorkHoursInput extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ tasksList: jsonResponse });
-        })
+        }).catch( (error) => {
+            console.log(error);
+        });
     }
 
     handleChange = (e) => {
@@ -60,22 +63,23 @@ class WorkHoursInput extends React.Component {
                 this.setState({ success: true });
             }
         }).catch((err) => {
-            throw err;
+            console.log(err);
         });
     }
 
     render () {
+        var role = User.getRole();
         let tasks;
-        if (this.state.tasksList.length === 0) {
-            tasks = (
-                <option disabled>Nema aktivnih zadataka za djelatnika</option>
-            );
-        } else {
+        if (this.state.tasksList && 'length' in this.state.tasksList && this.state.tasksList.length > 0) {
             tasks = this.state.tasksList.map(task => {
                 return (
                     <option key={task.name} value={task.name}>{task.name}</option>
                 );
             })
+        } else {
+            tasks = (
+                <option disabled>Nema aktivnih zadataka za djelatnika</option>
+            );
         }
 
         let messageBox = '';
@@ -88,12 +92,14 @@ class WorkHoursInput extends React.Component {
         }
 
         return (
-            <div className="container mt-5 text-light">
-                <div className="h3 mb-3">Unos radnih sati</div>
-                <div className="container">
-                    {messageBox}
-                </div>
-                <div className="row">
+            <div className="container mt-5">
+                {role === "[ROLE_LEADER]" || role === "[ROLE_EMPLOYEE]" ?
+                    <div>
+                    <div className="h3 mb-3">Unos radnih sati</div>
+                    <div className="container">
+                        {messageBox}
+                    </div>
+                    <div className="row">
                     <form onSubmit={this.handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label">Zadatak:</label>
@@ -133,7 +139,14 @@ class WorkHoursInput extends React.Component {
                             Pošalji
                         </button>
                     </form>
+                    </div>
                 </div>
+                :
+                <div className='d-flex justify-content-center alert alert-danger'>
+                        <h3 className='danger alert-danger'>Prijavite se kako biste mogli upisati odrađene sate!</h3>
+                    </div>
+                }
+                
             </div>
         );
     }
