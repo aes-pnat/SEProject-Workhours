@@ -24,9 +24,11 @@ class MoneyManagement extends React.Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value });
-        console.log(name , value);
+        this.setState({success:null});
         
     }
+
+    
     handleProfits = async (e) => {
         e.preventDefault();
         
@@ -43,7 +45,7 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit?price='+this.state.inpProf, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/profit?price='+this.state.inpProf, {
             method: 'GET',
             headers: myHeaders,
         }).then((response) => {
@@ -52,6 +54,7 @@ class MoneyManagement extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ profits: jsonResponse });
+            this.setState({ success: true });
             console.log(this.state.profits);
         })
     }
@@ -64,7 +67,7 @@ class MoneyManagement extends React.Component {
         });
         console.log("almost");
         console.log(body);
-        console.log("did it");
+        console.log('/expense?price='+this.state.inpExp);
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
@@ -72,7 +75,7 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/expense?difference='+this.state.inpExp, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/expense?price='+this.state.inpExp, {
             method: 'GET',
             headers: myHeaders,
         }).then((response) => {
@@ -81,8 +84,14 @@ class MoneyManagement extends React.Component {
             }
         }).then((jsonResponse) => {
             this.setState({ expenses: jsonResponse });
+            this.setState({ success: true });
             console.log(this.state.expenses);
         })
+    }
+
+    handleSubmit = async (e) => {
+        this.handleProfits(e);
+        this.handleExpenses(e);
     }
 
     render () {
@@ -93,17 +102,22 @@ class MoneyManagement extends React.Component {
                     Neispravan unos podataka
                 </div>
             );
+        } else if (this.state.success===true){
+            console.log(this.state.expenses,'1',this.state.profits.price,'2',this.state.inpProf, 'ayoooooo');
+            messageBox = (
+                <div className="alert alert-info">
+                    Ukupni resursi: {-parseFloat(this.state.expenses)+parseFloat(this.state.profits.price)+parseFloat(this.state.inpProf)}
+                </div>
+            );    
         }
         return (
             <div className="container mt-5 text-light">
                 {this.props.role === "[ROLE_OWNER]" ?
                     <div>
                         <div className="h3 mb-3">Računanje resursa</div>
-                        <div className="container">
-                            {messageBox}
-                        </div>
+                        
                         <div className="row">
-                            <form onSubmit={this.handleProfits}>
+                            <form onSubmit={this.handleSubmit}>
                                 <div className="mb-3">
                                     <label className="form-label">Unesite predviđeni prihod (HRK):</label>
                                     <input
@@ -113,17 +127,6 @@ class MoneyManagement extends React.Component {
                                         onChange={this.handleChange}
                                     />
                                 </div>
-                                <button 
-                                    type="submit"
-                                    className="btn btn-light mb-5"
-                                    onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
-                                >
-                                    Izračunaj planiranu zaradu
-                                </button>
-                            </form>
-                        </div>
-                        <div className="row">
-                            <form onSubmit={this.handleExpenses}>
                                 <div className="mb-3">
                                     <label className="form-label">Unesite predviđeni trošak (HRK):</label>
                                     <input
@@ -136,11 +139,15 @@ class MoneyManagement extends React.Component {
                                 <button 
                                     type="submit"
                                     className="btn btn-light mb-5"
-                                    onClick={this.state.inpExp != null ? this.handleExpenses : this.failedInp}
+                                    //onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
+                                    onClick={this.handleSubmit}
                                 >
-                                    Izračunaj ukupni trošak
+                                    Izračunaj planiranu zaradu
                                 </button>
                             </form>
+                        </div>
+                        <div className="container">
+                            {messageBox}
                         </div>
                     </div>
                 :

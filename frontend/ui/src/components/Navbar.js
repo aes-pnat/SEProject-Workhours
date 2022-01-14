@@ -53,7 +53,7 @@ function Navbar(props) {
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/moneymanagement'>Upravljanje resursima</Link>
               </div>
