@@ -76,48 +76,52 @@ class MyData extends React.Component {
 
         return (
             <div className="container">
-                {this.state.user && this.state.user !== '' ?
+                { this.state.user !== '' ?
                     <div>
                         <div className="card mt-5">
-                    <div className="card-body">
-                        <p className="h3 mb-3">Moji podaci</p>
-                        <p>
-                            <span className="fw-bold">Ime i prezime: </span>
-                            {this.state.name} {this.state.surname}
-                        </p>
-                        <p>
-                            <span className="fw-bold">E-mail: </span>
-                            {this.state.email}
-                        </p>
-                        <p>
-                            <span className="fw-bold">Korisničko ime: </span>
-                            {this.state.username}
-                        </p>
-                        <p>
-                            <span className="fw-bold">OIB: </span>
-                            {this.state.pid}
-                        </p>
-                        <p>
-                            <span className="fw-bold">Uloga: </span>
-                            {this.state.roleName}
-                        </p>
-                    </div>
+                            <div className="card-body">
+                                <p className="h3 mb-3">Moji podaci</p>
+                                <p>
+                                    <span className="fw-bold">Ime i prezime: </span>
+                                    {this.state.name} {this.state.surname}
+                                </p>
+                                <p>
+                                    <span className="fw-bold">E-mail: </span>
+                                    {this.state.email}
+                                </p>
+                                <p>
+                                    <span className="fw-bold">Korisničko ime: </span>
+                                    {this.state.username}
+                                </p>
+                                <p>
+                                    <span className="fw-bold">OIB: </span>
+                                    {this.state.pid}
+                                </p>
+                                <p>
+                                    <span className="fw-bold">Uloga: </span>
+                                    {this.state.roleName}
+                                </p>
+                            </div>
+                        </div>
+                        {this.props.role === "[ROLE_LEADER]" &&
+                            <div className="card mt-5">
+                                <div className="card-body">
+                                    <p className="h3 mb-3">Moje grupe</p>
+                                    <ul>
+                                        {groupNames}
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        {this.props.role !== "[ROLE_OWNER]" &&
+                            <div className="card mt-5">
+                                <div className="card-body">
+                                    <p className="h3 mb-3">Moji zadaci</p>
+                                    {tasks}
+                                </div>
+                        </  div>
+                        }
                 </div>
-                <div className="card mt-5">
-                    <div className="card-body">
-                        <p className="h3 mb-3">Moje grupe</p>
-                        <ul>
-                            {groupNames}
-                        </ul>
-                    </div>
-                </div>
-                <div className="card mt-5">
-                    <div className="card-body">
-                        <p className="h3 mb-3">Moji zadaci</p>
-                        {tasks}
-                    </div>
-                </div>
-                    </div>
             :
             <div className='d-flex justify-content-center alert alert-danger mt-3'>
                 <h3>Trebate se prijavit kako biste vidjeli svoje podatke!</h3>

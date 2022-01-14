@@ -140,7 +140,7 @@ function Navbar(props) {
               <WorkHoursInput role={props.role}/>
             </Route>
             <Route path="/mydata">
-              <MyData username={props.user}/>
+              <MyData username={props.user} role={props.role}/>
             </Route>
             <Route path="/map">
               <Map role={props.role}/>
