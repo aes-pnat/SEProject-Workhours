@@ -132,7 +132,7 @@ const Jobs = (props) => {
                 </Route>
                 {props.role === "[ROLE_OWNER]" &&
                     <Route path={`${path}/add`}>
-                        <JobsAdd />
+                        <JobsAdd role={props.role}/>
                     </Route>
                 }
                 
