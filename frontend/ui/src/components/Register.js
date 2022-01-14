@@ -81,7 +81,10 @@ class Register extends React.Component {
         }
         let role = User.getRole();
         return (
-            <div className="container">
+            <div className="container text-light">
+                <br/>
+                <br/>
+                
                 {role === "[ROLE_OWNER]" ?
                     <div className='register-form-container'>
                         <div className="h3 mb-3">Registracija novog djelatnika</div>

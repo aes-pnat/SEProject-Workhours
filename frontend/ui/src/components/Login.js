@@ -43,7 +43,7 @@ const Login = (props) => {
     
 
     return (
-        <form onSubmit={submit} className="centered">
+        <form onSubmit={submit} className="centered text-light">
             {msg !== '' && 
                 <div className="d-flex alert alert-danger justify-content-center">
                     <h5 className='justify-content-center'>{msg}</h5>
@@ -54,12 +54,12 @@ const Login = (props) => {
             <input type="text" className="form-control" placeholder="Username" required
                    onChange={e => setUsername(e.target.value)}
             />
-
+            <br/>
             <input type="password" className="form-control" placeholder="Password" required
                    onChange={e => setPassword(e.target.value)}
             />
-
-            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <br/>
+            <button className="w-100 btn btn-lg btn-outline-light" type="submit">Sign in</button>
         </form>
     );
 };
