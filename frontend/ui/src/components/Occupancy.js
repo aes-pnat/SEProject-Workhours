@@ -95,51 +95,63 @@ class Occupancy extends React.Component {
         }
 
         return (
-            <div className="container mt-5 text-light">
-                <div className="h3 mb-3">Provjera zauzetosti djelatnika</div>
-                <div className="container">
-                    {messageBox}
-                </div>
-                <div className="row">
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="mb-3">
-                            <label className="form-label">Djelatnik:</label>
-                            <select className="form-select"
-                                    name="id"
-                                    onChange={this.handleChange}
-                            >
-                                <option selected disabled>Odaberite djelatnika</option>
-                                {employeesOptions}
-                            </select>
+            <div>
+                {this.props.role === "[ROLE_OWNER]" ?
+            
+                    <div className="container mt-5 text-light">
+                        <div className="h3 mb-3">Provjera zauzetosti djelatnika</div>
+                        <div className="container">
+                            {messageBox}
                         </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Početak perioda provjere:</label>
-                            <input 
-                                type="date" 
-                                className="form-control"
-                                name="dateStart" 
-                                onChange={this.handleChange} 
-                            />
+                        <div className="row">
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="mb-3">
+                                    <label className="form-label">Djelatnik:</label>
+                                    <select className="form-select"
+                                            name="id"
+                                            onChange={this.handleChange}
+                                    >
+                                        <option selected disabled>Odaberite djelatnika</option>
+                                        {employeesOptions}
+                                    </select>
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Početak perioda provjere:</label>
+                                    <input 
+                                        type="date" 
+                                        className="form-control"
+                                        name="dateStart" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <div className='mb-3'>
+                                    <label className="form-label">Kraj perioda provjere:</label>
+                                    <input 
+                                        type="date" 
+                                        className="form-control"
+                                        name="dateEnd" 
+                                        onChange={this.handleChange} 
+                                    />
+                                </div>
+                                <button
+                                    type="submit" 
+                                    className="btn btn-light mb-5"
+                                    onClick={this.handleSubmit}
+                                >
+                                    Provjeri
+                                </button>
+                            </form>
                         </div>
-                        <div className='mb-3'>
-                            <label className="form-label">Kraj perioda provjere:</label>
-                            <input 
-                                type="date" 
-                                className="form-control"
-                                name="dateEnd" 
-                                onChange={this.handleChange} 
-                            />
-                        </div>
-                        <button
-                            type="submit" 
-                            className="btn btn-light mb-5"
-                            onClick={this.handleSubmit}
-                        >
-                            Provjeri
-                        </button>
-                    </form>
-                </div>
+                    </div>
+
+                :
+
+                <div className='container d-flex justify-content-center'>
+                    <h1 className='alert-danger'>Nedovoljne permisije za prikaz zadataka!</h1>
+                </div>}
             </div>
+
+            
         );
     }
 }

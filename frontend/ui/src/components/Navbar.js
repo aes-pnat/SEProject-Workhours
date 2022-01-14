@@ -43,17 +43,17 @@ function Navbar(props) {
               {/* <div className="nav-link">
                 <Link to='/'>Main page</Link>
               </div> */}
-            {props.token !== "" &&
+            {props.role === "[ROLE_LEADER]" &&
               <div className="nav-link">
                 <Link to='/tasks'>Zadaci</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/occupancy'>Zauzetost</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/moneymanagement'>Upravljanje resursima</Link>
               </div>
@@ -66,7 +66,7 @@ function Navbar(props) {
                 <Link to='/mydata'>Moji podaci</Link>
               </div>
             }
-            {props.token !== "" &&
+            {props.role === "[ROLE_OWNER]" &&
               <div className="nav-link">
                 <Link to='/map'>Karta</Link>
               </div>
@@ -113,7 +113,7 @@ function Navbar(props) {
               <MainPage />
             </Route>
             <Route path="/moneymanagement" exact>
-              <MoneyManagement />
+              <MoneyManagement role={props.role}/>
             </Route>
             <Route path="/jobs">
               <Jobs role={props.role}/>
@@ -125,25 +125,25 @@ function Navbar(props) {
               <Moneymanagement />
             </Route> */}
             <Route path="/tasks" exact component={Tasks}>
-              <Tasks />
+              <Tasks role={props.role}/>
             </Route>
             <Route path="/tasks/add" exact component={AddTask}>
-              <AddTask />
+              <AddTask role={props.role}/>
             </Route>
             <Route path="/register">
-              <Register />
+              <Register role={props.role}/>
             </Route>
-            <Route path="/occupancy">
-              <Occupancy />
+            <Route path="/occupancy" >
+              <Occupancy role={props.role}/>
             </Route>
             <Route path="/workhoursinput">
-              <WorkHoursInput />
+              <WorkHoursInput role={props.role}/>
             </Route>
             <Route path="/mydata">
               <MyData username={props.user}/>
             </Route>
             <Route path="/map">
-              <Map />
+              <Map role={props.role}/>
             </Route>
           </Switch>
     </Router>

@@ -35,6 +35,10 @@ class Map extends React.Component {
     }
 
     componentDidMount = async() => {
+        if (this.props.role !== "[ROLE_OWNER]") {
+            return;
+        }
+
         const H = window.H;
         const platform = new H.service.Platform({
             apikey: "_avtU1QAAd7wlen69G44690--o6AVuc_kiN9O-qwGe0"
@@ -109,11 +113,20 @@ class Map extends React.Component {
 
     componentWillUnmount() {
         // Cleanup after the map to avoid memory leaks when this component exits the page
-        if(this.state.map)
+        if (this.state.map) {
             this.state.map.dispose();
+        }
     }
 
     render() {
+        
+        if (this.props.role !== "[ROLE_OWNER]") {
+            return (
+                <div className='container d-flex justify-content-center'>
+                    <h1 className='alert-danger'>Nemate ovlasti za pristup ovoj stranici!</h1>
+                </div>
+            );
+        }
         return (
             <div className="container">
                 {User.getToken() !== "" && User.getRole() !== "" ?
