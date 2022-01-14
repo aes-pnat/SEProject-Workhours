@@ -91,39 +91,48 @@ const Jobs = (props) => {
     return (
         <div className='container'>
             <br />
+            
+            
+            
             {props.role === "[ROLE_OWNER]" &&
                 <div>
-                 <Link to={`${url}/add`} className="btn btn-primary">Dodaj djelatnost</Link>
+                 <Link to={`${url}/add`} className="btn btn-light">Dodaj djelatnost</Link>
+                 <br/>
+                 <br/>
                 </div>
             }
             <Switch>
                 <Route exact path={path}>
                 <div>
                     {data.map((job)=>(
-                        <div className="container">
-                            <div className="card">
-                                <div className="card-body">
-                                    <p className="h5">{job.name}</p>
-                                    <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
-                                    <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
-                                    <p>{job.description}</p>
-                                    
-                                    {props.role === "[ROLE_OWNER]" &&
-                                        <button className="btn btn-danger mb-5"
-                                                onClick={() => handleDelete(job.id)}>
-                                            Obriši
-                                    </button>
-                                    }
+                        <div>
+                            <div className="container">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <p className="h5">{job.name}</p>
+                                        <p className="fst-italic">Cijena radnog sata: {job.hourprice} kn </p>
+                                        <p className="fst-italic">Cijena djelatnosti: {job.price} kn </p>
+                                        <p>{job.description}</p>
+                                        
+                                        {props.role === "[ROLE_OWNER]" &&
+                                            <button className="btn btn-danger mb-5"
+                                                    onClick={() => handleDelete(job.id)}>
+                                                Obriši
+                                        </button>
+                                        }
+                                        
+                                    </div>
                                     
                                 </div>
                             </div>
+                            <br/>
                         </div>
                     ))}
                 </div>
                 </Route>
                 {props.role === "[ROLE_OWNER]" &&
                     <Route path={`${path}/add`}>
-                        <JobsAdd />
+                        <JobsAdd role={props.role}/>
                     </Route>
                 }
                 

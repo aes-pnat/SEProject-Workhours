@@ -91,7 +91,7 @@ class Occupancy extends React.Component {
         }
 
         return (
-            <div className="container mt-5">
+            <div className="container mt-5 text-light">
                 <div className="h3 mb-3">Provjera zauzetosti djelatnika</div>
                 <div className="container">
                     {messageBox}
@@ -128,7 +128,7 @@ class Occupancy extends React.Component {
                         </div>
                         <button
                             type="submit" 
-                            className="btn btn-primary mb-5"
+                            className="btn btn-light mb-5"
                             onClick={this.handleSubmit}
                         >
                             Provjeri

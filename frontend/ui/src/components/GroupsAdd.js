@@ -182,7 +182,7 @@ class GroupsAdd extends React.Component {
         return (
             
             
-            <div className="container mt-5">
+            <div className="container mt-5 text-light">
                 {this.props.role === "[ROLE_OWNER]" ?
                     <div>
                         <div className="h3 mb-3">Stvaranje grupe</div>
@@ -219,15 +219,15 @@ class GroupsAdd extends React.Component {
                                 {employees}
                             </select>
                         </div>
-                        <div className="scroll">
-                            <label className="form-label">Članovi:</label>
+                        <div className="scroll" >
+                            <label className="form-label">Odaberite članove grupe:</label>
                             <ul>
                                 {emplist}
                             </ul>
                         </div>
                         <button 
                             type="submit"
-                            className="btn btn-primary mb-5"
+                            className="btn btn-light mb-5"
                             onClick={this.handleSubmit}
                         >
                             Stvori grupu

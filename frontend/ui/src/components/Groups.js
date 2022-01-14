@@ -119,39 +119,45 @@ const Groups = (props) => {
         {props.role === "[ROLE_OWNER]" ? 
             <div className='container'>
                 <br></br>
-                <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+                <div>
+                    <Link to={`${url}/add`} className="btn btn-light">Dodaj grupu</Link>
+                    <br/>
+                    <br/>
+                </div>
+
 
             <Switch>
                 <Route exact path={path}>
                 <div>
                     {/* {keyslist.map((k)=>(k))} */}
                     {groups.map((gr)=>
-                    <div>
-                        <div className="card">
-                            <div className="card-body">
-                                <p className="h5">{gr.name}</p>
-                                <p>Djelatnost: {gr.job.name}</p>
-                                <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
-                                <span>Članovi: 
-                                    <ul>
-                                        {gr.members.map( (mem)=>
-                                            <li>{mem.name} {mem.surname}</li>                    
-                                        )}
-                                    </ul>
-                                </span>
-                                <button
-                                    className="btn btn-danger mb-5"
-                                    onClick={() => handleDelete(gr.id)}
-                                >Obriši</button>
+                        <div>
+                            <div className="card">
+                                <div className="card-body">
+                                    <p className="h5">{gr.name}</p>
+                                    <p>Djelatnost: {gr.job.name}</p>
+                                    <p>Voditelj: {gr.leader.name} {gr.leader.surname}</p>
+                                    <span>Članovi: 
+                                        <ul>
+                                            {gr.members.map( (mem)=>
+                                                <li>{mem.name} {mem.surname}</li>                    
+                                            )}
+                                        </ul>
+                                    </span>
+                                    <button
+                                        className="btn btn-danger mb-5"
+                                        onClick={() => handleDelete(gr.id)}
+                                    >Obriši</button>
                                 </div>
                             </div>
+                            <br/>
                         </div>
                     
                     )}
                 </div>
                 </Route>
                 <Route path={`${path}/add`}>
-                    <GroupsAdd />
+                    <GroupsAdd role={props.role}/>
                 </Route>
             </Switch>
             </div>
