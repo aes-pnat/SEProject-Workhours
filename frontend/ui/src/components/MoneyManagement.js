@@ -106,7 +106,7 @@ class MoneyManagement extends React.Component {
             console.log(this.state.expenses,'1',this.state.profits.price,'2',this.state.inpProf, 'ayoooooo');
             messageBox = (
                 <div className="alert alert-info">
-                    Ukupni resursi: {-parseFloat(this.state.expenses)+parseFloat(this.state.profits.price)+parseFloat(this.state.inpProf)}
+                    Ukupni resursi: {-parseFloat(this.state.inpExp)+parseFloat(this.state.profits.price)+parseFloat(this.state.inpProf)} HRK
                 </div>
             );    
         }
