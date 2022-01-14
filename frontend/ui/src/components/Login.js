@@ -28,9 +28,11 @@ const Login = (props) => {
             })
         }).then( (response) => {
             if(response.status === 200){
-                return response.JSON();
+                return response;
+            }else if(response.status === 401){
+                setMsg("Neuspjeh! Provjerite korisnicko ime i lozinku.");
             }else{
-                setMsg("Neuspjesno prijavljivanje");
+                setMsg("Neuspjesno prijavljivanje.");
             }
         }).then((data) => {
             if(data && data.headers && data.headers.get("accessToken")){
@@ -55,16 +57,18 @@ const Login = (props) => {
                     <h5 className='justify-content-center'>{msg}</h5>
                 </div>
             }
-            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-            
+            <h1 className="h3 mb-3 fw-normal text-white d-flex nowrap justify-content-center">
+                Please sign in
+            </h1>
+            <br />
             <input type="text" className="form-control" placeholder="Username" required
                    onChange={e => setUsername(e.target.value)}
             />
-
+            <br />
             <input type="password" className="form-control" placeholder="Password" required
                    onChange={e => setPassword(e.target.value)}
             />
-
+            <br />
             <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
         </form>
     );

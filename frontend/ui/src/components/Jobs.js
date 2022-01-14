@@ -106,7 +106,7 @@ const Jobs = (props) => {
                 <div>
                     {data.map((job)=>(
                         <div>
-                            <div className="container">
+                            <div>
                                 <div className="card">
                                     <div className="card-body">
                                         <p className="h5">{job.name}</p>
