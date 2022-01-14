@@ -120,7 +120,7 @@ const Groups = (props) => {
             <div className='container'>
                 <br></br>
                 <div>
-                    <Link to={`${url}/add`} className="btn btn-primary">Dodaj grupu</Link>
+                    <Link to={`${url}/add`} className="btn btn-light">Dodaj grupu</Link>
                     <br/>
                     <br/>
                 </div>
@@ -157,7 +157,7 @@ const Groups = (props) => {
                 </div>
                 </Route>
                 <Route path={`${path}/add`}>
-                    <GroupsAdd />
+                    <GroupsAdd role={props.role}/>
                 </Route>
             </Switch>
             </div>
