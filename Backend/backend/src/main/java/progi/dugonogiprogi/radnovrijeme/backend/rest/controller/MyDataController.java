@@ -25,12 +25,11 @@ public class MyDataController {
     /**
      * Responds to get request of the form /mydata?username="username_example"
      *
-     * @param username web request parameter representing employee's username
      * @return DTO of data belonging to an employee
      */
 
     @GetMapping("")
-    public MyDataDTO myData(@RequestParam String username){
-        return myDataService.myData(username);
+    public MyDataDTO myData(){
+        return myDataService.myData();
     }
 }
