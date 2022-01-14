@@ -113,7 +113,7 @@ function Navbar(props) {
               <MainPage />
             </Route>
             <Route path="/moneymanagement" exact>
-              <MoneyManagement />
+              <MoneyManagement role={props.role}/>
             </Route>
             <Route path="/jobs">
               <Jobs role={props.role}/>
@@ -125,19 +125,19 @@ function Navbar(props) {
               <Moneymanagement />
             </Route> */}
             <Route path="/tasks" exact component={Tasks}>
-              <Tasks />
+              <Tasks role={props.role}/>
             </Route>
             <Route path="/tasks/add" exact component={AddTask}>
-              <AddTask />
+              <AddTask role={props.role}/>
             </Route>
             <Route path="/register">
               <Register />
             </Route>
-            <Route path="/occupancy">
-              <Occupancy />
+            <Route path="/occupancy" >
+              <Occupancy role={props.role}/>
             </Route>
             <Route path="/workhoursinput">
-              <WorkHoursInput />
+              <WorkHoursInput role={props.role}/>
             </Route>
             <Route path="/mydata">
               <MyData />
