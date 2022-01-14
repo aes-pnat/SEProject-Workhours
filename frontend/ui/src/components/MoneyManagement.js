@@ -24,7 +24,6 @@ class MoneyManagement extends React.Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value });
-        console.log(name , value);
         
     }
     handleProfits = async (e) => {
@@ -43,7 +42,7 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit?price='+this.state.inpProf, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/profit?price='+this.state.inpProf, {
             method: 'GET',
             headers: myHeaders,
         }).then((response) => {
@@ -64,7 +63,7 @@ class MoneyManagement extends React.Component {
         });
         console.log("almost");
         console.log(body);
-        console.log("did it");
+        console.log('/expense?price='+this.state.inpExp);
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
@@ -72,7 +71,7 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/expense?difference='+this.state.inpExp, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/expense?price='+this.state.inpExp, {
             method: 'GET',
             headers: myHeaders,
         }).then((response) => {
@@ -116,7 +115,8 @@ class MoneyManagement extends React.Component {
                                 <button 
                                     type="submit"
                                     className="btn btn-light mb-5"
-                                    onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
+                                    //onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
+                                    onClick={this.handleProfits}
                                 >
                                     Izračunaj planiranu zaradu
                                 </button>
@@ -136,7 +136,8 @@ class MoneyManagement extends React.Component {
                                 <button 
                                     type="submit"
                                     className="btn btn-light mb-5"
-                                    onClick={this.state.inpExp != null ? this.handleExpenses : this.failedInp}
+                                    // onClick={this.state.inpExp != null ? this.handleExpenses : this.failedInp}
+                                    onClick={this.handleExpenses}
                                 >
                                     Izračunaj ukupni trošak
                                 </button>
