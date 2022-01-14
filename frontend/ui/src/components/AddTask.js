@@ -141,7 +141,7 @@ class AddTask extends React.Component {
             )
         })
         return (
-            <div className="container mt-5">
+            <div className="container mt-5 text-light">
                 {role !== "" ?
                     <div>
                         <div className="h3 mb-3">Novi zadatak</div>

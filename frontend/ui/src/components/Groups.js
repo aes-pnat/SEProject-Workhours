@@ -33,8 +33,6 @@ const Groups = (props) => {
         .then(response => {
             if(response.ok){
                 return response.json();
-            }else{
-                alert("Error in fetching groups from server");
             }
         })
         .then(myGroup => {
@@ -75,7 +73,7 @@ const Groups = (props) => {
                 //this.setState({ success: true });
             }
         }).catch((err) => {
-            throw err;
+            console.log(err);
         });
         try{
             getJobs();
@@ -163,7 +161,7 @@ const Groups = (props) => {
             </div>
         :
         <div className='container d-flex justify-content-center'>
-            <h1 className='alert-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+            <h1 className='alert alert-danger mt-3'>Nedovoljne permisije za prikaz grupa!</h1>
         </div>}
         </div>
     ); 

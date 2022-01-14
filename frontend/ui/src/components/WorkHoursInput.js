@@ -92,7 +92,7 @@ class WorkHoursInput extends React.Component {
         }
 
         return (
-            <div className="container mt-5">
+            <div className="container mt-5 text-light">
                 {role === "[ROLE_LEADER]" || role === "[ROLE_EMPLOYEE]" ?
                     <div>
                     <div className="h3 mb-3">Unos radnih sati</div>
