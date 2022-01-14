@@ -6,7 +6,7 @@ import authHeader from '../services/auth-header';
 class MoneyManagement extends React.Component {
     state = {
         profits: '',
-        expenses: '',
+        mms: '',
         inpProf:null,
         inpExp:null,
         success:null
@@ -27,9 +27,29 @@ class MoneyManagement extends React.Component {
         this.setState({success:null});
         
     }
+    componentDidMount = async (e) => {
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement', {
+            method: 'GET',
+            headers: myHeaders,
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ mms: jsonResponse });
+            console.log(this.state.mms);
+        })
+    }
 
     
-    handleProfits = async (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         
         const body = JSON.stringify({
@@ -45,7 +65,7 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/profit?price='+this.state.inpProf, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/calculate?revenue='+this.state.inpProf+'&cost='+this.state.inpExp, {
             method: 'GET',
             headers: myHeaders,
         }).then((response) => {
@@ -59,44 +79,6 @@ class MoneyManagement extends React.Component {
         })
     }
 
-    handleExpenses = async (e) => {
-        e.preventDefault();
-        
-        const body = JSON.stringify({
-            expense: parseInt(this.state.inpExp),
-        });
-        //console.log("almost");
-        //console.log(body);
-        console.log('/expense?price='+this.state.inpExp);
-
-        const myHeaders = new Headers();
-		myHeaders.append("Content-Type","application/json");
-        myHeaders.append("Accept","application/json");
-        const token = authHeader();
-        myHeaders.append("Authorization", token);
-        
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement/expense?price='+this.state.inpExp, {
-            method: 'GET',
-            headers: myHeaders,
-        }).then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-        }).then((jsonResponse) => {
-            this.setState({ expenses: jsonResponse });
-            this.setState({ success: true });
-            console.log(this.state.expenses);
-        })
-    }
-
-    handleSubmit = async (e) => {
-        if(this.state.inpExp===null || this.state.inpProf===null){
-            this.failedInp();
-        } else {
-            this.handleProfits(e);
-            this.handleExpenses(e);
-        }    
-    }
 
     render () {
         let messageBox = '';
@@ -109,13 +91,43 @@ class MoneyManagement extends React.Component {
         } else if (this.state.success===true){
             //console.log(this.state.expenses,'1',this.state.profits.price,'2',this.state.inpProf, 'ayoooooo');
             messageBox = (
-                <div className="alert alert-info">
-                    Ukupni resursi: {-parseFloat(this.state.inpExp)+parseFloat(this.state.profits.price)+parseFloat(this.state.inpProf)} HRK
+                <div>
+                
+                    <div className="alert alert-info">
+                        {this.state.profits.revenueDifference>0 ?
+                        <p>Ostvareni prihod je veći od predviđenog za {this.state.profits.revenueDifference} HRK</p>
+                        :
+                        <p>Ostvareni prihod je manji od predviđenog za {this.state.profits.revenueDifference} HRK</p>
+                        }
+                        {this.state.profits.costDifference>0 ?
+                        <p>Ostvareni trošak je veći od predviđenog za {Math.abs(this.state.profits.costDifference)} HRK</p>
+                        :
+                        <p>Ostvareni trošak je manji od predviđenog za {Math.abs(this.state.profits.costDifference)} HRK</p>
+                        }
+                        {this.state.profits.profitDifference ?
+                        <p>Ostvareni profit je veći od predviđenog za {this.state.profits.profitDifference} HRK</p>
+                        :
+                        <p>Ostvareni profit je manji od predviđenog za  {this.state.profits.profitDifference} HRK</p>
+                        }
+                         
+                    </div>
+                    
                 </div>
+
             );    
         }
         return (
             <div className="container mt-5 text-light">
+                <div>
+                    <div className="card text-dark">
+                        <div className="card-body">
+                            <p>Ostvarena dobit: {this.state.mms.realizedProfit}</p>
+                            <p>Ostvaren trošak: {this.state.mms.realizedCost}</p>
+                            <p>Ostvareni prihod: {this.state.mms.realizedRevenue}</p>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
                 {this.props.role === "[ROLE_OWNER]" ?
                     <div>
                         <div className="h3 mb-3">Računanje resursa</div>
