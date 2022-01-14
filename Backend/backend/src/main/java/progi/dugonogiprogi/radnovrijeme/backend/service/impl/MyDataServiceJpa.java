@@ -70,7 +70,7 @@ public class MyDataServiceJpa implements MyDataService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         MyDataDTO myData = new MyDataDTO();
         Optional<Employee> employee = employeeRepository.findByUsername(username);
-        if(!employee.isPresent()){
+        if(employee.isEmpty()){
             throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
         }
         Employee e = employee.get();
@@ -81,7 +81,7 @@ public class MyDataServiceJpa implements MyDataService {
         myData.setEmail(e.getEmail());
         myData.setRoleName(e.getIdrole().getName());
         Optional<List<Employeegroup>> employeegroupList = employeegroupRepository.findById_Idemployee(myData.getPid());
-        if(!employeegroupList.isPresent()) {
+        if(employeegroupList.isEmpty()) {
             throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
         }
 
@@ -90,7 +90,7 @@ public class MyDataServiceJpa implements MyDataService {
         for(Employeegroup eg : list){
             int groupId = eg.getId().getIdgroup();
             Optional<Group> group = groupRepository.findById(groupId);
-            if(!group.isPresent()){
+            if(group.isEmpty()){
                 throw new MissingGroupException("Group with id "+groupId+"does not exist");
             }
             Group g = group.get();
@@ -103,7 +103,7 @@ public class MyDataServiceJpa implements MyDataService {
         lista = lista.stream().distinct().toList();
         myData.setGroupNames(lista);
         Optional<List<Employeetask>> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
-        if(!employeetaskList.isPresent()) {
+        if(employeetaskList.isEmpty()) {
             throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
         }
         List<Employeetask> employeetasks = employeetaskList.get();
@@ -111,7 +111,7 @@ public class MyDataServiceJpa implements MyDataService {
         for(Employeetask et : employeetasks){
             int taskId = et.getId().getIdtask();
             Optional<Task> task = taskRepository.findById(taskId);
-            if(!task.isPresent()){
+            if(task.isEmpty()){
                 throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
             }
             Task t = task.get();
@@ -122,7 +122,7 @@ public class MyDataServiceJpa implements MyDataService {
                 for(Employeegroup eg : employeegroup.get()) {
                     Optional<Group> grupa = groupRepository.findById(eg.getId().getIdgroup());
                     if(grupa.isPresent()){
-                        if(grupa.get().getIdjob().equals(t.getIdjob())){
+                        if(grupa.get().getIdjob().getId().equals(t.getIdjob().getId())){
                             dto.setGroup(grupa.get());
                         }
                     }
@@ -131,7 +131,7 @@ public class MyDataServiceJpa implements MyDataService {
             //System.out.println(myData.getPid());
             for(Group grupa : groupRepository.findAll()){
                 if(grupa.getIdleader().getId().equals(myData.getPid())
-                    && grupa.getIdjob().equals(dto.getTask().getIdjob())){
+                    && grupa.getIdjob().getId().equals(dto.getTask().getIdjob().getId())){
                     dto.setGroup(grupa);
                 }
             }
@@ -141,6 +141,5 @@ public class MyDataServiceJpa implements MyDataService {
         }
         myData.setTasks(listaTaskova);
         return myData;
-
     }
 }
