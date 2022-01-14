@@ -5,30 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
 class MoneyManagement extends React.Component {
     state = {
-        features: '',
+        profits: '',
+        expenses: '',
     }
-
-    returnData = async () => {
-        const myHeaders = new Headers();
-		myHeaders.append("Content-Type","application/json");
-        myHeaders.append("Accept","application/json");
-        const token = authHeader();
-        myHeaders.append("Authorization", token);
-
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement', {
-            method: 'GET',
-            headers: myHeaders
-        }).then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-        }).then((jsonResponse) => {
-            this.setState({ features: jsonResponse });
-            console.log(this.state.features);
-        })
-
-    }
-    
 
     handleChange = (e) => {
         const name = e.target.name;
@@ -37,14 +16,11 @@ class MoneyManagement extends React.Component {
         console.log(name , value);
         
     }
-    handleSubmit = async (e) => {
+    handleProfits = async (e) => {
         e.preventDefault();
         
         const body = JSON.stringify({
-            groupName: this.state.name,
-            idLeader: this.state.leaderid,
-            idMembers: this.state.employeesids,
-            idJob: this.state.jobid,
+            profit: parseInt(e),
         });
         console.log("almost");
         console.log(body);
@@ -56,21 +32,51 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/moneymanagement', {
-            method: 'POST',
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit', {
+            method: 'GET',
             headers: myHeaders,
             body: body
         }).then((response) => {
-            if(response.ok){
-                this.setState({ success: true });
+            if(response.ok) {
+                return response.json();
             }
-        }).catch((err) => {
-            throw err;
+        }).then((jsonResponse) => {
+            this.setState({ profits: jsonResponse });
+            console.log(this.state.profits);
+        })
+    }
+
+    handleExpenses = async (e) => {
+        e.preventDefault();
+        
+        const body = JSON.stringify({
+            expense: parseInt(e),
         });
+        console.log("almost");
+        console.log(body);
+        console.log("did it");
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+        
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit', {
+            method: 'GET',
+            headers: myHeaders,
+            body: body
+        }).then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ expenses: jsonResponse });
+            console.log(this.state.expenses);
+        })
     }
 
     render () {
-        console.log(this.state.features);
         return (
             
             
