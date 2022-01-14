@@ -7,6 +7,8 @@ class MoneyManagement extends React.Component {
     state = {
         profits: '',
         expenses: '',
+        inpProf:'',
+        inpExp:''
     }
 
     handleChange = (e) => {
@@ -20,11 +22,11 @@ class MoneyManagement extends React.Component {
         e.preventDefault();
         
         const body = JSON.stringify({
-            profit: parseInt(e),
+            profit: parseInt(this.state.inpProf),
         });
         console.log("almost");
         console.log(body);
-        console.log("did it");
+        console.log('/profit?price='+this.state.inpProf);
 
         const myHeaders = new Headers();
 		myHeaders.append("Content-Type","application/json");
@@ -32,10 +34,9 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit?price='+this.state.inpProf, {
             method: 'GET',
             headers: myHeaders,
-            body: body
         }).then((response) => {
             if(response.ok) {
                 return response.json();
@@ -50,7 +51,7 @@ class MoneyManagement extends React.Component {
         e.preventDefault();
         
         const body = JSON.stringify({
-            expense: parseInt(e),
+            expense: parseInt(this.state.inpExp),
         });
         console.log("almost");
         console.log(body);
@@ -62,10 +63,9 @@ class MoneyManagement extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
         
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/profit', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/expense?difference='+this.state.inpExp, {
             method: 'GET',
             headers: myHeaders,
-            body: body
         }).then((response) => {
             if(response.ok) {
                 return response.json();
@@ -78,11 +78,57 @@ class MoneyManagement extends React.Component {
 
     render () {
         return (
-            
-            
-            <div className="container mt-5">
-                <div className="h3 mb-3">Well Hello there</div>
-                <div className="h3 mb-3">General Kenobi</div>
+            <div className="container mt-5 text-light">
+                {this.props.role === "[ROLE_OWNER]" ?
+                    <div>
+                        <div className="h3 mb-3">Računanje resursa</div>
+                        <div className="row">
+                            <form onSubmit={this.handleProfits}>
+                                <div className="mb-3">
+                                    <label className="form-label">Unesite predviđeni prihod (HRK):</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        name="inpProf"
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                                <button 
+                                    type="submit"
+                                    className="btn btn-light mb-5"
+                                    onClick={this.handleProfits}
+                                >
+                                    Izračunaj planiranu zaradu
+                                </button>
+                            </form>
+                        </div>
+                        <div className="row">
+                            <form onSubmit={this.handleExpenses}>
+                                <div className="mb-3">
+                                    <label className="form-label">Unesite predviđeni trošak (HRK):</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        name="inpExp"
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                                <button 
+                                    type="submit"
+                                    className="btn btn-light mb-5"
+                                    onClick={this.handleExpenses}
+                                >
+                                    Izračunaj ukupni trošak
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                :
+                <div className='d-flex justify-content-center alert alert-danger'>
+                    <h2>Nedovoljne ovlasti za računanje resursa!</h2>
+                </div>
+            }
+                
             </div>
         );
     }
