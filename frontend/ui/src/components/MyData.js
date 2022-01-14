@@ -2,7 +2,7 @@ import React from 'react';
 import authHeader from '../services/auth-header';
 class MyData extends React.Component {
     state = {
-        username: this.props.username,
+        user: this.props.username,
         name: '',
         surname: '',
         username: '',
@@ -20,7 +20,7 @@ class MyData extends React.Component {
         myHeaders.append("Authorization", token);
 
         await fetch(process.env.REACT_APP_BACKEND_URL + '/mydata?username='
-             + this.state.username, {
+             + this.state.user, {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -46,7 +46,7 @@ class MyData extends React.Component {
     render() {
         let groupNames;
         let tasks;
-        if(this.state.username && this.state.username !== ''){
+        if(this.state.user && this.state.user !== ''){
             groupNames = this.state.groupNames.map((group) => {
                 return (
                     <li key={group}>{group}</li>
@@ -76,7 +76,7 @@ class MyData extends React.Component {
 
         return (
             <div className="container">
-                {this.state.username && this.state.username !== '' ?
+                {this.state.user && this.state.user !== '' ?
                     <div>
                         <div className="card mt-5">
                     <div className="card-body">
@@ -119,8 +119,8 @@ class MyData extends React.Component {
                 </div>
                     </div>
             :
-            <div className='d-flex justify-content-center alert alert-danger'>
-                <h2>Trebate se prijavit kako biste vidjeli svoje podatke!</h2>
+            <div className='d-flex justify-content-center alert alert-danger mt-3'>
+                <h3>Trebate se prijavit kako biste vidjeli svoje podatke!</h3>
             </div>    
             }
                 

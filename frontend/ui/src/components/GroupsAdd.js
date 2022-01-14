@@ -169,7 +169,7 @@ class GroupsAdd extends React.Component {
                     Grupa je stvorena
                 </div>
             );
-        } else if(this.state.success==false){
+        } else if(this.state.success === false){
             messageBox = (
                 <div className="alert alert-danger">
                     Neispravan unos grupe
