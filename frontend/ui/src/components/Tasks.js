@@ -40,12 +40,12 @@ class Tasks extends React.Component {
             return (
                 <div className="card mb-3">
                     <div className="card-body">
-                        <p className="h5 text-light">{task.taskName}</p>
-                        <p className="fst-italic text-light">
+                        <p className="h5">{task.taskName}</p>
+                        <p className="fst-italic">
                             Djelatnik: {task.employeeName} {task.employeeSurname} <br />
                             Djelatnost: {task.job.name}
                         </p>
-                        <p className="fst-italic text-light">
+                        <p className="fst-italic">
                             Od: {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do: {(new Date(task.endDateAndTime)).toLocaleString('en-GB')} <br />
                             Procjena broja sati: {task.estimatedDuration}
                         </p>
@@ -57,18 +57,28 @@ class Tasks extends React.Component {
             );
         })
         return (
-            <div className="container mt-5">
-                <div className="h3 mb-3 text-light">Zadaci djelatnika iz mojih grupa</div>
-                <Link to={`tasks/add`}>
-                    <button className="btn btn-light mb-3">Novi zadatak</button>
-                </Link>
-                {tasks}
+            <div>
+                {this.props.role === "[ROLE_LEADER]" ?
+            
+                <div className="container mt-5">
+                    <div className="h3 mb-3 text-light">Zadaci djelatnika iz mojih grupa</div>
+                    <Link to={`tasks/add`}>
+                        <button className="btn btn-light mb-3">Novi zadatak</button>
+                    </Link>
+                    {tasks}
 
-                <Switch>
-                    <Route exact path={`/add`}>
-                        <AddTask />
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route exact path={`/add`}>
+                            <AddTask />
+                        </Route>
+                    </Switch>
+                </div>
+
+                :
+
+                <div className='container d-flex justify-content-center'>
+                    <h1 className='alert-danger'>Nedovoljne permisije za prikaz zadataka!</h1>
+                </div>}
             </div>
         );
     }

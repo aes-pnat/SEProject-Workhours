@@ -163,7 +163,7 @@ const Groups = (props) => {
             </div>
         :
         <div className='container d-flex justify-content-center'>
-            <h1 className='text-danger'>Nedovoljne permisije za prikaz grupa!</h1>
+            <h1 className='alert-danger'>Nedovoljne permisije za prikaz grupa!</h1>
         </div>}
         </div>
     ); 
