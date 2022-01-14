@@ -35,8 +35,8 @@ class MoneyManagement extends React.Component {
         const body = JSON.stringify({
             profit: parseInt(this.state.inpProf),
         });
-        console.log("almost");
-        console.log(body);
+        //console.log("almost");
+        //console.log(body);
         console.log('/profit?price='+this.state.inpProf);
 
         const myHeaders = new Headers();
@@ -65,8 +65,8 @@ class MoneyManagement extends React.Component {
         const body = JSON.stringify({
             expense: parseInt(this.state.inpExp),
         });
-        console.log("almost");
-        console.log(body);
+        //console.log("almost");
+        //console.log(body);
         console.log('/expense?price='+this.state.inpExp);
 
         const myHeaders = new Headers();
@@ -107,7 +107,7 @@ class MoneyManagement extends React.Component {
                 </div>
             );
         } else if (this.state.success===true){
-            console.log(this.state.expenses,'1',this.state.profits.price,'2',this.state.inpProf, 'ayoooooo');
+            //console.log(this.state.expenses,'1',this.state.profits.price,'2',this.state.inpProf, 'ayoooooo');
             messageBox = (
                 <div className="alert alert-info">
                     Ukupni resursi: {-parseFloat(this.state.inpExp)+parseFloat(this.state.profits.price)+parseFloat(this.state.inpProf)} HRK
