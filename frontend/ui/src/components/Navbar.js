@@ -131,7 +131,7 @@ function Navbar(props) {
               <AddTask role={props.role}/>
             </Route>
             <Route path="/register">
-              <Register />
+              <Register role={props.role}/>
             </Route>
             <Route path="/occupancy" >
               <Occupancy role={props.role}/>
@@ -140,10 +140,10 @@ function Navbar(props) {
               <WorkHoursInput role={props.role}/>
             </Route>
             <Route path="/mydata">
-              <MyData />
+              <MyData role={props.role}/>
             </Route>
             <Route path="/map">
-              <Map />
+              <Map role={props.role}/>
             </Route>
           </Switch>
     </Router>
