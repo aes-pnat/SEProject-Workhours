@@ -7,11 +7,20 @@ class MoneyManagement extends React.Component {
     state = {
         profits: '',
         expenses: '',
-        inpProf:'',
-        inpExp:''
+        inpProf:null,
+        inpExp:null,
+        success:null
+    }
+
+    failedInp = (e) => {
+        this.setState({success:false});
+    }
+    validInp = (e) => {
+        this.setState({success:true});
     }
 
     handleChange = (e) => {
+        this.validInp();
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value });
@@ -77,11 +86,22 @@ class MoneyManagement extends React.Component {
     }
 
     render () {
+        let messageBox = '';
+        if(this.state.success==false){
+            messageBox = (
+                <div className="alert alert-danger">
+                    Neispravan unos podataka
+                </div>
+            );
+        }
         return (
             <div className="container mt-5 text-light">
                 {this.props.role === "[ROLE_OWNER]" ?
                     <div>
                         <div className="h3 mb-3">Računanje resursa</div>
+                        <div className="container">
+                            {messageBox}
+                        </div>
                         <div className="row">
                             <form onSubmit={this.handleProfits}>
                                 <div className="mb-3">
@@ -96,7 +116,7 @@ class MoneyManagement extends React.Component {
                                 <button 
                                     type="submit"
                                     className="btn btn-light mb-5"
-                                    onClick={this.handleProfits}
+                                    onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
                                 >
                                     Izračunaj planiranu zaradu
                                 </button>
@@ -116,7 +136,7 @@ class MoneyManagement extends React.Component {
                                 <button 
                                     type="submit"
                                     className="btn btn-light mb-5"
-                                    onClick={this.handleExpenses}
+                                    onClick={this.state.inpExp != null ? this.handleExpenses : this.failedInp}
                                 >
                                     Izračunaj ukupni trošak
                                 </button>
