@@ -31,4 +31,9 @@ public class MoneyManagementController {
     public ResponseEntity<?> seeProfitDifference(@RequestParam double price) {
         return ResponseEntity.ok().body(moneyManagementService.seeProfit(price));
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getFinancialInfo() {
+        return ResponseEntity.ok().body(moneyManagementService.getFinancialInfo());
+    }
 }

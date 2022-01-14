@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.FinancialInfoDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.MoneyManagementDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.MoneyManagementService;
 
@@ -64,6 +65,8 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
         return dto;
     }
 
+
+
     @Override
     public MoneyManagementDTO seeProfit(double price) {
         MoneyManagementDTO dto = new MoneyManagementDTO();
@@ -108,4 +111,35 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
         }
         return setPrice;
     }
+
+    @Override
+    public FinancialInfoDTO getFinancialInfo() {
+        FinancialInfoDTO financialInfo = new FinancialInfoDTO();
+
+        Double realizedRevenue = (double) 0;
+        for(Job job : jobRepository.findAll()) {
+            realizedRevenue += job.getPrice();
+        }
+        financialInfo.setRealizedRevenue(realizedRevenue);
+
+        Double realizedCost = (double) 0;
+        for(Job job : jobRepository.findAll()) {
+            Optional<List<Task>> optionalTasks = taskRepository.findByIdjob_Id(job.getId());
+            if(optionalTasks.isPresent()) {
+                for(Task task : optionalTasks.get()) {
+                    for(Workhoursinput workhoursinput : workHoursRepository.findByIdtask_Id(task.getId())) {
+                        realizedCost += job.getHourprice() * workhoursinput.getWorkhoursdone();
+                    }
+                }
+            }
+        }
+        financialInfo.setRealizedCost(realizedCost);
+
+        Double realizedProfit = realizedRevenue - realizedCost;
+        financialInfo.setRealizedProfit(realizedProfit);
+
+        return financialInfo;
+    }
+
+
 }
