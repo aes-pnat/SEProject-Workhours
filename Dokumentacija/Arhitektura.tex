@@ -10,9 +10,9 @@
 	
 	Web poslužitelj osnova je rada web aplikacije. Njegova primarna zadaća je komunikacija klijenta s aplikacijom. Komunikacija se odvija preko HTTP (engl. Hyper Text Transfer Protocol) protokola, što je protokol u prijenosu informacija na webu. Poslužitelj je onaj koji pokreće web aplikaciju te joj prosljeđuje zahtjev. 
 	
-	Korisnik koristi web aplikaciju za obrađivanje željenih zahtjeva. Web aplikacija obrađuje zahtjev te ovisno o zahtjevu, pristupa bazi podataka nakon čega preko poslužitelja vraća korisniku odgovor u obliku HTML dokumenta vidljivog u web pregledniku. 
+	Korisnik koristi web aplikaciju za obrađivanje željenih zahtjeva. Web aplikacija obrađuje zahtjev te ovisno o zahtjevu, pristupa bazi podataka nakon čega preko poslužitelja vraća korisniku odgovor u obliku HTML dokumenta vidljivog u web pregledniku. HTML elementi su stvoreni koristeći JavaScript biblioteku React. Odabrano razvojno okruženje je Visual Studio Code.
 	
-	Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java Spring Boot. Odabrano razvojno okruženje je Eclipse IDE. Arhitektura sustava temeljiti će se na MVC (Model-View-Controller) konceptu. 
+	Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java Spring Boot. Odabrana razvojna okruženja su Eclipse IDE i IntelliJ IDEA. Arhitektura sustava temeljiti će se na MVC (Model-View-Controller) konceptu. 
 	
 	Karakteristika MVC koncepta je nezavisan razvoj pojedinih dijelova aplikacije što za posljedicu ima jednostavnije ispitivanje kao i jednostavnije razvijanje i dodavanje novih svojstava u sustav. \\
 	
@@ -108,7 +108,7 @@
 						\hline 
 						\endlastfoot
 						
-						\cellcolor{LightGreen}idGroup & INTEGER	& Identifikator grupe.	\\ \hline
+						\cellcolor{Lightgreen} idGroup & INTEGER	& Identifikator grupe.	\\ \hline
 						name	& VARCHAR & Naziv grupe.  	\\ \hline    
 						\cellcolor{LightBlue} idLeader & INTEGER & Identifikator voditelja grupe. 	\\ \hline 
 						\cellcolor{LightBlue} idJob & INTEGER & Identifikator djelatnosti kojom se grupa bavi. 	\\ \hline 
@@ -266,19 +266,136 @@
 			
 		\section{Dijagram razreda}
 		
-			\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
+			%\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
 			
-			\textbf{\textit{dio 1. revizije}}\\
+			%\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
+			%\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
 			
-			\textbf{\textit{dio 2. revizije}}\\			
+			%\textbf{\textit{dio 2. revizije}}\\			
 			
-			\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
+			%\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
 			
+			Na slikama su prikazani razredi koji pripadaju backend dijelu aplikacije. Dijagrame sačinjavaju razredi te među njima uočavamo dijelove poslužiteljskog sloja, odnosno entitete, objekte za prijenos podataka (engl. Data Transfer Object), repozitorije, servise i kontrolere.  
+
+            Entiteti su klase koje predstavljaju tablice spremljene u bazi podataka. Svaka instanca entiteta predstavlja jedan redak u toj tablici.  
+
+            Objekti za prijenos podataka su objekti koji se koriste za komunikaciju između poslužiteljskog i klijentskog dijela aplikacije. Korisni su jer pomoću njih prenosimo samo ono što je bitno, isključivo nužne podatke o određenim entitetima, no ne i cijele entitete. 
+            
+            Repozitoriji su Java sučelja koje upravljaju tokom podataka između poslužitelja i baze podataka. Klase repozitorija služe kao mehanizam za enkapsulaciju pohrane, dohvaćanja i pretraživanja podataka.  
+            
+            Servisi su klase koje sadrže poslovnu logiku aplikacije. U njima se nalaze metode čija je zadaća izvršavanje operacija nad bazom podataka, odnosno pozivanje metoda definiranih u repozitorijima. 
+            
+            Kontroleri, odnosno REST (engl. Representational State Transfer) kontroleri presreću dolazeće zahtjeve, pretvaraju podatke iz zahtjeva u unutarnju strukturu podataka, šalju podatke modelu na daljnju obradu te dobivaju određene podatke iz modela i prosljeđuju ih u klijentski dio aplikacije kako bi se prikazali korisniku.  
+            
+            Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti među različitim razredima prikazanima na priloženim dijagramima. 
+			
+			
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WebSecurityConfig.jpeg}
+% 					\caption{Dijagram razreda WebSecurityConfig}
+% 				\end{figure}
+			
+			
+% 			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixTaskController.jpg}
+					\caption{Dijagram razreda TaskController}
+				\end{figure}
 			
 			
 			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - ProfileDetailsController.jpg}
+% 					\caption{Dijagram razreda ProfileDetailsController}
+% 				\end{figure}
+			
+			
+% 			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - EmployeeController.jpg}
+% 					\caption{Dijagram razreda EmployeeController}
+% 				\end{figure}
+			
+			
+% 			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixWorkHoursController.jpg}
+					\caption{Dijagram razreda WorkHoursController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixGroupController.png}
+					\caption{Dijagram razreda GroupController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixJobController.jpg}
+					\caption{Dijagram razreda JobController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixMoneyManagementController.png}
+					\caption{Dijagram razreda MoneyManagementController}
+				\end{figure}
+			
+			
+			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/UML class - LoginController.png}
+% 					\caption{Dijagram razreda LoginController}
+% 				\end{figure}
+			
+			
+% 			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixMapController.png}
+					\caption{Dijagram razreda MapController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixMyDataController.jpg}
+					\caption{Dijagram razreda MyDataController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixOccupancyController.jpg}
+					\caption{Dijagram razreda OccupancyController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixRegistrationController.png}
+					\caption{Dijagram razreda RegistrationController}
+				\end{figure}
+			
+			
+			\eject
+			
 		
 		\section{Dijagram stanja}
 			
