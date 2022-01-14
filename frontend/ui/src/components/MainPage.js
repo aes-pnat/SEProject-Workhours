@@ -14,6 +14,8 @@ const MainPage = () => {
                     width:"100%",
                     top: "50%",
                     height: "100%",
+                    objectFit:"cover",
+                    zIndex:"-1",
                     overflow:"hidden"
                 }}>Radno vrijeme&copy; by Mi puno radimo
                 <br />
