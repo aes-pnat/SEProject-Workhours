@@ -1,5 +1,6 @@
 import React from 'react';
 import authHeader from '../services/auth-header';
+import User from '../services/User';
 class MyData extends React.Component {
     state = {
         user: this.props.username,
@@ -46,32 +47,39 @@ class MyData extends React.Component {
     render() {
         let groupNames;
         let tasks;
-        if(this.state.user && this.state.user !== ''){
-            groupNames = this.state.groupNames.map((group) => {
-                return (
-                    <li key={group}>{group}</li>
-                );
-            });
-            tasks = this.state.tasks.map((task) => {
-                return (
-                    <div className="card mb-3">
-                        <div className="card-body">
-                            <p className="h5">{task.name}</p>
-                            <p className="fst-italic">
-                                Djelatnost: {task.idjob.name} <br />
-                                Lokacija: {task.idlocation === null ? "Nema lokacije" : task.idlocation.placename + ', ' + task.idlocation.address}
-                            </p>
-                            <p className="fst-italic">
-                                Od: {(new Date(task.datetimestart)).toLocaleString('en-GB')} do: {(new Date(task.datetimeend)).toLocaleString('en-GB')} <br />
-                                Procjena broja sati: {task.hoursneededestimate}
-                            </p>
-                            <p>
-                                {task.description}
-                            </p>
+        if(this.state.user !== ''){
+            if(User.getRole() === "[ROLE_LEADER]"){
+                groupNames = this.state.groupNames.map((group) => {
+                    return (
+                        <li key={group}>{group}</li>
+                    );
+                });
+            }
+            if(this.state.tasks){
+                tasks = this.state.tasks.map((obj) => {
+                    return (
+                        <div className="card mb-3">
+                            <div className="card-body">
+                                <p className="h5">{obj.task.name}</p>
+                                <p className="fst-italic">
+                                    Djelatnost: {obj.task.idjob.name} <br />
+                                    Lokacija: {obj.task.idlocation === null ? "Nema lokacije" : obj.task.idlocation.placename + ', ' + obj.task.idlocation.address}
+                                </p>
+                                <p className="fst-italic">
+                                    Od: {(new Date(obj.task.datetimestart)).toLocaleString('en-GB')} do: {(new Date(obj.task.datetimeend)).toLocaleString('en-GB')} <br />
+                                    Procjena broja sati: {obj.task.hoursneededestimate}
+                                </p>
+                                <p>
+                                    {obj.task.description}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                );
-            });
+                    );
+                });
+            }else{
+                tasks = <p className='fst-italic'>Nema dodijeljenih zadataka</p>
+            }
+            
         }
 
         return (
