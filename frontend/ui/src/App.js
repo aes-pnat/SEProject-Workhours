@@ -15,7 +15,7 @@ function App() {
         <div>
             <video autoPlay loop muted
             style={{
-                position:"absolute",
+                position:"fixed",
                 width:"100%",
                 left: "50%",
                 top: "50%",
@@ -27,7 +27,7 @@ function App() {
             >
                 <source src={Backvid} type="video/mp4"/>
             </video>
-            <Navbar token={token} setToken={setToken} role={role} setRole={setRole}/>
+            <Navbar token={token} setToken={setToken} role={role} setRole={setRole} />
         </div>
         
     );
