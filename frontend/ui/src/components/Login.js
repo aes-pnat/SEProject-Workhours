@@ -8,7 +8,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState(false);
     const [msg, setMsg] = useState('');
-    const [err, setErr] = useState('');
+    //const [err, setErr] = useState('');
     let history = useHistory();
     
     useEffect( () => {

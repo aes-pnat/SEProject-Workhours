@@ -15,14 +15,11 @@ public class WorkHoursInputDTO {
     private LocalDate date;
     @NotNull(message = "A number of hours should be defined.")
     private Integer hoursDone;
-    @NotEmpty(message = "ID of the employee should be defined.")
-    private String idEmployee;
 
     public WorkHoursInputDTO(String task, LocalDate date, Integer hoursDone, String idEmployee) {
         this.task = task;
         this.date = date;
         this.hoursDone = hoursDone;
-        this.idEmployee = idEmployee;
     }
 
     public String getTask() {
@@ -37,7 +34,4 @@ public class WorkHoursInputDTO {
         return hoursDone;
     }
 
-    public String getIdEmployee() {
-        return idEmployee;
-    }
 }

@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeeRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeegroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.GroupRepository;
-import progi.dugonogiprogi.radnovrijeme.backend.dao.JobRepository;
+import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.AddGroupDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.GroupDTO;
@@ -37,6 +34,9 @@ public class GroupServiceJpa implements GroupService {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     @Override
     public List<GroupDTO> listAllGroups() {
@@ -49,7 +49,7 @@ public class GroupServiceJpa implements GroupService {
             group.setLeader(g.getIdleader());
             group.setJob(g.getIdjob());
 
-            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId()).get();
+            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
             List<Employee> employeeList = new ArrayList<>();
             for (Employeegroup e : employeegroups) {
                 Employee employee = employeeRepository.findById(e.getId().getIdemployee()).get();
@@ -82,9 +82,19 @@ public class GroupServiceJpa implements GroupService {
             log.error("{}: Creating group failed: Employee with pid {} does not exist", user, group.getIdLeader());
             throw new IllegalArgumentException("Employee with pid " + group.getIdLeader() + " does not exist");
         }
+        if(leader.get().getIdrole().getName().equals("employee")) {
+            Optional<Role> role = roleRepository.findByName("leader");
+            if(role.isPresent()) {
+                leader.get().setIdrole(role.get());
+                employeeRepository.save(leader.get());
+                log.info("{}: Creating group info: Employee with pid {} had been promoted to leader", user, leader.get().getId());
+            }
+        }
 
         newGroup.setIdleader(leader.get());
         groupRepository.save(newGroup);
+
+
 
         List<Employee> members = new ArrayList<>();
         for(String idMember : group.getIdMembers()) {
@@ -122,6 +132,17 @@ public class GroupServiceJpa implements GroupService {
 
         log.info("{}: Deleting group successful: Deleted group with id {}", user, groupId);
         groupRepository.deleteById(groupId);
+
+        List<Group> leadingGroups = groupRepository.findByIdleader_Id(group.get().getIdleader().getId());
+        if(leadingGroups.isEmpty()) {
+            Optional<Role> role = roleRepository.findByName("employee");
+            if(role.isPresent()) {
+                Employee exLeader = group.get().getIdleader();
+                exLeader.setIdrole(role.get());
+                employeeRepository.save(exLeader);
+                log.info("{}: Deleting group info: Employee with pid {} had been demoted to employee", user, exLeader.getId());
+            }
+        }
         return groupId;
     }
 }

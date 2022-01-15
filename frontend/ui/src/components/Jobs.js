@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-    BrowserRouter as Router,
-    Routes,
     Switch,
     Route,
     Link,
@@ -10,7 +8,6 @@ import {
 import authHeader from '../services/auth-header';
 //import '../Jobs.css';
 import JobsAdd from './JobsAdd';
-// import Backvid from './video/background.mp4';
 const Jobs = (props) => {
     const [data, setData] = useState([]);
     let { path, url } = useRouteMatch();
@@ -88,6 +85,12 @@ const Jobs = (props) => {
         getJobs()
     },[])
     
+    try{
+        getJobs();
+    }catch(err){
+        console.log("error u jobs");
+    }
+
     return (
         <div className='container'>
             <br />

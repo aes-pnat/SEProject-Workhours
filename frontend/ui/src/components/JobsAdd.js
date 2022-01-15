@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from "react"
 import authHeader from '../services/auth-header';
 
 class JobsAdd extends React.Component {
@@ -86,7 +85,7 @@ class JobsAdd extends React.Component {
                     Djelatnost je stvorena
                 </div>
             );
-        } else if(this.state.success==false){
+        } else if(this.state.success===false){
             messageBox = (
                 <div className="alert alert-danger">
                     Neispravan unos djelatnosti

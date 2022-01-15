@@ -42,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/login","/jobs").permitAll();
-        http.authorizeRequests().antMatchers(POST, "/jobs/**").hasAuthority("ROLE_OWNER");
-        http.authorizeRequests().antMatchers(DELETE, "/jobs/**").hasAuthority("ROLE_OWNER");
-        http.authorizeRequests().antMatchers(POST, "/register").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(POST, "/jobs/add", "/jobs/delete").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(GET, "/register/", "/register/**").hasAuthority("ROLE_OWNER");
+        http.authorizeRequests().antMatchers(POST, "/register/", "/register/**").hasAuthority("ROLE_OWNER");
         http.authorizeRequests().antMatchers(GET, "/groups").hasAuthority("ROLE_OWNER");
         http.authorizeRequests().antMatchers(POST, "/groups/**").hasAuthority("ROLE_OWNER");
         http.authorizeRequests().antMatchers(GET, "/occupancy").hasAuthority("ROLE_OWNER");

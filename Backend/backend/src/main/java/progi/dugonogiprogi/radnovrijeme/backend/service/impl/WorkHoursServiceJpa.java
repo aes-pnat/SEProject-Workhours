@@ -9,6 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.WorkHoursService;
@@ -36,15 +37,15 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     EmployeetaskRepository employeetaskRepository;
 
     @Override
-    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
+    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone) {
         String user = BackendApplication.getUser();
         if (hoursDone < 0 || hoursDone > 24) {
-            log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24");
+            log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24", user, hoursDone);
             throw new IllegalArgumentException("Number of hours done should be between 0 and 24.");
         }
-        if (!employeeRepository.findById(idEmployee).isPresent()) {
-            log.error("{}: Creating work hours input failed: Employee with inputted id doesn't exist", user);
-            throw new MissingEmployeeException("Employee with id " + idEmployee + " doesn't exist.");
+        if (employeeRepository.findByUsername(user).isEmpty()) {
+            log.error("{}: Creating work hours input failed: Employee with username {} doesn't exist", user, user);
+            throw new MissingEmployeeException("Employee with username " + user + " doesn't exist.");
         }
 
         Task task = null;
@@ -58,7 +59,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
             throw new NoSuchTaskException("Task with the name " + taskName + " doesn't exist.");
         }
 
-        Employee employee = employeeRepository.findById(idEmployee).get();
+        Employee employee = employeeRepository.findByUsername(user).get();
         Workhoursinput workhoursinput = new Workhoursinput(task, date, hoursDone, employee);
         workHoursRepository.save(workhoursinput);
         log.info("{}: Creating work hours input successful: Created new work hours input for employee {} at date {}", user, employee.getUsername(), date.toString());
@@ -66,22 +67,37 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     }
 
     @Override
-    public List<String> listTaskNamesForEmployee(String idEmployee) {
-        if (idEmployee == null || idEmployee.isEmpty())
-            throw new IllegalArgumentException("ID of the employee should be defined.");
-        if (!employeeRepository.findById(idEmployee).isPresent())
-            throw new MissingEmployeeException("Employee with ID >" + idEmployee + "< doesn't exist.");
-        Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
-        if (!employeeTaskList.isPresent())
+    public List<String> listTaskNamesForEmployee() {
+        String user = BackendApplication.getUser();
+
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(user);
+        if(optionalEmployee.isEmpty()) {
+            log.error("{}: Listing tasks for workhoursinput failed: Employee with username {} does not exist", user, user);
+            throw new EntityMissingException("Employee with username " + user + " does not exist.");
+        }
+        Employee employee = optionalEmployee.get();
+
+        List<Employeetask> employeeTaskList = employeetaskRepository.findById_Idemployee(employee.getId());
+        if (employeeTaskList.isEmpty()) {
             return new ArrayList<>();
+        }
+
         List<Integer> taskIDList = new ArrayList<>();
-        for (Employeetask et : employeeTaskList.get())
+        for (Employeetask et : employeeTaskList) {
             taskIDList.add(et.getId().getIdtask());
+        }
+
         List<String> taskNames = new ArrayList<>();
-        for (Task task : taskRepository.findAll())
-            if (taskIDList.contains(task.getId()))
-                if (task.getDatetimestart().compareTo(Instant.now()) <= 0 && task.getDatetimeend().compareTo(Instant.now()) >= 0)
+        for (Integer taskId : taskIDList) {
+            Optional<Task> optionalTask = taskRepository.findById(taskId);
+            if(optionalTask.isPresent()) {
+                Task task = optionalTask.get();
+                if (task.getDatetimestart().compareTo(Instant.now()) <= 0
+                        && task.getDatetimeend().compareTo(Instant.now()) >= 0) {
                     taskNames.add(task.getName());
+                }
+            }
+        }
         return taskNames;
     }
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import AddTask from './AddTask';
 import authHeader from '../services/auth-header';
 import User from '../services/User';
 class Tasks extends React.Component {
     state = {
-        HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
         tasks: []
     }
 
@@ -16,8 +15,7 @@ class Tasks extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader='
-             + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -43,12 +41,12 @@ class Tasks extends React.Component {
                 return (
                     <div className="card mb-3">
                         <div className="card-body">
-                            <p className="h5">{task.taskName}</p>
-                            <p className="fst-italic">
+                            <p className="h4 fst-italic">{task.taskName}</p>
+                            <p className="h6">
                                 Djelatnik: {task.employeeName} {task.employeeSurname} <br />
                                 Djelatnost: {task.job.name}
                             </p>
-                            <p className="fst-italic">
+                            <p className="h6">
                                 Od: {(new Date(task.startDateAndTime)).toLocaleString('en-GB')} do: {(new Date(task.endDateAndTime)).toLocaleString('en-GB')} <br />
                                 Procjena broja sati: {task.estimatedDuration}
                             </p>
@@ -63,7 +61,8 @@ class Tasks extends React.Component {
         return (
             <div className="container mt-5">
                 {role === "[ROLE_LEADER]" ?
-                    <div className="h3 mb-3 text-light">Zadaci djelatnika iz mojih grupa:
+                    <div className="h3 mb-3">
+                        <h3 className='text-light mb-3'>Zadaci djelatnika iz mojih grupa:</h3>
                     <Link to={`tasks/add`}>
                         <button className="btn btn-light mb-3 ">Novi zadatak</button>
                     </Link>

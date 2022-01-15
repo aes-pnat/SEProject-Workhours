@@ -49,7 +49,7 @@ class AddTask extends React.Component {
 
     handleChange = (e) => {
         const name = e.target.name;
-        const value = e.target.type == 'checkbox' ? e.target.checked : e.target.value;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         this.setState({ [name]: value });
     }
 
@@ -141,26 +141,26 @@ class AddTask extends React.Component {
             )
         })
         return (
-            <div className="container mt-5">
-                {role !== "" ?
+            <div className="container mt-5 text-light">
+                {role === "[ROLE_LEADER]" ?
                     <div>
-                        <div className="h3 mb-3">Novi zadatak</div>
+                        <div className="h3 mb-3 text-light">Novi zadatak</div>
                      <div className="row">
                     <form onSubmit={this.handleSubmit}>
                         <div className="mb-3">
-                            <label className="form-label">Naziv zadatka:</label>
+                            <label className="form-label text-light">Naziv zadatka:</label>
                             <input
                                 className="form-control"
                                 name="taskName"
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div className="mb-3">
-                            <div className="h6 mb-3">Djelatnici</div>
+                        <div className="mb-3 scroll">
+                            <div className="h6 mb-3 text-light">Djelatnici</div>
                             {employeeChecks}
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Opis:</label>
+                            <label className="form-label text-light">Opis:</label>
                             <textarea
                                 className="form-control"
                                 name="taskDescription"
@@ -168,7 +168,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Procjena broja sati:</label>
+                            <label className="form-label text-light">Procjena broja sati:</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -177,7 +177,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className='mb-3'>
-                            <label className="form-label">Datum početka:</label>
+                            <label className="form-label text-light">Datum početka:</label>
                             <input 
                                 type="date" 
                                 className="form-control"
@@ -186,7 +186,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className='mb-3'>
-                            <label className="form-label">Datum završetka:</label>
+                            <label className="form-label text-light">Datum završetka:</label>
                             <input 
                                 type="date" 
                                 className="form-control"
@@ -195,7 +195,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Djelatnost:</label>
+                            <label className="form-label text-light">Djelatnost:</label>
                             <select className="form-select"
                                     name="jobID"
                                     onChange={this.handleChange}
@@ -204,9 +204,9 @@ class AddTask extends React.Component {
                                 {jobOptions}
                             </select>
                         </div>
-                        <div className="h6 mb-3 mt-3">Lokacija - odaberite postojeću ili dodajte novu</div>
+                        <div className="h6 mb-3 mt-3 text-light">Lokacija - odaberite postojeću ili dodajte novu</div>
                         <div className="mb-3">
-                            <label className="form-label">Postojeća lokacija:</label>
+                            <label className="form-label text-light">Postojeća lokacija:</label>
                             <select className="form-select"
                                     name="locationID"
                                     onChange={this.handleChange}
@@ -216,7 +216,7 @@ class AddTask extends React.Component {
                             </select>
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Adresa nove lokacije:</label>
+                            <label className="form-label text-light">Adresa nove lokacije:</label>
                             <input
                                 className="form-control"
                                 name="newLocationAddress"
@@ -224,7 +224,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Mjesto nove lokacije:</label>
+                            <label className="form-label text-light">Mjesto nove lokacije:</label>
                             <input
                                 className="form-control"
                                 name="newLocationPlaceName"
@@ -232,7 +232,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Geografska širina nove lokacije:</label>
+                            <label className="form-label text-light">Geografska širina nove lokacije:</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -241,7 +241,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Geografska duljina nove lokacije:</label>
+                            <label className="form-label text-light">Geografska duljina nove lokacije:</label>
                             <input
                                 type="number"
                                 className="form-control"
@@ -252,7 +252,7 @@ class AddTask extends React.Component {
                         <div>
                             <button 
                                 type="submit"
-                                className="btn btn-primary mb-5"
+                                className="btn btn-primary mb-5 btn-light"
                                 onClick={this.handleSubmit}
                             >
                                 Stvori zadatak

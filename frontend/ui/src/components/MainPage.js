@@ -1,6 +1,4 @@
-import React from 'react'
-import * as VFX from 'react-vfx';
-// import Backvid from './video/background.mp4';
+import React from 'react';
 import Logo from './video/mpr-logo.png';
 
 const MainPage = () => {

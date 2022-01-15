@@ -13,6 +13,8 @@ import progi.dugonogiprogi.radnovrijeme.backend.rest.dto.RegistrationDTO;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.InvalidPasswordCheckException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.RegistrationService;
+
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -67,5 +69,26 @@ public class RegistrationServiceJpa implements RegistrationService {
         }
 
         return eRepository.save(newEmployee);
+    }
+
+    @Override
+    public List<Employee> getEmployees() {
+        return eRepository.findAll();
+    }
+
+    @Override
+    public String deleteEmployee(String pid) {
+        String user = BackendApplication.getUser();
+
+        Optional<Employee> optionalEmployee = eRepository.findById(pid);
+        if(optionalEmployee.isEmpty()) {
+            log.error("{}: Deleting employee failed: Employee with id {} does not exist", user, pid);
+            throw new EntityMissingException("Employee with id " + pid + " does not exist.");
+        }
+
+        log.info("{}: Deleting employee successful: Employee with id {} deleted", user, pid);
+        eRepository.delete(optionalEmployee.get());
+
+        return optionalEmployee.get().getId();
     }
 }
