@@ -15,7 +15,7 @@ class Tasks extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader=', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
