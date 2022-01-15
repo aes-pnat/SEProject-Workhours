@@ -73,6 +73,7 @@ public class MyDataServiceJpa implements MyDataService {
         if(employee.isEmpty()){
             throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
         }
+
         Employee e = employee.get();
         myData.setUsername(e.getUsername());
         myData.setName(e.getName());
@@ -81,18 +82,12 @@ public class MyDataServiceJpa implements MyDataService {
         myData.setEmail(e.getEmail());
         myData.setRoleName(e.getIdrole().getName());
         Optional<List<Employeegroup>> employeegroupList = employeegroupRepository.findById_Idemployee(myData.getPid());
-        if(employeegroupList.isEmpty()) {
-            throw new MissingGroupException("Employee with id "+myData.getPid()+ "doesn't have any groups");
-        }
 
         List<Employeegroup> list = employeegroupList.get();
         List<String> lista = new LinkedList<>();
         for(Employeegroup eg : list){
             int groupId = eg.getId().getIdgroup();
             Optional<Group> group = groupRepository.findById(groupId);
-            if(group.isEmpty()){
-                throw new MissingGroupException("Group with id "+groupId+"does not exist");
-            }
             Group g = group.get();
             lista.add(g.getName());
         }
@@ -103,16 +98,10 @@ public class MyDataServiceJpa implements MyDataService {
         lista = lista.stream().distinct().toList();
         myData.setGroupNames(lista);
         List<Employeetask> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
-        if(employeetaskList.isEmpty()) {
-            throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
-        }
         List<GroupTaskDTO> listaTaskova = new LinkedList<>();
         for(Employeetask et : employeetaskList){
             int taskId = et.getId().getIdtask();
             Optional<Task> task = taskRepository.findById(taskId);
-            if(task.isEmpty()){
-                throw new NoSuchTaskException("Task with id "+taskId+"does not exist");
-            }
             Task t = task.get();
             GroupTaskDTO dto = new GroupTaskDTO();
             dto.setTask(t);
