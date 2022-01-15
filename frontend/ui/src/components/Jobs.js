@@ -88,6 +88,12 @@ const Jobs = (props) => {
         getJobs()
     },[])
     
+    try{
+        getJobs();
+    }catch(err){
+        console.log("error u jobs");
+    }
+    
     return (
         <div className='container'>
             <br />

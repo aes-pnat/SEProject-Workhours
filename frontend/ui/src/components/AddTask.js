@@ -142,7 +142,7 @@ class AddTask extends React.Component {
         })
         return (
             <div className="container mt-5 text-light">
-                {role !== "" ?
+                {role === "[ROLE_LEADER]" ?
                     <div>
                         <div className="h3 mb-3 text-light">Novi zadatak</div>
                      <div className="row">
@@ -155,7 +155,7 @@ class AddTask extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-3 scroll">
                             <div className="h6 mb-3 text-light">Djelatnici</div>
                             {employeeChecks}
                         </div>
