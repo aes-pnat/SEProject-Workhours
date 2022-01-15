@@ -3,7 +3,6 @@ import authHeader from '../services/auth-header';
 import User from '../services/User';
 class WorkHoursInput extends React.Component {
     state = {
-        HARDKODIRANI_ID_PROMIJENITI_OVO: '00000000001',
         task: '',
         date: '',
         hoursDone: '',
@@ -18,8 +17,7 @@ class WorkHoursInput extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/workhoursinput?idEmployee='
-            + this.state.HARDKODIRANI_ID_PROMIJENITI_OVO, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/workhoursinput', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
