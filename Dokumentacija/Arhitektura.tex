@@ -10,9 +10,9 @@
 	
 	Web poslužitelj osnova je rada web aplikacije. Njegova primarna zadaća je komunikacija klijenta s aplikacijom. Komunikacija se odvija preko HTTP (engl. Hyper Text Transfer Protocol) protokola, što je protokol u prijenosu informacija na webu. Poslužitelj je onaj koji pokreće web aplikaciju te joj prosljeđuje zahtjev. 
 	
-	Korisnik koristi web aplikaciju za obrađivanje željenih zahtjeva. Web aplikacija obrađuje zahtjev te ovisno o zahtjevu, pristupa bazi podataka nakon čega preko poslužitelja vraća korisniku odgovor u obliku HTML dokumenta vidljivog u web pregledniku. 
+	Korisnik koristi web aplikaciju za obrađivanje željenih zahtjeva. Web aplikacija obrađuje zahtjev te ovisno o zahtjevu, pristupa bazi podataka nakon čega preko poslužitelja vraća korisniku odgovor u obliku HTML dokumenta vidljivog u web pregledniku. HTML elementi su stvoreni koristeći JavaScript biblioteku React. Odabrano razvojno okruženje je Visual Studio Code.
 	
-	Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java Spring Boot. Odabrano razvojno okruženje je Eclipse IDE. Arhitektura sustava temeljiti će se na MVC (Model-View-Controller) konceptu. 
+	Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java Spring Boot. Odabrana razvojna okruženja su Eclipse IDE i IntelliJ IDEA. Arhitektura sustava temeljiti će se na MVC (Model-View-Controller) konceptu. 
 	
 	Karakteristika MVC koncepta je nezavisan razvoj pojedinih dijelova aplikacije što za posljedicu ima jednostavnije ispitivanje kao i jednostavnije razvijanje i dodavanje novih svojstava u sustav. \\
 	
@@ -258,7 +258,6 @@
 			
 				\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/RelDijagram.png}
 					\caption{Relacijski dijagram baze podataka}
 				\end{figure}		
 			\eject
@@ -291,41 +290,41 @@
             Iz naziva i tipova atributa u razredima može se zaključiti vrsta ovisnosti među različitim razredima prikazanima na priloženim dijagramima. 
 			
 			
-			\begin{figure}[H]
-					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WebSecurityConfig.jpeg}
-					\caption{Dijagram razreda WebSecurityConfig}
-				\end{figure}
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WebSecurityConfig.jpeg}
+% 					\caption{Dijagram razreda WebSecurityConfig}
+% 				\end{figure}
 			
 			
-			\eject
+% 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - TaskController.jpg}
+					\includegraphics[width=\textwidth]{slike/fixTaskController.jpg}
 					\caption{Dijagram razreda TaskController}
 				\end{figure}
 			
 			
 			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - ProfileDetailsController.jpg}
+% 					\caption{Dijagram razreda ProfileDetailsController}
+% 				\end{figure}
+			
+			
+% 			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/Dijagram razreda - EmployeeController.jpg}
+% 					\caption{Dijagram razreda EmployeeController}
+% 				\end{figure}
+			
+			
+% 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - ProfileDetailsController.jpg}
-					\caption{Dijagram razreda ProfileDetailsController}
-				\end{figure}
-			
-			
-			\eject
-			\begin{figure}[H]
-					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - EmployeeController.jpg}
-					\caption{Dijagram razreda EmployeeController}
-				\end{figure}
-			
-			
-			\eject
-			\begin{figure}[H]
-					\centering
-					\includegraphics[width=\textwidth]{slike/Dijagram razreda - WorkHoursController.jpg}
+					\includegraphics[width=\textwidth]{slike/fixWorkHoursController.jpg}
 					\caption{Dijagram razreda WorkHoursController}
 				\end{figure}
 			
@@ -333,7 +332,7 @@
 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/UML class - GroupController.png}
+					\includegraphics[width=\textwidth]{slike/fixGroupController.png}
 					\caption{Dijagram razreda GroupController}
 				\end{figure}
 			
@@ -341,7 +340,7 @@
 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/UML class - JobController.png}
+					\includegraphics[width=\textwidth]{slike/fixJobController.jpg}
 					\caption{Dijagram razreda JobController}
 				\end{figure}
 			
@@ -349,16 +348,48 @@
 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/UML class - MoneyManagementController.png}
+					\includegraphics[width=\textwidth]{slike/fixMoneyManagementController.png}
 					\caption{Dijagram razreda MoneyManagementController}
+				\end{figure}
+			
+			
+			\eject
+% 			\begin{figure}[H]
+% 					\centering
+% 					\includegraphics[width=\textwidth]{slike/UML class - LoginController.png}
+% 					\caption{Dijagram razreda LoginController}
+% 				\end{figure}
+			
+			
+% 			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixMapController.png}
+					\caption{Dijagram razreda MapController}
 				\end{figure}
 			
 			
 			\eject
 			\begin{figure}[H]
 					\centering
-					\includegraphics[width=\textwidth]{slike/UML class - LoginController.png}
-					\caption{Dijagram razreda LoginController}
+					\includegraphics[width=\textwidth]{slike/fixMyDataController.jpg}
+					\caption{Dijagram razreda MyDataController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixOccupancyController.jpg}
+					\caption{Dijagram razreda OccupancyController}
+				\end{figure}
+			
+			
+			\eject
+			\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{slike/fixRegistrationController.png}
+					\caption{Dijagram razreda RegistrationController}
 				\end{figure}
 			
 			
@@ -368,22 +399,73 @@
 		\section{Dijagram stanja}
 			
 			
-			\textbf{\textit{dio 2. revizije}}\\
+% 			\textbf{\textit{dio 2. revizije}}\\
 			
-			\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
+% 			\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
+
+\begin{figure}[H]
+					\centering
+					\includegraphics[width=\textwidth]{Dokumentacija/pogon/Dijagram stanja (Voditelj).png}
+					\caption{Dijagram stanja - Voditelj}
+				\end{figure}
 			
 			
 			\eject 
 		
 		\section{Dijagram aktivnosti}
 			
-			\textbf{\textit{dio 2. revizije}}\\
+% 			\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+% 			 \textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+                
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Brisanje djelatnosti.jpg}
+				\caption{Brisanje djelatnosti}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Brisanje grupe.jpg}
+				\caption{Brisanje grupe}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Pregled lokacija.jpg}
+				\caption{Pregled lokacija}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Pregled svih djelatnosti.jpg}
+				\caption{Pregled svih djelatnosti}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Pregled svih grupa.jpg}
+				\caption{Pregled svih grupa}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Pregled vlastitih podataka.jpg}
+				\caption{Pregled vlastitih podataka}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Pregled zadataka.jpg}
+				\caption{Pregled zadataka}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Provjera zauzeća djelatnika.jpg}
+				\caption{Provjera zauzeća djelatnika}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Registracija.jpg}
+				\caption{Registracija}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Stvaranje djelatnosti.jpg}
+				\caption{Stvaranje djelatnosti}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Stvaranje grupe.jpg}
+				\caption{Stvaranje grupe}
+				\end{figure}
+				\begin{figure}[H] 					\centering 					\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Stvaranje novog zadatka.jpg}
+				\caption{Stvaranje novog zadatka}
+				\end{figure}
+				\begin{figure}[H] 					\centering 
+				\includegraphics[width=\textwidth]{Dokumentacija/diagakt/Unos radnih sati.jpg}
+				\caption{Unos radnih sati}
+				\end{figure}
 			
 			\eject
 		\section{Dijagram komponenti}
 		
-			\textbf{\textit{dio 2. revizije}}\\
+% 			\textbf{\textit{dio 2. revizije}}\\
 		
-			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+% 			 \textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+\begin{figure}[H] 					\centering 
+				\includegraphics[width=1.1\textwidth]{Dokumentacija/dijagrami/dijagram komponenti.jpg}
+				\caption{Dijagram komponenti}
+				\end{figure}
