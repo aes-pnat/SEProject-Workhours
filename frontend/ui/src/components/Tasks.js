@@ -5,7 +5,6 @@ import authHeader from '../services/auth-header';
 import User from '../services/User';
 class Tasks extends React.Component {
     state = {
-        id: '00000000001', //PROMIJENITI U ID KOJI JE SPREMLJEN
         tasks: []
     }
 
@@ -16,8 +15,7 @@ class Tasks extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader='
-             + this.state.id, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?idLeader=', {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
