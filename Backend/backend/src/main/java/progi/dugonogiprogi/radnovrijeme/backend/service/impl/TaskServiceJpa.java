@@ -167,33 +167,42 @@ public class TaskServiceJpa implements TaskService {
         }
         Employee e = employee.get();
 
-        Group g = groupRepository.findByName(groupName).get();
-        List<Employee> employees = new ArrayList<>();
-        List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
+        if (groupName.equals("-1")) {
+            List<Group> groups = groupRepository.findByIdleader_Id(e.getId());
+            AddTaskInfoDTO addTaskInfoDTO = new AddTaskInfoDTO();
+            addTaskInfoDTO.setGroups(groups);
+            return addTaskInfoDTO;
+        } else {
+            Group g = groupRepository.findByName(groupName).get();
+            List<Employee> employees = new ArrayList<>();
+            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
 
-        for (Employeegroup eg : employeegroups) {
-            Optional<Employee> emp = employeeRepository.findById(eg.getId().getIdemployee());
-            if (emp.isPresent()) {
-                employees.add(emp.get());
+            for (Employeegroup eg : employeegroups) {
+                Optional<Employee> emp = employeeRepository.findById(eg.getId().getIdemployee());
+                if (emp.isPresent()) {
+                    employees.add(emp.get());
+                }
             }
+
+            List<LocationDTO> locations = new ArrayList<>();
+            List<JobDTO> jobs = new ArrayList<>();
+            Job job = groupRepository.findById(g.getId()).get().getIdjob();
+            jobs.add(new JobDTO(job.getName(), job.getId()));
+
+            List<EmployeeDTO> empDTOs = new ArrayList<>();
+
+            for (Employee e1 : employees) {
+                empDTOs.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+            }
+
+            for (Location l : locationRepository.findAll())
+                locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
+
+
+
+            return new AddTaskInfoDTO(empDTOs, locations, jobs);
         }
 
-        List<LocationDTO> locations = new ArrayList<>();
-        List<JobDTO> jobs = new ArrayList<>();
-        Job job = groupRepository.findById(g.getId()).get().getIdjob();
-        jobs.add(new JobDTO(job.getName(), job.getId()));
 
-        List<EmployeeDTO> empDTOs = new ArrayList<>();
-
-        for (Employee e1 : employees) {
-            empDTOs.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
-        }
-
-        for (Location l : locationRepository.findAll())
-            locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
-
-
-
-        return new AddTaskInfoDTO(empDTOs, locations, jobs);
     }
 }
