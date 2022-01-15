@@ -5,7 +5,9 @@ import authHeader from '../services/auth-header';
 import User from '../services/User';
 class Tasks extends React.Component {
     state = {
-        tasks: []
+        tasks: [],
+        groups: [],
+        selectedGroup: null
     }
 
     componentDidMount = async () => {
@@ -15,7 +17,40 @@ class Tasks extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks', {
+        // await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks', {
+        //     method: 'GET',
+        //     headers: myHeaders
+        // }).then((response) => {
+        //     if(response.ok) {
+        //         return response.json();
+        //     }
+        // }).then((jsonResponse) => {
+        //     jsonResponse.forEach(task => {
+        //         this.setState({
+        //             task: this.state.tasks.push(task)
+        //         });
+        //     });
+        // }).catch(error => {
+        //     console.log(error);
+        // });
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?groupName=-1', {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) =>{
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            this.setState({ groups: jsonResponse });
+        }).catch((err) => {
+            console.log("failed fetch");
+        });
+    }
+
+    handleGroupChange = (e) => {
+        const groupName = e.target.value;
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?groupName=' + groupName, {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -23,18 +58,14 @@ class Tasks extends React.Component {
                 return response.json();
             }
         }).then((jsonResponse) => {
-            jsonResponse.forEach(task => {
-                this.setState({
-                    task: this.state.tasks.push(task)
-                });
-            });
+            this.setState({ tasks: jsonResponse });
         }).catch(error => {
             console.log(error);
         });
     }
 
     render () {
-        let tasks;
+        let tasks, groupsOptions = [];
         var role = User.getRole();
         if(role !== ""){
             tasks = this.state.tasks.map(task => {
@@ -57,6 +88,11 @@ class Tasks extends React.Component {
                     </div>
                 );
             })
+            groupsOptions = this.state.groups.map(groupName => {
+                return (
+                    <option key={groupName} value={groupName}>{groupName}</option>
+                );
+            });
         }
         return (
             <div className="container mt-5">
@@ -66,6 +102,9 @@ class Tasks extends React.Component {
                     <Link to={`tasks/add`}>
                         <button className="btn btn-light mb-3 ">Novi zadatak</button>
                     </Link>
+                    <select name="group" onChange={handleGroupChange}>
+                        {groupsOptions}
+                    </select>
                     {tasks}
                     <Switch>
                         <Route exact path={`/add`}>
