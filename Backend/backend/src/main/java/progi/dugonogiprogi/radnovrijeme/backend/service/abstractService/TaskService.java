@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public interface TaskService {
 
-    List<TasksDTO> listTasksForLeader();
+    List<?> listTasksForLeader(String groupName);
 
     Task addTask(AddTaskDTO addTaskDTO);
 

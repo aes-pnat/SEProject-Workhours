@@ -40,8 +40,19 @@ public class TaskServiceJpa implements TaskService {
 
 
     @Override
-    public List<TasksDTO> listTasksForLeader() {
+    public List<?> listTasksForLeader(String groupName) {
         String user = BackendApplication.getUser();
+
+        if(groupName.equals("-1")) {
+            List<Group> groups = groupRepository.findByIdleader_Username(user);
+            List<String> groupNames = new ArrayList<>();
+            for(Group group : groups) {
+                groupNames.add(group.getName());
+            }
+            return groupNames;
+        }
+
+
         List<TasksDTO> list = new LinkedList<>();
 
         Optional<Employee> lead = employeeRepository.findByUsername(user);
@@ -51,46 +62,48 @@ public class TaskServiceJpa implements TaskService {
         }
         Employee leader = lead.get();
 
-        List<Group> groups = groupRepository.findByIdleader_Id(leader.getId());
-        if(groups.isEmpty()) {
-            throw new NoSuchGroupException("Employee with username " + user + "is not a leader");
+        Optional<Group> optionalGroup = groupRepository.findByName(groupName);
+        if(optionalGroup.isEmpty()) {
+            throw new NoSuchGroupException("Group with name " + groupName + " does not exist.");
+        }
+        Group group = optionalGroup.get();
+        if(!group.getIdleader().getUsername().equals(user)) {
+            throw new NoSuchGroupException("Employee with username " + user + "is not a leader of group " + groupName + ".");
         }
 
-        for (Group g : groups) {
-            List<Employeegroup> employeeGroups = employeegroupRepository.findById_Idgroup(g.getId());
-            if (employeeGroups.isEmpty()) {
-                throw new MissingEmployeeException("The group with id" + g.getId() + "has no members");
+        List<Employeegroup> employeeGroups = employeegroupRepository.findById_Idgroup(group.getId());
+        if (employeeGroups.isEmpty()) {
+            throw new MissingEmployeeException("The group with id" + group.getId() + "has no members");
+        }
+        List<Employee> employees = new ArrayList<>();
+        employees.add(leader);
+        for (Employeegroup employeegroup : employeeGroups) {
+            Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
+            temp.ifPresent(employees::add);
+        }
+
+        for (Employee employee : employees) {
+            List<Employeetask> employeetasks = employeetaskRepository.findById_Idemployee(employee.getId());
+
+            List<Task> tasks = new ArrayList<>();
+            for (Employeetask employeetask : employeetasks) {
+                Optional<Task> temp = taskRepository.findById(employeetask.getId().getIdtask());
+                temp.ifPresent(tasks::add);
             }
-            List<Employee> employees = new ArrayList<>();
-            employees.add(leader);
-            for (Employeegroup employeegroup : employeeGroups) {
-                Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
-                temp.ifPresent(employees::add);
-            }
 
-            for (Employee employee : employees) {
-                List<Employeetask> employeetasks = employeetaskRepository.findById_Idemployee(employee.getId());
-
-                List<Task> tasks = new ArrayList<>();
-                for (Employeetask employeetask : employeetasks) {
-                    Optional<Task> temp = taskRepository.findById(employeetask.getId().getIdtask());
-                    temp.ifPresent(tasks::add);
-                }
-
-                for (Task task : tasks) {
-                    if (task.getIdjob().getId().equals(g.getIdjob().getId())) {
-                        TasksDTO tasksDTO = new TasksDTO();
-                        tasksDTO.setEmployeeName(employee.getName());
-                        tasksDTO.setEmployeeSurname(employee.getSurname());
-                        tasksDTO.setLocation(task.getIdlocation());
-                        tasksDTO.setEstimatedDuration(task.getHoursneededestimate());
-                        tasksDTO.setJob(task.getIdjob());
-                        tasksDTO.setTaskName(task.getName());
-                        tasksDTO.setStartDateAndTime(task.getDatetimestart());
-                        tasksDTO.setEndDateAndTime(task.getDatetimeend());
-                        tasksDTO.setTaskGroup(g);
-                        list.add(tasksDTO);
-                    }
+            for (Task task : tasks) {
+                if (task.getIdjob().getId().equals(group.getIdjob().getId())) {
+                    TasksDTO tasksDTO = new TasksDTO();
+                    tasksDTO.setEmployeeName(employee.getName());
+                    tasksDTO.setEmployeeSurname(employee.getSurname());
+                    tasksDTO.setLocation(task.getIdlocation());
+                    tasksDTO.setEstimatedDuration(task.getHoursneededestimate());
+                    tasksDTO.setJob(task.getIdjob());
+                    tasksDTO.setTaskName(task.getName());
+                    tasksDTO.setStartDateAndTime(task.getDatetimestart());
+                    tasksDTO.setEndDateAndTime(task.getDatetimeend());
+                    tasksDTO.setTaskGroup(group);
+                    list.add(tasksDTO);
                 }
             }
         }
