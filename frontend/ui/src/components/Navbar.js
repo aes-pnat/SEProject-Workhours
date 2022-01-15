@@ -1,7 +1,6 @@
 import '../Navbar.css';
 import {
   BrowserRouter as Router,
-  Routes,
   Switch,
   Route,
   Link

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link, Router } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import AddTask from './AddTask';
 import authHeader from '../services/auth-header';
 import User from '../services/User';

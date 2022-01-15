@@ -1,5 +1,4 @@
 import React from 'react';
-import Backvid from './video/background.mp4';
 import Logo from './video/mpr-logo.png';
 
 const MainPage = () => {

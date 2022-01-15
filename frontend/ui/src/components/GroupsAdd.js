@@ -1,5 +1,4 @@
 import React from 'react'
-import Select from 'react-select';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
@@ -61,14 +60,14 @@ class GroupsAdd extends React.Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({ [name]: value });
-        let removeleader = this.state.employeesList.filter ( a => a.id != value);
+        let removeleader = this.state.employeesList.filter ( a => a.id !== value);
         this.setState({ employeesWoLeader: removeleader });
     }
 
     
 
     handleChangeArray = (e) => {
-        const name = e.target.name;
+        // const name = e.target.name;
         const value = e.target.value;
         //const newempid = this.state.employeesids;
         this.setState(previousState => ({

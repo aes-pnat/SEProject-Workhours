@@ -1,10 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import {useState, useEffect} from 'react';
 import authHeader from '../services/auth-header';
 import {
-    BrowserRouter as Router,
-    Routes,
     Switch,
     Route,
     Link,

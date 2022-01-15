@@ -1,5 +1,4 @@
 import React from 'react'
-import Select from 'react-select';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authHeader from '../services/auth-header';
@@ -52,9 +51,9 @@ class MoneyManagement extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         
-        const body = JSON.stringify({
-            profit: parseInt(this.state.inpProf),
-        });
+        // const body = JSON.stringify({
+        //     profit: parseInt(this.state.inpProf),
+        // });
         //console.log("almost");
         //console.log(body);
         console.log('/profit?price='+this.state.inpProf);
@@ -82,7 +81,7 @@ class MoneyManagement extends React.Component {
 
     render () {
         let messageBox = '';
-        if(this.state.success==false){
+        if(this.state.success===false){
             messageBox = (
                 <div className="alert alert-danger">
                     Neispravan unos podataka
