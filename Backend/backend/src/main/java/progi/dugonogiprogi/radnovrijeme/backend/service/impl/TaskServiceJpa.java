@@ -62,6 +62,7 @@ public class TaskServiceJpa implements TaskService {
                 throw new MissingEmployeeException("The group with id" + g.getId() + "has no members");
             }
             List<Employee> employees = new ArrayList<>();
+            employees.add(leader);
             for (Employeegroup employeegroup : employeeGroups) {
                 Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
                 temp.ifPresent(employees::add);
@@ -99,6 +100,7 @@ public class TaskServiceJpa implements TaskService {
     @Override
     public Task addTask(AddTaskDTO addTaskDTO) {
         String user = BackendApplication.getUser();
+
         Integer locID = addTaskDTO.getLocationID();
         Location loc;
         if (locID == null) {
@@ -111,10 +113,13 @@ public class TaskServiceJpa implements TaskService {
             log.info("{}: Creating location successful: Created location with address {}", user, addTaskDTO.getNewLocationAddress());
         }
         else {
-            if (locationRepository.findById(locID).isEmpty())
+            if (locationRepository.findById(locID).isEmpty()) {
+                log.error("{}: Creating task failed: Location with id {} does not exist", user, locID);
                 throw new IllegalArgumentException("Location with ID " + locID + " doesn't exist!");
+            }
             loc = locationRepository.findById(locID).get();
         }
+
         Integer jobID = addTaskDTO.getJobID();
         if (jobRepository.findById(addTaskDTO.getJobID()).isEmpty())
             throw new IllegalArgumentException("Job with ID " + jobID + " doesn't exist!");
