@@ -25,13 +25,12 @@ public class TaskController {
     /**
      * Responds to get request of the form /tasks?idLeader="idLeader_example"
      *
-     * @param idLeader web request parameter representing leader's id
      * @return list of DTOs representing tasks given to members of a group whose leader is an employee with given id
      */
 
     @GetMapping("")
-    public List<TasksDTO> listTasksForLeader(@RequestParam String idLeader){
-        return taskService.listTasksForLeader(idLeader);
+    public List<TasksDTO> listTasksForLeader(){
+        return taskService.listTasksForLeader();
     }
 
     @PostMapping("/add")

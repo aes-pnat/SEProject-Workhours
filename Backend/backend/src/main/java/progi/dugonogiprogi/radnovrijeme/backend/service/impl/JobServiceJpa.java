@@ -60,22 +60,20 @@ public class JobServiceJpa implements JobService {
         if (groups.isPresent()) {
             for (Group g : groups.get()) {
                 for (Employeegroup eg : employeegroupRepository.findAll()) {
-                    if (eg.getId().getIdgroup() == g.getId())
+                    if (eg.getId().getIdgroup().equals(g.getId()))
                         employeegroupRepository.delete(eg);
                 }
                 groupRepository.delete(g);
             }
         }
-        Optional<List<Task>> tasks = taskRepository.findByIdjob_Id(id);
-        if (tasks.isPresent()) {
-            for (Task t : tasks.get()) {
-                for (Employeetask et : employeetaskRepository.findAll()) {
-                    if (et.getId().getIdtask() == t.getId()) {
-                        employeetaskRepository.delete(et);
-                    }
+        List<Task> tasks = taskRepository.findByIdjob_Id(id);
+        for (Task t : tasks) {
+            for (Employeetask et : employeetaskRepository.findAll()) {
+                if (et.getId().getIdtask().equals(t.getId())) {
+                    employeetaskRepository.delete(et);
                 }
-                taskRepository.delete(t);
             }
+            taskRepository.delete(t);
         }
         jobRepository.deleteById(id);
         return id;

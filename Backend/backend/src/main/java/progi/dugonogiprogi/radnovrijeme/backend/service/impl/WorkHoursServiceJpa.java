@@ -39,10 +39,10 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
         String user = BackendApplication.getUser();
         if (hoursDone < 0 || hoursDone > 24) {
-            log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24");
+            log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24", user, hoursDone);
             throw new IllegalArgumentException("Number of hours done should be between 0 and 24.");
         }
-        if (!employeeRepository.findById(idEmployee).isPresent()) {
+        if (employeeRepository.findById(idEmployee).isEmpty()) {
             log.error("{}: Creating work hours input failed: Employee with inputted id doesn't exist", user);
             throw new MissingEmployeeException("Employee with id " + idEmployee + " doesn't exist.");
         }
@@ -69,13 +69,13 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     public List<String> listTaskNamesForEmployee(String idEmployee) {
         if (idEmployee == null || idEmployee.isEmpty())
             throw new IllegalArgumentException("ID of the employee should be defined.");
-        if (!employeeRepository.findById(idEmployee).isPresent())
+        if (employeeRepository.findById(idEmployee).isEmpty())
             throw new MissingEmployeeException("Employee with ID >" + idEmployee + "< doesn't exist.");
-        Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
-        if (!employeeTaskList.isPresent())
+        List<Employeetask> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
+        if (employeeTaskList.isEmpty())
             return new ArrayList<>();
         List<Integer> taskIDList = new ArrayList<>();
-        for (Employeetask et : employeeTaskList.get())
+        for (Employeetask et : employeeTaskList)
             taskIDList.add(et.getId().getIdtask());
         List<String> taskNames = new ArrayList<>();
         for (Task task : taskRepository.findAll())

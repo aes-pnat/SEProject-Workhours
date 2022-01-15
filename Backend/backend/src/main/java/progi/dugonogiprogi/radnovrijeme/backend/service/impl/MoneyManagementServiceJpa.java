@@ -160,12 +160,10 @@ public class MoneyManagementServiceJpa implements MoneyManagementService {
     private Double getRealizedCost() {
         Double realizedCost = (double) 0;
         for(Job job : jobRepository.findAll()) {
-            Optional<List<Task>> optionalTasks = taskRepository.findByIdjob_Id(job.getId());
-            if(optionalTasks.isPresent()) {
-                for(Task task : optionalTasks.get()) {
-                    for(Workhoursinput workhoursinput : workHoursRepository.findByIdtask_Id(task.getId())) {
-                        realizedCost += job.getHourprice() * workhoursinput.getWorkhoursdone();
-                    }
+            List<Task> tasks = taskRepository.findByIdjob_Id(job.getId());
+            for (Task task : tasks) {
+                for (Workhoursinput workhoursinput : workHoursRepository.findByIdtask_Id(task.getId())) {
+                    realizedCost += job.getHourprice() * workhoursinput.getWorkhoursdone();
                 }
             }
         }

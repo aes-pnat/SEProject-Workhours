@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface EmployeetaskRepository extends JpaRepository<Employeetask, EmployeetaskId> {
 
-    Optional<List<Employeetask>> findById_Idemployee(String idemployee);
+    List<Employeetask> findById_Idemployee(String idemployee);
 
     Optional<List<Employeetask>> findById_Idtask(Integer idtask);
 
