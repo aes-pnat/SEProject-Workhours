@@ -109,7 +109,7 @@ class Tasks extends React.Component {
                     {tasks}
                     <Switch>
                         <Route exact path={`/add`}>
-                            <AddTask groupName=/>
+                            <AddTask groupName={this.state.selectedGroup}/>
                         </Route>
                     </Switch>
                 </div>
