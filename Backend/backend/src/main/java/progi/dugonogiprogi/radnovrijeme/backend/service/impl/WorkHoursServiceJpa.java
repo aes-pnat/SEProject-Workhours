@@ -9,6 +9,7 @@ import progi.dugonogiprogi.radnovrijeme.backend.dao.EmployeetaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.TaskRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.WorkHoursRepository;
 import progi.dugonogiprogi.radnovrijeme.backend.domain.*;
+import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.EntityMissingException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.MissingEmployeeException;
 import progi.dugonogiprogi.radnovrijeme.backend.rest.exception.NoSuchTaskException;
 import progi.dugonogiprogi.radnovrijeme.backend.service.abstractService.WorkHoursService;
@@ -66,22 +67,35 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     }
 
     @Override
-    public List<String> listTaskNamesForEmployee(String idEmployee) {
-        if (idEmployee == null || idEmployee.isEmpty())
-            throw new IllegalArgumentException("ID of the employee should be defined.");
-        if (employeeRepository.findById(idEmployee).isEmpty())
-            throw new MissingEmployeeException("Employee with ID >" + idEmployee + "< doesn't exist.");
-        List<Employeetask> employeeTaskList = employeetaskRepository.findById_Idemployee(idEmployee);
-        if (employeeTaskList.isEmpty())
+    public List<String> listTaskNamesForEmployee() {
+        String user = BackendApplication.getUser();
+
+        Optional<Employee> optionalEmployee = employeeRepository.findByUsername(user);
+        if(optionalEmployee.isEmpty()) {
+            log.error("{}: Listing tasks for workhoursinput failed: Employee with username {} does not exist", user, user);
+            throw new EntityMissingException("Employee with username " + user + " does not exist.");
+        }
+        Employee employee = optionalEmployee.get();
+
+        List<Employeetask> employeeTaskList = employeetaskRepository.findById_Idemployee(employee.getId());
+        if (employeeTaskList.isEmpty()) {
             return new ArrayList<>();
+        }
+
         List<Integer> taskIDList = new ArrayList<>();
-        for (Employeetask et : employeeTaskList)
+        for (Employeetask et : employeeTaskList) {
             taskIDList.add(et.getId().getIdtask());
+        }
+
         List<String> taskNames = new ArrayList<>();
-        for (Task task : taskRepository.findAll())
-            if (taskIDList.contains(task.getId()))
-                if (task.getDatetimestart().compareTo(Instant.now()) <= 0 && task.getDatetimeend().compareTo(Instant.now()) >= 0)
+        for (Task task : taskRepository.findAll()) {
+            if (taskIDList.contains(task.getId())) {
+                if (task.getDatetimestart().compareTo(Instant.now()) <= 0
+                        && task.getDatetimeend().compareTo(Instant.now()) >= 0) {
                     taskNames.add(task.getName());
+                }
+            }
+        }
         return taskNames;
     }
 

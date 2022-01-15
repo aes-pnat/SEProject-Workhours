@@ -26,7 +26,7 @@ public class WorkHoursController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listTaskNamesForEmployee(@RequestParam String idEmployee) {
-        return ResponseEntity.ok().body(workHoursService.listTaskNamesForEmployee(idEmployee));
+    public ResponseEntity<?> listTaskNamesForEmployee() {
+        return ResponseEntity.ok().body(workHoursService.listTaskNamesForEmployee());
     }
 }

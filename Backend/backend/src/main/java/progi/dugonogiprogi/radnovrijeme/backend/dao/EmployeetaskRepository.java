@@ -14,9 +14,4 @@ public interface EmployeetaskRepository extends JpaRepository<Employeetask, Empl
 
     Optional<List<Employeetask>> findById_Idtask(Integer idtask);
 
-
-
-
-
-
 }

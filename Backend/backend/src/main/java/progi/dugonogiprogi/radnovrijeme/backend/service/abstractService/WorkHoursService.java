@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public interface WorkHoursService {
 
-    List<String> listTaskNamesForEmployee(String idEmployee);
+    List<String> listTaskNamesForEmployee();
 
     Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee);
 
