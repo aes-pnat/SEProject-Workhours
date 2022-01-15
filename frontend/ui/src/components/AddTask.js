@@ -37,7 +37,7 @@ class AddTask extends React.Component {
             }
         }).then((jsonResponse) => {
             if (jsonResponse !== undefined) {
-                this.setState({ groups: jsonResponse.groups });
+                this.setState({ groups: jsonResponse });
             }
         }).catch((err) => {
             console.log("failed fetch");
@@ -191,6 +191,7 @@ class AddTask extends React.Component {
                             />
                         </div>
                         <div className='mb-3'>
+                            <label className="form-label">Grupa:</label>
                             <select className="form-select mb-3" name="group" onChange={this.handleGroupChange}>
                                 <option>Odaberite grupu</option>
                                 {groupsOptions}
