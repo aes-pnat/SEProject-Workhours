@@ -71,7 +71,7 @@ class WorkHoursInput extends React.Component {
         if (this.state.tasksList && 'length' in this.state.tasksList && this.state.tasksList.length > 0) {
             tasks = this.state.tasksList.map(task => {
                 return (
-                    <option key={task.name} value={task.name}>{task.name}</option>
+                    <option value={task}>{task}</option>
                 );
             })
         } else {
