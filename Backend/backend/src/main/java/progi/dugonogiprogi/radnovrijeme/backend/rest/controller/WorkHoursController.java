@@ -22,7 +22,7 @@ public class WorkHoursController {
     @PostMapping("")
     public ResponseEntity<?> createNewWorkHoursInput(@Validated @RequestBody WorkHoursInputDTO workHoursInputDTO) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/workhoursinput").toUriString());
-        return ResponseEntity.created(uri).body(workHoursService.createNewWorkHoursInput(workHoursInputDTO.getTask(), workHoursInputDTO.getDate(), workHoursInputDTO.getHoursDone(), workHoursInputDTO.getIdEmployee()));
+        return ResponseEntity.created(uri).body(workHoursService.createNewWorkHoursInput(workHoursInputDTO.getTask(), workHoursInputDTO.getDate(), workHoursInputDTO.getHoursDone()));
     }
 
     @GetMapping("")

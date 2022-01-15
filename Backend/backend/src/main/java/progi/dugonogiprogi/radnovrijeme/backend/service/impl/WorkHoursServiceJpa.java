@@ -37,15 +37,15 @@ public class WorkHoursServiceJpa implements WorkHoursService {
     EmployeetaskRepository employeetaskRepository;
 
     @Override
-    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone, String idEmployee) {
+    public Workhoursinput createNewWorkHoursInput(String taskName, LocalDate date, Integer hoursDone) {
         String user = BackendApplication.getUser();
         if (hoursDone < 0 || hoursDone > 24) {
             log.error("{}: Creating work hours input failed: Number of hours {} should be between 0 and 24", user, hoursDone);
             throw new IllegalArgumentException("Number of hours done should be between 0 and 24.");
         }
-        if (employeeRepository.findById(idEmployee).isEmpty()) {
-            log.error("{}: Creating work hours input failed: Employee with inputted id doesn't exist", user);
-            throw new MissingEmployeeException("Employee with id " + idEmployee + " doesn't exist.");
+        if (employeeRepository.findByUsername(user).isEmpty()) {
+            log.error("{}: Creating work hours input failed: Employee with username {} doesn't exist", user, user);
+            throw new MissingEmployeeException("Employee with username " + user + " doesn't exist.");
         }
 
         Task task = null;
@@ -59,7 +59,7 @@ public class WorkHoursServiceJpa implements WorkHoursService {
             throw new NoSuchTaskException("Task with the name " + taskName + " doesn't exist.");
         }
 
-        Employee employee = employeeRepository.findById(idEmployee).get();
+        Employee employee = employeeRepository.findByUsername(user).get();
         Workhoursinput workhoursinput = new Workhoursinput(task, date, hoursDone, employee);
         workHoursRepository.save(workhoursinput);
         log.info("{}: Creating work hours input successful: Created new work hours input for employee {} at date {}", user, employee.getUsername(), date.toString());
