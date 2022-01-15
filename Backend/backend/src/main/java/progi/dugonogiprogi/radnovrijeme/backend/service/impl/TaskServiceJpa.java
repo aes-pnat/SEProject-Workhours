@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
@@ -40,8 +41,19 @@ public class TaskServiceJpa implements TaskService {
 
 
     @Override
-    public List<TasksDTO> listTasksForLeader() {
+    public List<?> listTasksForLeader(String groupName) {
         String user = BackendApplication.getUser();
+
+        if(groupName.equals("-1")) {
+            List<Group> groups = groupRepository.findByIdleader_Username(user);
+            List<String> groupNames = new ArrayList<>();
+            for(Group group : groups) {
+                groupNames.add(group.getName());
+            }
+            return groupNames;
+        }
+
+
         List<TasksDTO> list = new LinkedList<>();
 
         Optional<Employee> lead = employeeRepository.findByUsername(user);
@@ -51,46 +63,48 @@ public class TaskServiceJpa implements TaskService {
         }
         Employee leader = lead.get();
 
-        List<Group> groups = groupRepository.findByIdleader_Id(leader.getId());
-        if(groups.isEmpty()) {
-            throw new NoSuchGroupException("Employee with username " + user + "is not a leader");
+        Optional<Group> optionalGroup = groupRepository.findByName(groupName);
+        if(optionalGroup.isEmpty()) {
+            throw new NoSuchGroupException("Group with name " + groupName + " does not exist.");
+        }
+        Group group = optionalGroup.get();
+        if(!group.getIdleader().getUsername().equals(user)) {
+            throw new NoSuchGroupException("Employee with username " + user + "is not a leader of group " + groupName + ".");
         }
 
-        for (Group g : groups) {
-            List<Employeegroup> employeeGroups = employeegroupRepository.findById_Idgroup(g.getId());
-            if (employeeGroups.isEmpty()) {
-                throw new MissingEmployeeException("The group with id" + g.getId() + "has no members");
+        List<Employeegroup> employeeGroups = employeegroupRepository.findById_Idgroup(group.getId());
+        if (employeeGroups.isEmpty()) {
+            throw new MissingEmployeeException("The group with id" + group.getId() + "has no members");
+        }
+        List<Employee> employees = new ArrayList<>();
+        employees.add(leader);
+        for (Employeegroup employeegroup : employeeGroups) {
+            Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
+            temp.ifPresent(employees::add);
+        }
+
+        for (Employee employee : employees) {
+            List<Employeetask> employeetasks = employeetaskRepository.findById_Idemployee(employee.getId());
+
+            List<Task> tasks = new ArrayList<>();
+            for (Employeetask employeetask : employeetasks) {
+                Optional<Task> temp = taskRepository.findById(employeetask.getId().getIdtask());
+                temp.ifPresent(tasks::add);
             }
-            List<Employee> employees = new ArrayList<>();
-            employees.add(leader);
-            for (Employeegroup employeegroup : employeeGroups) {
-                Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
-                temp.ifPresent(employees::add);
-            }
 
-            for (Employee employee : employees) {
-                List<Employeetask> employeetasks = employeetaskRepository.findById_Idemployee(employee.getId());
-
-                List<Task> tasks = new ArrayList<>();
-                for (Employeetask employeetask : employeetasks) {
-                    Optional<Task> temp = taskRepository.findById(employeetask.getId().getIdtask());
-                    temp.ifPresent(tasks::add);
-                }
-
-                for (Task task : tasks) {
-                    if (task.getIdjob().getId().equals(g.getIdjob().getId())) {
-                        TasksDTO tasksDTO = new TasksDTO();
-                        tasksDTO.setEmployeeName(employee.getName());
-                        tasksDTO.setEmployeeSurname(employee.getSurname());
-                        tasksDTO.setLocation(task.getIdlocation());
-                        tasksDTO.setEstimatedDuration(task.getHoursneededestimate());
-                        tasksDTO.setJob(task.getIdjob());
-                        tasksDTO.setTaskName(task.getName());
-                        tasksDTO.setStartDateAndTime(task.getDatetimestart());
-                        tasksDTO.setEndDateAndTime(task.getDatetimeend());
-                        tasksDTO.setTaskGroup(g);
-                        list.add(tasksDTO);
-                    }
+            for (Task task : tasks) {
+                if (task.getIdjob().getId().equals(group.getIdjob().getId())) {
+                    TasksDTO tasksDTO = new TasksDTO();
+                    tasksDTO.setEmployeeName(employee.getName());
+                    tasksDTO.setEmployeeSurname(employee.getSurname());
+                    tasksDTO.setLocation(task.getIdlocation());
+                    tasksDTO.setEstimatedDuration(task.getHoursneededestimate());
+                    tasksDTO.setJob(task.getIdjob());
+                    tasksDTO.setTaskName(task.getName());
+                    tasksDTO.setStartDateAndTime(task.getDatetimestart());
+                    tasksDTO.setEndDateAndTime(task.getDatetimeend());
+                    tasksDTO.setTaskGroup(group);
+                    list.add(tasksDTO);
                 }
             }
         }
@@ -145,20 +159,50 @@ public class TaskServiceJpa implements TaskService {
     }
 
     @Override
-    public AddTaskInfoDTO getAddTaskInfo() {
-        List<EmployeeDTO> employees = new ArrayList<>();
-        List<LocationDTO> locations = new ArrayList<>();
-        List<JobDTO> jobs = new ArrayList<>();
+    public AddTaskInfoDTO getAddTaskInfo(String groupName) {
+        String username = BackendApplication.getUser();
+        Optional<Employee> employee = employeeRepository.findByUsername(username);
+        if(employee.isEmpty()){
+            throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
+        }
+        Employee e = employee.get();
 
-        for (Employee e : employeeRepository.findAll())
-            employees.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+        if (groupName.equals("-1")) {
+            List<Group> groups = groupRepository.findByIdleader_Id(e.getId());
+            AddTaskInfoDTO addTaskInfoDTO = new AddTaskInfoDTO();
+            addTaskInfoDTO.setGroups(groups);
+            return addTaskInfoDTO;
+        } else {
+            Group g = groupRepository.findByName(groupName).get();
+            List<Employee> employees = new ArrayList<>();
+            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
 
-        for (Location l : locationRepository.findAll())
-            locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
+            for (Employeegroup eg : employeegroups) {
+                Optional<Employee> emp = employeeRepository.findById(eg.getId().getIdemployee());
+                if (emp.isPresent()) {
+                    employees.add(emp.get());
+                }
+            }
 
-        for (Job j : jobRepository.findAll())
-            jobs.add(new JobDTO(j.getName(), j.getId()));
+            List<LocationDTO> locations = new ArrayList<>();
+            List<JobDTO> jobs = new ArrayList<>();
+            Job job = groupRepository.findById(g.getId()).get().getIdjob();
+            jobs.add(new JobDTO(job.getName(), job.getId()));
 
-        return new AddTaskInfoDTO(employees, locations, jobs);
+            List<EmployeeDTO> empDTOs = new ArrayList<>();
+
+            for (Employee e1 : employees) {
+                empDTOs.add(new EmployeeDTO(e1.getName() + " " + e1.getSurname(), e1.getId()));
+            }
+
+            for (Location l : locationRepository.findAll())
+                locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
+
+
+
+            return new AddTaskInfoDTO(empDTOs, locations, jobs);
+        }
+
+
     }
 }

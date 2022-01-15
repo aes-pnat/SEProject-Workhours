@@ -16,7 +16,9 @@ class AddTask extends React.Component {
         newLocationLongitude: '',
         employees: [],
         existingLocations: [],
-        jobs: []
+        jobs: [],
+        groups: [],
+        selectedGroup: null
     }
 
     componentDidMount = async () => {
@@ -26,7 +28,39 @@ class AddTask extends React.Component {
         const token = authHeader();
         myHeaders.append("Authorization", token);
 
-        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks/add', {
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?groupName=-1', {
+            method: 'GET',
+            headers: myHeaders
+        }).then((response) =>{
+            if(response.ok) {
+                return response.json();
+            }
+        }).then((jsonResponse) => {
+            if (jsonResponse !== undefined) {
+                this.setState({ groups: jsonResponse });
+            }
+        }).catch((err) => {
+            console.log("failed fetch");
+        });
+    }
+
+    handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        this.setState({ [name]: value });
+    }
+
+    handleGroupChange = async (e) => {
+        const groupName = e.target.value;
+        this.setState({ selectedGroup: groupName });
+
+        const myHeaders = new Headers();
+		myHeaders.append("Content-Type","application/json");
+        myHeaders.append("Accept","application/json");
+        const token = authHeader();
+        myHeaders.append("Authorization", token);
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks/add?groupName=' + groupName, {
             method: 'GET',
             headers: myHeaders
         }).then((response) => {
@@ -45,12 +79,6 @@ class AddTask extends React.Component {
         }).catch( (error) => {
             console.log(error);
         })
-    }
-
-    handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        this.setState({ [name]: value });
     }
 
     handleSubmit = async (e) => {
@@ -119,6 +147,13 @@ class AddTask extends React.Component {
             );
         });
 
+        let groupsOptions;
+        groupsOptions = this.state.groups.map(groupName => {
+            return (
+                <option key={groupName} value={groupName}>{groupName}</option>
+            );
+        });
+
         let locationOptions = this.state.existingLocations.map(location => {
             return (
                 <option
@@ -154,6 +189,13 @@ class AddTask extends React.Component {
                                 name="taskName"
                                 onChange={this.handleChange}
                             />
+                        </div>
+                        <div className='mb-3'>
+                            <label className="form-label">Grupa:</label>
+                            <select className="form-select mb-3" name="group" onChange={this.handleGroupChange}>
+                                <option>Odaberite grupu</option>
+                                {groupsOptions}
+                            </select>
                         </div>
                         <div className="mb-3 scroll">
                             <div className="h6 mb-3 text-light">Djelatnici</div>
