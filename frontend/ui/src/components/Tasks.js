@@ -50,6 +50,7 @@ class Tasks extends React.Component {
 
     handleGroupChange = (e) => {
         const groupName = e.target.value;
+        this.setState({ selectedGroup: groupName });
         await fetch(process.env.REACT_APP_BACKEND_URL + '/tasks?groupName=' + groupName, {
             method: 'GET',
             headers: myHeaders
@@ -87,7 +88,7 @@ class Tasks extends React.Component {
                         </div>
                     </div>
                 );
-            })
+            });
             groupsOptions = this.state.groups.map(groupName => {
                 return (
                     <option key={groupName} value={groupName}>{groupName}</option>
@@ -108,7 +109,7 @@ class Tasks extends React.Component {
                     {tasks}
                     <Switch>
                         <Route exact path={`/add`}>
-                            <AddTask />
+                            <AddTask groupName=/>
                         </Route>
                     </Switch>
                 </div>
