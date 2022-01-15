@@ -88,8 +88,10 @@ public class WorkHoursServiceJpa implements WorkHoursService {
         }
 
         List<String> taskNames = new ArrayList<>();
-        for (Task task : taskRepository.findAll()) {
-            if (taskIDList.contains(task.getId())) {
+        for (Integer taskId : taskIDList) {
+            Optional<Task> optionalTask = taskRepository.findById(taskId);
+            if(optionalTask.isPresent()) {
+                Task task = optionalTask.get();
                 if (task.getDatetimestart().compareTo(Instant.now()) <= 0
                         && task.getDatetimeend().compareTo(Instant.now()) >= 0) {
                     taskNames.add(task.getName());
