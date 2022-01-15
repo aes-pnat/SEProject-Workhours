@@ -118,54 +118,57 @@ class MoneyManagement extends React.Component {
         }
         return (
             <div className="container mt-5 text-light">
-                <div>
-                    <div className="card text-dark">
-                        <div className="card-body">
-                            <p>Ostvarena dobit: {this.state.mms.realizedProfit}</p>
-                            <p>Ostvaren trošak: {this.state.mms.realizedCost}</p>
-                            <p>Ostvareni prihod: {this.state.mms.realizedRevenue}</p>
-                        </div>
-                    </div>
-                    <br/>
-                </div>
+                
                 {this.props.role === "[ROLE_OWNER]" ?
                     <div>
-                        <div className="h3 mb-3">Računanje resursa</div>
-                        
-                        <div className="row">
-                            <form onSubmit={this.handleSubmit}>
-                                <div className="mb-3">
-                                    <label className="form-label">Unesite predviđeni prihod (HRK):</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        name="inpProf"
-                                        onChange={this.handleChange}
-                                    />
+                        <div>
+                            <div className="card text-dark">
+                                <div className="card-body">
+                                    <p>Ostvarena dobit: {this.state.mms.realizedProfit}</p>
+                                    <p>Ostvaren trošak: {this.state.mms.realizedCost}</p>
+                                    <p>Ostvareni prihod: {this.state.mms.realizedRevenue}</p>
                                 </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Unesite predviđeni trošak (HRK):</label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        name="inpExp"
-                                        onChange={this.handleChange}
-                                    />
-                                </div>
-                                <button 
-                                    type="submit"
-                                    className="btn btn-light mb-5"
-                                    //onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
-                                    onClick={this.handleSubmit}
-                                >
-                                    Izračunaj planiranu zaradu
-                                </button>
-                            </form>
+                            </div>
+                            <br/>
                         </div>
-                        <div className="container">
-                            {messageBox}
+                        <div>
+                            <div className="h3 mb-3">Računanje resursa</div>
+                            
+                            <div className="row">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="mb-3">
+                                        <label className="form-label">Unesite predviđeni prihod (HRK):</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            name="inpProf"
+                                            onChange={this.handleChange}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Unesite predviđeni trošak (HRK):</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            name="inpExp"
+                                            onChange={this.handleChange}
+                                        />
+                                    </div>
+                                    <button 
+                                        type="submit"
+                                        className="btn btn-light mb-5"
+                                        //onClick={this.state.inpExp != null ? this.handleProfits : this.failedInp}
+                                        onClick={this.handleSubmit}
+                                    >
+                                        Izračunaj planiranu zaradu
+                                    </button>
+                                </form>
+                            </div>
+                            <div className="container">
+                                {messageBox}
+                            </div>
                         </div>
-                    </div>
+                </div>
                 :
                 <div className='d-flex justify-content-center alert alert-danger'>
                     <h2>Nedovoljne ovlasti za računanje resursa!</h2>
