@@ -19,5 +19,5 @@ public interface TaskService {
 
     Task addTask(AddTaskDTO addTaskDTO);
 
-    AddTaskInfoDTO getAddTaskInfo();
+    AddTaskInfoDTO getAddTaskInfo(String groupName);
 }

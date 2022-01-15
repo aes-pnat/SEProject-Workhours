@@ -2,6 +2,7 @@ package progi.dugonogiprogi.radnovrijeme.backend.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import progi.dugonogiprogi.radnovrijeme.backend.BackendApplication;
 import progi.dugonogiprogi.radnovrijeme.backend.dao.*;
@@ -158,20 +159,41 @@ public class TaskServiceJpa implements TaskService {
     }
 
     @Override
-    public AddTaskInfoDTO getAddTaskInfo() {
-        List<EmployeeDTO> employees = new ArrayList<>();
+    public AddTaskInfoDTO getAddTaskInfo(String groupName) {
+        String username = BackendApplication.getUser();
+        Optional<Employee> employee = employeeRepository.findByUsername(username);
+        if(employee.isEmpty()){
+            throw new MissingEmployeeException("Employee with username " +username+ " does not exist");
+        }
+        Employee e = employee.get();
+
+        Group g = groupRepository.findByName(groupName).get();
+        List<Employee> employees = new ArrayList<>();
+        List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
+
+        for (Employeegroup eg : employeegroups) {
+            Optional<Employee> emp = employeeRepository.findById(eg.getId().getIdemployee());
+            if (emp.isPresent()) {
+                employees.add(emp.get());
+            }
+        }
+
         List<LocationDTO> locations = new ArrayList<>();
         List<JobDTO> jobs = new ArrayList<>();
+        Job job = groupRepository.findById(g.getId()).get().getIdjob();
+        jobs.add(new JobDTO(job.getName(), job.getId()));
 
-        for (Employee e : employeeRepository.findAll())
-            employees.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+        List<EmployeeDTO> empDTOs = new ArrayList<>();
+
+        for (Employee e1 : employees) {
+            empDTOs.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+        }
 
         for (Location l : locationRepository.findAll())
             locations.add(new LocationDTO(l.getAddress() + ", " + l.getPlacename(), l.getId()));
 
-        for (Job j : jobRepository.findAll())
-            jobs.add(new JobDTO(j.getName(), j.getId()));
 
-        return new AddTaskInfoDTO(employees, locations, jobs);
+
+        return new AddTaskInfoDTO(empDTOs, locations, jobs);
     }
 }

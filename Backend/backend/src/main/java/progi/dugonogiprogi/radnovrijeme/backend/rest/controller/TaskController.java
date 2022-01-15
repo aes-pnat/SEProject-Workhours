@@ -39,8 +39,8 @@ public class TaskController {
     }
 
     @GetMapping("/add")
-    public AddTaskInfoDTO getAddTaskInfo() {
-        return taskService.getAddTaskInfo();
+    public AddTaskInfoDTO getAddTaskInfo(@RequestParam String groupName) {
+        return taskService.getAddTaskInfo(groupName);
     }
 
 }
