@@ -192,7 +192,7 @@ public class TaskServiceJpa implements TaskService {
             List<EmployeeDTO> empDTOs = new ArrayList<>();
 
             for (Employee e1 : employees) {
-                empDTOs.add(new EmployeeDTO(e.getName() + " " + e.getSurname(), e.getId()));
+                empDTOs.add(new EmployeeDTO(e1.getName() + " " + e1.getSurname(), e1.getId()));
             }
 
             for (Location l : locationRepository.findAll())
