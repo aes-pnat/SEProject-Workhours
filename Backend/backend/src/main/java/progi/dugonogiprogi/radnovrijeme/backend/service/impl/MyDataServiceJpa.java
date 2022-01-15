@@ -96,19 +96,18 @@ public class MyDataServiceJpa implements MyDataService {
             Group g = group.get();
             lista.add(g.getName());
         }
-        Optional<List<Group>> g = groupRepository.findByIdleader(e);
-        if(g.isPresent()){
-            lista.addAll(g.get().stream().map(Group::getName).collect(Collectors.toList()));
+        List<Group> g = groupRepository.findByIdleader_Id(e.getId());
+        if(!g.isEmpty()){
+            lista.addAll(g.stream().map(Group::getName).collect(Collectors.toList()));
         }
         lista = lista.stream().distinct().toList();
         myData.setGroupNames(lista);
-        Optional<List<Employeetask>> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
+        List<Employeetask> employeetaskList = employeetaskRepository.findById_Idemployee(myData.getPid());
         if(employeetaskList.isEmpty()) {
             throw new NoSuchTaskException("Employee with id "+myData.getPid()+"doesn't have any tasks");
         }
-        List<Employeetask> employeetasks = employeetaskList.get();
         List<GroupTaskDTO> listaTaskova = new LinkedList<>();
-        for(Employeetask et : employeetasks){
+        for(Employeetask et : employeetaskList){
             int taskId = et.getId().getIdtask();
             Optional<Task> task = taskRepository.findById(taskId);
             if(task.isEmpty()){

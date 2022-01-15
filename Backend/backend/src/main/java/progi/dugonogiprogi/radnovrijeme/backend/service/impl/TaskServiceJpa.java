@@ -40,61 +40,57 @@ public class TaskServiceJpa implements TaskService {
 
 
     @Override
-    public List<TasksDTO> listTasksForLeader(String idLeader) {
+    public List<TasksDTO> listTasksForLeader() {
+        String user = BackendApplication.getUser();
         List<TasksDTO> list = new LinkedList<>();
 
-        Optional<Employee> lead = employeeRepository.findById(idLeader);
+        Optional<Employee> lead = employeeRepository.findByUsername(user);
 
-        if (!lead.isPresent())
-            throw new MissingEmployeeException("Employee with id " + idLeader + " not found");
-
+        if (lead.isEmpty()) {
+            throw new MissingEmployeeException("Employee with username " + user + " not found");
+        }
         Employee leader = lead.get();
 
-        Optional<List<Group>> groups = groupRepository.findByIdleader(leader);
-
-        if(!groups.isPresent()) {
-            throw new NoSuchGroupException("Employee with id "+idLeader+"is not a leader");
+        List<Group> groups = groupRepository.findByIdleader_Id(leader.getId());
+        if(groups.isEmpty()) {
+            throw new NoSuchGroupException("Employee with username " + user + "is not a leader");
         }
-        List<Group> groupList = groups.get();
 
-        for (Group g : groupList) {
-
-            Optional<List<Employeegroup>> listEmployees = employeegroupRepository.findById_Idgroup(g.getId());
-            if (!listEmployees.isPresent()) {
+        for (Group g : groups) {
+            List<Employeegroup> employeeGroups = employeegroupRepository.findById_Idgroup(g.getId());
+            if (employeeGroups.isEmpty()) {
                 throw new MissingEmployeeException("The group with id" + g.getId() + "has no members");
             }
-            Optional<List<Task>> taskss = taskRepository.findByIdjob_Id(g.getIdjob().getId());
-            if (!taskss.isPresent()) {
-                throw new NoSuchElementException("This group has none tasks set yet");
+            List<Employee> employees = new ArrayList<>();
+            for (Employeegroup employeegroup : employeeGroups) {
+                Optional<Employee> temp = employeeRepository.findById(employeegroup.getId().getIdemployee());
+                temp.ifPresent(employees::add);
             }
-            for (Task t : taskss.get()) {
-                for (Employeegroup eg : listEmployees.get()) {
-                    TasksDTO tasksDTO = new TasksDTO();
-                    tasksDTO.setTaskGroup(g);
-                    Optional<List<Employeetask>> et = employeetaskRepository.findById_Idemployee(eg.getId().getIdemployee());
-                    if (!et.isPresent()) {
-                        throw new NoSuchElementException("This employee hasn't been given any tasks");
-                    }
-                    for (Employeetask emt : et.get()) {
-                        if (emt.getId().getIdtask().equals(t.getId())) {
-                            Optional<Employee> employee = employeeRepository.findById(emt.getId().getIdemployee());
-                            if (!employee.isPresent()) {
-                                throw new MissingEmployeeException("Employee with id " + emt.getId().getIdemployee() + " doesn't exist");
-                            }
-                            Employee e = employee.get();
-                            tasksDTO.setTaskName(t.getName());
-                            tasksDTO.setEstimatedDuration(t.getHoursneededestimate());
-                            tasksDTO.setStartDateAndTime(t.getDatetimestart());
-                            tasksDTO.setEndDateAndTime(t.getDatetimeend());
-                            tasksDTO.setEmployeeName(e.getName());
-                            tasksDTO.setEmployeeSurname(e.getSurname());
-                            tasksDTO.setLocation(t.getIdlocation());
-                            tasksDTO.setJob(t.getIdjob());
-                            list.add(tasksDTO);
-                        }
-                    }
+
+            for (Employee employee : employees) {
+                List<Employeetask> employeetasks = employeetaskRepository.findById_Idemployee(employee.getId());
+
+                List<Task> tasks = new ArrayList<>();
+                for (Employeetask employeetask : employeetasks) {
+                    Optional<Task> temp = taskRepository.findById(employeetask.getId().getIdtask());
+                    temp.ifPresent(tasks::add);
                 }
 
+                for (Task task : tasks) {
+                    if (task.getIdjob().getId().equals(g.getIdjob().getId())) {
+                        TasksDTO tasksDTO = new TasksDTO();
+                        tasksDTO.setEmployeeName(employee.getName());
+                        tasksDTO.setEmployeeSurname(employee.getSurname());
+                        tasksDTO.setLocation(task.getIdlocation());
+                        tasksDTO.setEstimatedDuration(task.getHoursneededestimate());
+                        tasksDTO.setJob(task.getIdjob());
+                        tasksDTO.setTaskName(task.getName());
+                        tasksDTO.setStartDateAndTime(task.getDatetimestart());
+                        tasksDTO.setEndDateAndTime(task.getDatetimeend());
+                        tasksDTO.setTaskGroup(g);
+                        list.add(tasksDTO);
+                    }
+                }
             }
         }
         return list;
@@ -115,12 +111,12 @@ public class TaskServiceJpa implements TaskService {
             log.info("{}: Creating location successful: Created location with address {}", user, addTaskDTO.getNewLocationAddress());
         }
         else {
-            if (!locationRepository.findById(locID).isPresent())
+            if (locationRepository.findById(locID).isEmpty())
                 throw new IllegalArgumentException("Location with ID " + locID + " doesn't exist!");
             loc = locationRepository.findById(locID).get();
         }
         Integer jobID = addTaskDTO.getJobID();
-        if (!jobRepository.findById(addTaskDTO.getJobID()).isPresent())
+        if (jobRepository.findById(addTaskDTO.getJobID()).isEmpty())
             throw new IllegalArgumentException("Job with ID " + jobID + " doesn't exist!");
         Job job = jobRepository.findById(addTaskDTO.getJobID()).get();
         Task task = new Task(addTaskDTO.getTaskName(), addTaskDTO.getTaskDescription(), addTaskDTO.getDateStart().toInstant(), addTaskDTO.getDateEnd().toInstant(), addTaskDTO.getHoursEstimate(), job, loc);

@@ -45,7 +45,7 @@ CREATE TABLE "group"
   name VARCHAR(100) NOT NULL,
   idLeader CHAR(11) NOT NULL,
   idJob INT,
-  FOREIGN KEY (idLeader) REFERENCES Employee(pid),
+  FOREIGN KEY (idLeader) REFERENCES Employee(pid) Employee ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (idJob) REFERENCES Job(idJob)
 );
 

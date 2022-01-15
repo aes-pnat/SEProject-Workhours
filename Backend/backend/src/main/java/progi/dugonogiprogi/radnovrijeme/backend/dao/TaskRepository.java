@@ -16,5 +16,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     Optional<List<Task>> findByIdlocation_Id(Integer id);
 
-    Optional<List<Task>> findByIdjob_Id(Integer idjob);
+    List<Task> findByIdjob_Id(Integer idjob);
 }

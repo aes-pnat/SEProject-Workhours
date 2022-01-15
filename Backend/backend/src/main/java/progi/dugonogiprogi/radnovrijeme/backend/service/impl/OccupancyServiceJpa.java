@@ -52,15 +52,15 @@ public class OccupancyServiceJpa implements OccupancyService {
 
     @Override
     public String isOccupied(String id, Date dateStart, Date dateEnd) {
-        if (!employeeRepository.findById(id).isPresent())
+        if (employeeRepository.findById(id).isEmpty())
             throw new MissingEmployeeException("Employee with ID >" + id + "< doesn't exist.");
         if (dateStart.after(dateEnd))
             throw new TimePeriodException("The ending date cannot be a date before the starting date.");
-        Optional<List<Employeetask>> employeeTaskList = employeetaskRepository.findById_Idemployee(id);
-        if (!employeeTaskList.isPresent())
+        List<Employeetask> employeeTaskList = employeetaskRepository.findById_Idemployee(id);
+        if (employeeTaskList.isEmpty())
             return "Djelatnik je slobodan u odabranom periodu.";
         List<Integer> taskIDList = new ArrayList<>();
-        for (Employeetask et : employeeTaskList.get())
+        for (Employeetask et : employeeTaskList)
             taskIDList.add(et.getId().getIdtask());
         boolean occupied = false;
         for (Task task : taskRepository.findAll())

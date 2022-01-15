@@ -49,7 +49,7 @@ public class GroupServiceJpa implements GroupService {
             group.setLeader(g.getIdleader());
             group.setJob(g.getIdjob());
 
-            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId()).get();
+            List<Employeegroup> employeegroups = employeegroupRepository.findById_Idgroup(g.getId());
             List<Employee> employeeList = new ArrayList<>();
             for (Employeegroup e : employeegroups) {
                 Employee employee = employeeRepository.findById(e.getId().getIdemployee()).get();
@@ -133,16 +133,14 @@ public class GroupServiceJpa implements GroupService {
         log.info("{}: Deleting group successful: Deleted group with id {}", user, groupId);
         groupRepository.deleteById(groupId);
 
-        Optional<List<Group>> leadingGroups = groupRepository.findByIdleader(group.get().getIdleader());
-        if(leadingGroups.isPresent()) {
-            if(leadingGroups.get().isEmpty()) {
-                Optional<Role> role = roleRepository.findByName("employee");
-                if(role.isPresent()) {
-                    Employee exLeader = group.get().getIdleader();
-                    exLeader.setIdrole(role.get());
-                    employeeRepository.save(exLeader);
-                    log.info("{}: Deleting group info: Employee with pid {} had been demoted to employee", user, exLeader.getId());
-                }
+        List<Group> leadingGroups = groupRepository.findByIdleader_Id(group.get().getIdleader().getId());
+        if(leadingGroups.isEmpty()) {
+            Optional<Role> role = roleRepository.findByName("employee");
+            if(role.isPresent()) {
+                Employee exLeader = group.get().getIdleader();
+                exLeader.setIdrole(role.get());
+                employeeRepository.save(exLeader);
+                log.info("{}: Deleting group info: Employee with pid {} had been demoted to employee", user, exLeader.getId());
             }
         }
         return groupId;

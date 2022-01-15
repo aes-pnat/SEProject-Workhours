@@ -14,11 +14,10 @@ import java.util.Optional;
 
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Integer> {
+
     Optional<Group> findByName(String name);
 
-    Optional<List<Group>> findByIdleader(Employee idleader);
-
-    //Optional<Group> findByIdjob(Job idjob);
+    List<Group> findByIdleader_Id(String id);
 
     Optional<List<Group>> findByIdjob(Job idJob);
 }
