@@ -3,7 +3,6 @@ import { Switch, Route, Link } from 'react-router-dom';
 import AddTask from './AddTask';
 import authHeader from '../services/auth-header';
 import User from '../services/User';
-import { isArray } from 'react-select/dist/declarations/src/utils';
 class Tasks extends React.Component {
     state = {
         tasks: [],
