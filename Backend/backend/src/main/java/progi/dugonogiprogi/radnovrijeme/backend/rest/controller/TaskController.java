@@ -29,8 +29,8 @@ public class TaskController {
      */
 
     @GetMapping("")
-    public List<TasksDTO> listTasksForLeader(){
-        return taskService.listTasksForLeader();
+    public List<?> listTasksForLeader(@RequestParam String groupName){
+        return taskService.listTasksForLeader(groupName);
     }
 
     @PostMapping("/add")
@@ -39,8 +39,8 @@ public class TaskController {
     }
 
     @GetMapping("/add")
-    public AddTaskInfoDTO getAddTaskInfo() {
-        return taskService.getAddTaskInfo();
+    public AddTaskInfoDTO getAddTaskInfo(@RequestParam String groupName) {
+        return taskService.getAddTaskInfo(groupName);
     }
 
 }

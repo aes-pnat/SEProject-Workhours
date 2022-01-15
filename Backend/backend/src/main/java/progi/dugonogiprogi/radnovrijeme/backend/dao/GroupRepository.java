@@ -20,4 +20,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     List<Group> findByIdleader_Id(String id);
 
     Optional<List<Group>> findByIdjob(Job idJob);
+
+    List<Group> findByIdleader_Username(String username);
 }
